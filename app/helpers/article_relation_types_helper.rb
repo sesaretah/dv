@@ -1,0 +1,2 @@
+module ArticleRelationTypesHelper
+end

@@ -1,0 +1,2 @@
+module TitleTypesHelper
+end

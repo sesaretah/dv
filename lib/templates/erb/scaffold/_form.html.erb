@@ -1,0 +1,44 @@
+<%%= form_for(@<%= singular_table_name %>, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%%=t :new_<%= singular_table_name %> %></h3>
+</div>
+<%% if @<%= singular_table_name %>.errors.any? %>
+<div id="error_explanation">
+  <h2><%%= pluralize(@<%= singular_table_name %>.errors.count, "error") %> prohibited this <%= singular_table_name %> from being saved:</h2>
+
+  <ul>
+    <%% @<%= singular_table_name %>.errors.full_messages.each do |message| %>
+    <li><%%= message %></li>
+    <%% end %>
+  </ul>
+</div>
+<%% end %>
+
+<div class="card-body">
+<% attributes.each do |attribute| -%>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+    <% if attribute.password_digest? -%>
+    <%%= f.label :password, class: "form-label" %><br>
+    <%%= f.password_field :password, class: "form-control" %>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+      <%%= f.label :password_confirmation, class: "form-label" %><br>
+      <%%= f.password_field :password_confirmation, class: "form-control" %>
+      <% else -%>
+      <%%= f.label :<%= attribute.column_name %>, class: "form-label" %>
+      <%%= f.<%= attribute.field_type %> :<%= attribute.column_name %> , class: "form-control" %>
+      <% end -%>
+    </div>
+  </div>
+</div>
+<% end -%>
+<div class="card-footer text-right">
+  <button type="submit" class="btn btn-primary"><%%=t :submit%></button>
+</div>
+<%% end %>

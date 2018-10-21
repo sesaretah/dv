@@ -1,0 +1,379 @@
+fa:
+  date:
+    abbr_day_names:
+    - ی
+    - د
+    - س
+    - چ
+    - پ
+    - ج
+    - ش
+    abbr_month_names:
+    -
+    - ژانویه
+    - فوریه
+    - مارس
+    - آوریل
+    - مه
+    - ژوئن
+    - ژوئیه
+    - اوت
+    - سپتامبر
+    - اکتبر
+    - نوامبر
+    - دسامبر
+    day_names:
+    - یکشنبه
+    - دوشنبه
+    - سه‌شنبه
+    - چهارشنبه
+    - پنج‌شنبه
+    - جمعه
+    - شنبه
+    formats:
+      default: ! '%Y/%m/%d'
+      long: ! '%e %B %Y'
+      short: ! '%m/%d'
+    month_names:
+    -
+    - ژانویه
+    - فوریه
+    - مارس
+    - آوریل
+    - مه
+    - ژوئن
+    - ژوئیه
+    - اوت
+    - سپتامبر
+    - اکتبر
+    - نوامبر
+    - دسامبر
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: حدود یک ساعت
+        other: حدود %{count} ساعت
+      about_x_months:
+        one: حدود یک ماه
+        other: حدود %{count} ماه
+      about_x_years:
+        one: حدود یک سال
+        other: حدود %{count} سال
+      almost_x_years:
+        one: حدود یک سال
+        other: حدود %{count} سال
+      half_a_minute: نیم دقیقه
+      less_than_x_minutes:
+        one: کمتر از یک دقیقه
+        other: کمتر از %{count} دقیقه
+      less_than_x_seconds:
+        one: یک ثانیه
+        other: کمتر  از %{count} ثانیه
+      over_x_years:
+        one: بیش از یک سال
+        other: بیش از %{count} سال
+      x_days:
+        one: یک روز
+        other: ! '%{count} روز'
+      x_minutes:
+        one: یک دقیقه
+        other: ! '%{count} دقیقه'
+      x_months:
+        one: یک ماه
+        other: ! '%{count} ماه'
+      x_seconds:
+        one: یک ثانیه
+        other: ! '%{count} ثانیه'
+    prompts:
+      day: روز
+      hour: ساعت
+      minute: دقیقه
+      month: ماه
+      second: ثانیه
+      year: سال
+  errors: &errors
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: باید پذیرفته شود
+      blank: نباید خالی باشد
+      confirmation: با تایید نمی‌خواند
+      empty: نمی‌تواند خالی باشد
+      equal_to: باید برابر %{count} باشد
+      even: باید زوج باشد
+      exclusion: رزرو است
+      greater_than: باید بزرگتر از %{count} باشد
+      greater_than_or_equal_to: باید بزرگتر یا برابر %{count} باشد
+      inclusion: در لیست موجود نیست
+      invalid: نامعتبر است
+      less_than: باید کمتر از %{count} باشد
+      less_than_or_equal_to: باید کمتر یا برابر %{count} باشد
+      not_a_number: عدد نیست
+      not_an_integer: عدد صحیح نیست
+      odd: باید فرد باشد
+      record_invalid: رکورد نامعتبر است %{errors}
+      taken: پیشتر گرفته شده
+      too_long: بلند است (حداکثر %{count} کاراکتر)
+      too_short: کوتاه است (حداقل %{count} کاراکتر)
+      wrong_length: نااندازه است (باید %{count} کاراکتر باشد)
+    template:
+      body: ! 'موارد زیر مشکل داشت:'
+      header:
+        one: 1 خطا جلوی ذخیره این %{model} را گرفت
+        other: ! '%{count} خطا جلوی ذخیره این %{model} را گرفت'
+  helpers:
+    select:
+      prompt: لطفا انتخاب کنید
+    submit:
+      create: ! 'ایجاد %{model}'
+      submit: ! 'ذخیره‌ی %{model}'
+      update: ! 'بروز رسانی %{model}'
+  number:
+    currency:
+      format:
+        delimiter: ٬
+        format: ! '%n %u'
+        precision: 0
+        separator: ٫
+        significant: false
+        strip_insignificant_zeros: false
+        unit: ﷼
+    format:
+      delimiter: ٬
+      precision: 2
+      separator: ٫
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: میلیارد
+          million: میلیون
+          quadrillion: کادریلیون
+          thousand: هزار
+          trillion: تریلیون
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: بایت
+            other: بایت
+          gb: گیگابایت
+          kb: کیلوبایت
+          mb: مگابایت
+          tb: ترابایت
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ! ' و '
+      two_words_connector: ! ' و '
+      words_connector: ! '، '
+  time:
+    am: قبل از ظهر
+    formats:
+      default: ! '%A، %e %B %Y، ساعت %H:%M:%S (%Z)'
+      long: ! '%e %B %Y، ساعت %H:%M'
+      short: ! '%e %B، ساعت %H:%M'
+    pm: بعد از ظهر
+  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
+  activemodel:
+    errors:
+      <<: *errors
+  activerecord:
+    models:
+        user: 'کاربر'
+    errors:
+      <<: *errors
+    attributes:
+        profile:
+        profile:
+            nickname: "اسم مستعار"
+            name: "نام"
+            surename: "نام خانوادگی"
+            birthdate: 'تاریخ تولد'
+            sex: 'جنسیت'
+            nickname: "اسم مستعار"
+            fathername: 'نام پدر'
+            ssn: 'کد ملی'
+            phonenumber:  'شماره تلفن'
+            mobilenumber: 'شماره همراه'
+            official_email: 'ایمیل دانشگاهی'
+            faculty: 'دانشکده'
+            rank: 'مرتبه علمی'
+            digest_email: 'ایمیل آگاهسازی'
+            email: 'ایمیل'
+        user:
+            email: 'ایمیل'
+            login: 'نام کاربر'
+            password: 'رمز عبور'
+            password_confirmation: 'تکرار رمز عبور'
+            remember_me: 'مرا به خاطر بسپار'
+        article:
+            title: 'عنوان اصلی'
+            abstract: 'چکیده/خلاصه'
+            content: 'محتوا'
+            url: 'پیوند(url)'
+        tag:
+            title: 'عنوان'
+            tag_type_id: 'نوع موضوع'
+        workflow:
+            title: 'عنوان'
+            description: 'شرح'
+            valid_until: 'تاریخ اعتبار'
+        langauge:
+            title: 'عنوان'
+            description: 'شرح'
+        article_fromat:
+            title: 'عنوان'
+            description: 'شرح'
+        title_type:
+            title: 'عنوان'
+            description: 'شرح'
+        article_source:
+            title: 'عنوان'
+            description: 'شرح'
+        article_relation_type:
+            title: 'عنوان'
+            description: 'شرح'
+        article_area:
+            title: 'عنوان'
+            description: 'شرح'
+        article_type:
+            title: 'عنوان'
+            desription: 'شرح'
+        article_event:
+            title: 'عنوان'
+            description: 'شرح'
+        role:
+            title: 'عنوان'
+            desciption: 'شرح'
+            abr: 'مخفف (لاتین)'
+        duty:
+            title: 'عنوان'
+            description: 'شرح'
+            abr: 'مخفف (لاتین)'
+        dating:
+            article_event_id: 'نوع تاریخ'
+            event_date: 'تاریخ'
+        contribution:
+            profile_id: 'فرد پدیدآور'
+            duty_id: 'سمت پدیدآور'
+            role_id: 'نقش در سند'
+  will_paginate:
+    page_gap: "&hellip;"
+    previous_label: "قبلی"
+    next_label: "بعدی"
+  article_event: 'نوع تاریخ'
+  event_date: 'تاریخ'
+  other_titles: 'سایر عناوین'
+  submit: 'ثبت'
+  download: 'دانلود'
+  settings: 'تنظیمات'
+  home: 'خانه'
+  search: 'جستجو'
+  new: 'جدید'
+  title: 'عنوان'
+  year: 'سال'
+  profile_already_exists: 'کاربری با این شماره وجود دارد'
+  edit: 'ویرایش'
+  show: 'نمایش'
+  destroy: 'حذف'
+  leave_comment: 'نظر بدهید...'
+  comment_added_successfully: 'نظر با موفقیت ثبت شد'
+  comment_destroyed_successfully: 'نظر حذف شد'
+  profiles: 'افراد'
+  edit_profile: 'ویرایش پروفایل'
+  new_titling_item_added: 'فرم جدید اضافه شد.'
+  please_enter_data_in_this_field: 'لطفا اطلاعات این قسمت را وارد نمایید.'
+  titles: 'عناوین'
+  descriptors: 'توصیفگرها '
+  submit_and_go: 'ثبت و ادامه'
+  keywords: 'کلیدواژه ها'
+  related_dates: 'تاریخ ها'
+  article_dates_form:  'فرم ثبت تاریخ'
+  article_dates_list: 'لیست تاریخ‌های سند'
+  back: 'بازگشت'
+  day: 'روز'
+  month: 'ماه'
+  are_you_sure_?: 'آیا مطمئن هستید؟'
+  now_you_can_edit: 'اکنون می توانید ویرایش کنید'
+  updated_successfully: 'با موفقیت بروزرسانی شد'
+  added_successfully: 'با موفقیت ثبت شد'
+  other_details: 'سایر جزئیات سند'
+  article_types: 'انواع سند'
+  languages: 'زبان'
+  article_formats: 'قالب اسناد'
+  contributors: 'پدیدآورندگان'
+  contributor_form: 'فرم پدیدآورندگان'
+  article_contributions: 'پدیدآورندگان این سند'
+  devise:
+    confirmations:
+      confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.
+      send_instructions: ظرف چند دقیقه آینده ایمیلی حاوی راهنمای تایید حسابتان دریافت خواهید کرد.
+      send_paranoid_instructions: اگر ایمیل شما قبلا در سیستم ثبت شده باشد، تا چند دقیقه‌ی دیگر یک ایمیل حاوی توضیحات چگونگی فعال‌سازی حساب‌تان دریافت می‌کنید.
+    failure:
+      already_authenticated: وارد سیستم هستید.
+      inactive: حساب شما هنوز فعال نشده است.
+      invalid: ایمیل یا رمز عبور غیر معتبر.
+      last_attempt: شما تنها یک فرصت دیگر دارید قبل از این‎که حسابتان غیرفعال شود.
+      locked: حسابتان قفل شده است.
+      not_found_in_database: ایمیل یا رمزعبور نامعتبر.
+      timeout: نشست شما منقضی شده است. برای ادامه دوباره وارد شوید.
+      unauthenticated: پیش از ادامه باید وارد شوید یا ثبت نام کنید.
+      unconfirmed: باید حسابتان را قبل از ادامه تایید کنید.
+    mailer:
+      confirmation_instructions:
+        subject: راهنمای تایید
+      reset_password_instructions:
+        subject: راهنمای بازنشانی رمز عبور
+      unlock_instructions:
+        subject: راهنمای باز کردن
+    omniauth_callbacks:
+      failure: امکان استفاده از مجوز %{kind} نبود زیرا "%{reason}".
+      success: با موفقیت مجوز استفاده از  %{kind} دریافت شد.
+    passwords:
+      no_token: شما نمی‌توانید بدون استفاده از یک لینک بازنشانی رمز به این صفحه دسترسی پیدا کنید. اگر از طریق یک ایمیل بازنشانی رمز عبور به این صفحه رسیده‌اید، مطمئن شوید که از کل URL فرستاده شده استفاده کرده‌اید.
+      send_instructions: ظرف چند دقیقه آینده ایمیلی حاوی راهنمای بازگرداندن رمز عبورتان دریافت خواهید کرد.
+      send_paranoid_instructions: اگر ایمیل شما قبلا در سیستم ثبت شده باشد، تا چند دقیقه‌ی دیگر یک لینک بازنشانی رمز عبور دریافت می‌کنید.
+      updated: رمز عبورتان با موفقیت تغییر کرد. اکنون وارد شدید.
+      updated_not_active: رمز عبور با موفقیت تغییر یافت.
+    registrations:
+      destroyed: بدرود! حسابتان لغو شد. به امید دیدار دوباره.
+      signed_up: خوش آمدید! با موفقیت ثبت نام کردید.
+      signed_up_but_inactive: شما با موفقیت ثبت نام شده اید؛ ولی هنوز نمی‌توانید وارد شوید چون حساب‌تان هنوز فعال نشده.
+      signed_up_but_locked: شما با موفقیت ثبت نام شده اید؛ ولی هنوز نمی‌توانید وارد شوید چون حساب‌تان قفل شده.
+      signed_up_but_unconfirmed: یک ایمیل حاوی لینک تایید حساب برای شما فرستاده شده. لطفا برای فعال کردن حساب‌تان آن لینک را باز کنید.
+      update_needs_confirmation: حساب شما با موفقیت به روز شد، اما شما باید ایمیل جدیدتان را را تایید کنید. لطفا ایمیل‌تان را چک کنید و روی لینک تایید حساب کاربری کلیک کنید تا ایمیل جدیدتان تایید شود.
+      updated: به روز رسانی حسابتان با موفقیت انجام شد.
+    sessions:
+      signed_in: ورود موفق.
+      signed_out: خروج موفق.
+    unlocks:
+      send_instructions: ایمیلی حاوی راهنمای باز کردن حسابتان در چند دقیقه آینده به شما ارسال خواهد شد.
+      send_paranoid_instructions: اگر حساب شما وجود داشته باشد، تا چند دقیقه‌ی دیگر یک ایمیل حاوی توضیحات نحوه‌ی باز کردن قفل حساب‌تان برای شما ارسال می‌شود.
+      unlocked: حسابتان با موفقیت باز شد. اکنون وارد شدید.
+  errors:
+    messages:
+      already_confirmed: قبلا تایید شده است
+      confirmation_period_expired: باید در مدت %{period} تایید می‌شد، لطفا یکی دیگر درخواست نمایید
+      expired: منقضی شده. لطفا یکی دیگر درخواست کنید.
+      not_found: یافت نشد
+      not_locked: قفل نشده است
+      not_saved:
+        one: '۱ خطا جلوی ذخیره %{resource} را گرفت:'
+        other: '%{count} خطا جلوی ذخیره این %{resource} را گرفت:'

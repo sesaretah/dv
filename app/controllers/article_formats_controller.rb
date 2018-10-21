@@ -1,0 +1,74 @@
+class ArticleFormatsController < ApplicationController
+  before_action :set_article_format, only: [:show, :edit, :update, :destroy]
+
+  # GET /article_formats
+  # GET /article_formats.json
+  def index
+    @article_formats = ArticleFormat.all
+  end
+
+  # GET /article_formats/1
+  # GET /article_formats/1.json
+  def show
+  end
+
+  # GET /article_formats/new
+  def new
+    @article_format = ArticleFormat.new
+  end
+
+  # GET /article_formats/1/edit
+  def edit
+  end
+
+  # POST /article_formats
+  # POST /article_formats.json
+  def create
+    @article_format = ArticleFormat.new(article_format_params)
+
+    respond_to do |format|
+      if @article_format.save
+        format.html { redirect_to @article_format, notice: 'Article format was successfully created.' }
+        format.json { render :show, status: :created, location: @article_format }
+      else
+        format.html { render :new }
+        format.json { render json: @article_format.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /article_formats/1
+  # PATCH/PUT /article_formats/1.json
+  def update
+    respond_to do |format|
+      if @article_format.update(article_format_params)
+        format.html { redirect_to @article_format, notice: 'Article format was successfully updated.' }
+        format.json { render :show, status: :ok, location: @article_format }
+      else
+        format.html { render :edit }
+        format.json { render json: @article_format.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /article_formats/1
+  # DELETE /article_formats/1.json
+  def destroy
+    @article_format.destroy
+    respond_to do |format|
+      format.html { redirect_to article_formats_url, notice: 'Article format was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_article_format
+      @article_format = ArticleFormat.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def article_format_params
+      params.require(:article_format).permit(:title, :description)
+    end
+end

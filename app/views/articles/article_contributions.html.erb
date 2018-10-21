@@ -1,0 +1,45 @@
+<%= render partial: 'articles/progress_bar', locals: {article: @article, active: ['titles', 'descriptors', 'related_dates', 'other_details', 'contributors']}%>
+<div class='row row-cards row-deck'>
+  <div  class='col-sm-6 col-lg-6'>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><%=t :contributor_form%></h3>
+      </div>
+      <div class="card-status card-status-left bg-blue"></div>
+      <div class="card-body">
+        <%= render partial: 'contributions/remote_form', locals: {article: @article, contribution: Contribution.new}%>
+      </div>
+    </div>
+  </div>
+
+  <div class='col-sm-6 col-lg-6'>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><%=t :article_contributions%></h3>
+      </div>
+        <%= render partial: 'contributions/list', locals: {article: @article}%>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title"><%=t :company_certificates%></h3>
+  </div>
+  <div class="card-body">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt,
+    iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem.
+    A consequuntur, deserunt eaque error nulla temporibus!
+    <div class="text-wrap">
+      <ul>
+        <li>In fermentum leo eu lectus mollis, quis dictum mi aliquet.</li>
+        <li>Morbi eu nulla lobortis, lobortis est in, fringilla felis.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-footer text-right">
+    <a href='/articles/article_descriptors/<%= @article.id%>' class="btn btn-lime"><%=t :back%></a>
+    <a href='/articles/article_other_details/<%= @article.id%>' class="btn btn-primary"><%=t :submit_and_go%></a>
+  </div>
+</div>

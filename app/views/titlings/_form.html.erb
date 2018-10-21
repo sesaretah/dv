@@ -1,0 +1,45 @@
+<%= form_for(@titling, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :new_titling %></h3>
+</div>
+<% if @titling.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@titling.errors.count, "error") %> prohibited this titling from being saved:</h2>
+
+  <ul>
+    <% @titling.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="card-body">
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :title_type_id, class: "form-label" %>
+      <%= f.number_field :title_type_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :article_id, class: "form-label" %>
+      <%= f.number_field :article_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :status, class: "form-label" %>
+      <%= f.number_field :status , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="card-footer text-right">
+  <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+</div>
+<% end %>

@@ -1,0 +1,32 @@
+<div id='article_datings_list'>
+  <div class="table-responsive">
+    <table class="table card-table table-striped table-vcenter">
+      <thead>
+        <tr>
+          <th><%=t :article_event%></th>
+          <th><%=t :event_date%></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for dating in article.datings%>
+        <tr>
+          <td><%= dating.article_event.title%></td>
+          <td>
+            <span>	<% @jalali = JalaliDate.to_jalali(dating.event_date)%>
+              <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%></span>
+          </td>
+          <td class="">
+            <%= link_to dating, method: :delete, remote: true, data: { confirm: "#{t(:are_you_sure_?)}" } do%>
+              <i class="fe fe-trash"></i>
+            <%end%>
+            <%= link_to edit_dating_path(dating), remote: true do%>
+              <i class="fe fe-edit"></i>
+            <%end%>
+          </td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>

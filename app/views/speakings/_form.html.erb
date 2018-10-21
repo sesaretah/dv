@@ -1,0 +1,37 @@
+<%= form_for(@speaking, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :new_speaking %></h3>
+</div>
+<% if @speaking.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@speaking.errors.count, "error") %> prohibited this speaking from being saved:</h2>
+
+  <ul>
+    <% @speaking.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="card-body">
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :language_id, class: "form-label" %>
+      <%= f.number_field :language_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :article_id, class: "form-label" %>
+      <%= f.number_field :article_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="card-footer text-right">
+  <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+</div>
+<% end %>

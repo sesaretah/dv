@@ -1,0 +1,45 @@
+<%= form_for(contribution, html: {id: 'article_contributions_form'}) do |f| %>
+<% if contribution.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(contribution.errors.count, "error") %> prohibited this contribution from being saved:</h2>
+
+  <ul>
+    <% contribution.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+  <%= f.hidden_field :article_id , value: article.id %>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+          <%= f.label :profile_id, class: "form-label" %>
+        <%= text_field_tag :article_profile, nil , class: "form-control" %>
+        <%= f.hidden_field :profile_id , value: '' %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :role_id, class: "form-label" %>
+        <%= text_field_tag :article_role, nil , class: "form-control" %>
+        <%= f.hidden_field :role_id , value: '' %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :duty_id, class: "form-label" %>
+        <%= text_field_tag :article_duty, nil , class: "form-control" %>
+        <%= f.hidden_field :duty_id , value: '' %>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+  </div>
+  <% end %>

@@ -1,0 +1,37 @@
+<%= form_for(@typing, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :new_typing %></h3>
+</div>
+<% if @typing.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@typing.errors.count, "error") %> prohibited this typing from being saved:</h2>
+
+  <ul>
+    <% @typing.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="card-body">
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :article_type_id, class: "form-label" %>
+      <%= f.number_field :article_type_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :article_id, class: "form-label" %>
+      <%= f.number_field :article_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="card-footer text-right">
+  <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+</div>
+<% end %>

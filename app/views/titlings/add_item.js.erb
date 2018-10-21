@@ -1,0 +1,8 @@
+$("#titling-items").append("<%= escape_javascript(render(:partial => 'titlings/remote_item')) %>");
+new Noty({
+    type: 'success',
+    theme    : 'relax',
+    timeout: 2000,
+    layout: 'bottomLeft',
+    text: '<%=t :new_titling_item_added%>'
+}).show();

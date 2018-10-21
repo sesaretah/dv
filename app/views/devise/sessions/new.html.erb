@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col col-login mx-auto">
+    <div class="text-center mb-6">
+      <img src="./assets/brand/tabler.svg" class="h-6" alt="">
+    </div>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name),html:{ class: "card"} ) do |f| %>
+    <div class="card-body p-6">
+      <div class="card-title">Login to your account</div>
+      <div class="form-group">
+        <%= f.label :email, class: "form-label" %>
+        <%= f.text_field :email , class: "form-control", 'aria-describedby' => "emailHelp",  'placeholder' => "Enter email"%>
+      </div>
+      <div class="form-group">
+        <label class="form-label">
+          Password
+          <a href="./forgot-password.html" class="float-right small">I forgot password</a>
+        </label>
+        <%= f.password_field :password, autocomplete: "current-password",  class:"form-control" %>
+      </div>
+      <div class="form-group">
+        <label class="custom-control custom-checkbox">
+          <%= f.check_box :remember_me,  class: "custom-control-input" %>
+          <%= f.label :remember_me,  class:"custom-control-label", style: 'padding-right: 20px;' %>
+        </label>
+      </div>
+      <div class="form-footer">
+        <button type="submit" class="btn btn-primary btn-block"><%= :sign_in%></button>
+      </div>
+    </div>
+    <%end%>
+    <div class="text-center text-muted">
+      Don't have account yet? <a href="/users/sign_up">Sign up</a>
+    </div>
+  </div>
+</div>

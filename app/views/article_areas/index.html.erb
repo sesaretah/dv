@@ -1,0 +1,37 @@
+<div class="row row-cards">
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="card">
+      <table class="table card-table table-vcenter">
+        <tbody>
+          <% @article_areas.each do |article_area| %>
+          <tr>
+                        <td><%= article_area.title %></td>
+                        <td><%= article_area.description %></td>
+                        <td><%= link_to t(:show), article_area %></td>
+            <td><%= link_to t(:edit), edit_article_area_path(article_area) %></td>
+            <td><%= link_to t(:destroy), article_area, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

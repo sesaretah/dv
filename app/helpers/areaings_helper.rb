@@ -1,0 +1,2 @@
+module AreaingsHelper
+end

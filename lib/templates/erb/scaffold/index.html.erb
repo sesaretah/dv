@@ -1,0 +1,38 @@
+<div class="row row-cards">
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="card">
+      <table class="table card-table table-vcenter">
+        <tbody>
+          <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+          <tr>
+            <% attributes.reject(&:password_digest?).each do |attribute| -%>
+            <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+            <% end -%>
+            <td><%%= link_to t(:show), <%= singular_table_name %> %></td>
+            <td><%%= link_to t(:edit), edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %></td>
+            <td><%%= link_to t(:destroy), <%= singular_table_name %>, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <%% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

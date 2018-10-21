@@ -1,0 +1,37 @@
+<div class="row row-cards">
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="card">
+      <table class="table card-table table-vcenter">
+        <tbody>
+          <% @typings.each do |typing| %>
+          <tr>
+                        <td><%= typing.article_type_id %></td>
+                        <td><%= typing.article_id %></td>
+                        <td><%= link_to t(:show), typing %></td>
+            <td><%= link_to t(:edit), edit_typing_path(typing) %></td>
+            <td><%= link_to t(:destroy), typing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

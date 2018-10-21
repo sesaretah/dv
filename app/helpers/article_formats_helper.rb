@@ -1,0 +1,2 @@
+module ArticleFormatsHelper
+end

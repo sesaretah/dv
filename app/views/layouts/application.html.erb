@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>St</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="/assets/dashboard.rtl.css"/>
+  <link rel="stylesheet" href="/assets/step.css"/>
+  <link rel="stylesheet" href="/assets/dropzone.css"/>
+  <link rel="stylesheet" href="/assets/noty.css"/>
+  <link rel="stylesheet" href="/assets/relax.css"/>
+  <link rel="stylesheet" href="/assets/jquery-ui.css"/>
+  <link rel="stylesheet" href="/assets/style.css"/>
+  <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.min.css" type="text/css" rel="stylesheet" />
+  <style>
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+  </style>
+
+</head>
+<body class="">
+  <div class="page">
+    <div class="page-main">
+      <%= render :partial => "layouts/header"%>
+      <div class='my-3 my-md-5'>
+        <div class="container">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+  <script src="/assets/dropzone.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="//cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+</html>
