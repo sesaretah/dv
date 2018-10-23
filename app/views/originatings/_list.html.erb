@@ -1,0 +1,24 @@
+<div id='article_originatings_list'>
+  <div class="table-responsive">
+    <table class="table card-table table-striped table-vcenter">
+      <thead>
+        <tr>
+          <th><%=t :title%></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for originating in article.originatings%>
+        <tr>
+          <td><%= originating.article_source.title%></td>
+          <td class="">
+            <%= link_to originating, method: :delete, remote: true, data: { confirm: "#{t(:are_you_sure_?)}" } do%>
+              <i class="fe fe-trash"></i>
+            <%end%>
+          </td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>

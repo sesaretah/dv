@@ -1,12 +1,18 @@
 <div class='pcontainer'>
   <ul class="progressbar">
-      <li <% if active.include?('titles')%> class="active" <%end%>><%= link_to t(:titles), '/articles/'+article.id.to_s+'/edit' %></li>
-      <% if article.id != nil%>
-      <li <% if active.include?('descriptors')%> class="active" <%end%>><%= link_to t(:descriptors), '/articles/article_descriptors/'+ article.id.to_s %></li>
-      <li <% if active.include?('related_dates')%> class="active" <%end%>><%= link_to t(:related_dates), '/articles/article_related_dates/'+ article.id.to_s %></li>
-      <li <% if active.include?('other_details')%> class="active" <%end%>><%= link_to t(:other_details), '/articles/article_other_details/'+ article.id.to_s %></li>
-      <li <% if active.include?('contributors')%> class="active" <%end%>><%= link_to t(:contributors), '/articles/article_contributions/'+ article.id.to_s %></li>
-      <li <% if active.include?('relations')%> class="active" <%end%>><%= link_to t(:relations), '/articles/article_album/'+ article.id.to_s %></li>
-      <%end%>
+    <li <% if active.include?('titles')%> class="active" <%end%>><%= link_to t(:titles), '/articles/'+article.id.to_s+'/edit' %></li>
+    <% if article.id != nil%>
+    <li <% if active.include?('descriptors')%> class="active" <%end%>><%= link_to t(:descriptors), '/articles/article_descriptors/'+ article.id.to_s %></li>
+    <li <% if active.include?('related_dates')%> class="active" <%end%>><%= link_to t(:related_dates), '/articles/article_related_dates/'+ article.id.to_s %></li>
+    <li <% if active.include?('other_details')%> class="active" <%end%>><%= link_to t(:other_details), '/articles/article_other_details/'+ article.id.to_s %></li>
+    <li <% if active.include?('contributors')%> class="active" <%end%>><%= link_to t(:contributors), '/articles/article_contributions/'+ article.id.to_s %></li>
+    <li <% if active.include?('relations')%> class="active" <%end%>><%= link_to t(:relations), '/articles/article_relations/'+ article.id.to_s %></li>
+    <%end%>
   </ul>
 </div>
+
+<% if article.id != nil && !article.title.blank?%>
+<div class="alert alert-primary mt-5 ">
+  <%=t :title%>: <%= truncate(article.title, length: 40) %>
+</div>
+<%end%>

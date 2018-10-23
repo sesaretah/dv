@@ -1,0 +1,28 @@
+<%= form_for(originating, remote: true,html: {id: 'article_originatings_form'}) do |f| %>
+<% if originating.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(originating.errors.count, "error") %> prohibited this originating from being saved:</h2>
+
+  <ul>
+    <% originating.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+  <%= f.hidden_field :article_id , value: article.id %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :article_source_id, class: "form-label" %>
+        <%= text_field_tag :article_source, nil , class: "form-control" %>
+        <%= f.hidden_field :article_source_id , value: '' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+  </div>
+<% end %>

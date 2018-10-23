@@ -1,6 +1,16 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
+  def search
+    if !params[:q].blank?
+      @profiles = Profile.search params[:q], :star => true
+    end
+    resp = []
+    for r in @profiles
+      resp << {'title' => r.fullname , 'id' => r.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
   # GET /profiles
   # GET /profiles.json
   def index

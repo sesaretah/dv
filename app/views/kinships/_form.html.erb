@@ -1,0 +1,37 @@
+<%= form_for(@kinship, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :new_kinship %></h3>
+</div>
+<% if @kinship.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@kinship.errors.count, "error") %> prohibited this kinship from being saved:</h2>
+
+  <ul>
+    <% @kinship.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="card-body">
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :user_id, class: "form-label" %>
+      <%= f.number_field :user_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :kin_id, class: "form-label" %>
+      <%= f.number_field :kin_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="card-footer text-right">
+  <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+</div>
+<% end %>

@@ -1,7 +1,7 @@
 <%= render partial: 'articles/progress_bar', locals: {article: @article, active: ['titles', 'descriptors']}%>
 <%= form_for(@article, html: {class: 'card'}) do |f| %>
 <div class="card-header">
-  <h3 class="card-title"><%= @article.title %></h3>
+  <h3 class="card-title"></h3>
 </div>
 <% if @article.errors.any? %>
 <div id="error_explanation">
@@ -17,7 +17,7 @@
 
 <div class="card-body">
   <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-12">
       <div class="form-group">
         <%= f.label :abstract, class: "form-label" %>
         <%= f.text_area :abstract , row: 4, class: "form-control" %>
@@ -39,8 +39,9 @@
       </div>
     </div>
   </div>
-
-
+  <script>
+        CKEDITOR.replace('sometext')
+  </script>
 </div>
 
 

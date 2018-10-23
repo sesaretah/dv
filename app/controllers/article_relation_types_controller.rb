@@ -1,6 +1,16 @@
 class ArticleRelationTypesController < ApplicationController
   before_action :set_article_relation_type, only: [:show, :edit, :update, :destroy]
 
+  def search
+    if !params[:q].blank?
+      @article_relation_types = ArticleRelationType.search params[:q], :star => true
+    end
+    resp = []
+    for k in @article_relation_types
+      resp << {'title' => k.title, 'id' => k.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
   # GET /article_relation_types
   # GET /article_relation_types.json
   def index

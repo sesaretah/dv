@@ -1,4 +1,4 @@
-<%= form_for(contribution, html: {id: 'article_contributions_form'}) do |f| %>
+<%= form_for(contribution, remote: true,html: {id: 'article_contributions_form'}) do |f| %>
 <% if contribution.errors.any? %>
 <div id="error_explanation">
   <h2><%= pluralize(contribution.errors.count, "error") %> prohibited this contribution from being saved:</h2>

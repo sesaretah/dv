@@ -1,5 +1,16 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations]
+
+  def search
+    if !params[:q].blank?
+      @articles = Article.search params[:q], :star => true
+    end
+    resp = []
+    for k in @articles
+      resp << {'title' => k.title, 'id' => k.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
 
   def article_descriptors
 
@@ -14,6 +25,10 @@ class ArticlesController < ApplicationController
   end
 
   def article_contributions
+
+  end
+
+  def article_relations
 
   end
   # GET /articles

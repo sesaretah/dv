@@ -1,6 +1,17 @@
 class DutiesController < ApplicationController
   before_action :set_duty, only: [:show, :edit, :update, :destroy]
 
+
+  def search
+    if !params[:q].blank?
+      @duties = Duty.search params[:q], :star => true
+    end
+    resp = []
+    for r in @duties
+      resp << {'title' => r.title , 'id' => r.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
   # GET /duties
   # GET /duties.json
   def index
@@ -62,13 +73,13 @@ class DutiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_duty
-      @duty = Duty.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_duty
+    @duty = Duty.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def duty_params
-      params.require(:duty).permit(:title, :description)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def duty_params
+    params.require(:duty).permit(:title, :description)
+  end
 end

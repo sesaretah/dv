@@ -1,6 +1,15 @@
 class ArticleSourcesController < ApplicationController
   before_action :set_article_source, only: [:show, :edit, :update, :destroy]
-
+  def search
+    if !params[:q].blank?
+      @article_sources = ArticleSource.search params[:q], :star => true
+    end
+    resp = []
+    for r in @article_sources
+      resp << {'title' => r.title , 'id' => r.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
   # GET /article_sources
   # GET /article_sources.json
   def index

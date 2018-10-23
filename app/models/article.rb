@@ -1,4 +1,6 @@
 class Article < ActiveRecord::Base
+  after_save ThinkingSphinx::RealTime.callback_for(:article)
+
   has_many :datings
 
   has_many :article_events, :through => :datings
@@ -20,4 +22,15 @@ class Article < ActiveRecord::Base
   has_many :duties, :through => :contributions
   has_many :profiles, :through => :contributions
   has_many :contributions, dependent: :destroy
+
+  has_many :kinships, dependent: :destroy
+  has_many :kins, :through => :kinships
+  has_many :inverse_kinships, :class_name => "Kinship", :foreign_key => "kin_id", dependent: :destroy
+  has_many :inverse_kins, :through => :inverse_kinships, :source => :article
+
+  has_many :article_relation_types, :through => :kinships
+  has_many :kinships, dependent: :destroy
+
+  has_many :article_sources, :through => :originatings
+  has_many :originatings, dependent: :destroy
 end

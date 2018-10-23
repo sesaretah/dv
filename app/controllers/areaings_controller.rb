@@ -25,11 +25,12 @@ class AreaingsController < ApplicationController
   # POST /areaings.json
   def create
     @areaing = Areaing.new(areaing_params)
-
+    @article = @areaing.article
     respond_to do |format|
       if @areaing.save
         format.html { redirect_to @areaing, notice: 'Areaing was successfully created.' }
         format.json { render :show, status: :created, location: @areaing }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @areaing.errors, status: :unprocessable_entity }
@@ -54,10 +55,12 @@ class AreaingsController < ApplicationController
   # DELETE /areaings/1
   # DELETE /areaings/1.json
   def destroy
+    @article = @areaing.article
     @areaing.destroy
     respond_to do |format|
       format.html { redirect_to areaings_url, notice: 'Areaing was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 

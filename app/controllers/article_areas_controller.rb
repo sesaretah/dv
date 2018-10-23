@@ -1,6 +1,15 @@
 class ArticleAreasController < ApplicationController
   before_action :set_article_area, only: [:show, :edit, :update, :destroy]
-
+  def search
+    if !params[:q].blank?
+      @article_areas = ArticleArea.search params[:q], :star => true
+    end
+    resp = []
+    for r in @article_areas
+      resp << {'title' => r.title , 'id' => r.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
   # GET /article_areas
   # GET /article_areas.json
   def index

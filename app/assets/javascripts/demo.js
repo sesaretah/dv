@@ -55,7 +55,7 @@ function fireThisUponEvent(event) {
     preload:      true,
     onItemAdd: function (value, item) {
       $('#contribution_role_id').val(this.options[value]['id']);
-       },
+    },
     render: {
       option: function (item, escape) {
         //console.log(item);
@@ -90,7 +90,7 @@ function fireThisUponEvent(event) {
     preload:      true,
     onItemAdd: function (value, item) {
       $('#contribution_profile_id').val(this.options[value]['id']);
-       },
+    },
     render: {
       option: function (item, escape) {
         //console.log(item);
@@ -125,7 +125,7 @@ function fireThisUponEvent(event) {
     preload:      true,
     onItemAdd: function (value, item) {
       $('#contribution_duty_id').val(this.options[value]['id']);
-       },
+    },
     render: {
       option: function (item, escape) {
         //console.log(item);
@@ -150,6 +150,144 @@ function fireThisUponEvent(event) {
       });
     }
   });
+
+  $('#article_relation_type').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'title',
+    searchField:  'title',
+    maxItems: 1,
+    preload:      true,
+    onItemAdd: function (value, item) {
+      $('#kinship_article_relation_type_id').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_relation_types/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+  $('#article_kin').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'title',
+    searchField:  'title',
+    maxItems: 1,
+    preload:      true,
+    onItemAdd: function (value, item) {
+      $('#kinship_kin_id').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + escape(item.title) + '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/articles/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+  $('#article_source').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'title',
+    searchField:  'title',
+    maxItems: 1,
+    preload:      true,
+    onItemAdd: function (value, item) {
+      $('#originating_article_source_id').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + escape(item.title) + '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_sources/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+  $('#article_area').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'title',
+    searchField:  'title',
+    maxItems: 1,
+    preload:      true,
+    onItemAdd: function (value, item) {
+      $('#areaing_article_area_id').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + escape(item.title) + '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_areas/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
 
   $('#input-tags').selectize({
     plugins: ['remove_button'],
@@ -196,3 +334,4 @@ $(document).on('turbolinks:load', fireThisUponEvent)
 $(document).ready(fireThisUponEvent);
 $(document).on("focus", ".exhibition_title",  fireThisUponEvent)
 $(document).on("focus", ".certification_title",  fireThisUponEvent)
+$(document).on("focus", "#article_relation_type",  fireThisUponEvent)

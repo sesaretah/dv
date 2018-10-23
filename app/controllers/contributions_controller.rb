@@ -25,11 +25,12 @@ class ContributionsController < ApplicationController
   # POST /contributions.json
   def create
     @contribution = Contribution.new(contribution_params)
-
+    @article = @contribution.article
     respond_to do |format|
       if @contribution.save
         format.html { redirect_to @contribution, notice: 'Contribution was successfully created.' }
         format.json { render :show, status: :created, location: @contribution }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @contribution.errors, status: :unprocessable_entity }
@@ -54,10 +55,12 @@ class ContributionsController < ApplicationController
   # DELETE /contributions/1
   # DELETE /contributions/1.json
   def destroy
+    @article = @contribution.article
     @contribution.destroy
     respond_to do |format|
       format.html { redirect_to contributions_url, notice: 'Contribution was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 

@@ -1,0 +1,24 @@
+<div id='article_areaings_list'>
+  <div class="table-responsive">
+    <table class="table card-table table-striped table-vcenter">
+      <thead>
+        <tr>
+          <th><%=t :title%></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for areaing in article.areaings%>
+        <tr>
+          <td><%= areaing.article_area.title%></td>
+          <td class="">
+            <%= link_to areaing, method: :delete, remote: true, data: { confirm: "#{t(:are_you_sure_?)}" } do%>
+              <i class="fe fe-trash"></i>
+            <%end%>
+          </td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>

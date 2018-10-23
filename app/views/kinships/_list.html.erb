@@ -1,0 +1,26 @@
+<div id='article_kinships_list'>
+  <div class="table-responsive">
+    <table class="table card-table table-striped table-vcenter">
+      <thead>
+        <tr>
+          <th><%=t :article_relation_type%></th>
+          <th><%=t :kin%></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for kinship in article.kinships%>
+        <tr>
+          <td><%= kinship.article_relation_type.title%></td>
+          <td><%= truncate(kinship.kin.title, length: 30) %></td>
+          <td class="">
+            <%= link_to kinship, method: :delete, remote: true, data: { confirm: "#{t(:are_you_sure_?)}" } do%>
+              <i class="fe fe-trash"></i>
+            <%end%>
+          </td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>

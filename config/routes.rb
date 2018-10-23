@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :originatings
+  resources :kinships
   resources :contributions
   resources :roles
   resources :profiles
@@ -27,6 +29,7 @@ Rails.application.routes.draw do
   match "/articles/article_related_dates/:id" => "articles#article_related_dates", :via => :get
   match "/articles/article_other_details/:id" => "articles#article_other_details", :via => :get
   match "/articles/article_contributions/:id" => "articles#article_contributions", :via => :get
+  match "/articles/article_relations/:id" => "articles#article_relations", :via => :get
 
 
   match "/typings/remotec/:id" => "typings#remotec", :via => :get
@@ -40,5 +43,12 @@ Rails.application.routes.draw do
 
   match "/keywords/search/:id" => "keywords#search", :via => :get
   match "/roles/search/:id" => "roles#search", :via => :get
+  match "/profiles/search/:id" => "profiles#search", :via => :get
+  match "/duties/search/:id" => "duties#search", :via => :get
+  match "/article_relation_types/search/:id" => "article_relation_types#search", :via => :get
+  match "/articles/search/:id" => "articles#search", :via => :get
+  match "/article_sources/search/:id" => "article_sources#search", :via => :get
+  match "/article_areas/search/:id" => "article_areas#search", :via => :get
+
 
 end
