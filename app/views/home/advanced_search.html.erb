@@ -1,0 +1,5 @@
+<div style='direction:ltr;'>
+<% @results.each_with_group_and_count do |r, group, count| %>
+<%= Profile.find_by_id(group).fullname%>(<%= count%>)<br />
+<%end%>
+</div>

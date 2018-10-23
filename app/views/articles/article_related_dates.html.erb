@@ -24,18 +24,51 @@
 
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title"><%=t :company_certificates%></h3>
+    <h3 class="card-title"><%=t :attached_file%></h3>
   </div>
   <div class="card-body">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt,
-    iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem.
-    A consequuntur, deserunt eaque error nulla temporibus!
-    <div class="text-wrap">
-      <ul>
-        <li>In fermentum leo eu lectus mollis, quis dictum mi aliquet.</li>
-        <li>Morbi eu nulla lobortis, lobortis est in, fringilla felis.</li>
-      </ul>
+    <%= form_for(Upload.new, html: {class: 'dropzone'}) do |f| %>
+    <%= f.hidden_field :uploadable_type, value: 'Article'%>
+    <%= f.hidden_field :uploadable_id, value: @article.id%>
+    <%= f.hidden_field :attachment_type, value: 'article_attachment'%>
+    <%= hidden_field_tag :file_type, 'picture'%>
+    <div class="fallback">
+      <%= f.file_field :picture %><br>
+      <%= f.hidden_field :uploadable_type, value: 'Article'%>
+      <%= f.hidden_field :uploadable_id, value: @article.id%>
+      <%= f.hidden_field :attachment_type, value: 'article_attachment'%>
+      <%= f.submit "Upload" %>
     </div>
+    <% end %>
+    <script>
+    Dropzone.autoDiscover = false;
+    $("#new_upload").dropzone({
+      dictDefaultMessage : "<%=t :drop_files_here_to_upload%>",
+      dictRemoveFile : "<%=t :remove_file %>",
+      acceptedFiles : '.docx,.doc,.pdf,.txt, .png,.jpg,.jpeg',
+      addRemoveLinks: true,
+      removedfile: function(file) {
+        $.get( "/uploads/remoted/" + file.id, function( data ) {
+          console.log(data);
+        });
+        var _ref;
+        return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+      },
+      init: function () {
+        this.on("success", function(file, responseText) {
+          file.id = responseText.id;
+        });
+
+        <% for upload in Upload.where(uploadable_type: 'Article', uploadable_id: @article.id, attachment_type: 'article_attachment')%>
+        var mockFile = { name: "<%= upload.attachment_file_name%>", size: <%= upload.attachment_file_size%>, url: "<%= upload.attachment.url%>", id: <%= upload.id%> };
+        this.options.addedfile.call(this, mockFile);
+        this.options.thumbnail.call(this, mockFile, "<%= upload.attachment(:large)%>");
+        mockFile.previewElement.classList.add('dz-success');
+        mockFile.previewElement.classList.add('dz-complete');
+        <%end%>
+      }
+    });
+    </script>
   </div>
 
   <div class="card-footer text-right">

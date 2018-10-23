@@ -1,0 +1,53 @@
+<%= form_for(@tagging, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :new_tagging %></h3>
+</div>
+<% if @tagging.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@tagging.errors.count, "error") %> prohibited this tagging from being saved:</h2>
+
+  <ul>
+    <% @tagging.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="card-body">
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :taggable_id, class: "form-label" %>
+      <%= f.number_field :taggable_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :taggable_type, class: "form-label" %>
+      <%= f.text_field :taggable_type , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :target_id, class: "form-label" %>
+      <%= f.number_field :target_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :target_type, class: "form-label" %>
+      <%= f.text_field :target_type , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="card-footer text-right">
+  <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+</div>
+<% end %>

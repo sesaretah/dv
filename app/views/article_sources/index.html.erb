@@ -4,14 +4,13 @@
       <div class="col-md-6 col-lg-12">
         <div class="card">
           <div class="card-body">
-
+            <div class="text-center">
+              <%= link_to  new_article_source_url, class: "btn btn-lime  btn-sm" do%>
+                <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
+              <%end%>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-12">
-        <div class="card">
-          <div class="card-body">
-
+          <div class="card-footer">
           </div>
         </div>
       </div>
@@ -23,9 +22,9 @@
         <tbody>
           <% @article_sources.each do |article_source| %>
           <tr>
-                        <td><%= article_source.title %></td>
-                        <td><%= article_source.description %></td>
-                        <td><%= link_to t(:show), article_source %></td>
+            <td><%= article_source.title %></td>
+            <td><%= article_source.description %></td>
+            <td><%= link_to t(:show), article_source %></td>
             <td><%= link_to t(:edit), edit_article_source_path(article_source) %></td>
             <td><%= link_to t(:destroy), article_source, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>

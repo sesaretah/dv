@@ -4,14 +4,13 @@
       <div class="col-md-6 col-lg-12">
         <div class="card">
           <div class="card-body">
-
+            <div class="text-center">
+              <%= link_to  new_article_event_url, class: "btn btn-lime  btn-sm" do%>
+              <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
+              <%end%>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-12">
-        <div class="card">
-          <div class="card-body">
-
+          <div class="card-footer">
           </div>
         </div>
       </div>
@@ -23,9 +22,9 @@
         <tbody>
           <% @article_events.each do |article_event| %>
           <tr>
-                        <td><%= article_event.title %></td>
-                        <td><%= article_event.description %></td>
-                        <td><%= link_to t(:show), article_event %></td>
+            <td><%= article_event.title %></td>
+            <td><%= article_event.description %></td>
+            <td><%= link_to t(:show), article_event %></td>
             <td><%= link_to t(:edit), edit_article_event_path(article_event) %></td>
             <td><%= link_to t(:destroy), article_event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>

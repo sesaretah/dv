@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :taggings
+  resources :uploads
   resources :originatings
   resources :kinships
   resources :contributions
@@ -23,6 +25,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :article_areas
   root to: 'home#index'
+
+  match "/home/advanced_search" => "home#advanced_search", :via => :get
+
   match "/titlings/add_item/:id" => "titlings#add_item", :via => :get
 
   match "/articles/article_descriptors/:id" => "articles#article_descriptors", :via => :get
@@ -50,5 +55,5 @@ Rails.application.routes.draw do
   match "/article_sources/search/:id" => "article_sources#search", :via => :get
   match "/article_areas/search/:id" => "article_areas#search", :via => :get
 
-
+  match "/uploads/remoted/:id" => "uploads#remoted", :via => :get
 end

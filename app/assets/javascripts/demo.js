@@ -297,8 +297,17 @@ function fireThisUponEvent(event) {
     valueField:   'title',
     searchField:  'title',
     preload:      true,
+  //  options: JSON.parse($('#keyword_data').val()) ,
+    onItemAdd: function (value, item) {
+      $('#keyword').val($('#keyword').val() +','+ this.options[value]['id']);
+    },
+    onItemRemove: function (value, item) {
+      var value = $('#keyword').val().replace(","+this.options[value]['id'], "");
+      $('#keyword').val(value);
+    },
     render: {
       option: function (item, escape) {
+        console.log(item);
         return '<div>' + escape(item.title) + '</div>';
       }
     },

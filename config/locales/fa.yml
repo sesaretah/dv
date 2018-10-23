@@ -210,8 +210,8 @@ fa:
             nickname: "اسم مستعار"
             fathername: 'نام پدر'
             ssn: 'کد ملی'
-            phonenumber:  'شماره تلفن'
-            mobilenumber: 'شماره همراه'
+            phone_number:  'شماره تلفن'
+            cellphone_number: 'شماره همراه'
             official_email: 'ایمیل دانشگاهی'
             faculty: 'دانشکده'
             rank: 'مرتبه علمی'
@@ -235,10 +235,10 @@ fa:
             title: 'عنوان'
             description: 'شرح'
             valid_until: 'تاریخ اعتبار'
-        langauge:
+        language:
             title: 'عنوان'
             description: 'شرح'
-        article_fromat:
+        article_format:
             title: 'عنوان'
             description: 'شرح'
         title_type:
@@ -255,13 +255,13 @@ fa:
             description: 'شرح'
         article_type:
             title: 'عنوان'
-            desription: 'شرح'
+            description: 'شرح'
         article_event:
             title: 'عنوان'
             description: 'شرح'
         role:
             title: 'عنوان'
-            desciption: 'شرح'
+            description: 'شرح'
             abr: 'مخفف (لاتین)'
         duty:
             title: 'عنوان'
@@ -281,6 +281,9 @@ fa:
             article_source_id: 'منبع'
         areaing:
             article_area_id: 'حوزه'
+        keyword:
+            title: 'عنوان'
+            description: 'شرح'
   will_paginate:
     page_gap: "&hellip;"
     previous_label: "قبلی"
@@ -313,7 +316,7 @@ fa:
   descriptors: 'توصیفگرها '
   submit_and_go: 'ثبت و ادامه'
   keywords: 'کلیدواژه ها'
-  related_dates: 'تاریخ ها'
+  related_dates: 'تاریخ ها و فایل های پیوست '
   article_dates_form:  'فرم ثبت تاریخ'
   article_dates_list: 'لیست تاریخ‌های سند'
   back: 'بازگشت'
@@ -343,6 +346,43 @@ fa:
   article_sources_list: 'لیست منابع این سند'
   article_areas_form: 'فرم حوزه‌ها'
   article_areas_list: 'لیست حوزه‌های این سند'
+  copy_aoi: 'برداشت لینک مستقیم'
+  base_tables: 'جداول پایه'
+  duties: 'سمت ها'
+  roles: 'نقش ها'
+  title_types: 'انواع عنوان'
+  article_areas: 'حوزه ها'
+  article_events: 'انواع تاریخ'
+  article_relation_types: 'انواع ارتباط اسناد'
+  article_sources: 'انواع منابع'
+  new_title_type: 'انواغ عنوان جدید'
+  new_role: 'نقش جدید'
+  new_duty: 'سمت جدید'
+  new_profile: 'فرد جدید'
+  new_language: 'زبان جدید'
+  new_keyword: 'کلمات کلیدی جدید'
+  new_article_type: 'نوع سند جدید'
+  new_article_source: 'منبع جدید'
+  new_article_relation_type: 'نوع ارتباط جدید'
+  new_article_format: 'قالب اسناد جدید'
+  new_article_event: 'نوع تاریخ جدید'
+  new_article_area: 'حوزه جدید'
+  articles: 'اسناد'
+  advanced_search: 'جستجوی پیشرفته'
+  drop_files_here_to_upload: 'برای آپلود فایل را اینجا بیاندازید یا کلیک کنید. '
+  remove_file: 'حذف فایل'
+  attached_file: 'فایلهای پیوست '
+  submit_and_view: 'ثبت و نمایش'
+  help: 'راهنمایی'
+  datings: 'تاریخ‌ها'
+  download_file: 'دانلود'
+  attachments: 'پیوست ها'
+  article_type: 'نوع سند'
+  language: 'زبان سند'
+  article_format: 'قالب سند'
+  article_source: 'منابع این سند'
+  article_area: 'حوزه های این سند '
+  article_detail: 'شرح سند'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

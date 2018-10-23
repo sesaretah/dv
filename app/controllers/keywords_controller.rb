@@ -7,7 +7,7 @@ class KeywordsController < ApplicationController
     end
     resp = []
     for k in @keyword
-      resp << {'title' => k.title}
+      resp << {'title' => k.title, 'id' => k.id}
     end
     render :json => resp.to_json, :callback => params['callback']
   end

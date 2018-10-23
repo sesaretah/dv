@@ -15,7 +15,7 @@ class Article < ActiveRecord::Base
   has_many :languages, :through => :speakings
   has_many :speakings, dependent: :destroy
 
-  has_many :article_fromats, :through => :formatings
+  has_many :article_formats, :through => :formatings
   has_many :formatings, dependent: :destroy
 
   has_many :roles, :through => :contributions

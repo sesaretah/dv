@@ -27,9 +27,9 @@
 
   <div class="form-group">
     <label class="form-label"><%=t :keywords%></label>
-    <input type="text" class="form-control" id="input-tags" value="">
+    <input type="text" class="form-control" id="input-tags" value="" data-data='<%= raw @keywords.to_json%>'>
   </div>
-
+  <%= hidden_field_tag :keyword, ','+@keyword_ids.map(&:inspect).join(',') %>
 
   <div class="row">
     <div class="col-md-12">
@@ -43,8 +43,6 @@
         CKEDITOR.replace('sometext')
   </script>
 </div>
-
-
 
 <div class="card-footer text-right">
   <button type="submit" class="btn btn-primary"><%=t :submit_and_go%></button>

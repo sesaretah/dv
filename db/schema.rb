@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181022081923) do
+ActiveRecord::Schema.define(version: 20181023115854) do
 
   create_table "areaings", force: :cascade do |t|
     t.integer  "article_area_id", limit: 4
@@ -157,6 +157,15 @@ ActiveRecord::Schema.define(version: 20181022081923) do
     t.datetime "updated_at",            null: false
   end
 
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "taggable_id",   limit: 4
+    t.string   "taggable_type", limit: 255
+    t.integer  "target_id",     limit: 4
+    t.string   "target_type",   limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
   create_table "title_types", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
@@ -178,6 +187,19 @@ ActiveRecord::Schema.define(version: 20181022081923) do
     t.integer  "article_id",      limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "uploads", force: :cascade do |t|
+    t.string   "uploadable_type",         limit: 255
+    t.integer  "uploadable_id",           limit: 4
+    t.string   "token",                   limit: 255
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "attachment_file_name",    limit: 255
+    t.string   "attachment_content_type", limit: 255
+    t.integer  "attachment_file_size",    limit: 8
+    t.datetime "attachment_updated_at"
+    t.string   "attachment_type",         limit: 255
   end
 
   create_table "users", force: :cascade do |t|
