@@ -22,3 +22,7 @@
   line-height: 1;
   font-size: 0.875rem !important;
 }
+
+.match {
+  font-weight: 600;
+}

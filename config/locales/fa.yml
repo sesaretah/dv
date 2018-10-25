@@ -383,6 +383,21 @@ fa:
   article_source: 'منابع این سند'
   article_area: 'حوزه های این سند '
   article_detail: 'شرح سند'
+  filter: 'محدود کن'
+  clear: 'پاک کن'
+  has: 'دارد'
+  has_not: 'ندارد'
+  editable: 'قابلیت ویرایش'
+  refundable: 'قابلیت ارجاع'
+  commentable: 'ارائه دیدگاه'
+  start_point: 'نقطه شروع'
+  end_point: 'نقطه پایان'
+  related_role: 'نقش مربوط'
+  workflows: 'گردش‌کارها'
+  is: 'هست'
+  is_not: 'نیست'
+  new_workflow: 'گردش کار'
+  workflow_detail: 'گردش کار '
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

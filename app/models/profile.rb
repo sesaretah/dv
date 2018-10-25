@@ -5,4 +5,7 @@ class Profile < ActiveRecord::Base
   def fullname
     "#{self.name} #{self.surename}"
   end
+  def title
+    "#{self.name} #{self.surename}"
+  end
 end

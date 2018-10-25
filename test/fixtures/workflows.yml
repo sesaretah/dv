@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  user_id: 1
+  graph_data: MyText
+  nodes: MyText
+  edges: MyText
+
+two:
+  title: MyString
+  description: MyText
+  user_id: 1
+  graph_data: MyText
+  nodes: MyText
+  edges: MyText

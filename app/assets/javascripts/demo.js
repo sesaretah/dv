@@ -297,7 +297,7 @@ function fireThisUponEvent(event) {
     valueField:   'title',
     searchField:  'title',
     preload:      true,
-  //  options: JSON.parse($('#keyword_data').val()) ,
+    //  options: JSON.parse($('#keyword_data').val()) ,
     onItemAdd: function (value, item) {
       $('#keyword').val($('#keyword').val() +','+ this.options[value]['id']);
     },
@@ -329,6 +329,8 @@ function fireThisUponEvent(event) {
       });
     }
   });
+
+
 
   $.extend($.ui.autocomplete.prototype.options, {
     open: function(event, ui) {

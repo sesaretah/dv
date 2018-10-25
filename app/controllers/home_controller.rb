@@ -3,6 +3,54 @@ class HomeController < ApplicationController
   end
 
   def advanced_search
-    @results = Article.search 'ppp',  :group_by => :profile_ids,  :order_group_by => 'count(*) desc'
+    @model_results = Article.search params[:q], star: true, with: restrict_articles
+    @model_results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
+    @group_results = group_articles(restrict_articles)
+  end
+
+  def restrict_articles
+    @h = {
+          'profile_ids'        => [],
+          'language_ids'       => [],
+          'article_type_ids'   => [],
+          'article_format_ids' => [],
+          'article_area_ids'   => [],
+          'article_source_ids' => []
+        }
+    params.each do |name, value|
+      @model = name.split('_')[0]
+      case @model
+      when 'Profile'
+        @h['profile_ids']       << value.to_i
+      when 'Language'
+        @h['language_ids']      << value.to_i
+      when 'ArticleType'
+        @h['article_type_ids']   << value.to_i
+      when 'ArticleFormat'
+        @h['article_format_ids'] << value.to_i
+      when 'ArticleArea'
+        @h['article_area_ids']   << value.to_i
+      when 'ArticleSource'
+        @h['article_source_ids'] << value.to_i
+      end
+    end
+    return @h
+  end
+
+  def group_articles(with_hash)
+    @result  = {
+      'Profile'       => grouper(Article, params[:q], 'profile_ids',  with_hash),
+      'Language'      => grouper(Article, params[:q], 'language_ids', with_hash) ,
+      'ArticleType'   => grouper(Article, params[:q], 'article_type_ids', with_hash),
+      'ArticleFormat' => grouper(Article, params[:q], 'article_format_ids', with_hash),
+      'ArticleArea'   => grouper(Article, params[:q], 'article_area_ids', with_hash) ,
+      'ArticleSource' => grouper(Article, params[:q], 'article_source_ids', with_hash)
+    }
+    return @result
+  end
+
+  private
+  def grouper(model, query, group_by, with_hash)
+    return model.search query, star: true, with: with_hash, :group_by => group_by,  :order_group_by => 'count(*) desc'
   end
 end
