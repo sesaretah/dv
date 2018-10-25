@@ -25,7 +25,15 @@ class WorkflowsController < ApplicationController
   # POST /workflows.json
   def create
     @workflow = Workflow.new(workflow_params)
-
+    @nodes = JSON.parse params[:workflow][:nodes]
+    @trimed_nodes = []
+    for node in @nodes
+      if !node['title'].blank?
+        @trimed_nodes << node
+        WorkflowState.create(workflow_id: @workflow.id, node_id: node['id'], editable: node['editable'], refundable: node['refundable'], commentable: node['commentable'], start_point: node['start_point'], end_point: node['end_point'], role_id: node['role'])
+      end
+    end
+    @workflow.nodes = @trimed_nodes.to_json
     respond_to do |format|
       if @workflow.save
         format.html { redirect_to @workflow, notice: 'Workflow was successfully created.' }
@@ -40,6 +48,26 @@ class WorkflowsController < ApplicationController
   # PATCH/PUT /workflows/1
   # PATCH/PUT /workflows/1.json
   def update
+    @nodes = JSON.parse params[:workflow][:nodes]
+    @trimed_nodes = []
+    for node in @nodes
+      if !node['title'].blank?
+        @trimed_nodes << node
+        @state =  WorkflowState.where(workflow_id: @workflow.id, node_id: node['id']).first
+        if @state.blank?
+          WorkflowState.create(workflow_id: @workflow.id, node_id: node['id'], editable: node['editable'], refundable: node['refundable'], commentable: node['commentable'], start_point: node['start_point'], end_point: node['end_point'], role_id: node['role'])
+        else
+          @state.editable = node['editable']
+          @state.refundable = node['refundable']
+          @state.commentable = node['commentable']
+          @state.start_point = node['start_point']
+          @state.end_point = node['end_point']
+          @state.role_id = node['role']
+          @state.save
+        end
+      end
+    end
+    @workflow.nodes = @trimed_nodes.to_json
     respond_to do |format|
       if @workflow.update(workflow_params)
         format.html { redirect_to @workflow, notice: 'Workflow was successfully updated.' }

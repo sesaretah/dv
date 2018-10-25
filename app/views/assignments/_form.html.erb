@@ -1,0 +1,45 @@
+<%= form_for(@assignment, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :new_assignment %></h3>
+</div>
+<% if @assignment.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
+
+  <ul>
+    <% @assignment.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="card-body">
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :user_id, class: "form-label" %>
+      <%= f.number_field :user_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :role_id, class: "form-label" %>
+      <%= f.number_field :role_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :assigner_id, class: "form-label" %>
+      <%= f.number_field :assigner_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="card-footer text-right">
+  <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+</div>
+<% end %>

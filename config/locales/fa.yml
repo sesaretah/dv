@@ -398,6 +398,7 @@ fa:
   is_not: 'نیست'
   new_workflow: 'گردش کار'
   workflow_detail: 'گردش کار '
+  your_workflow_has_cycle: 'گردش کار حاوی چرخه است'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

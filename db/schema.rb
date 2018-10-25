@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181024144117) do
+ActiveRecord::Schema.define(version: 20181025110538) do
 
   create_table "areaings", force: :cascade do |t|
     t.integer  "article_area_id", limit: 4
@@ -63,13 +63,22 @@ ActiveRecord::Schema.define(version: 20181024144117) do
   end
 
   create_table "articles", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.text     "abstract",   limit: 65535
-    t.text     "content",    limit: 65535
-    t.string   "url",        limit: 255
-    t.string   "slug",       limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "title",             limit: 255
+    t.text     "abstract",          limit: 65535
+    t.text     "content",           limit: 65535
+    t.string   "url",               limit: 255
+    t.string   "slug",              limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "workflow_state_id", limit: 4
+  end
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "user_id",     limit: 4
+    t.integer  "role_id",     limit: 4
+    t.integer  "assigner_id", limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "contributions", force: :cascade do |t|
@@ -215,6 +224,20 @@ ActiveRecord::Schema.define(version: 20181024144117) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "workflow_states", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.integer  "workflow_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "node_id",     limit: 4
+    t.integer  "editable",    limit: 4
+    t.integer  "refundable",  limit: 4
+    t.integer  "commentable", limit: 4
+    t.integer  "start_point", limit: 4
+    t.integer  "end_point",   limit: 4
+    t.integer  "role_id",     limit: 4
+  end
 
   create_table "workflows", force: :cascade do |t|
     t.string   "title",       limit: 255

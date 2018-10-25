@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :assignments
+  resources :workflow_states
   resources :workflows
   resources :taggings
   resources :uploads

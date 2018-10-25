@@ -617,9 +617,40 @@ d3.select('#subbtn').on('click', function() {
   d3.event.preventDefault();
   d3.select("#workflow_nodes").property('value', JSON.stringify(graph.nodes));
   d3.select("#workflow_edges").property('value', JSON.stringify(graph.edges));
-  // later, submit form?
-  var form = d3.select('#wform').node();
-  form.submit();
+  var g = new graphlib.Graph();
+  async.series([
+    function(callback) {
+      for (var i = 0, len = graph.nodes.length; i < len; i++) {
+          g.setNode(graph.nodes[i]['id']);
+          if (i == len - 1){
+            callback(null, 'one');
+          }
+      }
+    },
+    function(callback) {
+      for (var i = 0, len = graph.edges.length; i < len; i++) {
+          g.setNode(graph.nodes[i]['id']);
+          g.setEdge(graph.edges[i]['source']['id'], graph.edges[i]['target']['id']);
+          if (i == len - 1){
+            callback(null, 'two');
+          }
+      }
+    }
+  ],
+  // optional callback
+  function(err, results) {
+   if (graphlib.alg.findCycles(g).length == 0){
+     var form = d3.select('#wform').node();
+     form.submit();
+   } else {
+     alert('<%=t :your_workflow_has_cycle%>');
+   }
+  });
+
+
+
+//
+//
 })
 // mousedown on main svg
 GraphCreator.prototype.svgMouseDown = function(){
@@ -671,7 +702,7 @@ GraphCreator.prototype.svgKeyDown = function() {
   switch(d3.event.keyCode) {
     case consts.BACKSPACE_KEY:
     case consts.DELETE_KEY:
-    d3.event.preventDefault();
+  //  d3.event.preventDefault();
     if (selectedNode){
       thisGraph.nodes.splice(thisGraph.nodes.indexOf(selectedNode), 1);
       thisGraph.spliceLinksForNode(selectedNode);
