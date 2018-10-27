@@ -1,0 +1,12 @@
+<div id='current_role'>
+  <% for role in current_user.roles%>
+    <%= link_to '/home/change_current_role?role_id=' + role.id.to_s,  class: "dropdown-item", remote: true do%>
+      <%if current_user.current_role_id == role.id%>
+        <i class="fe fe-check" style="vertical-align:-3px;"></i>
+      <%else%>
+      <span class='mr-2'></span>
+      <%end%>
+      <%= role.title%>
+    <%end%>
+  <%end%>
+</div>

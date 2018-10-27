@@ -228,6 +228,7 @@ fa:
             abstract: 'چکیده/خلاصه'
             content: 'محتوا'
             url: 'پیوند(url)'
+            workflow_state_id: 'گام فعلی'
         tag:
             title: 'عنوان'
             tag_type_id: 'نوع موضوع'
@@ -284,6 +285,9 @@ fa:
         keyword:
             title: 'عنوان'
             description: 'شرح'
+        assignment:
+            user_id: 'فرد'
+            role_id: 'نقش'
   will_paginate:
     page_gap: "&hellip;"
     previous_label: "قبلی"
@@ -399,6 +403,19 @@ fa:
   new_workflow: 'گردش کار'
   workflow_detail: 'گردش کار '
   your_workflow_has_cycle: 'گردش کار حاوی چرخه است'
+  new_assignment: 'اعطای نقش'
+  assignments: 'اعطای نقش'
+  step_title: 'نام این گام'
+  workflow: 'گردش کار'
+  my_current_role: 'نقش فعلی من'
+  role_changed_successfully: 'نقش با موفقیت تغییر کرد'
+  you_have_not_the_right_permission_to_create_article: 'شما نمی توانید سند جدید ایجاد کنید.'
+  article_is_created: 'سند ایجاد شد'
+  article_is_updated: 'اطلاعات سند بروزرسانی شد'
+  without_workflow: 'بدون گردش‌کار '
+  workflow_state: 'گردش کار'
+  send_to: 'ارسال به گام '
+  refund_to: 'اعاده به گام'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

@@ -30,12 +30,16 @@ class WorkflowsController < ApplicationController
     for node in @nodes
       if !node['title'].blank?
         @trimed_nodes << node
-        WorkflowState.create(workflow_id: @workflow.id, node_id: node['id'], editable: node['editable'], refundable: node['refundable'], commentable: node['commentable'], start_point: node['start_point'], end_point: node['end_point'], role_id: node['role'])
       end
     end
     @workflow.nodes = @trimed_nodes.to_json
     respond_to do |format|
       if @workflow.save
+        for node in @nodes
+          if !node['title'].blank?
+            WorkflowState.create(workflow_id: @workflow.id, title: node['title'], node_id: node['id'], editable: node['editable'], refundable: node['refundable'], commentable: node['commentable'], start_point: node['start_point'], end_point: node['end_point'], role_id: node['role'])
+          end
+        end
         format.html { redirect_to @workflow, notice: 'Workflow was successfully created.' }
         format.json { render :show, status: :created, location: @workflow }
       else
@@ -55,8 +59,9 @@ class WorkflowsController < ApplicationController
         @trimed_nodes << node
         @state =  WorkflowState.where(workflow_id: @workflow.id, node_id: node['id']).first
         if @state.blank?
-          WorkflowState.create(workflow_id: @workflow.id, node_id: node['id'], editable: node['editable'], refundable: node['refundable'], commentable: node['commentable'], start_point: node['start_point'], end_point: node['end_point'], role_id: node['role'])
+          WorkflowState.create(workflow_id: @workflow.id, title: node['title'], node_id: node['id'], editable: node['editable'], refundable: node['refundable'], commentable: node['commentable'], start_point: node['start_point'], end_point: node['end_point'], role_id: node['role'])
         else
+          @state.title = node['title']
           @state.editable = node['editable']
           @state.refundable = node['refundable']
           @state.commentable = node['commentable']

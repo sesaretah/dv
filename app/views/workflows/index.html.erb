@@ -24,11 +24,6 @@
           <% @workflows.each do |workflow| %>
           <tr>
                         <td><%= workflow.title %></td>
-                        <td><%= workflow.description %></td>
-                        <td><%= workflow.user_id %></td>
-                        <td><%= workflow.graph_data %></td>
-                        <td><%= workflow.nodes %></td>
-                        <td><%= workflow.edges %></td>
                         <td><%= link_to t(:show), workflow %></td>
             <td><%= link_to t(:edit), edit_workflow_path(workflow) %></td>
             <td><%= link_to t(:destroy), workflow, method: :delete, data: { confirm: 'Are you sure?' } %></td>

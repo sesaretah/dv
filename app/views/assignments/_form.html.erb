@@ -15,31 +15,27 @@
 <% end %>
 
 <div class="card-body">
-<div class="row">
-  <div class="col-md-5">
-    <div class="form-group">
-          <%= f.label :user_id, class: "form-label" %>
-      <%= f.number_field :user_id , class: "form-control" %>
-          </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :user_id, class: "form-label" %>
+        <%= text_field_tag :assignment_profile, nil , class: "form-control" %>
+        <%= f.hidden_field :user_id , value: '' %>
+      </div>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-5">
-    <div class="form-group">
-          <%= f.label :role_id, class: "form-label" %>
-      <%= f.number_field :role_id , class: "form-control" %>
-          </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :role_id, class: "form-label" %>
+        <%= text_field_tag :assignment_role, nil , class: "form-control" %>
+        <%= f.hidden_field :role_id , class: "form-control" %>
+      </div>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-5">
-    <div class="form-group">
-          <%= f.label :assigner_id, class: "form-label" %>
-      <%= f.number_field :assigner_id , class: "form-control" %>
-          </div>
+
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
   </div>
-</div>
-<div class="card-footer text-right">
-  <button type="submit" class="btn btn-primary"><%=t :submit%></button>
-</div>
-<% end %>
+  </div>
+  <% end %>

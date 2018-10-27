@@ -3186,6 +3186,7 @@ input[type="button"].btn-block {
 
 .dropdown-menu.show {
   display: block;
+  right: 0px;
 }
 
 .dropdown-header {
@@ -10299,6 +10300,7 @@ body.fixed-header .header {
 
 .header .dropdown-menu {
   margin-top: .75rem;
+      right: 0px !important;
 }
 
 .nav-unread {
@@ -13451,7 +13453,8 @@ Card alert
 .dropdown-menu-arrow:before {
   position: absolute;
       top: -6px;
-      left: 12px;
+      right: 35px;
+       left: auto;
       display: inline-block;
       border-right: 5px solid transparent;
       border-bottom: 5px solid rgba(0, 40, 100, 0.12);
@@ -13463,7 +13466,8 @@ Card alert
 .dropdown-menu-arrow:after {
   position: absolute;
   top: -5px;
-  left: 12px;
+  right: 35px;
+   left: auto;
   display: inline-block;
   border-right: 5px solid transparent;
   border-bottom: 5px solid #fff;
@@ -13472,8 +13476,8 @@ Card alert
 }
 
 .dropdown-menu-arrow.dropdown-menu-right:before, .dropdown-menu-arrow.dropdown-menu-right:after {
-  right: auto;
-  left: 12px;
+  left: auto;
+  right: 12px;
 }
 
 .dropdown-toggle {

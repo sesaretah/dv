@@ -151,6 +151,76 @@ function fireThisUponEvent(event) {
     }
   });
 
+  $('#assignment_profile').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'title',
+    searchField:  'title',
+    maxItems: 1,
+    preload:      true,
+    onItemAdd: function (value, item) {
+      $('#assignment_user_id').val(this.options[value]['user_id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/profiles/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+  $('#assignment_role').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'title',
+    searchField:  'title',
+    maxItems: 1,
+    preload:      true,
+    onItemAdd: function (value, item) {
+      $('#assignment_role_id').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/roles/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
   $('#article_relation_type').selectize({
     create:       false,
     labelField:   'title',

@@ -1,4 +1,9 @@
 class HomeController < ApplicationController
+  def change_current_role
+    current_user.current_role_id = params[:role_id]
+    current_user.save
+  end
+
   def index
   end
 

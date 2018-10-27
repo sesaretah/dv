@@ -6,7 +6,14 @@
       </a>
       <div class="d-flex order-lg-2 mr-auto">
         <div class="nav-item d-none d-md-flex">
-          <a href="https://github.com/tabler/tabler" class="btn btn-sm btn-outline-primary" target="_blank">Source code</a>
+          <div class="dropdown">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+              <i class="fe fe-briefcase mr-2"></i><%=t :my_current_role%>
+            </button>
+            <div class="dropdown-menu">
+              <%= render partial: '/home/current_role'%>
+            </div>
+          </div>
         </div>
         <div class="dropdown d-none d-md-flex">
           <a class="nav-link icon" data-toggle="dropdown">
@@ -120,6 +127,7 @@
             <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-settings"></i><%=t :settings%></a>
             <div class="dropdown-menu dropdown-menu-arrow">
               <a href="/workflows" class="dropdown-item "><%=t :workflows%></a>
+              <a href="/assignments" class="dropdown-item "><%=t :assignments%></a>
             </div>
           </li>
         </ul>

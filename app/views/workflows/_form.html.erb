@@ -49,6 +49,17 @@
         <div class="col-md-12">
           <div class="form-group">
             <label class="form-label">
+              <%=t :step_title%>
+            </label>
+            <%= text_field_tag 'step-title', nil, class:"form-control"%>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label class="form-label">
               <%=t :related_role%>
             </label>
             <%= select_tag 'role', options_for_select(Role.all.collect{ |u| ["#{u.title}", u.id] }) ,{include_blank: true, class:"form-control"}%>
@@ -340,7 +351,7 @@ GraphCreator.prototype.selectElementContents = function(el) {
   var sel = window.getSelection();
   sel.removeAllRanges();
   sel.addRange(range);
-  console.log(sel, range, el);
+  //console.log(sel, range, el);
 };
 
 
@@ -513,7 +524,7 @@ GraphCreator.prototype.circleMouseUp = function(d3node, d){
       // dragged, not clicked
       state.justDragged = false;
     } else{
-      console.log('clicked');
+      //console.log('clicked');
       // clicked, not dragged
       if (d3.event.shiftKey){
         // shift-clicked node: edit text content
@@ -528,7 +539,7 @@ GraphCreator.prototype.circleMouseUp = function(d3node, d){
         var prevNode = state.selectedNode;
 
         if (!prevNode || prevNode.id !== d.id){
-          d3.select("#current-node").text(d.title);
+          d3.select("#step-title").property('value', d.title);
           d3.select("#current-node-id").text(d.id);
           d3.select("#role").property('value', d.role);
           d3.select("#editable").property('value', d.editable);
@@ -548,15 +559,24 @@ GraphCreator.prototype.circleMouseUp = function(d3node, d){
 
 }; // end of circles mouseup
 
+
+
+d3.select('#step-title')
+.on('input', function() {
+  var currentNodeId = d3.select('#current-node-id').text();
+  var newData = d3.select(this).property('value');
+  updateNode('title' ,parseInt(currentNodeId), newData);
+});
+
 d3.select('#role')
 .on('change', function() {
   var currentNodeId = d3.select('#current-node-id').text();
   var newData = eval(d3.select(this).property('value'));
   updateNode('role' ,parseInt(currentNodeId), newData);
-  var abrData = $("#role option:selected").text();
-  var regExp = /\(([^)]+)\)/;
-  var abr = abrData//regExp.exec(abrData);
-  updateNode('title', parseInt(currentNodeId), abr);
+//  var abrData = $("#role option:selected").text();
+//  var regExp = /\(([^)]+)\)/;
+//  var abr = abrData//regExp.exec(abrData);
+//  updateNode('title', parseInt(currentNodeId), abr);
 });
 
 d3.select('#editable')
@@ -599,7 +619,6 @@ function updateNode(attribute, nodeId, newValue){
   graph.nodes.filter(function(d){ return d.id == nodeId })[0][attribute] = newValue;
   if (attribute == 'title'){
     d3.selectAll(".conceptG.selected").each(function(d, i) {
-      console.log(d);
       var str = '#' + 'text-' +  d.id;
       d3.select(str).remove();
       d3.select(this).append("text")
@@ -693,7 +712,7 @@ GraphCreator.prototype.svgKeyDown = function() {
   state = thisGraph.state,
   consts = thisGraph.consts;
   // make sure repeated key presses don't register for each keydown
-  if(state.lastKeyDown !== -1) return;
+//  if(state.lastKeyDown !== -1) return;
 
   state.lastKeyDown = d3.event.keyCode;
   var selectedNode = state.selectedNode,
@@ -703,12 +722,12 @@ GraphCreator.prototype.svgKeyDown = function() {
     case consts.BACKSPACE_KEY:
     case consts.DELETE_KEY:
   //  d3.event.preventDefault();
-    if (selectedNode){
+    if (d3.event.ctrlKey && selectedNode){
       thisGraph.nodes.splice(thisGraph.nodes.indexOf(selectedNode), 1);
       thisGraph.spliceLinksForNode(selectedNode);
       state.selectedNode = null;
       thisGraph.updateGraph();
-    } else if (selectedEdge){
+    } else if (d3.event.ctrlKey && selectedEdge){
       thisGraph.edges.splice(thisGraph.edges.indexOf(selectedEdge), 1);
       state.selectedEdge = null;
       thisGraph.updateGraph();

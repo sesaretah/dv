@@ -7,7 +7,9 @@ class ProfilesController < ApplicationController
     end
     resp = []
     for r in @profiles
-      resp << {'title' => r.fullname , 'id' => r.id}
+      if !r.user.blank?
+        resp << {'title' => r.fullname , 'id' => r.id, 'user_id' => r.user.id}
+      end
     end
     render :json => resp.to_json, :callback => params['callback']
   end

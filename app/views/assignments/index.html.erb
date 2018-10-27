@@ -4,14 +4,13 @@
       <div class="col-md-6 col-lg-12">
         <div class="card">
           <div class="card-body">
-
+            <div class="text-center">
+              <%= link_to  new_assignment_url, class: "btn btn-lime  btn-sm" do%>
+              <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
+              <%end%>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-12">
-        <div class="card">
-          <div class="card-body">
-
+          <div class="card-footer">
           </div>
         </div>
       </div>
@@ -23,11 +22,8 @@
         <tbody>
           <% @assignments.each do |assignment| %>
           <tr>
-                        <td><%= assignment.user_id %></td>
-                        <td><%= assignment.role_id %></td>
-                        <td><%= assignment.assigner_id %></td>
-                        <td><%= link_to t(:show), assignment %></td>
-            <td><%= link_to t(:edit), edit_assignment_path(assignment) %></td>
+            <td><%= assignment.user.profile.fullname %></td>
+            <td><%= assignment.role.title %></td>
             <td><%= link_to t(:destroy), assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
           <% end %>

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   match "/home/advanced_search" => "home#advanced_search", :via => :get
+  match "/home/change_current_role" => "home#change_current_role", :via => :get
 
   match "/titlings/add_item/:id" => "titlings#add_item", :via => :get
 
@@ -59,4 +60,5 @@ Rails.application.routes.draw do
   match "/article_areas/search/:id" => "article_areas#search", :via => :get
 
   match "/uploads/remoted/:id" => "uploads#remoted", :via => :get
+
 end

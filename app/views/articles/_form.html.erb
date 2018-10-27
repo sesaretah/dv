@@ -16,6 +16,31 @@
 <% end %>
 
 <div class="card-body">
+
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label class="form-label"><%=t :workflow%></label>
+          <%= select_tag  "workflow", options_for_select(@workflows.collect { |p| [ p.title, p.id ] }), {class: "form-control"} %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :workflow_state_id, class: "form-label" %>
+        <% if @article.workflow_state%>
+          <%= text_field_tag :workflow_state_id, @article.workflow_state.title , class: "form-control", disabled: true%>
+        <%else%>
+
+        <%end%>
+      </div>
+    </div>
+  </div>
+
+  <hr class="mt-2 mb-4"/>
+
   <div class="row">
     <div class="col-md-10">
       <div class="form-group">
@@ -25,10 +50,13 @@
     </div>
   </div>
 
-  <%=t :other_titles%>
-  <%= link_to '/titlings/add_item/1', remote: true do%>
-    <i class="fe fe-plus-circle" style="vertical-align:-3px;"></i>
-  <%end%>
+  <div>
+    <%=t :other_titles%>
+    <%= link_to '/titlings/add_item/1', remote: true do%>
+      <i class="fe fe-plus-circle" style="vertical-align:-3px;"></i>
+    <%end%>
+  </div>
+
   <hr class="mt-2 mb-4"/>
   <div id='titling-items'>
     <%= render partial: 'titlings/remote_item'%>

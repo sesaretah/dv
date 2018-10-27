@@ -8,4 +8,5 @@ class Profile < ActiveRecord::Base
   def title
     "#{self.name} #{self.surename}"
   end
+  belongs_to :user
 end

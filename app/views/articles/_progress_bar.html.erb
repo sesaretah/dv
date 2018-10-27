@@ -13,6 +13,6 @@
 
 <% if article.id != nil && !article.title.blank?%>
 <div class="alert alert-primary mt-5 ">
-  <%=t :title%>: <%= truncate(article.title, length: 40) %>
+  <%=t :title%>: <%= truncate(article.title, length: 70) %>
 </div>
 <%end%>

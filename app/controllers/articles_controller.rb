@@ -49,11 +49,33 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @workflow_state = @article.workflow_state
+    @workflow = @article.workflow_state.workflow
+    if !@workflow_state.blank? && !@workflow.blank?
+      @nodes = JSON.parse @workflow.nodes
+      @edges = JSON.parse @workflow.edges
+      @next_workflow_states = []
+      @previous_workflow_states = []
+      for edge in @edges
+        if edge['source']['id'] ==  @workflow_state.node_id
+          @next_workflow_states << WorkflowState.where(node_id: edge['target']['id'], workflow_id: @workflow.id).first
+        end
+        if edge['target']['id'] ==  @workflow_state.node_id
+          @previous_workflow_states << WorkflowState.where(node_id: edge['source']['id'], workflow_id: @workflow.id).first
+        end
+      end
+    end
   end
 
   # GET /articles/new
   def new
     @article = Article.new
+    @workflow_states = WorkflowState.where(role_id: current_user.current_role_id, start_point: 2).group_by(&:workflow_id).keys
+    if !@workflow_states.blank?
+      @workflows = Workflow.where('id in (?)', @workflow_states )
+    else
+      redirect_to '/articles', notice: :you_have_not_the_right_permission_to_create_article
+    end
   end
 
   # GET /articles/1/edit
@@ -64,6 +86,10 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(article_params)
+    if !params[:workflow].blank?
+      @workflow_state = WorkflowState.where(workflow_id: params[:workflow].to_i, start_point: 2).first
+      @article.workflow_state_id = @workflow_state.id
+    end
     @article.save
     params.each do |param|
     if param[0].include?('_title_type')
@@ -74,7 +100,7 @@ class ArticlesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to '/articles/article_descriptors/'+@article.id.to_s , notice: 'Article was successfully created.' }
+      format.html { redirect_to '/articles/article_descriptors/'+@article.id.to_s , notice: :article_is_created }
     end
   end
 
@@ -95,7 +121,7 @@ class ArticlesController < ApplicationController
           end
         end
         if !params[:keyword].blank?
-          format.html { redirect_to '/articles/article_related_dates/'+@article.id.to_s, notice: 'Article was successfully updated.' }
+          format.html { redirect_to '/articles/article_related_dates/'+@article.id.to_s, notice: :article_is_updated }
         else
           format.html { redirect_to '/articles/article_descriptors/'+@article.id.to_s, notice: 'Article was successfully updated.' }
         end
@@ -125,6 +151,6 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :abstract, :content, :url, :slug)
+      params.require(:article).permit(:title, :abstract, :content, :url, :slug,:workflow_state_id)
     end
 end
