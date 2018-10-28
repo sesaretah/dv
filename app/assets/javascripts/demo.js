@@ -410,6 +410,63 @@ function fireThisUponEvent(event) {
     }
   });
 
+$( ".article-progress" ).each(function( index ) {
+  var id = $(this).attr('id').split("_")[1];
+  var nodes = JSON.parse($('#nodes_'+id).text());
+  var edges = JSON.parse($('#edges_'+id).text());
+  var current_node = parseInt($('#current_node_'+id).text());
+  var start_node = parseInt($('#start_node_'+id).text());
+  var g = new graphlib.Graph({ directed: true });
+  async.series([
+    function(callback) {
+      for (var i = 0, len = nodes.length; i < len; i++) {
+        g.setNode(nodes[i]['id']);
+        if (i == len - 1){
+          callback(null, 'one');
+        }
+      }
+    },
+    function(callback) {
+      for (var i = 0, len = edges.length; i < len; i++) {
+        var source = edges[i]['source']['id']
+        var target = edges[i]['target']['id']
+        g.setEdge(source,target);
+        if (i == len - 1){
+          callback(null, 'two');
+        }
+      }
+    }
+  ],
+  // optional callback
+  function(err, results) {
+    var d = graphlib.alg.dijkstra(g, current_node);
+    var m = graphlib.alg.dijkstra(g, start_node);
+    var root_to_current = m[current_node]['distance'] + 1
+    console.log(root_to_current);
+    var max = 0;
+    for (var i = 0, len = Object.keys(d).length; i < len; i++) {
+      var distance =  d[Object.keys(d)[i]]['distance']
+      if (Number.isInteger(distance) && distance > max)
+      {
+        max = distance
+      }
+      if (i == len - 1)
+      {
+        var percent = (root_to_current/(root_to_current  + max)) * 100;
+        if ( percent > 2){
+          $('#pb_'+id).attr('style', "width:" + percent +"%;");
+        } else {
+          $('#pb_'+id).attr('style', "width:2%;");
+          $('#pb_'+id).removeClass( "bg-yellow" ).addClass( "bg-red" );
+        }
+
+        $('#pb_'+id).attr('aria-valuenow', percent);
+        $('#progress_percent_'+id).text( Math.round(percent)+'%');
+      }
+    }
+  });
+});
+
 }
 $(document).on('turbolinks:load', fireThisUponEvent)
 $(document).ready(fireThisUponEvent);

@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail]
 
   def search
     if !params[:q].blank?
@@ -39,6 +39,32 @@ class ArticlesController < ApplicationController
 
   def article_relations
 
+  end
+
+  def workflow_transitions
+
+  end
+
+  def article_detail
+
+  end
+
+  def send_to
+    @next_workflow_state = WorkflowState.find(params[:workflow_state])
+    if @article.workflow_state.workflow.is_next_node(@article.workflow_state.node_id, @next_workflow_state.node_id) && @article.workflow_state.role_id == current_user.current_role_id
+      WorkflowTransition.create(workflow_id: @article.workflow_state.workflow.id, from_state_id: @article.workflow_state.id, to_state_id: @next_workflow_state.id, article_id: @article.id, message: params[:message], user_id: current_user.id, role_id: current_user.current_role_id, transition_type: 1 )
+      @article.workflow_state_id = params[:workflow_state]
+      @article.save
+    end
+  end
+
+  def refund_to
+    @previous_workflow_state = WorkflowState.find(params[:workflow_state])
+    if @article.workflow_state.workflow.is_previous_node(@article.workflow_state.node_id, @previous_workflow_state.node_id) && @article.workflow_state.role_id == current_user.current_role_id
+      WorkflowTransition.create(workflow_id: @article.workflow_state.workflow, from_state_id: @article.workflow_state.id, to_state_id: @previous_workflow_state.id, article_id: @article.id, message: params[:message], user_id: current_user.id, role_id: current_user.current_role_id, transition_type: 2 )
+      @article.workflow_state_id = params[:workflow_state]
+      @article.save
+    end
   end
   # GET /articles
   # GET /articles.json

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :workflow_transitions
   resources :assignments
   resources :workflow_states
   resources :workflows
@@ -39,6 +40,11 @@ Rails.application.routes.draw do
   match "/articles/article_other_details/:id" => "articles#article_other_details", :via => :get
   match "/articles/article_contributions/:id" => "articles#article_contributions", :via => :get
   match "/articles/article_relations/:id" => "articles#article_relations", :via => :get
+  match "/articles/send_to/:id" => "articles#send_to", :via => :get
+  match "/articles/refund_to/:id" => "articles#refund_to", :via => :get
+  match "/articles/workflow_transitions/:id" => "articles#workflow_transitions", :via => :get
+  match "/articles/article_detail/:id" => "articles#article_detail", :via => :get
+
 
 
   match "/typings/remotec/:id" => "typings#remotec", :via => :get

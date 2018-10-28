@@ -413,9 +413,18 @@ fa:
   article_is_created: 'سند ایجاد شد'
   article_is_updated: 'اطلاعات سند بروزرسانی شد'
   without_workflow: 'بدون گردش‌کار '
-  workflow_state: 'گردش کار'
+  workflow_state: 'مرحله'
   send_to: 'ارسال به گام '
   refund_to: 'اعاده به گام'
+  send: 'ارسال '
+  refund: 'اعاده'
+  workflow_transitions: 'تراکنش‌ها'
+  message_content: 'متن پیام ...'
+  transition: 'انتقال'
+  from: 'از'
+  to: 'به'
+  logs: 'لاگ‌ها'
+  with_message: 'پیام'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

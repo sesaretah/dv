@@ -1,0 +1,23 @@
+<div class="card-body" id='article-show'>
+  <% for workflow_transition in WorkflowTransition.where(article_id: article.id)%>
+  <% if workflow_transition.transition_type == 1%>
+    <div class="alert alert-success" role="alert"> <i class="fe fe-trending-up" style="vertical-align: -3px;"></i>
+  <%else%>
+    <div class="alert alert-danger" role="alert"> <i class="fe fe-trending-down" style="vertical-align: -3px;"></i>
+  <%end%>
+
+    <%=t :transition%> <%=t :from%> <%=t :workflow_state%>
+    <strong>
+      <%= WorkflowState.find(workflow_transition.from_state_id).title%>
+    </strong>
+    <%=t :to%> <%=t :workflow_state%>
+    <strong>
+      <%= WorkflowState.find(workflow_transition.to_state_id).title%>
+    </strong>
+    <%=t :with_message%>
+    <%= workflow_transition.message%>
+  </div>
+  <%end%>
+</div>
+<div class="card-footer">
+</div>

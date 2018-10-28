@@ -30,6 +30,9 @@ class WorkflowsController < ApplicationController
     for node in @nodes
       if !node['title'].blank?
         @trimed_nodes << node
+        if node['start_point'] == 2
+          @workflow.start_node_id = node['id']
+        end
       end
     end
     @workflow.nodes = @trimed_nodes.to_json
@@ -56,6 +59,9 @@ class WorkflowsController < ApplicationController
     @trimed_nodes = []
     for node in @nodes
       if !node['title'].blank?
+        if node['start_point'] == '2'
+          @workflow.start_node_id = node['id']
+        end
         @trimed_nodes << node
         @state =  WorkflowState.where(workflow_id: @workflow.id, node_id: node['id']).first
         if @state.blank?
@@ -102,6 +108,6 @@ class WorkflowsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def workflow_params
-      params.require(:workflow).permit(:title, :description, :user_id, :graph_data, :nodes, :edges)
+      params.require(:workflow).permit(:title, :description, :user_id, :graph_data, :nodes, :edges, :start_node_id)
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181027105424) do
+ActiveRecord::Schema.define(version: 20181028120922) do
 
   create_table "areaings", force: :cascade do |t|
     t.integer  "article_area_id", limit: 4
@@ -240,15 +240,29 @@ ActiveRecord::Schema.define(version: 20181027105424) do
     t.integer  "role_id",     limit: 4
   end
 
+  create_table "workflow_transitions", force: :cascade do |t|
+    t.integer  "workflow_id",     limit: 4
+    t.integer  "from_state_id",   limit: 4
+    t.integer  "to_state_id",     limit: 4
+    t.text     "message",         limit: 65535
+    t.integer  "user_id",         limit: 4
+    t.integer  "role_id",         limit: 4
+    t.integer  "transition_type", limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "article_id",      limit: 4
+  end
+
   create_table "workflows", force: :cascade do |t|
-    t.string   "title",       limit: 255
-    t.text     "description", limit: 65535
-    t.integer  "user_id",     limit: 4
-    t.text     "graph_data",  limit: 65535
-    t.text     "nodes",       limit: 65535
-    t.text     "edges",       limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "title",         limit: 255
+    t.text     "description",   limit: 65535
+    t.integer  "user_id",       limit: 4
+    t.text     "graph_data",    limit: 65535
+    t.text     "nodes",         limit: 65535
+    t.text     "edges",         limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "start_node_id", limit: 4
   end
 
 end
