@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181028120922) do
+ActiveRecord::Schema.define(version: 20181029133346) do
 
   create_table "areaings", force: :cascade do |t|
     t.integer  "article_area_id", limit: 4
@@ -39,6 +39,19 @@ ActiveRecord::Schema.define(version: 20181028120922) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "article_histories", force: :cascade do |t|
+    t.string   "title",             limit: 255
+    t.text     "abstract",          limit: 65535
+    t.text     "content",           limit: 65535
+    t.string   "url",               limit: 255
+    t.text     "document_contents", limit: 65535
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "revision_number",   limit: 255
+    t.integer  "user_id",           limit: 4
+    t.integer  "article_id",        limit: 4
   end
 
   create_table "article_relation_types", force: :cascade do |t|

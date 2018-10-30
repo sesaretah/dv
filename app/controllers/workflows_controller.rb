@@ -19,6 +19,8 @@ class WorkflowsController < ApplicationController
 
   # GET /workflows/1/edit
   def edit
+    @edges = @workflow.prepare_edges
+    @nodes = JSON.parse @workflow.nodes
   end
 
   # POST /workflows

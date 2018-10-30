@@ -69,6 +69,7 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    diffy (3.2.1)
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.25)
@@ -214,6 +215,7 @@ DEPENDENCIES
   ckeditor
   coffee-rails (~> 4.1.0)
   devise
+  diffy (~> 3.2)
   font-awesome-rails
   jbuilder (~> 2.0)
   jquery-rails

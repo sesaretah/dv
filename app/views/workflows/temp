@@ -162,9 +162,9 @@ document.onload = (function(d3, saveAs, Blob, undefined){
     defs.append('svg:marker')
     .attr('id', 'end-arrow')
     .attr('viewBox', '0 -5 10 10')
-    .attr('refX', "100")
-    .attr('markerWidth', 4.5)
-    .attr('markerHeight', 4.5)
+    .attr('refX', "32")
+    .attr('markerWidth', 3.5)
+    .attr('markerHeight', 3.5)
     .attr('orient', 'auto')
     .attr('fill', '#999')
     .attr('stroke', '#999')
@@ -315,9 +315,7 @@ GraphCreator.prototype.consts =  {
   BACKSPACE_KEY: 8,
   DELETE_KEY: 46,
   ENTER_KEY: 13,
-  nodeRadius: 25,
-  nodeX: 70,
-  nodeY: 30
+  nodeRadius: 25
 };
 
 /* PROTOTYPE FUNCTIONS */
@@ -364,14 +362,12 @@ GraphCreator.prototype.insertTitleLinebreaks = function (gEl, title) {
   var el = gEl.append("text")
   .attr('id', 'text-' + gEl[0][0].__data__.id )
   .attr("text-anchor","middle")
-//  .attr("dy", "-" + (nwords-1)*7.5)
-  .attr("x",45)
-  .attr("y", 18);
+  .attr("dy", "-" + (nwords-1)*7.5);
 
   for (var i = 0; i < words.length; i++) {
     var tspan = el.append('tspan').text(words[i]);
     if (i > 0)
-    tspan.attr('x', 65).attr('y', '18');
+    tspan.attr('x', 0).attr('dy', '15');
   }
 };
 
@@ -627,8 +623,8 @@ function updateNode(attribute, nodeId, newValue){
       d3.select(str).remove();
       d3.select(this).append("text")
       .attr('id', 'text-' + d.id )
-      .attr("x",65)
-      .attr("y", 18)
+      .attr("x",19)
+      .attr("y",3)
       .text(d.title);
     });
   }
@@ -761,11 +757,7 @@ GraphCreator.prototype.updateGraph = function(){
     return d === state.selectedEdge;
   })
   .attr("d", function(d){
-    var sx = d.source.x + (consts.nodeX/2)
-    var sy = d.source.y + (consts.nodeY/2)
-    var tx = d.target.x + (consts.nodeX/2)
-    var ty = d.target.y + (consts.nodeY/2)
-    return "M" + sx + "," + sy + "L" + tx + "," + ty;
+    return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
   });
 
   // add new paths
@@ -774,11 +766,7 @@ GraphCreator.prototype.updateGraph = function(){
   .style('marker-end','url(#end-arrow)')
   .classed("link", true)
   .attr("d", function(d){
-    var sx = d.source.x + (consts.nodeX/2)
-    var sy = d.source.y + (consts.nodeY/2)
-    var tx = d.target.x + (consts.nodeX/2)
-    var ty = d.target.y + (consts.nodeY/2)
-    return "M" + sx + "," + sy + "L" +tx + "," + ty;
+    return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
   })
   .on("mousedown", function(d){
     thisGraph.pathMouseDown.call(thisGraph, d3.select(this), d);
@@ -817,9 +805,8 @@ newGs.classed(consts.circleGClass, true)
 })
 .call(thisGraph.drag);
 
-newGs.append("rect")
-.attr("width", String(consts.nodeX))
-.attr("height", String(consts.nodeY));
+newGs.append("circle")
+.attr("r", String(consts.nodeRadius));
 
 newGs.each(function(d){
   thisGraph.insertTitleLinebreaks(d3.select(this), d.title);
@@ -876,7 +863,7 @@ var edges =  <%= raw  @edges.to_json.gsub!('"', '')%>;
 /** MAIN SVG **/
 var svg = d3.select("#graphDiv").append("svg")
 .attr("width", bodyEl.clientWidth)
-.attr("height", '600px')
+.attr("height", '400px')
 //.attr("preserveAspectRatio" , "xMidYMid meet")
 ;
 var graph = new GraphCreator(svg, nodes, edges);

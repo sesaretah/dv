@@ -1,0 +1,97 @@
+<div class="card-body" id='article-show'>
+  <div class='row'>
+    <div class='col-md-12 col-lg-12'>
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :changes_in_title%></label>
+        <div id='first-title' style="display:none;"><% @last_title= @article.article_histories.last %><% if !@last_title.blank?%><%=raw @last_title.title%><%end%></div>
+        <div id='last-title' style="display:none;"><% @last_minus_title= @article.article_histories.order("id DESC").offset(1).first %><% if !@last_minus_title.blank?%><%=raw @last_minus_title.title%><%end%></div>
+        <pre id="display-title"></pre>
+        <script>
+        var firstTitle = $('#first-title').text(),
+        lastTitle = $('#last-title').text(),
+        color = '',
+        span = null;
+
+        var diff = JsDiff.diffWords(firstTitle, lastTitle),
+        display = document.getElementById('display-title'),
+        fragment = document.createDocumentFragment();
+
+        diff.forEach(function(part){
+          color = part.added ? 'green' :
+          part.removed ? 'red' : 'grey';
+          span = document.createElement('span');
+          span.style.color = color;
+          span.appendChild(document
+            .createTextNode(part.value));
+            fragment.appendChild(span);
+          });
+
+          display.appendChild(fragment);
+          </script>
+        </div>
+
+        <div class="form-group">
+          <label  class="form-label" style='color: #7795c1;'><%=t :changes_in_abstract%></label>
+          <div id='first-abstract' style="display:none;"><% @last_abstract = @article.article_histories.last %><% if !@last_abstract.blank?%><%=raw @last_abstract.abstract%><%end%></div>
+          <div id='last-abstract' style="display:none;"><% @last_minus_abstract= @article.article_histories.order("id DESC").offset(1).first %><% if !@last_minus_abstract.blank?%><%=raw @last_minus_abstract.abstract%><%end%></div>
+          <pre id="display-abstract"></pre>
+          <script>
+          var one = $('#first-abstract').text(),
+          other = $('#last-abstract').text(),
+          color = '',
+          span = null;
+
+          var diff = JsDiff.diffWords(one, other),
+          display = document.getElementById('display-abstract'),
+          fragment = document.createDocumentFragment();
+
+          diff.forEach(function(part){
+            // green for additions, red for deletions
+            // grey for common parts
+            color = part.added ? 'green' :
+            part.removed ? 'red' : 'grey';
+            span = document.createElement('span');
+            span.style.color = color;
+            span.appendChild(document
+              .createTextNode(part.value));
+              fragment.appendChild(span);
+            });
+
+            display.appendChild(fragment);
+            </script>
+          </div>
+
+
+        <div class="form-group">
+          <label  class="form-label" style='color: #7795c1;'><%=t :changes_in_content%></label>
+          <div id='first-content' style="display:none;"><% @last_content= @article.article_histories.last %><% if !@last_content.blank?%><%=raw @last_content.content%><%end%></div>
+          <div id='last-content' style="display:none;"><% @last_minus_contnet= @article.article_histories.order("id DESC").offset(1).first %><% if !@last_minus_contnet.blank?%><%=raw @last_minus_contnet.content%><%end%></div>
+          <pre id="display-content"></pre>
+          <script>
+          var one = $('#first-content').text(),
+          other = $('#last-content').text(),
+          color = '',
+          span = null;
+
+          var diff = JsDiff.diffWords(one, other),
+          display = document.getElementById('display-content'),
+          fragment = document.createDocumentFragment();
+
+          diff.forEach(function(part){
+            // green for additions, red for deletions
+            // grey for common parts
+            color = part.added ? 'green' :
+            part.removed ? 'red' : 'grey';
+            span = document.createElement('span');
+            span.style.color = color;
+            span.appendChild(document
+              .createTextNode(part.value));
+              fragment.appendChild(span);
+            });
+
+            display.appendChild(fragment);
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>

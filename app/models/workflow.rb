@@ -45,4 +45,24 @@ class Workflow < ActiveRecord::Base
     end
   end
 
+  def prepare_edges
+    @nodes = JSON.parse self.nodes
+    @edges = JSON.parse self.edges
+    @result = []
+    for edge in @edges
+      @source =  find_node_index(@nodes, edge['source']['id'])
+      @target =  find_node_index(@nodes, edge['target']['id'])
+      @result <<  { 'source' => "nodes[#{@source}]", 'target' => "nodes[#{@target}]"}
+    end
+    return @result
+  end
+
+  def find_node_index(nodes, node_id)
+    for node in nodes
+      if node['id'] == node_id
+        return nodes.index(node)
+      end
+    end
+  end
+
 end

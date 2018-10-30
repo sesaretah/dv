@@ -424,7 +424,12 @@ fa:
   from: 'از'
   to: 'به'
   logs: 'لاگ‌ها'
+  sent_successfully: 'با موفقیت ارسال شد'
+  refunded: 'عودت داده شد'
   with_message: 'پیام'
+  changes_in_content: 'تغییرات در متن'
+  changes_in_title: 'تغییرات در عنوان'
+  changes_in_abstract: 'تغییرات در چکیده/خلاصه'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

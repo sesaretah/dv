@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :article_histories
   resources :workflow_transitions
   resources :assignments
   resources :workflow_states
@@ -44,6 +45,7 @@ Rails.application.routes.draw do
   match "/articles/refund_to/:id" => "articles#refund_to", :via => :get
   match "/articles/workflow_transitions/:id" => "articles#workflow_transitions", :via => :get
   match "/articles/article_detail/:id" => "articles#article_detail", :via => :get
+  match "/articles/article_logs/:id" => "articles#article_logs", :via => :get
 
 
 

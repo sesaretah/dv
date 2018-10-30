@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs]
 
   def search
     if !params[:q].blank?
@@ -49,10 +49,15 @@ class ArticlesController < ApplicationController
 
   end
 
+  def article_logs
+
+  end
+
   def send_to
     @next_workflow_state = WorkflowState.find(params[:workflow_state])
     if @article.workflow_state.workflow.is_next_node(@article.workflow_state.node_id, @next_workflow_state.node_id) && @article.workflow_state.role_id == current_user.current_role_id
       WorkflowTransition.create(workflow_id: @article.workflow_state.workflow.id, from_state_id: @article.workflow_state.id, to_state_id: @next_workflow_state.id, article_id: @article.id, message: params[:message], user_id: current_user.id, role_id: current_user.current_role_id, transition_type: 1 )
+      ArticleHistory.create(article_id: @article.id, title: @article.title, abstract: @article.abstract, content: @article.content, url: @article.url, user_id: current_user.id, revision_number: SecureRandom.hex(4))
       @article.workflow_state_id = params[:workflow_state]
       @article.save
     end
@@ -62,6 +67,7 @@ class ArticlesController < ApplicationController
     @previous_workflow_state = WorkflowState.find(params[:workflow_state])
     if @article.workflow_state.workflow.is_previous_node(@article.workflow_state.node_id, @previous_workflow_state.node_id) && @article.workflow_state.role_id == current_user.current_role_id
       WorkflowTransition.create(workflow_id: @article.workflow_state.workflow, from_state_id: @article.workflow_state.id, to_state_id: @previous_workflow_state.id, article_id: @article.id, message: params[:message], user_id: current_user.id, role_id: current_user.current_role_id, transition_type: 2 )
+      ArticleHistory.create(article_id: @article.id, title: @article.title, abstract: @article.abstract, content: @article.content, url: @article.url, user_id: current_user.id, revision_number: SecureRandom.hex(4))
       @article.workflow_state_id = params[:workflow_state]
       @article.save
     end
@@ -106,6 +112,12 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
+    @workflow_states = WorkflowState.where(role_id: current_user.current_role_id).group_by(&:workflow_id).keys
+    if !@workflow_states.blank?
+      @workflows = Workflow.where('id in (?)', @workflow_states )
+    else
+      redirect_to '/articles', notice: :you_have_not_the_right_permission_to_create_article
+    end
   end
 
   # POST /articles
@@ -133,7 +145,7 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1
   # PATCH/PUT /articles/1.json
   def update
-    respond_to do |format|
+      respond_to do |format|
       if @article.update(article_params)
         if !params[:keyword].blank?
           @ar = params[:keyword].split(',')

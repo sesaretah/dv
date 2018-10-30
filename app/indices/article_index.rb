@@ -1,5 +1,6 @@
 ThinkingSphinx::Index.define :article, :with => :real_time do
   indexes content
+  indexes abstract
   indexes title
   indexes document_contents
 

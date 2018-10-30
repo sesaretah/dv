@@ -34,5 +34,7 @@ class Article < ActiveRecord::Base
   has_many :article_sources, :through => :originatings
   has_many :originatings, dependent: :destroy
 
+  has_many :article_histories
+
   belongs_to :workflow_state
 end
