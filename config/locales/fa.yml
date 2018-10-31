@@ -430,6 +430,16 @@ fa:
   changes_in_content: 'تغییرات در متن'
   changes_in_title: 'تغییرات در عنوان'
   changes_in_abstract: 'تغییرات در چکیده/خلاصه'
+  abstract: 'خلاصه/چکیده'
+  content: 'محتوا'
+  inserted: 'افزوده شده'
+  deleted: 'حذف شده'
+  not_changed: 'بدون تغییر'
+  compare_source: 'مرجع مقایسه'
+  compare_target: 'مقصد مقایسه'
+  compare: 'مقایسه'
+  help: 'راهنما '
+  url: 'پیوند(url)'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

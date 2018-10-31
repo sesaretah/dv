@@ -1,0 +1,2 @@
+module ContributionHistoriesHelper
+end

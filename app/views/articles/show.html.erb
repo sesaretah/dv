@@ -16,7 +16,7 @@
         <span class="tag mr-1"><%= truncate(@article.workflow_state.title, length: 15)%></span>
         <div class="card-options">
           <%= link_to "/articles/article_logs/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-            <i class="fe fe-git-branch" style="vertical-align: -3px;"></i> <%=t :logs%>
+            <i class="fe fe-activity" style="vertical-align: -3px;"></i> <%=t :compare%>
           <%end%>
           <%= link_to "/articles/workflow_transitions/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
             <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%=t :workflow_transitions%>

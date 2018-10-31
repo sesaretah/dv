@@ -1,0 +1,2 @@
+module UploadHistoriesHelper
+end

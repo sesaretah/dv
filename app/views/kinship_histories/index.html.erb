@@ -1,0 +1,42 @@
+<div class="row row-cards">
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="card">
+      <table class="table card-table table-vcenter">
+        <tbody>
+          <% @kinship_histories.each do |kinship_history| %>
+          <tr>
+                        <td><%= kinship_history.user_id %></td>
+                        <td><%= kinship_history.kin_id %></td>
+                        <td><%= kinship_history.article_id %></td>
+                        <td><%= kinship_history.article_relation_type_id %></td>
+                        <td><%= kinship_history.revision_number %></td>
+                        <td><%= kinship_history.user_id %></td>
+                        <td><%= kinship_history.workflow_transition_id %></td>
+                        <td><%= link_to t(:show), kinship_history %></td>
+            <td><%= link_to t(:edit), edit_kinship_history_path(kinship_history) %></td>
+            <td><%= link_to t(:destroy), kinship_history, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

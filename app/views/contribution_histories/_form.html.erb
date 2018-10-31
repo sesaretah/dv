@@ -1,0 +1,85 @@
+<%= form_for(@contribution_history, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :new_contribution_history %></h3>
+</div>
+<% if @contribution_history.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@contribution_history.errors.count, "error") %> prohibited this contribution_history from being saved:</h2>
+
+  <ul>
+    <% @contribution_history.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="card-body">
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :article_id, class: "form-label" %>
+      <%= f.number_field :article_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :role_id, class: "form-label" %>
+      <%= f.number_field :role_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :duty_id, class: "form-label" %>
+      <%= f.number_field :duty_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :profile_id, class: "form-label" %>
+      <%= f.number_field :profile_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :revision_number, class: "form-label" %>
+      <%= f.number_field :revision_number , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :user_id, class: "form-label" %>
+      <%= f.number_field :user_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :workflow_transition_id, class: "form-label" %>
+      <%= f.number_field :workflow_transition_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :contribution_id, class: "form-label" %>
+      <%= f.number_field :contribution_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="card-footer text-right">
+  <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+</div>
+<% end %>

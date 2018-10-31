@@ -1,0 +1,41 @@
+<div class="row row-cards">
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="card">
+      <table class="table card-table table-vcenter">
+        <tbody>
+          <% @dating_histories.each do |dating_history| %>
+          <tr>
+                        <td><%= dating_history.article_id %></td>
+                        <td><%= dating_history.article_event_id %></td>
+                        <td><%= dating_history.event_date %></td>
+                        <td><%= dating_history.revision_number %></td>
+                        <td><%= dating_history.user_id %></td>
+                        <td><%= dating_history.workflow_transition_id %></td>
+                        <td><%= link_to t(:show), dating_history %></td>
+            <td><%= link_to t(:edit), edit_dating_history_path(dating_history) %></td>
+            <td><%= link_to t(:destroy), dating_history, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

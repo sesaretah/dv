@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  kin_id: 1
+  article_id: 1
+  article_relation_type_id: 1
+  revision_number: MyString
+  user_id: 1
+  workflow_transition_id: 1
+
+two:
+  user_id: 1
+  kin_id: 1
+  article_id: 1
+  article_relation_type_id: 1
+  revision_number: MyString
+  user_id: 1
+  workflow_transition_id: 1

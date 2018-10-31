@@ -410,6 +410,8 @@ function fireThisUponEvent(event) {
     }
   });
 
+
+
 $( ".article-progress" ).each(function( index ) {
   var id = $(this).attr('id').split("_")[1];
   var nodes = JSON.parse($('#nodes_'+id).text());

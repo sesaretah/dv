@@ -1,0 +1,41 @@
+<div class="row row-cards">
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="card">
+      <table class="table card-table table-vcenter">
+        <tbody>
+          <% @areaing_histories.each do |areaing_history| %>
+          <tr>
+                        <td><%= areaing_history.article_id %></td>
+                        <td><%= areaing_history.article_area_id %></td>
+                        <td><%= areaing_history.revision_number %></td>
+                        <td><%= areaing_history.user_id %></td>
+                        <td><%= areaing_history.workflow_transition_id %></td>
+                        <td><%= areaing_history.areaing_id %></td>
+                        <td><%= link_to t(:show), areaing_history %></td>
+            <td><%= link_to t(:edit), edit_areaing_history_path(areaing_history) %></td>
+            <td><%= link_to t(:destroy), areaing_history, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

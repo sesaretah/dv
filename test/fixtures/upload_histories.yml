@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uploadable_type: MyString
+  uploadable_id: 1
+  token: MyString
+  attachment_type: MyString
+  revision_number: MyString
+  user_id: 1
+  workflow_transition_id: 1
+  speaking_id: 1
+
+two:
+  uploadable_type: MyString
+  uploadable_id: 1
+  token: MyString
+  attachment_type: MyString
+  revision_number: MyString
+  user_id: 1
+  workflow_transition_id: 1
+  speaking_id: 1

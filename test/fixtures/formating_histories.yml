@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  article_format_id: 1
+  article_id: 1
+  user_id: 1
+  revision_number: MyString
+  workflow_state_id: 1
+  formating_id: 1
+
+two:
+  article_format_id: 1
+  article_id: 1
+  user_id: 1
+  revision_number: MyString
+  workflow_state_id: 1
+  formating_id: 1

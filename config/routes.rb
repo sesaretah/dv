@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  resources :upload_histories
+  resources :speaking_histories
+  resources :areaing_histories
+  resources :originating_histories
+  resources :kinship_histories
+  resources :contribution_histories
+  resources :formating_histories
+  resources :typing_histories
+  resources :dating_histories
+  resources :tagging_histories
   resources :article_histories
   resources :workflow_transitions
   resources :assignments
@@ -46,6 +56,7 @@ Rails.application.routes.draw do
   match "/articles/workflow_transitions/:id" => "articles#workflow_transitions", :via => :get
   match "/articles/article_detail/:id" => "articles#article_detail", :via => :get
   match "/articles/article_logs/:id" => "articles#article_logs", :via => :get
+  match "/articles/compare/:id" => "articles#compare", :via => :get
 
 
 

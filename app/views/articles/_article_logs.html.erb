@@ -1,97 +1,269 @@
 <div class="card-body" id='article-show'>
   <div class='row'>
     <div class='col-md-12 col-lg-12'>
-      <div class="form-group">
-        <label  class="form-label" style='color: #7795c1;'><%=t :changes_in_title%></label>
-        <div id='first-title' style="display:none;"><% @last_title= @article.article_histories.last %><% if !@last_title.blank?%><%=raw @last_title.title%><%end%></div>
-        <div id='last-title' style="display:none;"><% @last_minus_title= @article.article_histories.order("id DESC").offset(1).first %><% if !@last_minus_title.blank?%><%=raw @last_minus_title.title%><%end%></div>
-        <pre id="display-title"></pre>
-        <script>
-        var firstTitle = $('#first-title').text(),
-        lastTitle = $('#last-title').text(),
-        color = '',
-        span = null;
-
-        var diff = JsDiff.diffWords(firstTitle, lastTitle),
-        display = document.getElementById('display-title'),
-        fragment = document.createDocumentFragment();
-
-        diff.forEach(function(part){
-          color = part.added ? 'green' :
-          part.removed ? 'red' : 'grey';
-          span = document.createElement('span');
-          span.style.color = color;
-          span.appendChild(document
-            .createTextNode(part.value));
-            fragment.appendChild(span);
-          });
-
-          display.appendChild(fragment);
-          </script>
-        </div>
-
-        <div class="form-group">
-          <label  class="form-label" style='color: #7795c1;'><%=t :changes_in_abstract%></label>
-          <div id='first-abstract' style="display:none;"><% @last_abstract = @article.article_histories.last %><% if !@last_abstract.blank?%><%=raw @last_abstract.abstract%><%end%></div>
-          <div id='last-abstract' style="display:none;"><% @last_minus_abstract= @article.article_histories.order("id DESC").offset(1).first %><% if !@last_minus_abstract.blank?%><%=raw @last_minus_abstract.abstract%><%end%></div>
-          <pre id="display-abstract"></pre>
-          <script>
-          var one = $('#first-abstract').text(),
-          other = $('#last-abstract').text(),
-          color = '',
-          span = null;
-
-          var diff = JsDiff.diffWords(one, other),
-          display = document.getElementById('display-abstract'),
-          fragment = document.createDocumentFragment();
-
-          diff.forEach(function(part){
-            // green for additions, red for deletions
-            // grey for common parts
-            color = part.added ? 'green' :
-            part.removed ? 'red' : 'grey';
-            span = document.createElement('span');
-            span.style.color = color;
-            span.appendChild(document
-              .createTextNode(part.value));
-              fragment.appendChild(span);
-            });
-
-            display.appendChild(fragment);
-            </script>
+      <%= form_tag "/articles/compare/#{@article.id}", method: :get, remote: true do%>
+      <div class='row'>
+        <div class='col-md-6 col-lg-6'>
+          <div class="form-group">
+            <div class="form-label"><%=t :compare_source%></div>
+            <% for workflow_transition in WorkflowTransition.where(article_id: @article.id)%>
+            <div class="custom-controls-stacked">
+              <label class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" name="source" value="<%= workflow_transition.revision_number%>" <%if defined?(result) && result[:sah].revision_number == workflow_transition.revision_number%>checked<%end%>>
+                <div class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'>
+                  <%= WorkflowState.find(workflow_transition.from_state_id).title%>
+                  <i class="fe fe-arrow-left" style="vertical-align:-2px;font-size:smaller"></i>
+                  <%= WorkflowState.find(workflow_transition.to_state_id).title%>
+                  <span class="tag" style="font-family: sans-serif !important;direction: ltr;">#<%= workflow_transition.revision_number%></span>
+                </div>
+              </label>
+            </div>
+            <%end%>
           </div>
-
-
-        <div class="form-group">
-          <label  class="form-label" style='color: #7795c1;'><%=t :changes_in_content%></label>
-          <div id='first-content' style="display:none;"><% @last_content= @article.article_histories.last %><% if !@last_content.blank?%><%=raw @last_content.content%><%end%></div>
-          <div id='last-content' style="display:none;"><% @last_minus_contnet= @article.article_histories.order("id DESC").offset(1).first %><% if !@last_minus_contnet.blank?%><%=raw @last_minus_contnet.content%><%end%></div>
-          <pre id="display-content"></pre>
-          <script>
-          var one = $('#first-content').text(),
-          other = $('#last-content').text(),
-          color = '',
-          span = null;
-
-          var diff = JsDiff.diffWords(one, other),
-          display = document.getElementById('display-content'),
-          fragment = document.createDocumentFragment();
-
-          diff.forEach(function(part){
-            // green for additions, red for deletions
-            // grey for common parts
-            color = part.added ? 'green' :
-            part.removed ? 'red' : 'grey';
-            span = document.createElement('span');
-            span.style.color = color;
-            span.appendChild(document
-              .createTextNode(part.value));
-              fragment.appendChild(span);
-            });
-
-            display.appendChild(fragment);
-            </script>
+        </div>
+        <div class='col-md-6 col-lg-6'>
+          <div class="form-group">
+            <div class="form-label"><%=t :compare_target%></div>
+            <% for workflow_transition in WorkflowTransition.where(article_id: @article.id)%>
+            <div class="custom-controls-stacked">
+              <label class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" name="target" value="<%= workflow_transition.revision_number%>"  <%if defined?(result) && result[:tah].revision_number == workflow_transition.revision_number%>checked<%end%>>
+                <div class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'>
+                  <%= WorkflowState.find(workflow_transition.from_state_id).title%>
+                  <i class="fe fe-arrow-left" style="vertical-align:-2px;font-size:smaller"></i>
+                  <%= WorkflowState.find(workflow_transition.to_state_id).title%>
+                  <span class="tag" style="font-family: sans-serif !important;direction: ltr;">#<%= workflow_transition.revision_number%></span>
+                </div>
+              </label>
+            </div>
+            <%end%>
           </div>
         </div>
       </div>
+      <div class='row'>
+        <div class='col-md-12 col-lg-12'>
+          <div class="text-right">
+            <button type="submit" class="btn btn-primary btn-sm"><%=t :compare%></button>
+          </div>
+        </div>
+      </div>
+      <%end%>
+      <%if defined?(result)%>
+      <div class='row'>
+        <div class='col-md-12 col-lg-12'>
+          <span  style='font-size: smaller;vertical-align: 4px;'><i class="fe fe-alert-triangle" style='vertical-align:-3px;'></i> <%=t :help%>: </span>
+          <span class="colorinput-color" style="background-color: grey; width: 0.6rem;height: 0.8rem;"></span>
+          <span style='font-size: smaller;vertical-align: 4px;'><%=t :not_changed%></span>
+          <span class="colorinput-color" style="background-color: green; width: 0.6rem;height: 0.8rem;"></span>
+          <span style='font-size: smaller;vertical-align: 4px; color: green;'><%=t :inserted%></span>
+          <span class="colorinput-color" style="background-color: red; width: 0.6rem;height: 0.8rem;"></span>
+          <span style='font-size: smaller;vertical-align: 4px; color:red;'><%=t :deleted%></span>
+        </div>
+      </div>
+      <hr class="mb-3 mt-2"/>
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :title%></label>
+        <div id='first-title' class='compare' style="display:none;"><% if !result[:sah].blank?%><%=raw result[:sah].title%><%end%></div>
+        <div id='last-title' style="display:none;"><% if !result[:tah].blank?%><%=raw result[:tah].title%><%end%></div>
+        <pre id="display-title"></pre>
+      </div>
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :abstract%></label>
+        <div id='first-abstract' class='compare' style="display:none;"><% if !result[:sah].blank?%><%=raw result[:sah].abstract%><%end%></div>
+        <div id='last-abstract' style="display:none;"><% if !result[:tah].blank?%><%=raw result[:tah].abstract%><%end%></div>
+        <pre id="display-abstract"></pre>
+      </div>
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :content%></label>
+        <div id='first-content' class='compare' style="display:none;"><% if !result[:sah].blank?%><%=raw result[:sah].content%><%end%></div>
+        <div id='last-content' style="display:none;"><% if !result[:tah].blank?%><%=raw result[:tah].content%><%end%></div>
+        <pre id="display-content"></pre>
+      </div>
+
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :url%></label>
+        <div id='first-url' class='compare' style="display:none;"><% if !result[:sah].blank?%><%=raw result[:sah].url%><%end%></div>
+        <div id='last-url' style="display:none;"><% if !result[:tah].blank?%><%=raw result[:tah].url%><%end%></div>
+        <pre id="display-url"></pre>
+      </div>
+
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :keywords%></label>
+        <% for keyword in result[:th][:remainder]%>
+        <span class='tag'><%= keyword.title%></span>
+        <%end%>
+        <% for keyword in result[:th][:new]%>
+        <span class='tag tag-green'><%= keyword.title%></span>
+        <%end%>
+        <% for keyword in result[:th][:deleted]%>
+        <span class='tag tag-red'><%= keyword.title%></span>
+        <%end%>
+      </div>
+
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :datings%></label>
+        <% for dating in result[:dh][:remainder]%>
+        <span class='tag'><%= dating.article_event.title%>:
+            <% @jalali = JalaliDate.to_jalali(dating.event_date)%>
+            <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
+        </span>
+        <%end%>
+        <% for dating in result[:dh][:new]%>
+        <span class='tag tag-green'>
+          <%= dating.article_event.title%>:
+              <% @jalali = JalaliDate.to_jalali(dating.event_date)%>
+              <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
+        </span>
+        <%end%>
+      </div>
+
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :attachments%></label>
+        <% for upload in result[:uh][:remainder]%>
+        <span class='tag'>
+            <%= link_to upload.attachment.url do%>
+            <i class="fe fe-download" style="vertical-align:middle;"></i> <%=t :download_file%>
+            <%end%>
+        </span>
+        <%end%>
+        <% for upload in result[:uh][:new]%>
+        <span class='tag tag-green'>
+          <%= link_to upload.attachment.url do%>
+          <i class="fe fe-download" style="vertical-align:middle;"></i> <%=t :download_file%>
+          <%end%>
+        </span>
+        <%end%>
+      </div>
+
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :article_type%></label>
+        <% for typing in result[:tyh][:remainder]%>
+        <span class='tag'>
+          <%= typing.article_type.title%>
+        </span>
+        <%end%>
+        <% for typing in result[:tyh][:new]%>
+        <span class='tag tag-green'>
+          <%= typing.article_type.title%>
+        </span>
+        <%end%>
+      </div>
+
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :language%></label>
+        <% for speaking in result[:sh][:remainder]%>
+        <span class='tag'>
+          <%= speaking.language.title%>
+        </span>
+        <%end%>
+        <% for speaking in result[:sh][:new]%>
+        <span class='tag tag-green'>
+          <%= speaking.language.title%>
+        </span>
+        <%end%>
+      </div>
+
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :article_format%></label>
+        <% for formating in result[:fh][:remainder]%>
+        <span class='tag'>
+          <%= formating.article_format.title%>
+        </span>
+        <%end%>
+        <% for formating in result[:fh][:new]%>
+        <span class='tag tag-green'>
+          <%= formating.article_format.title%>
+        </span>
+        <%end%>
+      </div>
+
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :contributors%></label>
+        <% for contribution in result[:ch][:remainder]%>
+        <span class='tag'>
+          <%=t :fullname%>: <%= contribution.profile.fullname%>,
+          <%=t :role%>: <%= contribution.role.title%>,
+          <%=t :duty%>: <%= contribution.duty.title%>
+        </span>
+        <%end%>
+        <% for contribution in result[:ch][:new]%>
+        <span class='tag tag-green'>
+          <%=t :fullname%>: <%= contribution.profile.fullname%>,
+          <%=t :role%>: <%= contribution.role.title%>,
+          <%=t :duty%>: <%= contribution.duty.title%>
+        </span>
+        <%end%>
+      </div>
+
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :contributors%></label>
+        <% for kinship in result[:kh][:remainder]%>
+        <span class='tag'>
+          <%=t :article_relation_type%>: <%= kinship.article_relation_type.title%>, <%=t :kin%>: <%= kinship.kin.title%>
+        </span>
+        <%end%>
+        <% for kinship in result[:kh][:new]%>
+        <span class='tag tag-green'>
+            <%=t :article_relation_type%>: <%= kinship.article_relation_type.title%>, <%=t :kin%>: <%= kinship.kin.title%>
+        </span>
+        <%end%>
+      </div>
+
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :article_source%></label>
+        <% for originating in result[:oh][:remainder]%>
+        <span class='tag'>
+          <%= originating.article_source.title%>
+        </span>
+        <%end%>
+        <% for originating in result[:oh][:new]%>
+        <span class='tag tag-green'>
+          <%= originating.article_source.title%>
+        </span>
+        <%end%>
+      </div>
+
+      <div class="form-group">
+        <label  class="form-label" style='color: #7795c1;'><%=t :article_area%></label>
+        <% for areaing in result[:ah][:remainder]%>
+        <span class='tag'>
+          <%= areaing.article_area.title%>
+        </span>
+        <%end%>
+        <% for areaing in result[:ah][:new]%>
+        <span class='tag tag-green'>
+          <%= areaing.article_area.title%>
+        </span>
+        <%end%>
+      </div>
+
     </div>
+  </div>
+  <script>
+  $( ".compare" ).each(function( index ) {
+    var divType =  $(this).attr('id').split("-")[1];
+    console.log(divType);
+    var first = $('#first-'+divType).text(),
+    last = $('#last-'+divType).text(),
+    color = '',
+    span = null;
+
+    var diff = JsDiff.diffWords(first, last),
+    display = document.getElementById('display-'+divType),
+    fragment = document.createDocumentFragment();
+
+    diff.forEach(function(part){
+      color = part.added ? 'green' :
+      part.removed ? 'red' : 'grey';
+      span = document.createElement('span');
+      span.style.color = color;
+      span.appendChild(document
+        .createTextNode(part.value));
+        fragment.appendChild(span);
+      });
+
+      display.appendChild(fragment);
+    });
+    </script>
+    <%end%>
+  </div>

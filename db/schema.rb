@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181029133346) do
+ActiveRecord::Schema.define(version: 20181031145409) do
+
+  create_table "areaing_histories", force: :cascade do |t|
+    t.integer  "article_id",             limit: 4
+    t.integer  "article_area_id",        limit: 4
+    t.string   "revision_number",        limit: 255
+    t.integer  "user_id",                limit: 4
+    t.integer  "workflow_transition_id", limit: 4
+    t.integer  "areaing_id",             limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
 
   create_table "areaings", force: :cascade do |t|
     t.integer  "article_area_id", limit: 4
@@ -42,16 +53,17 @@ ActiveRecord::Schema.define(version: 20181029133346) do
   end
 
   create_table "article_histories", force: :cascade do |t|
-    t.string   "title",             limit: 255
-    t.text     "abstract",          limit: 65535
-    t.text     "content",           limit: 65535
-    t.string   "url",               limit: 255
-    t.text     "document_contents", limit: 65535
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "revision_number",   limit: 255
-    t.integer  "user_id",           limit: 4
-    t.integer  "article_id",        limit: 4
+    t.string   "title",                  limit: 255
+    t.text     "abstract",               limit: 65535
+    t.text     "content",                limit: 65535
+    t.string   "url",                    limit: 255
+    t.text     "document_contents",      limit: 65535
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "revision_number",        limit: 255
+    t.integer  "user_id",                limit: 4
+    t.integer  "article_id",             limit: 4
+    t.integer  "workflow_transition_id", limit: 4
   end
 
   create_table "article_relation_types", force: :cascade do |t|
@@ -94,6 +106,19 @@ ActiveRecord::Schema.define(version: 20181029133346) do
     t.datetime "updated_at",            null: false
   end
 
+  create_table "contribution_histories", force: :cascade do |t|
+    t.integer  "article_id",             limit: 4
+    t.integer  "role_id",                limit: 4
+    t.integer  "duty_id",                limit: 4
+    t.integer  "profile_id",             limit: 4
+    t.integer  "revision_number",        limit: 4
+    t.integer  "user_id",                limit: 4
+    t.integer  "workflow_transition_id", limit: 4
+    t.integer  "contribution_id",        limit: 4
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
   create_table "contributions", force: :cascade do |t|
     t.integer  "article_id", limit: 4
     t.integer  "role_id",    limit: 4
@@ -101,6 +126,18 @@ ActiveRecord::Schema.define(version: 20181029133346) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "profile_id", limit: 4
+  end
+
+  create_table "dating_histories", force: :cascade do |t|
+    t.integer  "article_id",             limit: 4
+    t.integer  "article_event_id",       limit: 4
+    t.date     "event_date"
+    t.string   "revision_number",        limit: 255
+    t.integer  "user_id",                limit: 4
+    t.integer  "workflow_transition_id", limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "dating_id",              limit: 4
   end
 
   create_table "datings", force: :cascade do |t|
@@ -118,6 +155,18 @@ ActiveRecord::Schema.define(version: 20181029133346) do
     t.datetime "updated_at",                null: false
   end
 
+  create_table "formating_histories", force: :cascade do |t|
+    t.integer  "article_format_id",      limit: 4
+    t.integer  "article_id",             limit: 4
+    t.integer  "user_id",                limit: 4
+    t.string   "revision_number",        limit: 255
+    t.integer  "workflow_state_id",      limit: 4
+    t.integer  "formating_id",           limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "workflow_transition_id", limit: 4
+  end
+
   create_table "formatings", force: :cascade do |t|
     t.integer  "article_format_id", limit: 4
     t.integer  "article_id",        limit: 4
@@ -130,6 +179,18 @@ ActiveRecord::Schema.define(version: 20181029133346) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "kinship_histories", force: :cascade do |t|
+    t.integer  "user_id",                  limit: 4
+    t.integer  "kin_id",                   limit: 4
+    t.integer  "article_id",               limit: 4
+    t.integer  "article_relation_type_id", limit: 4
+    t.string   "revision_number",          limit: 255
+    t.integer  "workflow_transition_id",   limit: 4
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "kinship_id",               limit: 4
   end
 
   create_table "kinships", force: :cascade do |t|
@@ -146,6 +207,17 @@ ActiveRecord::Schema.define(version: 20181029133346) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "originating_histories", force: :cascade do |t|
+    t.integer  "article_id",             limit: 4
+    t.integer  "article_source_id",      limit: 4
+    t.integer  "originating_id",         limit: 4
+    t.string   "revision_number",        limit: 255
+    t.integer  "user_id",                limit: 4
+    t.integer  "workflow_transition_id", limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "originatings", force: :cascade do |t|
@@ -173,11 +245,36 @@ ActiveRecord::Schema.define(version: 20181029133346) do
     t.string   "abr",         limit: 255
   end
 
+  create_table "speaking_histories", force: :cascade do |t|
+    t.integer  "article_id",             limit: 4
+    t.integer  "language_id",            limit: 4
+    t.string   "revision_number",        limit: 255
+    t.integer  "user_id",                limit: 4
+    t.integer  "workflow_transition_id", limit: 4
+    t.integer  "speaking_id",            limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
   create_table "speakings", force: :cascade do |t|
     t.integer  "language_id", limit: 4
     t.integer  "article_id",  limit: 4
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+  end
+
+  create_table "tagging_histories", force: :cascade do |t|
+    t.integer  "taggable_id",            limit: 4
+    t.string   "taggable_type",          limit: 255
+    t.integer  "target_id",              limit: 4
+    t.string   "target_type",            limit: 255
+    t.integer  "user_id",                limit: 4
+    t.string   "revision_number",        limit: 255
+    t.integer  "article_id",             limit: 4
+    t.integer  "workflow_transition_id", limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "tagging_id",             limit: 4
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -205,11 +302,40 @@ ActiveRecord::Schema.define(version: 20181029133346) do
     t.string   "content",       limit: 255
   end
 
+  create_table "typing_histories", force: :cascade do |t|
+    t.integer  "article_type_id",        limit: 4
+    t.integer  "article_id",             limit: 4
+    t.integer  "typing_id",              limit: 4
+    t.string   "revision_number",        limit: 255
+    t.integer  "user_id",                limit: 4
+    t.integer  "workflow_transition_id", limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
   create_table "typings", force: :cascade do |t|
     t.integer  "article_type_id", limit: 4
     t.integer  "article_id",      limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "upload_histories", force: :cascade do |t|
+    t.string   "uploadable_type",         limit: 255
+    t.integer  "uploadable_id",           limit: 4
+    t.string   "token",                   limit: 255
+    t.string   "attachment_type",         limit: 255
+    t.string   "revision_number",         limit: 255
+    t.integer  "user_id",                 limit: 4
+    t.integer  "workflow_transition_id",  limit: 4
+    t.integer  "speaking_id",             limit: 4
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "attachment_file_name",    limit: 255
+    t.string   "attachment_content_type", limit: 255
+    t.integer  "attachment_file_size",    limit: 8
+    t.datetime "attachment_updated_at"
+    t.integer  "upload_id",               limit: 4
   end
 
   create_table "uploads", force: :cascade do |t|
@@ -264,6 +390,7 @@ ActiveRecord::Schema.define(version: 20181029133346) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "article_id",      limit: 4
+    t.string   "revision_number", limit: 255
   end
 
   create_table "workflows", force: :cascade do |t|

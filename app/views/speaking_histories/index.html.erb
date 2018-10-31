@@ -1,0 +1,41 @@
+<div class="row row-cards">
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="card">
+      <table class="table card-table table-vcenter">
+        <tbody>
+          <% @speaking_histories.each do |speaking_history| %>
+          <tr>
+                        <td><%= speaking_history.article_id %></td>
+                        <td><%= speaking_history.language_id %></td>
+                        <td><%= speaking_history.revision_number %></td>
+                        <td><%= speaking_history.user_id %></td>
+                        <td><%= speaking_history.workflow_transition_id %></td>
+                        <td><%= speaking_history.speaking_id %></td>
+                        <td><%= link_to t(:show), speaking_history %></td>
+            <td><%= link_to t(:edit), edit_speaking_history_path(speaking_history) %></td>
+            <td><%= link_to t(:destroy), speaking_history, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
