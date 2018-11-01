@@ -25,7 +25,7 @@ class TitleTypesController < ApplicationController
   # POST /title_types.json
   def create
     @title_type = TitleType.new(title_type_params)
-
+    @title_type.user_id = current_user.id
     respond_to do |format|
       if @title_type.save
         format.html { redirect_to @title_type, notice: 'Title type was successfully created.' }
@@ -40,6 +40,7 @@ class TitleTypesController < ApplicationController
   # PATCH/PUT /title_types/1
   # PATCH/PUT /title_types/1.json
   def update
+    @title_type.user_id = current_user.id
     respond_to do |format|
       if @title_type.update(title_type_params)
         format.html { redirect_to @title_type, notice: 'Title type was successfully updated.' }

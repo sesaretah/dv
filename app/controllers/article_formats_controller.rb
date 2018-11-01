@@ -25,7 +25,7 @@ class ArticleFormatsController < ApplicationController
   # POST /article_formats.json
   def create
     @article_format = ArticleFormat.new(article_format_params)
-
+    @article_format.user_id = current_user.id
     respond_to do |format|
       if @article_format.save
         format.html { redirect_to @article_format, notice: 'Article format was successfully created.' }
@@ -40,6 +40,7 @@ class ArticleFormatsController < ApplicationController
   # PATCH/PUT /article_formats/1
   # PATCH/PUT /article_formats/1.json
   def update
+    @article_format.user_id = current_user.id
     respond_to do |format|
       if @article_format.update(article_format_params)
         format.html { redirect_to @article_format, notice: 'Article format was successfully updated.' }

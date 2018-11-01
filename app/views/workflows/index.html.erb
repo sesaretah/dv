@@ -4,14 +4,13 @@
       <div class="col-md-6 col-lg-12">
         <div class="card">
           <div class="card-body">
-
+            <div class="text-center">
+              <%= link_to  new_workflow_url, class: "btn btn-lime  btn-sm" do%>
+              <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
+              <%end%>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-12">
-        <div class="card">
-          <div class="card-body">
-
+          <div class="card-footer">
           </div>
         </div>
       </div>
@@ -19,14 +18,62 @@
   </div>
   <div class="col-lg-9">
     <div class="card">
+      <div class="card-header">
+        <%=t :workflows%>
+      </div>
       <table class="table card-table table-vcenter">
+        <thead>
+          <tr>
+            <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
+            <th><%=t :title%></th>
+            <th><%=t :articles %></th>
+            <th><%=t :number_of_states %></th>
+            <th><%=t :last_editor %></th>
+            <th><%=t :last_edit %></th>
+          </tr>
+        </thead>
         <tbody>
           <% @workflows.each do |workflow| %>
           <tr>
-                        <td><%= workflow.title %></td>
-                        <td><%= link_to t(:show), workflow %></td>
-            <td><%= link_to t(:edit), edit_workflow_path(workflow) %></td>
-            <td><%= link_to t(:destroy), workflow, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td class="text-center">
+              <div class="item-action dropdown">
+                <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a href="/workflows/<%= workflow.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
+                  <a href="/workflows/<%= workflow.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
+                  <%= link_to workflow, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
+                  <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
+                  <%end%>
+                </div>
+              </div>
+            </td>
+            <td><%= workflow.title %></td>
+            <td>
+              <div class="tag tag-dark" style='vertical-align: 6px;'>
+                <%= workflow.articles.count %>
+                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
+              </div>
+            </td>
+            <td>
+              <div class="tag tag-dark" style='vertical-align: 6px;'>
+                <%= workflow.workflow_states.count %>
+                <span class="tag-addon tag-danger"><i class="fe fe-activity" style="vertical-align: -3px;"></i></span>
+              </div>
+            </td>
+            <td>
+              <span class="tag" style='vertical-align: -3px;'>
+                <span class="tag-avatar avatar" style="background-image: url('<%= workflow.user.profile.avatar(:tiny)%>')"></span>
+                <%= truncate(workflow.user.profile.fullname, length: 15)%>
+              </span>
+            </td>
+            <td>
+              <small class="text-muted">
+                <span>
+                  <% @jalali = JalaliDate.to_jalali(workflow.updated_at)%>
+                  <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
+                </span>
+              </small>
+            </td>
           </tr>
           <% end %>
         </tbody>

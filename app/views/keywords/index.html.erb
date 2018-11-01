@@ -18,15 +18,55 @@
   </div>
   <div class="col-lg-9">
     <div class="card">
+      <div class="card-header">
+        <%=t :keywords%>
+      </div>
       <table class="table card-table table-vcenter">
+        <thead>
+          <tr>
+            <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
+            <th><%=t :title%></th>
+            <th><%=t :articles %></th>
+            <th><%=t :last_editor %></th>
+            <th><%=t :last_edit %></th>
+          </tr>
+        </thead>
         <tbody>
           <% @keywords.each do |keyword| %>
           <tr>
+            <td class="text-center">
+              <div class="item-action dropdown">
+                <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a href="/keywords/<%= keyword.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
+                  <a href="/keywords/<%= keyword.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
+                  <%= link_to keyword, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
+                  <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
+                  <%end%>
+                </div>
+              </div>
+            </td>
             <td><%= keyword.title %></td>
-            <td><%= keyword.description %></td>
-            <td><%= link_to t(:show), keyword %></td>
-            <td><%= link_to t(:edit), edit_keyword_path(keyword) %></td>
-            <td><%= link_to t(:destroy), keyword, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td>
+              <div class="tag tag-dark" style='vertical-align: 6px;'>
+                <%= Tagging.where(taggable_type: 'Article', target_type: 'Keyword', target_id: keyword.id).count %>
+                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
+              </div>
+            </td>
+            <td>
+              <span class="tag" style='vertical-align: -3px;'>
+                <span class="tag-avatar avatar" style="background-image: url('<%= keyword.user.profile.avatar(:tiny)%>')"></span>
+                <%= truncate(keyword.user.profile.fullname, length: 15)%>
+              </span>
+            </td>
+            <td>
+              <small class="text-muted">
+                <span>
+                  <% @jalali = JalaliDate.to_jalali(keyword.updated_at)%>
+                  <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
+                </span>
+              </small>
+            </td>
           </tr>
           <% end %>
         </tbody>

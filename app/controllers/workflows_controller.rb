@@ -27,6 +27,7 @@ class WorkflowsController < ApplicationController
   # POST /workflows.json
   def create
     @workflow = Workflow.new(workflow_params)
+    @workflow.user_id = current_user.id
     @nodes = JSON.parse params[:workflow][:nodes]
     @trimed_nodes = []
     for node in @nodes
@@ -57,6 +58,7 @@ class WorkflowsController < ApplicationController
   # PATCH/PUT /workflows/1
   # PATCH/PUT /workflows/1.json
   def update
+    @workflow.user_id = current_user.id
     @nodes = JSON.parse params[:workflow][:nodes]
     @trimed_nodes = []
     for node in @nodes

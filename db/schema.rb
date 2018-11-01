@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181031145409) do
+ActiveRecord::Schema.define(version: 20181101115344) do
 
   create_table "areaing_histories", force: :cascade do |t|
     t.integer  "article_id",             limit: 4
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20181031145409) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id",     limit: 4
   end
 
   create_table "article_events", force: :cascade do |t|
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 20181031145409) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id",     limit: 4
   end
 
   create_table "article_formats", force: :cascade do |t|
@@ -50,6 +52,7 @@ ActiveRecord::Schema.define(version: 20181031145409) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id",     limit: 4
   end
 
   create_table "article_histories", force: :cascade do |t|
@@ -71,6 +74,7 @@ ActiveRecord::Schema.define(version: 20181031145409) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id",     limit: 4
   end
 
   create_table "article_sources", force: :cascade do |t|
@@ -78,6 +82,7 @@ ActiveRecord::Schema.define(version: 20181031145409) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id",     limit: 4
   end
 
   create_table "article_types", force: :cascade do |t|
@@ -85,6 +90,7 @@ ActiveRecord::Schema.define(version: 20181031145409) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id",     limit: 4
   end
 
   create_table "articles", force: :cascade do |t|
@@ -153,6 +159,7 @@ ActiveRecord::Schema.define(version: 20181031145409) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id",     limit: 4
   end
 
   create_table "formating_histories", force: :cascade do |t|
@@ -179,6 +186,7 @@ ActiveRecord::Schema.define(version: 20181031145409) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id",     limit: 4
   end
 
   create_table "kinship_histories", force: :cascade do |t|
@@ -207,6 +215,7 @@ ActiveRecord::Schema.define(version: 20181031145409) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id",     limit: 4
   end
 
   create_table "originating_histories", force: :cascade do |t|
@@ -228,13 +237,17 @@ ActiveRecord::Schema.define(version: 20181031145409) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.string   "name",             limit: 255
-    t.string   "surename",         limit: 255
-    t.integer  "user_id",          limit: 4
-    t.string   "phone_number",     limit: 255
-    t.string   "cellphone_number", limit: 255
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.string   "name",                limit: 255
+    t.string   "surename",            limit: 255
+    t.integer  "user_id",             limit: 4
+    t.string   "phone_number",        limit: 255
+    t.string   "cellphone_number",    limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
+    t.integer  "avatar_file_size",    limit: 8
+    t.datetime "avatar_updated_at"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -243,6 +256,7 @@ ActiveRecord::Schema.define(version: 20181031145409) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.string   "abr",         limit: 255
+    t.integer  "user_id",     limit: 4
   end
 
   create_table "speaking_histories", force: :cascade do |t|
@@ -291,6 +305,7 @@ ActiveRecord::Schema.define(version: 20181031145409) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id",     limit: 4
   end
 
   create_table "titlings", force: :cascade do |t|

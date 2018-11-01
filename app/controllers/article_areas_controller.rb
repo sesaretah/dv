@@ -34,7 +34,7 @@ class ArticleAreasController < ApplicationController
   # POST /article_areas.json
   def create
     @article_area = ArticleArea.new(article_area_params)
-
+    @article_area.user_id = current_user.id
     respond_to do |format|
       if @article_area.save
         format.html { redirect_to @article_area, notice: 'Article area was successfully created.' }
@@ -49,6 +49,7 @@ class ArticleAreasController < ApplicationController
   # PATCH/PUT /article_areas/1
   # PATCH/PUT /article_areas/1.json
   def update
+    @article_area.user_id = current_user.id
     respond_to do |format|
       if @article_area.update(article_area_params)
         format.html { redirect_to @article_area, notice: 'Article area was successfully updated.' }

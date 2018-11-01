@@ -5,6 +5,9 @@ class HomeController < ApplicationController
   end
 
   def index
+    @role = Role.find(current_user.current_role_id)
+    @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
+    @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids)
   end
 
   def advanced_search

@@ -444,7 +444,6 @@ $( ".article-progress" ).each(function( index ) {
     var d = graphlib.alg.dijkstra(g, current_node);
     var m = graphlib.alg.dijkstra(g, start_node);
     var root_to_current = m[current_node]['distance'] + 1
-    console.log(root_to_current);
     var max = 0;
     for (var i = 0, len = Object.keys(d).length; i < len; i++) {
       var distance =  d[Object.keys(d)[i]]['distance']
@@ -456,7 +455,12 @@ $( ".article-progress" ).each(function( index ) {
       {
         var percent = (root_to_current/(root_to_current  + max)) * 100;
         if ( percent > 2){
-          $('#pb_'+id).attr('style', "width:" + percent +"%;");
+          if (percent == 100){
+            $('#pb_'+id).attr('style', "width:100%;");
+            $('#pb_'+id).removeClass( "bg-yellow" ).addClass( "bg-green" );
+          } else {
+            $('#pb_'+id).attr('style', "width:" + percent +"%;");
+          }
         } else {
           $('#pb_'+id).attr('style', "width:2%;");
           $('#pb_'+id).removeClass( "bg-yellow" ).addClass( "bg-red" );

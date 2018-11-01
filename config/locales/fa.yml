@@ -440,6 +440,14 @@ fa:
   compare: 'مقایسه'
   help: 'راهنما '
   url: 'پیوند(url)'
+  dashboard: 'میزکار '
+  messages: 'پیام‌ها '
+  previous_workflow_actions: 'اسناد قبلی '
+  came_from: 'رسیده از '
+  last_editor: 'توسط'
+  last_edit: 'آخرین ویرایش'
+  titles_and_workflows: 'عناوین و گردش کار'
+  number_of_states: 'تعداد مراحل'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

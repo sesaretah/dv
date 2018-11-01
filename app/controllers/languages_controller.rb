@@ -26,7 +26,7 @@ class LanguagesController < ApplicationController
   # POST /languages.json
   def create
     @language = Language.new(language_params)
-
+    @language.user_id = current_user.id
     respond_to do |format|
       if @language.save
         format.html { redirect_to @language, notice: 'Language was successfully created.' }
@@ -41,6 +41,7 @@ class LanguagesController < ApplicationController
   # PATCH/PUT /languages/1
   # PATCH/PUT /languages/1.json
   def update
+    @language.user_id = current_user.id
     respond_to do |format|
       if @language.update(language_params)
         format.html { redirect_to @language, notice: 'Language was successfully updated.' }

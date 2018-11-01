@@ -35,7 +35,7 @@ class RolesController < ApplicationController
   # POST /roles.json
   def create
     @role = Role.new(role_params)
-
+    @role.user_id = current_user.id
     respond_to do |format|
       if @role.save
         format.html { redirect_to @role, notice: 'Role was successfully created.' }
@@ -50,6 +50,7 @@ class RolesController < ApplicationController
   # PATCH/PUT /roles/1
   # PATCH/PUT /roles/1.json
   def update
+    @role.user_id = current_user.id
     respond_to do |format|
       if @role.update(role_params)
         format.html { redirect_to @role, notice: 'Role was successfully updated.' }

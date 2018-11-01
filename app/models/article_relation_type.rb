@@ -3,5 +3,5 @@ class ArticleRelationType < ActiveRecord::Base
 
   has_many :articles, :through => :kinships
   has_many :kinships, dependent: :destroy
-
+  belongs_to :user
 end

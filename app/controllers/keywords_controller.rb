@@ -35,7 +35,7 @@ class KeywordsController < ApplicationController
   # POST /keywords.json
   def create
     @keyword = Keyword.new(keyword_params)
-
+    @keyword.user_id = current_user.id
     respond_to do |format|
       if @keyword.save
         format.html { redirect_to @keyword, notice: 'Keyword was successfully created.' }
@@ -50,6 +50,7 @@ class KeywordsController < ApplicationController
   # PATCH/PUT /keywords/1
   # PATCH/PUT /keywords/1.json
   def update
+    @keyword.user_id = current_user.id
     respond_to do |format|
       if @keyword.update(keyword_params)
         format.html { redirect_to @keyword, notice: 'Keyword was successfully updated.' }

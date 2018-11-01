@@ -25,7 +25,7 @@ class ArticleTypesController < ApplicationController
   # POST /article_types.json
   def create
     @article_type = ArticleType.new(article_type_params)
-
+    @article_type.user_id = current_user.id
     respond_to do |format|
       if @article_type.save
         format.html { redirect_to @article_type, notice: 'Article type was successfully created.' }
@@ -40,6 +40,7 @@ class ArticleTypesController < ApplicationController
   # PATCH/PUT /article_types/1
   # PATCH/PUT /article_types/1.json
   def update
+    @article_type.user_id = current_user.id
     respond_to do |format|
       if @article_type.update(article_type_params)
         format.html { redirect_to @article_type, notice: 'Article type was successfully updated.' }

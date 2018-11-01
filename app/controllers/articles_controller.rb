@@ -56,16 +56,16 @@ class ArticlesController < ApplicationController
   def compare
     @source_article_history = ArticleHistory.where(revision_number: params[:source]).first
     @target_article_history = ArticleHistory.where(revision_number: params[:target]).first
-    @tagging_histories = in_model_compare('TaggingHistory', 'Keyword' ,params[:source], params[:target], 'target_id')
-    @dating_histories = in_model_compare('DatingHistory', 'Dating',params[:source], params[:target], 'dating_id')
-    @typing_histories = in_model_compare('TypingHistory', 'Typing',params[:source], params[:target], 'typing_id')
-    @formating_histories = in_model_compare('FormatingHistory', 'Formating',params[:source], params[:target], 'formating_id')
-    @contribution_histories = in_model_compare('ContributionHistory', 'Contribution',params[:source], params[:target], 'contribution_id')
-    @kinship_histories = in_model_compare('KinshipHistory', 'Kinship',params[:source], params[:target], 'kinship_id')
-    @originating_histories = in_model_compare('OriginatingHistory', 'Originating',params[:source], params[:target], 'originating_id')
-    @areaing_histories = in_model_compare('AreaingHistory', 'Areaing',params[:source], params[:target], 'areaing_id')
-    @speaking_histories = in_model_compare('SpeakingHistory', 'Speaking',params[:source], params[:target], 'speaking_id')
-    @upload_histories = in_model_compare('UploadHistory','Upload',params[:source], params[:target], 'upload_id')
+    @tagging_histories = in_model_compare('TaggingHistory','Keyword',params[:source], params[:target],'target_id')
+    @dating_histories = in_model_compare('DatingHistory','Dating',params[:source], params[:target],'dating_id')
+    @typing_histories = in_model_compare('TypingHistory','Typing',params[:source], params[:target],'typing_id')
+    @formating_histories = in_model_compare('FormatingHistory','Formating',params[:source], params[:target],'formating_id')
+    @contribution_histories = in_model_compare('ContributionHistory','Contribution',params[:source], params[:target],'contribution_id')
+    @kinship_histories = in_model_compare('KinshipHistory','Kinship',params[:source], params[:target],'kinship_id')
+    @originating_histories = in_model_compare('OriginatingHistory','Originating',params[:source], params[:target],'originating_id')
+    @areaing_histories = in_model_compare('AreaingHistory','Areaing',params[:source], params[:target],'areaing_id')
+    @speaking_histories = in_model_compare('SpeakingHistory','Speaking',params[:source], params[:target],'speaking_id')
+    @upload_histories = in_model_compare('UploadHistory','Upload',params[:source], params[:target],'upload_id')
     @result = {sah: @source_article_history, tah: @target_article_history, th: @tagging_histories, dh: @dating_histories, tyh: @typing_histories, fh: @formating_histories, ch: @contribution_histories, kh: @kinship_histories, oh: @originating_histories, ah: @areaing_histories, sh: @speaking_histories, uh: @upload_histories}
   end
 
@@ -76,7 +76,6 @@ class ArticlesController < ApplicationController
     @revision_number = SecureRandom.hex(4)
     if @article.workflow_state.workflow.is_next_node(@article.workflow_state.node_id, @next_workflow_state.node_id) && @article.workflow_state.role_id == current_user.current_role_id
       @workflow_transition = WorkflowTransition.create(workflow_id: @article.workflow_state.workflow.id, from_state_id: @article.workflow_state.id, to_state_id: @next_workflow_state.id, article_id: @article.id, message: params[:message], user_id: current_user.id, role_id: current_user.current_role_id, transition_type: 1, revision_number: @revision_number)
-      ArticleHistory.create(article_id: @article.id, title: @article.title, abstract: @article.abstract, content: @article.content, url: @article.url, user_id: current_user.id, revision_number: @revision_number , workflow_transition_id: @workflow_transition.id)
       populate_dependencies(@article, @workflow_transition, @revision_number)
       @article.workflow_state_id = params[:workflow_state]
       @article.save
@@ -90,7 +89,6 @@ class ArticlesController < ApplicationController
     @revision_number = SecureRandom.hex(4)
     if @article.workflow_state.workflow.is_previous_node(@article.workflow_state.node_id, @previous_workflow_state.node_id) && @article.workflow_state.role_id == current_user.current_role_id
       @workflow_transition = WorkflowTransition.create(workflow_id: @article.workflow_state.workflow.id, from_state_id: @article.workflow_state.id, to_state_id: @previous_workflow_state.id, article_id: @article.id, message: params[:message], user_id: current_user.id, role_id: current_user.current_role_id, transition_type: 2, revision_number: @revision_number)
-      ArticleHistory.create(article_id: @article.id, title: @article.title, abstract: @article.abstract, content: @article.content, url: @article.url, user_id: current_user.id, revision_number: @revision_number , workflow_transition_id: @workflow_transition.id)
       populate_dependencies(@article, @workflow_transition, @revision_number)
       @article.workflow_state_id = params[:workflow_state]
       @article.save
@@ -156,11 +154,12 @@ class ArticlesController < ApplicationController
     params.each do |param|
     if param[0].include?('_title_type')
         @h = param[0].split('_')[0]
-        @title_type = TitleType.find_by_id(param[1].to_i)
-        Titling.create(title_type_id: @title_type.id, article_id: @article.id, content: params["#{@h}_other_title"] )
+        if !params["#{@h}_other_title"].blank?
+          @title_type = TitleType.find_by_id(param[1].to_i)
+          Titling.create(title_type_id: @title_type.id, article_id: @article.id, content: params["#{@h}_other_title"] )
+        end
       end
     end
-
     respond_to do |format|
       format.html { redirect_to '/articles/article_descriptors/'+@article.id.to_s , notice: :article_is_created }
     end
@@ -173,6 +172,18 @@ class ArticlesController < ApplicationController
       if @article.update(article_params)
         if !params[:keyword].blank?
           extract_keywords(@article, params[:keyword])
+        end
+        for titling in @article.titlings
+          titling.destroy
+        end
+        params.each do |param|
+        if param[0].include?('_title_type')
+            @h = param[0].split('_')[0]
+            if !params["#{@h}_other_title"].blank?
+              @title_type = TitleType.find_by_id(param[1].to_i)
+              Titling.create(title_type_id: @title_type.id, article_id: @article.id, content: params["#{@h}_other_title"] )
+            end
+          end
         end
         if !params[:keyword].blank?
           format.html { redirect_to '/articles/article_related_dates/'+@article.id.to_s, notice: :article_is_updated }
@@ -214,6 +225,7 @@ class ArticlesController < ApplicationController
   end
 
   def populate_dependencies(article, workflow_transition, revision_number)
+    ArticleHistory.create(article_id: article.id, title: article.title, abstract: article.abstract, content: article.content, url: article.url, user_id: current_user.id, revision_number: revision_number , workflow_transition_id: workflow_transition.id)
     for tagging in Tagging.where(taggable_type: 'Article', taggable_id: article.id)
       TaggingHistory.create(tagging_id: tagging.id, taggable_type: 'Article', taggable_id: article.id, target_id: tagging.target_id, target_type: tagging.target_type, article_id: article.id, user_id: current_user.id, revision_number: revision_number , workflow_transition_id: workflow_transition.id)
     end

@@ -34,7 +34,7 @@ class ArticleSourcesController < ApplicationController
   # POST /article_sources.json
   def create
     @article_source = ArticleSource.new(article_source_params)
-
+    @article_source.user_id = current_user.id
     respond_to do |format|
       if @article_source.save
         format.html { redirect_to @article_source, notice: 'Article source was successfully created.' }
@@ -49,6 +49,7 @@ class ArticleSourcesController < ApplicationController
   # PATCH/PUT /article_sources/1
   # PATCH/PUT /article_sources/1.json
   def update
+    @article_source.user_id = current_user.id
     respond_to do |format|
       if @article_source.update(article_source_params)
         format.html { redirect_to @article_source, notice: 'Article source was successfully updated.' }

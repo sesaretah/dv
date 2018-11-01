@@ -35,7 +35,7 @@ class ArticleRelationTypesController < ApplicationController
   # POST /article_relation_types.json
   def create
     @article_relation_type = ArticleRelationType.new(article_relation_type_params)
-
+    @article_relation_type.user_id = current_user.id
     respond_to do |format|
       if @article_relation_type.save
         format.html { redirect_to @article_relation_type, notice: 'Article relation type was successfully created.' }
@@ -50,6 +50,7 @@ class ArticleRelationTypesController < ApplicationController
   # PATCH/PUT /article_relation_types/1
   # PATCH/PUT /article_relation_types/1.json
   def update
+    @article_relation_type.user_id = current_user.id 
     respond_to do |format|
       if @article_relation_type.update(article_relation_type_params)
         format.html { redirect_to @article_relation_type, notice: 'Article relation type was successfully updated.' }

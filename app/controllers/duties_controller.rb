@@ -36,7 +36,7 @@ class DutiesController < ApplicationController
   # POST /duties.json
   def create
     @duty = Duty.new(duty_params)
-
+    @duty.user_id = current_user.id
     respond_to do |format|
       if @duty.save
         format.html { redirect_to @duty, notice: 'Duty was successfully created.' }
@@ -51,6 +51,7 @@ class DutiesController < ApplicationController
   # PATCH/PUT /duties/1
   # PATCH/PUT /duties/1.json
   def update
+    @duty.user_id = current_user.id
     respond_to do |format|
       if @duty.update(duty_params)
         format.html { redirect_to @duty, notice: 'Duty was successfully updated.' }

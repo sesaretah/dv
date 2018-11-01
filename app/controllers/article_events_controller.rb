@@ -25,7 +25,7 @@ class ArticleEventsController < ApplicationController
   # POST /article_events.json
   def create
     @article_event = ArticleEvent.new(article_event_params)
-
+    @article_event.user_id = current_user.id
     respond_to do |format|
       if @article_event.save
         format.html { redirect_to @article_event, notice: 'Article event was successfully created.' }
@@ -40,6 +40,7 @@ class ArticleEventsController < ApplicationController
   # PATCH/PUT /article_events/1
   # PATCH/PUT /article_events/1.json
   def update
+    @article_event.user_id = current_user.id
     respond_to do |format|
       if @article_event.update(article_event_params)
         format.html { redirect_to @article_event, notice: 'Article event was successfully updated.' }

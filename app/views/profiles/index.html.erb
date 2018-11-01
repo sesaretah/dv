@@ -6,7 +6,7 @@
           <div class="card-body">
             <div class="text-center">
               <%= link_to  new_profile_url, class: "btn btn-lime  btn-sm" do%>
-                <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
+              <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
               <%end%>
             </div>
           </div>
@@ -18,22 +18,27 @@
   </div>
   <div class="col-lg-9">
     <div class="card">
+      <div class="card-header">
+        <%=t :profiles%>
+      </div>
       <table class="table card-table table-vcenter">
         <tbody>
           <% @profiles.each do |profile| %>
           <tr>
-                        <td><%= profile.name %></td>
-                        <td><%= profile.surename %></td>
-                        <td><%= profile.user_id %></td>
-                        <td><%= profile.phone_number %></td>
-                        <td><%= profile.cellphone_number %></td>
-                        <td><%= link_to t(:show), profile %></td>
+            <td><%= profile.name %></td>
+            <td><%= profile.surename %></td>
+            <td><%= profile.user_id %></td>
+            <td><%= profile.phone_number %></td>
+            <td><%= profile.cellphone_number %></td>
+            <td><%= link_to t(:show), profile %></td>
             <td><%= link_to t(:edit), edit_profile_path(profile) %></td>
             <td><%= link_to t(:destroy), profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
           <% end %>
         </tbody>
       </table>
+      <div class="card-footer">
+      </div>
     </div>
   </div>
 </div>

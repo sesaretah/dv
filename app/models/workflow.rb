@@ -1,6 +1,8 @@
 class Workflow < ActiveRecord::Base
   has_many :workflow_states
-
+  has_many :articles, :through => :workflow_states
+  has_many :workflow_states, dependent: :destroy
+  belongs_to :user
   def next_nodes(current_node_id)
     @nodes = JSON.parse self.nodes
     @edges = JSON.parse self.edges

@@ -1,7 +1,7 @@
 <%= render partial: 'articles/progress_bar', locals: {article: @article, active: ['titles']}%>
 <%= form_for(@article, html: {class: 'card'}) do |f| %>
 <div class="card-header">
-  <h3 class="card-title"><%=t :titles %></h3>
+  <h3 class="card-title"><%=t :titles_and_workflows %></h3>
 </div>
 <% if @article.errors.any? %>
 <div id="error_explanation">
@@ -18,10 +18,14 @@
 <div class="card-body">
 
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-4">
       <div class="form-group">
         <label class="form-label"><%=t :workflow%></label>
+        <% if @article.workflow_state.blank?%>
           <%= select_tag  "workflow", options_for_select(@workflows.collect { |p| [ p.title, p.id ] }), {class: "form-control"} %>
+        <% else%>
+          <%= select_tag  "workflow", options_for_select(@workflows.collect { |p| [ p.title, p.id ] }, @article.workflow_state.workflow.id), {class: "form-control", disabled: true} %>
+        <%end%>
       </div>
     </div>
   </div>
@@ -31,7 +35,7 @@
       <div class="form-group">
         <%= f.label :workflow_state_id, class: "form-label" %>
         <% if @article.workflow_state%>
-          <%= text_field_tag :workflow_state_id, @article.workflow_state.title , class: "form-control", disabled: true%>
+        <%= text_field_tag :workflow_state_id, @article.workflow_state.title , class: "form-control", disabled: true%>
         <%else%>
 
         <%end%>
@@ -50,16 +54,20 @@
     </div>
   </div>
 
-  <div>
+  <div class="alert alert-secondary" role="alert">
     <%=t :other_titles%>
     <%= link_to '/titlings/add_item/1', remote: true do%>
-      <i class="fe fe-plus-circle" style="vertical-align:-3px;"></i>
+    <i class="fe fe-plus-circle" style="vertical-align:-3px;"></i>
     <%end%>
   </div>
 
-  <hr class="mt-2 mb-4"/>
+
+
+
   <div id='titling-items'>
-    <%= render partial: 'titlings/remote_item'%>
+    <% for titling in @article.titlings%>
+    <%= render partial: 'titlings/remote_item', locals: {titling: titling}%>
+    <%end%>
   </div>
 
   <div class="card-footer text-right">
