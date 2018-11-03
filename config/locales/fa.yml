@@ -454,6 +454,15 @@ fa:
   titles_and_workflows: 'عناوین و گردش کار'
   number_of_states: 'تعداد مراحل'
   contributed_articles: 'مشارکت در اسناد '
+  password: 'رمز عبور'
+  sign_in: 'ورود '
+  login_to_your_account: 'ورود به سامانه'
+  i_forgot_password: 'رمز خود را فراموش کرده ام'
+  dont_have_account_yet: 'هنوز ثبت نام نکرده اید؟'
+  sign_up: 'ثبت نام'
+  characters_minimum: 'کاراکتر حداقل'
+  enter_email: 'ایمیل خود را وارد کنید'
+  already_have_account: 'قبلا ثبت نام کرده اید؟ '
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

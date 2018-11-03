@@ -7,20 +7,23 @@
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'card'}) do |f| %>
       <%= devise_error_messages! %>
       <div class="card-body p-6">
-        <div class="card-title">Create new account</div>
+        <div class="card-title"><%=t :sign_up%></div>
         <div class="form-group">
           <%= f.label :email, class: "form-label" %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Enter email" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"#{t(:enter_email)}" %>
         </div>
         <div class="form-group">
-          <%= f.label :password, class:"form-label" %>
-          <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %>
+          <label class="form-label" for="user_password">
+            <%=t :password%>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> <%=t :characters_minimum%>)</em>
+            <% end %>
+          </label>
+
           <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= f.label :password_confirmation, class:"form-label" %><br />
+          <%= f.label :password_confirmation, class:"form-label" %>
           <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
         </div>
         <div class="form-group">
@@ -29,13 +32,13 @@
             <span class="custom-control-label" style="padding-right: 20px;padding-top: 5px;">Agree the <a href="terms.html">terms and policy</a></span>
           </label>
         </div>
-        <div class="form-footer">
-          <button type="submit" class="btn btn-primary btn-block">Create new account</button>
+        <div class="form-footer mb-3">
+          <button type="submit" class="btn btn-primary btn-block"><%=t :sign_up%></button>
         </div>
       </div>
       <%end%>
       <div class="text-center text-muted">
-        Already have account? <a href="/users/sign_in">Sign in</a>
+        <%=t :already_have_account%> <a href="/users/sign_in"><%=t :sign_in%></a>
       </div>
     </div>
   </div>
