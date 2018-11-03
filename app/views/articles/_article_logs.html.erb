@@ -54,10 +54,10 @@
           <span  style='font-size: smaller;vertical-align: 4px;'><i class="fe fe-alert-triangle" style='vertical-align:-3px;'></i> <%=t :help%>: </span>
           <span class="colorinput-color" style="background-color: grey; width: 0.6rem;height: 0.8rem;"></span>
           <span style='font-size: smaller;vertical-align: 4px;'><%=t :not_changed%></span>
-          <span class="colorinput-color" style="background-color: green; width: 0.6rem;height: 0.8rem;"></span>
-          <span style='font-size: smaller;vertical-align: 4px; color: green;'><%=t :inserted%></span>
-          <span class="colorinput-color" style="background-color: red; width: 0.6rem;height: 0.8rem;"></span>
-          <span style='font-size: smaller;vertical-align: 4px; color:red;'><%=t :deleted%></span>
+          <span class="colorinput-color" style="background-color: #82c143; width: 0.6rem;height: 0.8rem;"></span>
+          <span style='font-size: smaller;vertical-align: 4px; color: #82c143;'><%=t :inserted%></span>
+          <span class="colorinput-color" style="background-color: #e89494; width: 0.6rem;height: 0.8rem;"></span>
+          <span style='font-size: smaller;vertical-align: 4px; color:#e89494;'><%=t :deleted%></span>
         </div>
       </div>
       <hr class="mb-3 mt-2"/>
@@ -109,7 +109,7 @@
         </span>
         <%end%>
         <% for dating in result[:dh][:new]%>
-        <span class='tag tag-green'>
+        <span class='tag tag-light-green tag-square'>
           <%= dating.article_event.title%>:
               <% @jalali = JalaliDate.to_jalali(dating.event_date)%>
               <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
@@ -253,8 +253,8 @@
     fragment = document.createDocumentFragment();
 
     diff.forEach(function(part){
-      color = part.added ? 'green' :
-      part.removed ? 'red' : 'grey';
+      color = part.added ? '#82c143' :
+      part.removed ? '#e89494' : 'grey';
       span = document.createElement('span');
       span.style.color = color;
       span.appendChild(document

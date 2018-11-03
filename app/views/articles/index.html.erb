@@ -4,11 +4,16 @@
       <div class="col-md-6 col-lg-12">
         <div class="card">
           <div class="card-body">
-
+            <div class="text-center">
+              <%= link_to  new_article_url, class: "btn btn-lime  btn-sm" do%>
+                <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
+              <%end%>
+            </div>
+          </div>
+          <div class="card-footer">
           </div>
         </div>
       </div>
-
     </div>
   </div>
   <div class="col-lg-9">
@@ -21,7 +26,6 @@
               <th><%=t :title%></th>
               <th><%=t :progress%></th>
               <th><%=t :workflow_state %></th>
-
             </tr>
           </thead>
           <tbody>
@@ -82,8 +86,6 @@
                 <div class="small text-muted"><i class="fe fe-alert-triangle" style="vertical-align:-3px;"></i> <%=t :without_workflow%></div>
                 <%end%>
               </td>
-
-
             </tr>
             <%end%>
           </tbody>
@@ -91,6 +93,4 @@
       </div>
     </div>
   </div>
-
-
 </div>

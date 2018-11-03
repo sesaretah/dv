@@ -1,5 +1,12 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_action :set_profile, only: [:show, :edit, :update, :destroy, :contributions, :profile_details]
+
+  def profile_details
+
+  end
+  def contributions
+
+  end
 
   def search
     if !params[:q].blank?

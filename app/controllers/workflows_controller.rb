@@ -1,6 +1,15 @@
 class WorkflowsController < ApplicationController
-  before_action :set_workflow, only: [:show, :edit, :update, :destroy]
+  before_action :set_workflow, only: [:show, :edit, :update, :destroy,:related_articles]
 
+  def related_articles
+    @workflow_state = WorkflowState.where(workflow_id: @workflow.id, node_id: params[:node_id]).first
+    @articles = Article.where(workflow_state_id: @workflow_state.id)
+    resp = []
+    for a in @articles
+      resp << {'title' => a.title, 'id' => a.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
   # GET /workflows
   # GET /workflows.json
   def index

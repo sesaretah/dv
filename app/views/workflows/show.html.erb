@@ -194,7 +194,6 @@
               var sel = window.getSelection();
               sel.removeAllRanges();
               sel.addRange(range);
-              console.log(sel, range, el);
             };
 
 
@@ -369,7 +368,6 @@
                   // dragged, not clicked
                   state.justDragged = false;
                 } else{
-                  console.log('clicked');
                   // clicked, not dragged
                   if (d3.event.shiftKey){
 
@@ -380,6 +378,9 @@
                     var prevNode = state.selectedNode;
 
                     if (!prevNode || prevNode.id !== d.id){
+                      d3.json('/workflows/related_articles/<%= @workflow.id%>?node_id='+d.id, function(error, response) {
+                        console.log(response);
+                      });
                       //d3.select("#current-node").text(d.title);
                       d3.select("#current-node-id").text(d.id);
                       d3.select("#role").property('value', d.role);
@@ -451,7 +452,6 @@
               graph.nodes.filter(function(d){ return d.id == nodeId })[0][attribute] = newValue;
               if (attribute == 'title'){
                 d3.selectAll(".conceptG.selected").each(function(d, i) {
-                  console.log(d);
                   var str = '#' + 'text-' +  d.id;
                   d3.select(str).remove();
                   d3.select(this).append("text")

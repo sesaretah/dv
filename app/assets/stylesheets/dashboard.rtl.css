@@ -14581,6 +14581,10 @@ a.tag-addon:hover {
   margin: 0 -.5rem 0 .5rem;
 }
 
+.tag-square {
+  border-radius: 0px !important;
+}
+
 .tag-blue {
   background-color: #467fcf;
   color: #fff;
@@ -14601,6 +14605,11 @@ a.tag-addon:hover {
   color: #fff;
 }
 
+.tag-light-pink {
+  background-color: #f5cece;
+  color: #060606;
+}
+
 .tag-red {
   background-color: #cd201f;
   color: #fff;
@@ -14619,6 +14628,11 @@ a.tag-addon:hover {
 .tag-green {
   background-color: #5eba00;
   color: #fff;
+}
+
+.tag-light-green {
+  background-color: #d9f1c1 ;
+  color: #060606;
 }
 
 .tag-teal {

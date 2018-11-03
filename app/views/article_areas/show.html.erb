@@ -1,13 +1,8 @@
 <div class='row'>
-  <div class="col-lg-4 order-lg-1">
-  </div>
-  <div class="col-lg-8 order-lg-1">
+  <div class="col-lg-12 order-lg-1">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title"></h3>
-        <div class="card-options">
-          <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-        </div>
+        <h3 class="card-title"><%=t :article_areas%></h3>
       </div>
       <div class="card-body">
         <div class='row'>
@@ -22,6 +17,7 @@
             </div>
           </div>
         </div>
+        <%= render partial: 'articles/list', locals: {articles: @article_area.articles}%>
       </div>
     </div>
   </div>

@@ -292,6 +292,11 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  profile_details: 'جزئیات پروفایل'
+  change_current_role: 'تغییر نقش'
+  my_profile: 'پروفایل من '
+  sign_out: 'خروج'
+  by: 'توسط'
   progress: 'پیشرفت'
   title: 'عنوان'
   article_event: 'نوع تاریخ'
@@ -448,6 +453,7 @@ fa:
   last_edit: 'آخرین ویرایش'
   titles_and_workflows: 'عناوین و گردش کار'
   number_of_states: 'تعداد مراحل'
+  contributed_articles: 'مشارکت در اسناد '
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

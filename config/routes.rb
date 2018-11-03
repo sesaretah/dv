@@ -58,6 +58,7 @@ Rails.application.routes.draw do
   match "/articles/article_logs/:id" => "articles#article_logs", :via => :get
   match "/articles/compare/:id" => "articles#compare", :via => :get
 
+  match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
 
 
   match "/typings/remotec/:id" => "typings#remotec", :via => :get
@@ -79,5 +80,9 @@ Rails.application.routes.draw do
   match "/article_areas/search/:id" => "article_areas#search", :via => :get
 
   match "/uploads/remoted/:id" => "uploads#remoted", :via => :get
+
+  match "/profiles/contributions/:id" => "profiles#contributions", :via => :get
+  match "/profiles/profile_details/:id" => "profiles#profile_details", :via => :get
+
 
 end

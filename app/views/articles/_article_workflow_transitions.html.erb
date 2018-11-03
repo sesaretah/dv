@@ -1,21 +1,25 @@
 <div class="card-body" id='article-show'>
   <% for workflow_transition in WorkflowTransition.where(article_id: article.id)%>
   <% if workflow_transition.transition_type == 1%>
-    <div class="alert alert-success" role="alert"> <i class="fe fe-trending-up" style="vertical-align: -3px;"></i>
-  <%else%>
-    <div class="alert alert-danger" role="alert"> <i class="fe fe-trending-down" style="vertical-align: -3px;"></i>
-  <%end%>
+  <div class="alert alert-success" role="alert" style="font-size: 0.8rem;"><p><i class="fe fe-trending-up" style="vertical-align: -3px;"></i>
+    <%else%>
+    <div class="alert alert-danger" role="alert" style="font-size: 0.8rem;"><p><i class="fe fe-trending-down" style="vertical-align: -3px;"></i>
+      <%end%>
 
-    <%=t :transition%> <%=t :from%> <%=t :workflow_state%>
-    <strong>
-      <%= WorkflowState.find(workflow_transition.from_state_id).title%>
-    </strong>
-    <%=t :to%> <%=t :workflow_state%>
-    <strong>
-      <%= WorkflowState.find(workflow_transition.to_state_id).title%>
-    </strong>
-    <%=t :with_message%>
-    <%= workflow_transition.message%>
+        <%= WorkflowState.find(workflow_transition.from_state_id).title%>
+        <i class="fe fe-arrow-left" style="vertical-align:-2px;font-size:smaller"></i>
+        <%= WorkflowState.find(workflow_transition.to_state_id).title%>
+      </p>
+      <p>
+        <b><%=t :by%> </b>
+        <span class="tag" style='vertical-align: -8px;'>
+          <span class="tag-avatar avatar" style="background-image: url('<%= workflow_transition.user.profile.avatar(:tiny)%>')"></span>
+          <%= truncate(workflow_transition.user.profile.fullname, length: 15)%>
+        </span>
+      </p>
+      <p><b><%=t :with_message%>:</b></br>
+        <%= workflow_transition.message%>
+      </p>
+    </div>
+    <%end%>
   </div>
-  <%end%>
-</div>
