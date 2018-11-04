@@ -1,23 +1,31 @@
 <div class="card-body" id='article-show'>
   <% for workflow_transition in WorkflowTransition.where(article_id: article.id)%>
-  <% if workflow_transition.transition_type == 1%>
-  <div class="alert alert-success" role="alert" style="font-size: 0.8rem;"><p><i class="fe fe-trending-up" style="vertical-align: -3px;"></i>
-    <%else%>
-    <div class="alert alert-danger" role="alert" style="font-size: 0.8rem;"><p><i class="fe fe-trending-down" style="vertical-align: -3px;"></i>
-      <%end%>
+    <% @from = WorkflowState.find(workflow_transition.from_state_id).title%>
+    <% @to = WorkflowState.find(workflow_transition.to_state_id).title%>
 
-        <%= WorkflowState.find(workflow_transition.from_state_id).title%>
-        <i class="fe fe-arrow-left" style="vertical-align:-2px;font-size:smaller"></i>
-        <%= WorkflowState.find(workflow_transition.to_state_id).title%>
+  <div class="alert alert-secondary" role="alert" style="font-size: 0.8rem;">
+    <p>
+      <b><%=t :transaction%> </b>
+      <% if workflow_transition.transition_type == 1%>
+        <div class="tag tag-gray">
+          <span class="tag-addon tag-success"><i class="fe fe-trending-up" style="vertical-align: -3px;"></i></span>
+          <%= @from%><i class="fe fe-arrow-left" style="vertical-align:12px;margin-top: 6px;"></i><%= @to%>
+        </div>
+      <%else%>
+      <div class="tag tag-gray">
+        <span class="tag-addon tag-danger"><i class="fe fe-trending-down" style="vertical-align: -3px;"></i></span>
+        <%= @from%> <i class="fe fe-arrow-left" style="vertical-align:12px;margin-top: 6px;"></i> <%= @to%>
+      </div>
+      <%end%>
       </p>
       <p>
         <b><%=t :by%> </b>
         <div class="tag tag-dark" style="vertical-align: 6px;">
-            <span class="tag-addon tag-success"><i class="fe fe-user" style="vertical-align: -3px;"></i></span>
+            <span class="tag-addon tag-blue"><i class="fe fe-user" style="vertical-align: -3px;"></i></span>
             <%= truncate(workflow_transition.user.profile.fullname, length: 15)%>
         </div>
       </p>
-      <p><b><%=t :with_message%>:</b></br>
+      <p><b><%=t :with_message%></b></br>
         <%= workflow_transition.message%>
       </p>
     </div>

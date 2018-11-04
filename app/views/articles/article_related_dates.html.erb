@@ -7,7 +7,9 @@
       </div>
       <div class="card-status card-status-left bg-blue"></div>
       <div class="card-body">
-        <%= render partial: 'datings/remote_form', locals: {article: @article, dating: Dating.new}%>
+        <% if permit_by_workflow(@article, current_user,'datings')%>
+          <%= render partial: 'datings/remote_form', locals: {article: @article, dating: Dating.new}%>
+        <%end%>
       </div>
     </div>
   </div>
@@ -23,6 +25,7 @@
 </div>
 
 <div class="card">
+  <% if permit_by_workflow(@article, current_user,'uploads')%>
   <div class="card-header">
     <h3 class="card-title"><%=t :attached_file%></h3>
   </div>
@@ -70,7 +73,7 @@
     });
     </script>
   </div>
-
+  <%end%>
   <div class="card-footer text-right">
     <a href='/articles/article_descriptors/<%= @article.id%>' class="btn btn-lime"><%=t :back%></a>
     <a href='/articles/article_other_details/<%= @article.id%>' class="btn btn-primary"><%=t :submit_and_go%></a>

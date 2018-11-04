@@ -5,6 +5,7 @@
     <h3 class="card-title"><%=t :other_details%></h3>
   </div>
   <div class="card-body">
+    <% if permit_by_workflow(@article, current_user,'article_type')%>
     <div class="form-group">
       <div class="form-label"><%=t :article_types%></div>
       <div>
@@ -54,7 +55,9 @@
         <%end%>
       </div>
     </div>
+    <%end%>
 
+      <% if permit_by_workflow(@article, current_user,'language')%>
     <div class="form-group">
       <div class="form-label"><%=t :languages%></div>
       <div>
@@ -104,7 +107,9 @@
         <%end%>
       </div>
     </div>
+    <%end%>
 
+  <% if permit_by_workflow(@article, current_user,'article_format')%>
     <div class="form-group">
       <div class="form-label"><%=t :article_formats%></div>
       <div>
@@ -154,6 +159,7 @@
         <%end%>
       </div>
     </div>
+    <%end%>
 
   </div>
 

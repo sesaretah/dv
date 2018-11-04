@@ -49,8 +49,8 @@
             <td><%= keyword.title %></td>
             <td>
               <div class="tag tag-dark" style='vertical-align: 6px;'>
-                <%= Tagging.where(taggable_type: 'Article', target_type: 'Keyword', target_id: keyword.id).count %>
-                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
+                  <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
+                  <%= Tagging.where(taggable_type: 'Article', target_type: 'Keyword', target_id: keyword.id).count %>
               </div>
             </td>
             <td>

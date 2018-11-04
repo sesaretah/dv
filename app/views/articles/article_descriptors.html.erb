@@ -16,6 +16,7 @@
 <% end %>
 
 <div class="card-body">
+  <% if permit_by_workflow(@article, current_user,'abstract')%>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
@@ -24,7 +25,9 @@
       </div>
     </div>
   </div>
+  <%end%>
 
+  <% if permit_by_workflow(@article, current_user,'url')%>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
@@ -33,13 +36,17 @@
       </div>
     </div>
   </div>
+  <%end%>
 
+  <% if permit_by_workflow(@article, current_user,'keywords')%>
   <div class="form-group">
     <label class="form-label"><%=t :keywords%></label>
     <input type="text" class="form-control" id="input-tags" value="" data-data='<%= raw @keywords.to_json%>'>
   </div>
   <%= hidden_field_tag :keyword, ','+@keyword_ids.map(&:inspect).join(',') %>
+  <%end%>
 
+  <% if permit_by_workflow(@article, current_user,'content')%>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
@@ -48,6 +55,7 @@
       </div>
     </div>
   </div>
+  <%end%>
   <script>
         CKEDITOR.replace('sometext')
   </script>

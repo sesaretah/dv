@@ -8,7 +8,9 @@
       </div>
       <div class="card-status card-status-left bg-blue"></div>
       <div class="card-body">
-        <%= render partial: 'kinships/remote_form', locals: {article: @article, kinship: Kinship.new}%>
+        <% if permit_by_workflow(@article, current_user,'relations')%>
+          <%= render partial: 'kinships/remote_form', locals: {article: @article, kinship: Kinship.new}%>
+        <%end%>
       </div>
     </div>
   </div>
@@ -32,7 +34,9 @@
       </div>
       <div class="card-status card-status-left bg-blue"></div>
       <div class="card-body">
-        <%= render partial: 'originatings/remote_form', locals: {article: @article, originating: Originating.new}%>
+        <% if permit_by_workflow(@article, current_user,'article_source')%>
+          <%= render partial: 'originatings/remote_form', locals: {article: @article, originating: Originating.new}%>
+        <%end%>
       </div>
     </div>
   </div>
@@ -56,7 +60,9 @@
       </div>
       <div class="card-status card-status-left bg-blue"></div>
       <div class="card-body">
-        <%= render partial: 'areaings/remote_form', locals: {article: @article, areaing: Areaing.new}%>
+        <% if permit_by_workflow(@article, current_user,'article_area')%>
+          <%= render partial: 'areaings/remote_form', locals: {article: @article, areaing: Areaing.new}%>
+        <%end%>
       </div>
     </div>
   </div>

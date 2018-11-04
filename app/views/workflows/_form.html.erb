@@ -97,6 +97,10 @@
                 <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :abstract%></span>
               </label>
               <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="url_checkbox" id="url_checkbox" value="option2">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :url%></span>
+              </label>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
                 <input type="checkbox" class="custom-control-input" name="content_checkbox" id="content_checkbox" value="option3">
                 <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :content%></span>
               </label>
@@ -593,10 +597,9 @@ GraphCreator.prototype.circleMouseUp = function(d3node, d){
           var editables = d.editable.split(',')
           if (editables.length > 1){
             for (var i = 0, len = editables.length; i < len; i++) {
-              console.log(editables[i]);
-                if (editables[i].length > 1){
-                  d3.select("#"+editables[i]).property('checked', true);
-                }
+              if (editables[i].length > 1){
+                d3.select("#"+editables[i]).property('checked', true);
+              }
             }
           }
           d3.select("#refundable").property('value', d.refundable);
@@ -635,12 +638,6 @@ d3.select('#role')
 //  updateNode('title', parseInt(currentNodeId), abr);
 });
 
-d3.select('#editable')
-.on('change', function() {
-  var currentNodeId = d3.select('#current-node-id').text();
-  var newData = d3.select(this).property('value');
-  updateNode('editable', parseInt(currentNodeId), newData);
-});
 
 d3.select('#refundable')
 .on('change', function() {
@@ -675,7 +672,11 @@ d3.selectAll('.custom-control-input')
 .on('change', function() {
   var currentNodeId = d3.select('#current-node-id').text();
   var newData = this.name;
-  appendToNode('editable', parseInt(currentNodeId), newData);
+  if (this.checked) {
+    appendToNode('editable', parseInt(currentNodeId), newData);
+  } else {
+    removeFromNode('editable', parseInt(currentNodeId), newData);
+  }
 });
 
 function updateNode(attribute, nodeId, newValue){
@@ -696,7 +697,11 @@ function updateNode(attribute, nodeId, newValue){
 function appendToNode(attribute, nodeId, newValue){
   var node = graph.nodes.filter(function(d){ return d.id == nodeId });
   node[0][attribute] = node[0][attribute]+','+newValue;
-  //console.log(node);
+}
+
+function removeFromNode(attribute, nodeId, newValue){
+  var node = graph.nodes.filter(function(d){ return d.id == nodeId });
+  node[0][attribute] = node[0][attribute].replace(newValue,'');
 }
 
 

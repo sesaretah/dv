@@ -292,6 +292,7 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  transaction: 'تراکنش'
   contributions: 'پدیدآورندگان'
   uploads: 'پیوست ها '
   article: 'سند'

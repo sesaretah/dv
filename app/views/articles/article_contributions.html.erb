@@ -7,7 +7,9 @@
       </div>
       <div class="card-status card-status-left bg-blue"></div>
       <div class="card-body">
-        <%= render partial: 'contributions/remote_form', locals: {article: @article, contribution: Contribution.new}%>
+        <% if permit_by_workflow(@article, current_user,'contributions')%>
+          <%= render partial: 'contributions/remote_form', locals: {article: @article, contribution: Contribution.new}%>
+        <%end%>
       </div>
     </div>
   </div>

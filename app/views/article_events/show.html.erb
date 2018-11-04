@@ -18,6 +18,13 @@
   </div>
   <div class="col-lg-9 order-lg-1">
     <div class="card">
+      <div class="card-header">
+        <div class="card-options">
+          <%= link_to "/article_events", class: "btn btn-secondary btn-sm ml-1" do %>
+            <i class="fe fe-arrow-left" style="vertical-align: -3px;"></i> <%=t :back%>
+          <%end%>
+        </div>
+      </div>
       <%= render partial: 'articles/list', locals: {articles: @article_event.articles}%>
     </div>
   </div>
