@@ -127,7 +127,7 @@
         </span>
         <%end%>
         <% for upload in result[:uh][:new]%>
-        <span class='tag tag-green'>
+        <span class='tag  tag-light-green tag-square'>
           <%= link_to upload.attachment.url do%>
           <i class="fe fe-download" style="vertical-align:middle;"></i> <%=t :download_file%>
           <%end%>
@@ -143,7 +143,7 @@
         </span>
         <%end%>
         <% for typing in result[:tyh][:new]%>
-        <span class='tag tag-green'>
+        <span class='tag  tag-light-green tag-square'>
           <%= typing.article_type.title%>
         </span>
         <%end%>
@@ -157,7 +157,7 @@
         </span>
         <%end%>
         <% for speaking in result[:sh][:new]%>
-        <span class='tag tag-green'>
+        <span class='tag  tag-light-green tag-square'>
           <%= speaking.language.title%>
         </span>
         <%end%>
@@ -171,7 +171,7 @@
         </span>
         <%end%>
         <% for formating in result[:fh][:new]%>
-        <span class='tag tag-green'>
+        <span class='tag  tag-light-green tag-square'>
           <%= formating.article_format.title%>
         </span>
         <%end%>
@@ -187,7 +187,7 @@
         </span>
         <%end%>
         <% for contribution in result[:ch][:new]%>
-        <span class='tag tag-green'>
+        <span class='tag  tag-light-green tag-square'>
           <%=t :fullname%>: <%= contribution.profile.fullname%>,
           <%=t :role%>: <%= contribution.role.title%>,
           <%=t :duty%>: <%= contribution.duty.title%>
@@ -203,7 +203,7 @@
         </span>
         <%end%>
         <% for kinship in result[:kh][:new]%>
-        <span class='tag tag-green'>
+        <span class='tag  tag-light-green tag-square'>
             <%=t :article_relation_type%>: <%= kinship.article_relation_type.title%>, <%=t :kin%>: <%= kinship.kin.title%>
         </span>
         <%end%>
@@ -217,7 +217,7 @@
         </span>
         <%end%>
         <% for originating in result[:oh][:new]%>
-        <span class='tag tag-green'>
+        <span class='tag  tag-light-green tag-square'>
           <%= originating.article_source.title%>
         </span>
         <%end%>
@@ -231,7 +231,7 @@
         </span>
         <%end%>
         <% for areaing in result[:ah][:new]%>
-        <span class='tag tag-green'>
+        <span class='tag  tag-light-green tag-square'>
           <%= areaing.article_area.title%>
         </span>
         <%end%>

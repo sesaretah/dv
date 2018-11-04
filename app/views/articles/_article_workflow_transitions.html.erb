@@ -12,10 +12,10 @@
       </p>
       <p>
         <b><%=t :by%> </b>
-        <span class="tag" style='vertical-align: -8px;'>
-          <span class="tag-avatar avatar" style="background-image: url('<%= workflow_transition.user.profile.avatar(:tiny)%>')"></span>
-          <%= truncate(workflow_transition.user.profile.fullname, length: 15)%>
-        </span>
+        <div class="tag tag-dark" style="vertical-align: 6px;">
+            <span class="tag-addon tag-success"><i class="fe fe-user" style="vertical-align: -3px;"></i></span>
+            <%= truncate(workflow_transition.user.profile.fullname, length: 15)%>
+        </div>
       </p>
       <p><b><%=t :with_message%>:</b></br>
         <%= workflow_transition.message%>

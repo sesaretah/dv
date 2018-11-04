@@ -48,6 +48,41 @@
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="form-group col-xs-4">
+      <%if !@profile.avatar.blank?%>
+      <%= image_tag @profile.avatar(:medium), id: 'avatar',:class => "messages-item-avatar bordered border-primary"%>
+      <%else%>
+      <img id='avatar'></img>
+      <%end%>
+      <div class="fileUpload btn btn-gray">
+        <%if @profile.avatar.blank?%>
+        <span><i class="fa fa-camera" style='vertical-align:-3px;'></i> <%=t :choose_a_file_for_avatar%>...</span>
+        <%else%>
+        <span><i class="fa fa-camera" style='vertical-align:-3px;'></i> <%=t :change_photo%>...</span>
+        <%end%>
+        <%= f.file_field :avatar, class: "upload", onchange: "readURL(this);" %>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#avatar')
+        .attr('src', e.target.result)
+        .width(120);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  </script>
+
   <div class="card-footer text-right">
     <button type="submit" class="btn btn-primary"><%=t :submit%></button>
   </div>

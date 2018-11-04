@@ -1,0 +1,41 @@
+<div class="row">
+  <div class='col-12'>
+    <%= form_for @profile, html: {:class => "card"} do |form| %>
+    <div class="card-header">
+      <h3 class="card-title"><%=t :crop_photo %></h3>
+    </div>
+    <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+    <%= form.hidden_field attribute, :id => attribute %>
+
+    <% end %>
+    <div class="card-body">
+    <div class='row'>
+      <div class='col-12'>
+      <%= image_tag @profile.avatar.url(:large) ,:id => "cropbox", style:'display:block;margin:auto;' %>
+    </div>
+    </div>
+  </div>
+    <div class="card-footer text-right">
+      <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+    </div>
+    <% end %>
+
+    <script>
+    $(function() {
+      $('#cropbox').Jcrop({
+        onChange: update_crop,
+        onSelect: update_crop,
+        setSelect: [0, 0, 500, 500],
+        aspectRatio: 1
+      });
+    });
+    function update_crop(coords) {
+      var ratio = <%= @profile.avatar_geometry(:original).width %> / <%= @profile.avatar_geometry(:large).width %>;
+      $('#crop_x').val(Math.floor(coords.x * ratio));
+      $('#crop_y').val(Math.floor(coords.y * ratio));
+      $('#crop_w').val(Math.floor(coords.w * ratio));
+      $('#crop_h').val(Math.floor(coords.h * ratio));
+    }
+  </script>
+</div>
+</div>

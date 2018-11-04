@@ -2,7 +2,15 @@
   <div class="col-lg-3">
     <div class="card">
       <div class='card-body' style='padding: 1rem;'>
-        <%= render partial: 'articles/workflow_actions', locals: {article: @article, nxt: @next_workflow_states, prv: @previous_workflow_states}%>
+        <% render partial: 'articles/workflow_actions', locals: {article: @article, nxt: @next_workflow_states, prv: @previous_workflow_states}%>
+        <div class="list-group list-group-transparent mb-0">
+          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center active" style="font-size:smaller;">
+            <i class="fe fe-repeat ml-2" style="vertical-align: -3px;"></i> <%= @article.workflow_state.workflow.title%>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center" style="font-size:smaller;">
+            <i class="fe fe-shuffle ml-2" style="vertical-align: -3px;"></i> <%= @article.workflow_state.title%>
+          </a>
+        </div>
       </div>
       <div class='card-footer'>
 
@@ -12,17 +20,18 @@
   <div class="col-lg-9 order-lg-1">
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title"><%=t :article_detail%></h4>
-        <span class="tag mr-1"><%= truncate(@article.workflow_state.title, length: 15)%></span>
         <div class="card-options">
+          <%= link_to "/articles/article_states/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+          <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%=t :workflow%>
+          <%end%>
           <%= link_to "/articles/article_logs/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-            <i class="fe fe-activity" style="vertical-align: -3px;"></i> <%=t :compare%>
+          <i class="fe fe-activity" style="vertical-align: -3px;"></i> <%=t :compare%>
           <%end%>
           <%= link_to "/articles/workflow_transitions/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-            <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%=t :workflow_transitions%>
+          <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%=t :workflow_transitions%>
           <%end%>
           <%= link_to "/articles/article_detail/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-            <i class="fe fe-play" style="vertical-align: -3px;"></i> <%=t :article_detail%>
+          <i class="fe fe-play" style="vertical-align: -3px;"></i> <%=t :article_detail%>
           <%end%>
           <a href="/articles/<%= @article.id%>/edit" class="btn btn-secondary btn-sm ml-1"><i class="fe fe-edit-2" style="vertical-align: -3px;"></i> <%=t :edit%></a>
         </div>

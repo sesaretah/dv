@@ -292,6 +292,9 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  contributions: 'پدیدآورندگان'
+  uploads: 'پیوست ها '
+  article: 'سند'
   profile_details: 'جزئیات پروفایل'
   change_current_role: 'تغییر نقش'
   my_profile: 'پروفایل من '
@@ -367,7 +370,7 @@ fa:
   new_title_type: 'انواغ عنوان جدید'
   new_role: 'نقش جدید'
   new_duty: 'سمت جدید'
-  new_profile: 'فرد جدید'
+  new_profile: 'اطلاعات فرد'
   new_language: 'زبان جدید'
   new_keyword: 'کلمات کلیدی جدید'
   new_article_type: 'نوع سند جدید'
@@ -397,7 +400,7 @@ fa:
   has: 'دارد'
   has_not: 'ندارد'
   editable: 'قابلیت ویرایش'
-  refundable: 'قابلیت ارجاع'
+  refundable: 'قابلیت اعاده'
   commentable: 'ارائه دیدگاه'
   start_point: 'نقطه شروع'
   end_point: 'نقطه پایان'
@@ -410,7 +413,7 @@ fa:
   your_workflow_has_cycle: 'گردش کار حاوی چرخه است'
   new_assignment: 'اعطای نقش'
   assignments: 'اعطای نقش'
-  step_title: 'نام این گام'
+  step_title: 'نام این مرحله'
   workflow: 'گردش کار'
   my_current_role: 'نقش فعلی من'
   role_changed_successfully: 'نقش با موفقیت تغییر کرد'
@@ -419,8 +422,8 @@ fa:
   article_is_updated: 'اطلاعات سند بروزرسانی شد'
   without_workflow: 'بدون گردش‌کار '
   workflow_state: 'مرحله'
-  send_to: 'ارسال به گام '
-  refund_to: 'اعاده به گام'
+  send_to: 'ارسال به مرحله'
+  refund_to: 'اعاده به مرحله'
   send: 'ارسال '
   refund: 'اعاده'
   workflow_transitions: 'تراکنش‌ها'
@@ -463,6 +466,10 @@ fa:
   characters_minimum: 'کاراکتر حداقل'
   enter_email: 'ایمیل خود را وارد کنید'
   already_have_account: 'قبلا ثبت نام کرده اید؟ '
+  choose_a_file_for_avatar: 'یک عکس انتخاب کنید'
+  crop_photo: 'برش عکس'
+  change_photo: 'تغییر عکس'
+  description: 'شرح'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.
@@ -503,7 +510,7 @@ fa:
       update_needs_confirmation: حساب شما با موفقیت به روز شد، اما شما باید ایمیل جدیدتان را را تایید کنید. لطفا ایمیل‌تان را چک کنید و روی لینک تایید حساب کاربری کلیک کنید تا ایمیل جدیدتان تایید شود.
       updated: به روز رسانی حسابتان با موفقیت انجام شد.
     sessions:
-      signed_in: ورود موفق.
+      signed_in: 'خوش آمدید'
       signed_out: خروج موفق.
     unlocks:
       send_instructions: ایمیلی حاوی راهنمای باز کردن حسابتان در چند دقیقه آینده به شما ارسال خواهد شد.

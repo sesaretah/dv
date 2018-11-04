@@ -1,6 +1,9 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: [:show, :edit, :update, :destroy, :contributions, :profile_details]
+  before_action :set_profile, only: [:show, :edit, :update, :destroy, :contributions, :profile_details, :cropper]
 
+  def cropper
+
+  end
   def profile_details
 
   end
@@ -47,7 +50,11 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
-        format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
+        if params[:profile][:avatar].blank?
+          format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+        else
+          format.html { redirect_to "/profiles/cropper/#{@profile.id}", notice: 'Profile was successfully updated.' }
+        end
         format.json { render :show, status: :created, location: @profile }
       else
         format.html { render :new }
@@ -61,7 +68,11 @@ class ProfilesController < ApplicationController
   def update
     respond_to do |format|
       if @profile.update(profile_params)
-        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+        if params[:profile][:avatar].blank?
+          format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+        else
+          format.html { redirect_to "/profiles/cropper/#{@profile.id}", notice: 'Profile was successfully updated.' }
+        end
         format.json { render :show, status: :ok, location: @profile }
       else
         format.html { render :edit }
@@ -88,6 +99,6 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:name, :surename, :user_id, :phone_number, :cellphone_number)
+      params.require(:profile).permit(:name, :surename, :user_id, :phone_number, :cellphone_number, :avatar, :crop_x, :crop_y, :crop_w, :crop_h)
     end
 end

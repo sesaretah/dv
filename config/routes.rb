@@ -57,6 +57,8 @@ Rails.application.routes.draw do
   match "/articles/article_detail/:id" => "articles#article_detail", :via => :get
   match "/articles/article_logs/:id" => "articles#article_logs", :via => :get
   match "/articles/compare/:id" => "articles#compare", :via => :get
+  match "/articles/search/:id" => "articles#search", :via => :get
+  match "/articles/article_states/:id" => "articles#article_states", :via => :get
 
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
 
@@ -75,7 +77,7 @@ Rails.application.routes.draw do
   match "/profiles/search/:id" => "profiles#search", :via => :get
   match "/duties/search/:id" => "duties#search", :via => :get
   match "/article_relation_types/search/:id" => "article_relation_types#search", :via => :get
-  match "/articles/search/:id" => "articles#search", :via => :get
+
   match "/article_sources/search/:id" => "article_sources#search", :via => :get
   match "/article_areas/search/:id" => "article_areas#search", :via => :get
 
@@ -83,6 +85,7 @@ Rails.application.routes.draw do
 
   match "/profiles/contributions/:id" => "profiles#contributions", :via => :get
   match "/profiles/profile_details/:id" => "profiles#profile_details", :via => :get
+  match "/profiles/cropper/:id" => "profiles#cropper", :via => :get
 
 
 end

@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states]
 
   def search
     if !params[:q].blank?
@@ -53,6 +53,15 @@ class ArticlesController < ApplicationController
 
   end
 
+  def article_states
+    @ws = @article.workflow_state
+    @w = @article.workflow_state.workflow
+    if !@ws.blank? && !@w.blank?
+      @next_workflow_states = @w.next_nodes(@ws.node_id)
+      @previous_workflow_states =  @w.previous_nodes(@ws.node_id)
+    end
+  end
+
   def compare
     @source_article_history = ArticleHistory.where(revision_number: params[:source]).first
     @target_article_history = ArticleHistory.where(revision_number: params[:target]).first
@@ -80,6 +89,12 @@ class ArticlesController < ApplicationController
       @article.workflow_state_id = params[:workflow_state]
       @article.save
     end
+    @ws = @article.workflow_state
+    @w = @article.workflow_state.workflow
+    if !@ws.blank? && !@w.blank?
+      @next_workflow_states = @w.next_nodes(@ws.node_id)
+      @previous_workflow_states =  @w.previous_nodes(@ws.node_id)
+    end
   end
 
 
@@ -92,6 +107,12 @@ class ArticlesController < ApplicationController
       populate_dependencies(@article, @workflow_transition, @revision_number)
       @article.workflow_state_id = params[:workflow_state]
       @article.save
+    end
+    @ws = @article.workflow_state
+    @w = @article.workflow_state.workflow
+    if !@ws.blank? && !@w.blank?
+      @next_workflow_states = @w.next_nodes(@ws.node_id)
+      @previous_workflow_states =  @w.previous_nodes(@ws.node_id)
     end
   end
   # GET /articles
@@ -106,18 +127,20 @@ class ArticlesController < ApplicationController
     @workflow_state = @article.workflow_state
     @workflow = @article.workflow_state.workflow
     if !@workflow_state.blank? && !@workflow.blank?
-      @nodes = JSON.parse @workflow.nodes
-      @edges = JSON.parse @workflow.edges
-      @next_workflow_states = []
-      @previous_workflow_states = []
-      for edge in @edges
-        if edge['source']['id'] ==  @workflow_state.node_id
-          @next_workflow_states << WorkflowState.where(node_id: edge['target']['id'], workflow_id: @workflow.id).first
-        end
-        if edge['target']['id'] ==  @workflow_state.node_id
-          @previous_workflow_states << WorkflowState.where(node_id: edge['source']['id'], workflow_id: @workflow.id).first
-        end
-      end
+      @next_workflow_states = @workflow.next_nodes(@workflow_state.node_id)
+      @previous_workflow_states =  @workflow.previous_nodes(@workflow_state.node_id)
+      #@nodes = JSON.parse @workflow.nodes
+      #@edges = JSON.parse @workflow.edges
+      #@next_workflow_states = []
+      #@previous_workflow_states = []
+      #for edge in @edges
+      #  if edge['source']['id'] ==  @workflow_state.node_id
+      #    @next_workflow_states << WorkflowState.where(node_id: edge['target']['id'], workflow_id: @workflow.id).first
+      #  end
+      #  if edge['target']['id'] ==  @workflow_state.node_id
+      #    @previous_workflow_states << WorkflowState.where(node_id: edge['source']['id'], workflow_id: @workflow.id).first
+      #  end
+      #end
     end
   end
 

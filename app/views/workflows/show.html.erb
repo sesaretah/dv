@@ -20,52 +20,46 @@
             </div>
           </div>
 
-          <div id='graphDiv' class="col-md-9" style="border: 1px dotted #999;">
+          <div id='graphDiv' class="col-md-12" style="border: 1px dotted #999;">
           </div>
-          <div id='data' class="col-md-3 col-sm-12 col-xs-12">
+          <div id='data' class="col-md-12 col-sm-12 col-xs-12 mt-4">
             <span id='current-node'></span>
             <span id='current-node-id' style='display:none'></span>
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-3">
                 <div class="form-group">
-                  <label class="form-label" style='color: #7795c1;'>
+                  <label class="form-label">
+                    <%=t :step_title%>
+                  </label>
+                  <%= text_field_tag 'step-title', nil, class:"form-control", disabled: true%>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="form-label">
                     <%=t :related_role%>
                   </label>
-                  <%= select_tag 'role', options_for_select(Role.all.collect{ |u| ["#{u.title}", u.id] }) ,{include_blank: true, class:"form-control", :disabled => true}%>
+                  <%= select_tag 'role', options_for_select(Role.all.collect{ |u| ["#{u.title}", u.id] }) ,{include_blank: true, class:"form-control", disabled: true}%>
                 </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-3">
                 <div class="form-group">
-                  <label class="form-label"  style='color: #7795c1;'>
-                    <%=t :editable%>
-                  </label>
-                  <%= select_tag 'editable', options_for_select(ability)  ,{include_blank: true, class:"form-control", :disabled => true}%>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="form-label"  style='color: #7795c1;'>
+                  <label class="form-label">
                     <%=t :refundable%>
                   </label>
-                  <%= select_tag 'refundable', options_for_select(ability)  ,{include_blank: true, class:"form-control", :disabled => true}%>
+                  <%= select_tag 'refundable', options_for_select(ability)  ,{include_blank: true, class:"form-control", disabled: true}%>
                 </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-3">
                 <div class="form-group">
-                  <label class="form-label"  style='color: #7795c1;'>
+                  <label class="form-label">
                     <%=t :commentable%>
                   </label>
-                  <%= select_tag 'commentable', options_for_select(ability)  ,{include_blank: true, class:"form-control ", :disabled => true}%>
+                  <%= select_tag 'commentable', options_for_select(ability)  ,{include_blank: true, class:"form-control ", disabled: true}%>
                 </div>
               </div>
             </div>
@@ -73,21 +67,80 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label class="form-label"  style='color: #7795c1;'>
+                  <div class="form-label"><%=t :editable%></div>
+                  <div>
+                    <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                      <input type="checkbox" class="custom-control-input" name="title_checkbox" id="title_checkbox" value="option1" disabled>
+                      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :title%></span>
+                    </label>
+                    <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                      <input type="checkbox" class="custom-control-input" name="abstract_checkbox" id="abstract_checkbox" value="option2" disabled>
+                      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :abstract%></span>
+                    </label>
+                    <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                      <input type="checkbox" class="custom-control-input" name="content_checkbox" id="content_checkbox" value="option3" disabled>
+                      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :content%></span>
+                    </label>
+                    <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                      <input type="checkbox" class="custom-control-input" name="keywords_checkbox" id="keywords_checkbox" value="option3" disabled>
+                      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :keywords%></span>
+                    </label>
+                    <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                      <input type="checkbox" class="custom-control-input" name="datings_checkbox" id="datings_checkbox" value="option3" disabled>
+                      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :datings%></span>
+                    </label>
+                    <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                      <input type="checkbox" class="custom-control-input" name="uploads_checkbox" id="uploads_checkbox" value="option3" disabled>
+                      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :uploads%></span>
+                    </label>
+                    <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                      <input type="checkbox" class="custom-control-input" name="article_type_checkbox" id="article_type_checkbox" value="option3" disabled>
+                      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :article_type%></span>
+                    </label>
+                    <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                      <input type="checkbox" class="custom-control-input" name="language_checkbox" id="language_checkbox" value="option3" disabled>
+                      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :language%></span>
+                    </label>
+                    <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                      <input type="checkbox" class="custom-control-input" name="article_format_checkbox" id="article_format_checkbox" value="option3" disabled>
+                      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :article_format%></span>
+                    </label>
+                    <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                      <input type="checkbox" class="custom-control-input" name="contributions_checkbox" id="contributions_checkbox" value="option3" disabled>
+                      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :contributions%></span>
+                    </label>
+                    <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                      <input type="checkbox" class="custom-control-input" name="relations_checkbox" id="relations_checkbox" value="option3" disabled>
+                      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :relations%></span>
+                    </label>
+                    <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                      <input type="checkbox" class="custom-control-input" name="article_source_checkbox" id="article_source_checkbox" value="option3" disabled>
+                      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :article_source%></span>
+                    </label>
+                    <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                      <input type="checkbox" class="custom-control-input" name="article_area_checkbox" id="article_area_checkbox" value="option3" disabled>
+                      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :article_area%></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="form-label">
                     <%=t :start_point%>
                   </label>
-                  <%= select_tag 'start_point', options_for_select(existence)  ,{include_blank: true, class:"form-control ", :disabled => true}%>
+                  <%= select_tag 'start_point', options_for_select(existence)  ,{include_blank: true, class:"form-control ", disabled: true}%>
                 </div>
               </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-3">
                 <div class="form-group">
-                  <label class="form-label"  style='color: #7795c1;'>
+                  <label class="form-label">
                     <%=t :end_point%>
                   </label>
-                  <%= select_tag 'end_point', options_for_select(existence)  ,{include_blank: true, class:"form-control", :disabled => true}%>
+                  <%= select_tag 'end_point', options_for_select(existence)  ,{include_blank: true, class:"form-control", disabled: true}%>
                 </div>
               </div>
             </div>
@@ -382,9 +435,19 @@
                         console.log(response);
                       });
                       //d3.select("#current-node").text(d.title);
+                      d3.select("#step-title").property('value', d.title);
                       d3.select("#current-node-id").text(d.id);
                       d3.select("#role").property('value', d.role);
-                      d3.select("#editable").property('value', d.editable);
+                      d3.selectAll('.custom-control-input').property('checked', false);
+                      var editables = d.editable.split(',')
+                      if (editables.length > 1){
+                        for (var i = 0, len = editables.length; i < len; i++) {
+                          console.log(editables[i]);
+                            if (editables[i].length > 1){
+                              d3.select("#"+editables[i]).property('checked', true);
+                            }
+                        }
+                      }
                       d3.select("#refundable").property('value', d.refundable);
                       d3.select("#commentable").property('value', d.commentable);
                       d3.select("#start_point").property('value', d.start_point);
@@ -661,8 +724,8 @@
 
           /** MAIN SVG **/
           var svg = d3.select("#graphDiv").append("svg")
-          .attr("width", bodyEl.clientWidth)
-          .attr("height", '400px')
+          .attr("preserveAspectRatio", "none" )
+          .attr("viewBox", "0 0 700 400")
           //.attr("preserveAspectRatio" , "xMidYMid meet")
           ;
           var graph = new GraphCreator(svg, nodes, edges);

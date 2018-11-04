@@ -38,15 +38,15 @@
 
       <div class="col-md-12">
           <div class="row">
-    <div id='graphDiv' class="col-md-9 col-sm-12 col-xs-12" style="border: 1px dotted #999;">
+            <div id='graphDiv' class="col-md-12 col-sm-12 col-xs-12" style="border: 1px dotted #999;">
+          </div>
 
-    </div>
-    <div id='data' class="col-md-3 col-sm-12 col-xs-12">
+    <div id='data' class="col-md-12 col-sm-12 col-xs-12 mt-4">
       <span id='current-node'></span>
       <span id='current-node-id' style='display:none'></span>
 
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-3">
           <div class="form-group">
             <label class="form-label">
               <%=t :step_title%>
@@ -54,10 +54,8 @@
             <%= text_field_tag 'step-title', nil, class:"form-control"%>
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-3">
           <div class="form-group">
             <label class="form-label">
               <%=t :related_role%>
@@ -65,21 +63,8 @@
             <%= select_tag 'role', options_for_select(Role.all.collect{ |u| ["#{u.title}", u.id] }) ,{include_blank: true, class:"form-control"}%>
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label class="form-label">
-              <%=t :editable%>
-            </label>
-            <%= select_tag 'editable', options_for_select(ability)  ,{include_blank: true, class:"form-control"}%>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-3">
           <div class="form-group">
             <label class="form-label">
               <%=t :refundable%>
@@ -87,10 +72,8 @@
             <%= select_tag 'refundable', options_for_select(ability)  ,{include_blank: true, class:"form-control"}%>
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-3">
           <div class="form-group">
             <label class="form-label">
               <%=t :commentable%>
@@ -103,16 +86,75 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
+            <div class="form-label"><%=t :editable%></div>
+            <div>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="title_checkbox" id="title_checkbox" value="option1">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :title%></span>
+              </label>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="abstract_checkbox" id="abstract_checkbox" value="option2">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :abstract%></span>
+              </label>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="content_checkbox" id="content_checkbox" value="option3">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :content%></span>
+              </label>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="keywords_checkbox" id="keywords_checkbox" value="option3">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :keywords%></span>
+              </label>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="datings_checkbox" id="datings_checkbox" value="option3">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :datings%></span>
+              </label>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="uploads_checkbox" id="uploads_checkbox" value="option3">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :uploads%></span>
+              </label>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="article_type_checkbox" id="article_type_checkbox" value="option3">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :article_type%></span>
+              </label>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="language_checkbox" id="language_checkbox" value="option3">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :language%></span>
+              </label>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="article_format_checkbox" id="article_format_checkbox" value="option3">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :article_format%></span>
+              </label>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="contributions_checkbox" id="contributions_checkbox" value="option3">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :contributions%></span>
+              </label>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="relations_checkbox" id="relations_checkbox" value="option3">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :relations%></span>
+              </label>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="article_source_checkbox" id="article_source_checkbox" value="option3">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :article_source%></span>
+              </label>
+              <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+                <input type="checkbox" class="custom-control-input" name="article_area_checkbox" id="article_area_checkbox" value="option3">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :article_area%></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
             <label class="form-label">
               <%=t :start_point%>
             </label>
             <%= select_tag 'start_point', options_for_select(existence)  ,{include_blank: true, class:"form-control "}%>
           </div>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-3">
           <div class="form-group">
             <label class="form-label">
               <%=t :end_point%>
@@ -121,6 +163,7 @@
           </div>
         </div>
       </div>
+
     </div>
     </div>
   </div>
@@ -546,7 +589,16 @@ GraphCreator.prototype.circleMouseUp = function(d3node, d){
           d3.select("#step-title").property('value', d.title);
           d3.select("#current-node-id").text(d.id);
           d3.select("#role").property('value', d.role);
-          d3.select("#editable").property('value', d.editable);
+          d3.selectAll('.custom-control-input').property('checked', false);
+          var editables = d.editable.split(',')
+          if (editables.length > 1){
+            for (var i = 0, len = editables.length; i < len; i++) {
+              console.log(editables[i]);
+                if (editables[i].length > 1){
+                  d3.select("#"+editables[i]).property('checked', true);
+                }
+            }
+          }
           d3.select("#refundable").property('value', d.refundable);
           d3.select("#commentable").property('value', d.commentable);
           d3.select("#start_point").property('value', d.start_point);
@@ -619,6 +671,13 @@ d3.select('#end_point')
   updateNode('end_point', parseInt(currentNodeId), newData);
 });
 
+d3.selectAll('.custom-control-input')
+.on('change', function() {
+  var currentNodeId = d3.select('#current-node-id').text();
+  var newData = this.name;
+  appendToNode('editable', parseInt(currentNodeId), newData);
+});
+
 function updateNode(attribute, nodeId, newValue){
   graph.nodes.filter(function(d){ return d.id == nodeId })[0][attribute] = newValue;
   if (attribute == 'title'){
@@ -633,6 +692,14 @@ function updateNode(attribute, nodeId, newValue){
     });
   }
 }
+
+function appendToNode(attribute, nodeId, newValue){
+  var node = graph.nodes.filter(function(d){ return d.id == nodeId });
+  node[0][attribute] = node[0][attribute]+','+newValue;
+  //console.log(node);
+}
+
+
 
 d3.select('#subbtn').on('click', function() {
   // prevent form submission
@@ -875,8 +942,8 @@ var edges =  <%= raw  @edges.to_json.gsub!('"', '')%>;
 
 /** MAIN SVG **/
 var svg = d3.select("#graphDiv").append("svg")
-.attr("width", bodyEl.clientWidth)
-.attr("height", '600px')
+.attr("preserveAspectRatio", "none" )
+.attr("viewBox", "0 0 700 400")
 //.attr("preserveAspectRatio" , "xMidYMid meet")
 ;
 var graph = new GraphCreator(svg, nodes, edges);

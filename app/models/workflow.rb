@@ -3,6 +3,7 @@ class Workflow < ActiveRecord::Base
   has_many :articles, :through => :workflow_states
   has_many :workflow_states, dependent: :destroy
   belongs_to :user
+
   def next_nodes(current_node_id)
     @nodes = JSON.parse self.nodes
     @edges = JSON.parse self.edges
@@ -13,6 +14,18 @@ class Workflow < ActiveRecord::Base
       end
     end
     return WorkflowState.where(workflow_id: self.id, node_id: @nexts)
+  end
+
+  def previous_nodes(current_node_id)
+    @nodes = JSON.parse self.nodes
+    @edges = JSON.parse self.edges
+    @previouses = []
+    for edge in @edges
+      if edge['target']['id'] == current_node_id
+        @previouses << edge['source']['id']
+      end
+    end
+    return WorkflowState.where(workflow_id: self.id, node_id: @previouses)
   end
 
   def is_next_node(current_node_id, next_node_id)

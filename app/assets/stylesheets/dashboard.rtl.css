@@ -10330,7 +10330,7 @@ body.fixed-header .header {
 }
 
 .header-brand-img {
-  height: 2rem;
+  height: 2.4rem;
   line-height: 2rem;
   vertical-align: bottom;
   margin-left: .5rem;
@@ -14546,16 +14546,15 @@ a.tag:hover {
   color: inherit;
   text-decoration: none;
   background: rgba(0, 0, 0, 0.06);
-  margin: 0 .5rem 0 -.5rem;
   text-align: center;
   min-width: 1.5rem;
 }
 
 .tag-addon:last-child {
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 
 .tag-addon i {
