@@ -363,7 +363,7 @@ GraphCreator.prototype.consts =  {
   DELETE_KEY: 46,
   ENTER_KEY: 13,
   nodeRadius: 25,
-  nodeX: 70,
+  nodeX: 100,
   nodeY: 30
 };
 
@@ -412,8 +412,8 @@ GraphCreator.prototype.insertTitleLinebreaks = function (gEl, title) {
   .attr('id', 'text-' + gEl[0][0].__data__.id )
   .attr("text-anchor","middle")
 //  .attr("dy", "-" + (nwords-1)*7.5)
-  .attr("x",45)
-  .attr("y", 18);
+.attr("dx",50)
+.attr("dy", 18);
 
   for (var i = 0; i < words.length; i++) {
     var tspan = el.append('tspan').text(words[i]);
@@ -624,7 +624,7 @@ d3.select('#step-title')
 .on('input', function() {
   var currentNodeId = d3.select('#current-node-id').text();
   var newData = d3.select(this).property('value');
-  updateNode('title' ,parseInt(currentNodeId), newData);
+  updateNode('title' ,parseInt(currentNodeId), newData.replace(/ /g,"_"));
 });
 
 d3.select('#role')
@@ -632,10 +632,6 @@ d3.select('#role')
   var currentNodeId = d3.select('#current-node-id').text();
   var newData = eval(d3.select(this).property('value'));
   updateNode('role' ,parseInt(currentNodeId), newData);
-//  var abrData = $("#role option:selected").text();
-//  var regExp = /\(([^)]+)\)/;
-//  var abr = abrData//regExp.exec(abrData);
-//  updateNode('title', parseInt(currentNodeId), abr);
 });
 
 

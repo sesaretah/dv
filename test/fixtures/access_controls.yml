@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  role_id: 1
+  view_unrelated_articles: 1
+  view_article_logs: 1
+  view_workflow_transactions: 1
+  create_workflow: 1
+  alter_article_areas: 1
+  alter_article_events: 1
+  alter_article_formats: 1
+  alter_article_relation_types: 1
+  alter_article_sources: 1
+  alter_article_types: 1
+  alter_keywords: 1
+  alter_languages: 1
+  alter_profiles: 1
+  alter_roles: 1
+  alter_duties: 1
+  alter_title_types: 1
+
+two:
+  user_id: 1
+  role_id: 1
+  view_unrelated_articles: 1
+  view_article_logs: 1
+  view_workflow_transactions: 1
+  create_workflow: 1
+  alter_article_areas: 1
+  alter_article_events: 1
+  alter_article_formats: 1
+  alter_article_relation_types: 1
+  alter_article_sources: 1
+  alter_article_types: 1
+  alter_keywords: 1
+  alter_languages: 1
+  alter_profiles: 1
+  alter_roles: 1
+  alter_duties: 1
+  alter_title_types: 1

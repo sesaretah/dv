@@ -1,0 +1,149 @@
+<%= form_for(@access_control, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :new_access_control %></h3>
+</div>
+<% if @access_control.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@access_control.errors.count, "error") %> prohibited this access_control from being saved:</h2>
+
+  <ul>
+    <% @access_control.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="card-body">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :view_unrelated_articles, class: "form-label" %>
+        <%= f.select( :view_unrelated_articles, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :view_article_logs, class: "form-label" %>
+        <%= f.select( :view_article_logs, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :view_workflow_transactions, class: "form-label" %>
+        <%= f.select( :view_workflow_transactions, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :create_workflow, class: "form-label" %>
+        <%= f.select( :create_workflow, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_article_areas, class: "form-label" %>
+        <%= f.select( :alter_article_areas, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_article_events, class: "form-label" %>
+        <%= f.select( :alter_article_events, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_article_formats, class: "form-label" %>
+        <%= f.select( :alter_article_formats, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_article_relation_types, class: "form-label" %>
+        <%= f.select( :alter_article_relation_types, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_article_sources, class: "form-label" %>
+        <%= f.select( :alter_article_sources, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_article_types, class: "form-label" %>
+        <%= f.select( :alter_article_types, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_keywords, class: "form-label" %>
+        <%= f.select( :alter_keywords, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_languages, class: "form-label" %>
+        <%= f.select( :alter_languages, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_profiles, class: "form-label" %>
+        <%= f.select( :alter_profiles, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_roles, class: "form-label" %>
+        <%= f.select( :alter_roles, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_duties, class: "form-label" %>
+        <%= f.select( :alter_duties, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_title_types, class: "form-label" %>
+        <%= f.select( :alter_title_types, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+  </div>
+  <% end %>

@@ -1,6 +1,6 @@
 <div class="card-body" id='article-show'>
   <% if article.workflow_state.role_id == current_user.current_role_id%>
-    <% if !nxt.blank?%>
+    <% if !nxt.first.blank?%>
       <fieldset class="form-fieldset">
         <%=t :send_to%>
         <%= form_tag "/articles/send_to/#{article.id}", method: :get, remote: true do %>
@@ -18,8 +18,8 @@
         <%end%>
       </fieldset>
   <%end%>
-  <% if article.workflow_state.editable == 1%>
-    <% if !prv.blank?%>
+  <% if article.workflow_state.refundable == 1%>
+    <% if !prv.first.blank?%>
       <fieldset class="form-fieldset">
         <%=t :refund_to%>
         <%= form_tag "/articles/refund_to/#{article.id}", method: :get, remote: true do %>
@@ -156,8 +156,8 @@ document.onload = (function(d3, saveAs, Blob, undefined){
     .attr('id', 'text-' + gEl[0][0].__data__.id )
     .attr("text-anchor","middle")
     //  .attr("dy", "-" + (nwords-1)*7.5)
-    .attr("x",77)
-    .attr("y", 18);
+    .attr("dx",50)
+    .attr("dy", 18);
 
     for (var i = 0; i < words.length; i++) {
       var tspan = el.append('tspan').text(words[i]);

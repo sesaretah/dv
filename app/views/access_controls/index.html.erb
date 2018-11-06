@@ -1,0 +1,53 @@
+<div class="row row-cards">
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="card">
+      <table class="table card-table table-vcenter">
+        <tbody>
+          <% @access_controls.each do |access_control| %>
+          <tr>
+                        <td><%= access_control.user_id %></td>
+                        <td><%= access_control.role_id %></td>
+                        <td><%= access_control.view_unrelated_articles %></td>
+                        <td><%= access_control.view_article_logs %></td>
+                        <td><%= access_control.view_workflow_transactions %></td>
+                        <td><%= access_control.create_workflow %></td>
+                        <td><%= access_control.alter_article_areas %></td>
+                        <td><%= access_control.alter_article_events %></td>
+                        <td><%= access_control.alter_article_formats %></td>
+                        <td><%= access_control.alter_article_relation_types %></td>
+                        <td><%= access_control.alter_article_sources %></td>
+                        <td><%= access_control.alter_article_types %></td>
+                        <td><%= access_control.alter_keywords %></td>
+                        <td><%= access_control.alter_languages %></td>
+                        <td><%= access_control.alter_profiles %></td>
+                        <td><%= access_control.alter_roles %></td>
+                        <td><%= access_control.alter_duties %></td>
+                        <td><%= access_control.alter_title_types %></td>
+                        <td><%= link_to t(:show), access_control %></td>
+            <td><%= link_to t(:edit), edit_access_control_path(access_control) %></td>
+            <td><%= link_to t(:destroy), access_control, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

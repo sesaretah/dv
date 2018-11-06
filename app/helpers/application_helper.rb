@@ -1,4 +1,13 @@
 module ApplicationHelper
+
+  def controls
+    @options = [
+      [t(:allow), 1],
+      [t(:deny) , 0]
+    ]
+    return @options
+  end
+  
   def ability
     @options = [
       [t(:has), 1],

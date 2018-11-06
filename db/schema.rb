@@ -11,7 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181101115344) do
+ActiveRecord::Schema.define(version: 20181106101705) do
+
+  create_table "access_controls", force: :cascade do |t|
+    t.integer  "user_id",                      limit: 4
+    t.integer  "role_id",                      limit: 4
+    t.integer  "view_unrelated_articles",      limit: 4
+    t.integer  "view_article_logs",            limit: 4
+    t.integer  "view_workflow_transactions",   limit: 4
+    t.integer  "create_workflow",              limit: 4
+    t.integer  "alter_article_areas",          limit: 4
+    t.integer  "alter_article_events",         limit: 4
+    t.integer  "alter_article_formats",        limit: 4
+    t.integer  "alter_article_relation_types", limit: 4
+    t.integer  "alter_article_sources",        limit: 4
+    t.integer  "alter_article_types",          limit: 4
+    t.integer  "alter_keywords",               limit: 4
+    t.integer  "alter_languages",              limit: 4
+    t.integer  "alter_profiles",               limit: 4
+    t.integer  "alter_roles",                  limit: 4
+    t.integer  "alter_duties",                 limit: 4
+    t.integer  "alter_title_types",            limit: 4
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
 
   create_table "areaing_histories", force: :cascade do |t|
     t.integer  "article_id",             limit: 4
@@ -383,10 +406,10 @@ ActiveRecord::Schema.define(version: 20181101115344) do
   create_table "workflow_states", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.integer  "workflow_id", limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "node_id",     limit: 4
-    t.integer  "editable",    limit: 4
+    t.text     "editable",    limit: 16777215
     t.integer  "refundable",  limit: 4
     t.integer  "commentable", limit: 4
     t.integer  "start_point", limit: 4

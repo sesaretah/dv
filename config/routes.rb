@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :access_controls
   resources :upload_histories
   resources :speaking_histories
   resources :areaing_histories

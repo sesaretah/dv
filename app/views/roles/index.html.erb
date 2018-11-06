@@ -28,6 +28,7 @@
             <th><%=t :title%></th>
             <th><%=t :articles %></th>
             <th><%=t :last_editor %></th>
+            <th><%=t :access_control%></th>
             <th><%=t :last_edit %></th>
           </tr>
         </thead>
@@ -60,6 +61,12 @@
               </span>
             </td>
             <td>
+              <%= link_to "/access_controls/1?role_id=#{role.id}" do%>
+                <i class="fe fe-lock" style="vertical-align: -4px;"></i>
+              <%end%>
+            </td>
+            <td>
+
               <small class="text-muted">
                 <span>
                   <% @jalali = JalaliDate.to_jalali(role.updated_at)%>

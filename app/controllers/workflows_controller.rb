@@ -6,7 +6,7 @@ class WorkflowsController < ApplicationController
     @articles = Article.where(workflow_state_id: @workflow_state.id)
     resp = []
     for a in @articles
-      resp << {'title' => a.title, 'id' => a.id}
+      resp << {'title' => a.title.truncate(30), 'abstract' => a.abstract, 'id' => a.id}
     end
     render :json => resp.to_json, :callback => params['callback']
   end

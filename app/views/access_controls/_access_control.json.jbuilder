@@ -1,0 +1,2 @@
+json.extract! access_control, :id, :user_id, :role_id, :view_unrelated_articles, :view_article_logs, :view_workflow_transactions, :create_workflow, :alter_article_areas, :alter_article_events, :alter_article_formats, :alter_article_relation_types, :alter_article_sources, :alter_article_types, :alter_keywords, :alter_languages, :alter_profiles, :alter_roles, :alter_duties, :alter_title_types, :created_at, :updated_at
+json.url access_control_url(access_control, format: :json)

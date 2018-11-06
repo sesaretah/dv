@@ -26,31 +26,24 @@ class ArticlesController < ApplicationController
   end
 
   def article_related_dates
-
   end
 
   def article_other_details
-
   end
 
   def article_contributions
-
   end
 
   def article_relations
-
   end
 
   def workflow_transitions
-
   end
 
   def article_detail
-
   end
 
   def article_logs
-
   end
 
   def article_states
@@ -62,22 +55,23 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def compare
-    @source_article_history = ArticleHistory.where(revision_number: params[:source]).first
-    @target_article_history = ArticleHistory.where(revision_number: params[:target]).first
-    @tagging_histories = in_model_compare('TaggingHistory','Keyword',params[:source], params[:target],'target_id')
-    @dating_histories = in_model_compare('DatingHistory','Dating',params[:source], params[:target],'dating_id')
-    @typing_histories = in_model_compare('TypingHistory','Typing',params[:source], params[:target],'typing_id')
-    @formating_histories = in_model_compare('FormatingHistory','Formating',params[:source], params[:target],'formating_id')
-    @contribution_histories = in_model_compare('ContributionHistory','Contribution',params[:source], params[:target],'contribution_id')
-    @kinship_histories = in_model_compare('KinshipHistory','Kinship',params[:source], params[:target],'kinship_id')
-    @originating_histories = in_model_compare('OriginatingHistory','Originating',params[:source], params[:target],'originating_id')
-    @areaing_histories = in_model_compare('AreaingHistory','Areaing',params[:source], params[:target],'areaing_id')
-    @speaking_histories = in_model_compare('SpeakingHistory','Speaking',params[:source], params[:target],'speaking_id')
-    @upload_histories = in_model_compare('UploadHistory','Upload',params[:source], params[:target],'upload_id')
-    @result = {sah: @source_article_history, tah: @target_article_history, th: @tagging_histories, dh: @dating_histories, tyh: @typing_histories, fh: @formating_histories, ch: @contribution_histories, kh: @kinship_histories, oh: @originating_histories, ah: @areaing_histories, sh: @speaking_histories, uh: @upload_histories}
-  end
 
+  def compare
+    @result = {
+      sah: ArticleHistory.where(revision_number: params[:source]).first,
+      tah: ArticleHistory.where(revision_number: params[:target]).first,
+       th: history(model:'Keyword', params: params, alias: 'Tagging', model_key: 'target_id'),
+       dh: history(model: 'Dating', params: params),
+      tyh: history(model: 'Typing', params: params),
+       fh: history(model: 'Formating', params: params),
+       ch: history(model: 'Contribution', params: params),
+       kh: history(model: 'Kinship', params: params),
+       oh: history(model: 'Originating', params: params),
+       ah: history(model: 'Areaing', params: params),
+       sh: history(model: 'Speaking', params: params),
+       uh: history(model: 'Upload', params: params)
+    }
+  end
 
 
   def send_to
@@ -129,18 +123,6 @@ class ArticlesController < ApplicationController
     if !@workflow_state.blank? && !@workflow.blank?
       @next_workflow_states = @workflow.next_nodes(@workflow_state.node_id)
       @previous_workflow_states =  @workflow.previous_nodes(@workflow_state.node_id)
-      #@nodes = JSON.parse @workflow.nodes
-      #@edges = JSON.parse @workflow.edges
-      #@next_workflow_states = []
-      #@previous_workflow_states = []
-      #for edge in @edges
-      #  if edge['source']['id'] ==  @workflow_state.node_id
-      #    @next_workflow_states << WorkflowState.where(node_id: edge['target']['id'], workflow_id: @workflow.id).first
-      #  end
-      #  if edge['target']['id'] ==  @workflow_state.node_id
-      #    @previous_workflow_states << WorkflowState.where(node_id: edge['source']['id'], workflow_id: @workflow.id).first
-      #  end
-      #end
     end
   end
 
@@ -232,6 +214,14 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def history(**args)
+    if args[:alias].blank?
+      return in_model_compare("#{args[:model]}History", args[:model], args[:params][:source], args[:params][:target], "#{args[:model].downcase}_id")
+    else
+      return in_model_compare("#{args[:alias]}History", args[:model], args[:params][:source], args[:params][:target], args[:model_key])
+    end
+  end
+
   def in_model_compare(history_model, model, source, target, index)
     @source = []
     for t in history_model.classify.constantize.where(revision_number: source)
@@ -274,7 +264,7 @@ class ArticlesController < ApplicationController
       AreaingHistory.create(areaing_id: areaing.id, article_id: areaing.article_id, article_area_id: areaing.article_area_id , user_id: current_user.id, revision_number: revision_number , workflow_transition_id: workflow_transition.id)
     end
     for speaking in article.speakings
-      SpeakingHistory.create(speaking_id: speaking.id, article_id: areaing.article_id, language_id: speaking.language_id , user_id: current_user.id, revision_number: revision_number , workflow_transition_id: workflow_transition.id)
+      SpeakingHistory.create(speaking_id: speaking.id, article_id: speaking.article_id, language_id: speaking.language_id , user_id: current_user.id, revision_number: revision_number , workflow_transition_id: workflow_transition.id)
     end
     for upload in Upload.where(uploadable_type: 'Article', uploadable_id: article.id, attachment_type: 'article_attachment')
       UploadHistory.create(upload_id: upload.id, uploadable_type: upload.uploadable_type, uploadable_id: upload.uploadable_id, token: upload.token, attachment_file_name: upload.attachment_file_name, attachment_content_type: upload.attachment_content_type, attachment_file_size: upload.attachment_file_size, attachment_updated_at: upload.attachment_updated_at, attachment_type: upload.attachment_type ,user_id: current_user.id, revision_number: revision_number , workflow_transition_id: workflow_transition.id)

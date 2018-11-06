@@ -288,10 +288,30 @@ fa:
         assignment:
             user_id: 'فرد'
             role_id: 'نقش'
+        access_control:
+            view_unrelated_articles: 'نمایش اسناد غیر مرتبط'
+            view_article_logs: 'منوی مقایسه در اسناد'
+            view_workflow_transactions: 'منوی تراکنش ها در اسناد'
+            create_workflow: 'ایجاد چرخه کار'
+            alter_article_areas: 'تغییر در جدول پایه حوزه ها'
+            alter_article_events: 'تغییر در جدول پایه انواه تاریخ'
+            alter_article_formats: 'تغییر در جدول پایه قالب اسناد'
+            alter_article_relation_types: 'تغییر در جدول پایه انواع ارتباط اسناد'
+            alter_article_sources: 'تغییر در جدول پایه انواع منابع'
+            alter_article_types: 'تغییر در جدول پایه انواع سند'
+            alter_keywords: 'تغییر در جدول پایه کلیدواژه'
+            alter_languages: 'تغییر در جدول پایه زبان'
+            alter_profiles: 'تغییر در جدول پایه افراد'
+            alter_roles: 'تغییر در جدول پایه نقش ها'
+            alter_duties: 'تغییر در جدول پایه سمت ها'
+            alter_title_types: 'تغییر در جدول پایه انواع عنوان'
   will_paginate:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  access_control: 'کنترل دسترسی'
+  allow: 'مجاز'
+  deny: 'غیر مجاز'
   transaction: 'تراکنش'
   contributions: 'پدیدآورندگان'
   uploads: 'پیوست ها '
