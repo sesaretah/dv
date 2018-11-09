@@ -6,21 +6,23 @@
       </a>
       <div class="d-flex order-lg-2 mr-auto">
         <div class="nav-item d-none d-md-flex">
+          <% if !current_user.roles.blank?%>
           <div class="dropdown">
             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
               <i class="fe fe-briefcase mr-2"></i><%=t :change_current_role%>
             </button>
             <div class="dropdown-menu" style="  right: 0px !important;">
-              <%= render partial: '/home/current_role'%>
+                <%= render partial: '/home/current_role'%>
             </div>
-          </div>
+            </div>
+            <%end%>
         </div>
         <div class="dropdown" >
           <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
             <span class="avatar" style="background-image: url(<%= current_user.profile.avatar(:thumb)%>)"></span>
             <span class="ml-2 d-none d-lg-block">
               <span class="text-default"><%= current_user.profile.fullname%></span>
-              <small class="text-muted d-block mt-1"><%= Role.find(current_user.current_role_id).title%></small>
+              <small class="text-muted d-block mt-1"><%= Role.find_by_id(current_user.current_role_id).title rescue nil%></small>
             </span>
           </a>
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" style=" right: auto !important;">

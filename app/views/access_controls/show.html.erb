@@ -1,72 +1,111 @@
 <div class='row'>
-  <div class="col-lg-4 order-lg-1">
+  <div class="col-lg-3 order-lg-1">
+    <div class="card">
+      <div class="card-body" style="padding: 1rem;">
+        <div class="list-group list-group-transparent mb-0">
+          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center active" style="color: #464a4e;font-size:smaller; background-color: #e7e8ea;border-color: #dddfe2;">
+            <%=t :access_control%>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center active mt-1" style="font-size:smaller;">
+            <%= @access_control.role.title%>
+          </a>
+          <div class='mr-3 ml-3 mb-3' style="font-size:smaller; text-align:justify;">
+
+          </div>
+        </div>
+      </div>
   </div>
-  <div class="col-lg-8 order-lg-1">
+</div>
+  <div class="col-lg-9 order-lg-1">
     <div class="card">
       <div class="card-header">
         <h3 class="card-title"></h3>
         <div class="card-options">
-          <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+          <%= link_to "/access_controls/#{@access_control.id}/edit", class: "btn btn-secondary btn-sm ml-1" do %>
+            <i class="fe fe-edit" style="vertical-align: -3px;"></i> <%=t :edit%>
+          <%end%>
+          <%= link_to "/roles", class: "btn btn-secondary btn-sm ml-1" do %>
+            <i class="fe fe-arrow-left" style="vertical-align: -3px;"></i> <%=t :back%>
+          <%end%>
         </div>
       </div>
       <div class="card-body">
         <div class='row'>
           <div class='col-md-12 col-lg-12'>
-                        <div class="form-group">
-              <%= label :access_control, :user_id , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.user_id %></div>
+            <% if !@access_control.user.blank?%>
+            <div class="form-group">
+              <%= label :access_control, :user_id , class: "form-label", style: 'color: #7795c1;'%>
+              <span class="tag" style='vertical-align: -3px;'>
+                <span class="tag-avatar avatar" style="background-image: url('<%= @access_control.user.profile.avatar(:tiny)%>')"></span>
+                <%= truncate(@access_control.user.profile.fullname, length: 15)%>
+              </span>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :role_id , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.role_id %></div>
+            <%end%>
+            <div class="form-group">
+              <%= label :access_control, :view_unrelated_articles , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.view_unrelated_articles) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :view_unrelated_articles , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.view_unrelated_articles %></div>
+            <div class="form-group">
+              <%= label :access_control, :view_article_logs , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.view_article_logs) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :view_article_logs , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.view_article_logs %></div>
+            <div class="form-group">
+              <%= label :access_control, :view_workflow_transactions , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.view_workflow_transactions) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :view_workflow_transactions , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.view_workflow_transactions %></div>
+            <div class="form-group">
+              <%= label :access_control, :create_workflow , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.create_workflow) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :create_workflow , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.create_workflow %></div>
+            <div class="form-group">
+              <%= label :access_control, :alter_article_areas , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.alter_article_areas) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :alter_article_areas , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.alter_article_areas %></div>
+            <div class="form-group">
+              <%= label :access_control, :alter_article_events , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.alter_article_events) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :alter_article_events , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.alter_article_events %></div>
+            <div class="form-group">
+              <%= label :access_control, :alter_article_formats , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.alter_article_formats) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :alter_article_formats , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.alter_article_formats %></div>
+            <div class="form-group">
+              <%= label :access_control, :alter_article_relation_types , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.alter_article_relation_types) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :alter_article_relation_types , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.alter_article_relation_types %></div>
+            <div class="form-group">
+              <%= label :access_control, :alter_article_sources , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.alter_article_sources) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :alter_article_sources , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.alter_article_sources %></div>
+            <div class="form-group">
+              <%= label :access_control, :alter_article_types , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.alter_article_types) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :alter_article_types , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.alter_article_types %></div>
+            <div class="form-group">
+              <%= label :access_control, :alter_keywords , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.alter_keywords) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :alter_keywords , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.alter_keywords %></div>
+            <div class="form-group">
+              <%= label :access_control, :alter_languages , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.alter_languages) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :alter_languages , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.alter_languages %></div>
+            <div class="form-group">
+              <%= label :access_control, :alter_profiles , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.alter_profiles) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :alter_profiles , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.alter_profiles %></div>
+            <div class="form-group">
+              <%= label :access_control, :alter_roles , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.alter_roles) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :alter_roles , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.alter_roles %></div>
+            <div class="form-group">
+              <%= label :access_control, :alter_duties , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.alter_duties) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :alter_duties , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.alter_duties %></div>
+            <div class="form-group">
+              <%= label :access_control, :alter_title_types , class: "form-label", style: 'color: #7795c1;'%>
+              <div class="form-control-plaintext"><%= rcontrols(@access_control.alter_title_types) %></div>
             </div>
-                        <div class="form-group">
-              <%= label :access_control, :alter_title_types , class: "form-label", style: 'color: #7795c1;'%>              <div class="form-control-plaintext"><%= @access_control.alter_title_types %></div>
-            </div>
-                      </div>
+          </div>
         </div>
       </div>
     </div>

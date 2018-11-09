@@ -7,4 +7,12 @@ class Role < ActiveRecord::Base
   has_many :users, :through => :assignments
   has_many :assignments, dependent: :destroy
   belongs_to :user
+  has_one :access_control, dependent: :destroy
+
+  after_create :set_access_control
+
+  def set_access_control
+    AccessControl.create(role_id: self.id)
+  end
+
 end

@@ -23,5 +23,22 @@ class ApplicationController < ActionController::Base
    root_path
  end
 
+ def grant_access(ward, user)
+   if user.assignments.blank?
+     return false
+   end
+   @flag = 1
+   for assignment in user.assignments
+     @access_control = AccessControl.where(role_id: assignment.role_id).first
+     if !@access_control.blank?
+       @flag = @flag * @access_control["#{ward}"].to_i
+     end
+   end
+   if @flag == 0
+     return false
+   else
+     return true
+   end
+ end
 
 end

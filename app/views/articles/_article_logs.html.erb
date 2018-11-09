@@ -2,44 +2,55 @@
   <div class='row'>
     <div class='col-md-12 col-lg-12'>
       <%= form_tag "/articles/compare/#{@article.id}", method: :get, remote: true do%>
-      <div class='row'>
-        <div class='col-md-6 col-lg-6'>
-          <div class="form-group">
-            <div class="form-label"><%=t :compare_source%></div>
-            <% for workflow_transition in WorkflowTransition.where(article_id: @article.id)%>
-            <div class="custom-controls-stacked">
-              <label class="custom-control custom-radio">
+      <table>
+        <thead style="font-size: smaller;font-weight: 600;">
+          <tr>
+            <td><%=t :compare_source%></td>
+            <td><%=t :compare_target%></td>
+            <td><%=t :revision_number%></td>
+            <td  class="pr-2"><%=t :by%></td>
+            <td><%=t :transition_date %></td>
+          </tr>
+        </thead>
+        <% for workflow_transition in WorkflowTransition.where(article_id: @article.id)%>
+        <% @from = truncate(WorkflowState.find(workflow_transition.from_state_id).title, length: 14)%>
+        <% @to = truncate(WorkflowState.find(workflow_transition.to_state_id).title, length: 14)%>
+        <tr>
+          <td>
+              <label class="custom-control custom-radio pr-1">
                 <input type="radio" class="custom-control-input" name="source" value="<%= workflow_transition.revision_number%>" <%if defined?(result) && result[:sah].revision_number == workflow_transition.revision_number%>checked<%end%>>
-                <div class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'>
-                  <%= WorkflowState.find(workflow_transition.from_state_id).title%>
-                  <i class="fe fe-arrow-left" style="vertical-align:-2px;font-size:smaller"></i>
-                  <%= WorkflowState.find(workflow_transition.to_state_id).title%>
-                  <span class="tag" style="font-family: sans-serif !important;direction: ltr;">#<%= workflow_transition.revision_number%></span>
+                <div class="custom-control-label" style='padding-right: 23px;padding-top: 2px;font-size:smaller;'>
+                  <%=@from%><i class="fe fe-arrow-left" style="vertical-align:-2px;font-size:smaller"></i><%= @to%>
                 </div>
               </label>
-            </div>
-            <%end%>
-          </div>
-        </div>
-        <div class='col-md-6 col-lg-6'>
-          <div class="form-group">
-            <div class="form-label"><%=t :compare_target%></div>
-            <% for workflow_transition in WorkflowTransition.where(article_id: @article.id)%>
-            <div class="custom-controls-stacked">
-              <label class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" name="target" value="<%= workflow_transition.revision_number%>"  <%if defined?(result) && result[:tah].revision_number == workflow_transition.revision_number%>checked<%end%>>
-                <div class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'>
-                  <%= WorkflowState.find(workflow_transition.from_state_id).title%>
-                  <i class="fe fe-arrow-left" style="vertical-align:-2px;font-size:smaller"></i>
-                  <%= WorkflowState.find(workflow_transition.to_state_id).title%>
-                  <span class="tag" style="font-family: sans-serif !important;direction: ltr;">#<%= workflow_transition.revision_number%></span>
-                </div>
-              </label>
-            </div>
-            <%end%>
-          </div>
-        </div>
-      </div>
+          </td>
+          <td>
+            <label class="custom-control custom-radio pr-1">
+              <input type="radio" class="custom-control-input" name="target" value="<%= workflow_transition.revision_number%>" <%if defined?(result) && result[:tah].revision_number == workflow_transition.revision_number%>checked<%end%>>
+              <div class="custom-control-label" style='padding-right: 23px;padding-top: 2px;font-size:smaller;'>
+                <%=@from%><i class="fe fe-arrow-left" style="vertical-align:-2px;font-size:smaller"></i><%= @to%>
+              </div>
+            </label>
+          </td>
+          <td><span class="tag tag-dark" style="font-family: sans-serif !important;direction: ltr; font-size:smaller; vertical-align: 11px;">#<%= workflow_transition.revision_number%></span></td>
+          <td>
+            <span class="tag mr-2" style="vertical-align:4px;">
+              <span class="tag-avatar avatar" style="background-image: url('<%= workflow_transition.user.profile.avatar(:tiny)%>')"></span>
+              <%= truncate(workflow_transition.user.profile.fullname, length: 15)%>
+            </span>
+          </td>
+          <td>
+            <small class="text-muted" style="vertical-align:12px;">
+              <span>
+                <% @jalali = JalaliDate.to_jalali(workflow_transition.updated_at)%>
+                <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
+              </span>
+            </small>
+          </td>
+        </tr>
+        <%end%>
+      </table>
+
       <div class='row'>
         <div class='col-md-12 col-lg-12'>
           <div class="text-right">
@@ -242,7 +253,7 @@
   <script>
   $( ".compare" ).each(function( index ) {
     var divType =  $(this).attr('id').split("-")[1];
-    console.log(divType);
+    //console.log(divType);
     var first = $('#first-'+divType).text(),
     last = $('#last-'+divType).text(),
     color = '',

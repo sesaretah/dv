@@ -30,7 +30,7 @@ function fireThisUponEvent(event) {
             query: request.term
           },
           success: function( data ) {
-            console.log(data);
+            //console.log(data);
             if (data === undefined || data.length == 0) {
               $('#cert_id').val('');
             }
@@ -377,7 +377,7 @@ function fireThisUponEvent(event) {
     },
     render: {
       option: function (item, escape) {
-        console.log(item);
+        //console.log(item);
         return '<div>' + escape(item.title) + '</div>';
       }
     },

@@ -305,10 +305,16 @@ fa:
             alter_roles: 'تغییر در جدول پایه نقش ها'
             alter_duties: 'تغییر در جدول پایه سمت ها'
             alter_title_types: 'تغییر در جدول پایه انواع عنوان'
+            user_id: 'توسط'
   will_paginate:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  new_access_control: 'کنترل دسترسی'
+  no_new_article_in_your_dashboard: 'فعلا سندی در میز کار شما موجود نیست'
+  transition_date: 'تاریخ  '
+  revision_number: 'شماره بازبینی'
+  transaction_number: 'شماره تراکنش'
   access_control: 'کنترل دسترسی'
   allow: 'مجاز'
   deny: 'غیر مجاز'

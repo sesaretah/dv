@@ -5,9 +5,13 @@ class HomeController < ApplicationController
   end
 
   def index
-    @role = Role.find(current_user.current_role_id)
-    @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
-    @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids)
+    @role = Role.find_by_id(current_user.current_role_id)
+    if !@role.blank?
+      @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
+      @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids).paginate(:page => params[:page], :per_page => 5)
+    else
+        @articles = []
+    end
   end
 
   def advanced_search

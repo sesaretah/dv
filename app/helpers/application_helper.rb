@@ -7,7 +7,16 @@ module ApplicationHelper
     ]
     return @options
   end
-  
+
+  def rcontrols(s)
+    if !s.blank?
+      @options = [t(:allow),t(:deny)]
+      return @options[s-1]
+    else
+      return t(:deny)
+    end
+  end
+
   def ability
     @options = [
       [t(:has), 1],
