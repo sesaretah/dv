@@ -12,17 +12,29 @@ class ApplicationController < ActionController::Base
  end
 
  def after_sign_in_path_for(user)
-   root_path
+   if !user.profile.blank?
+     session['user_return_to'] || root_path
+   else
+     '/profiles/new'
+   end
  end
 
  def after_sign_up_path_for(user)
-   root_path
+   if !user.profile.blank?
+     root_path
+   else
+     '/profiles/new'
+   end
  end
 
  def after_inactive_sign_up_path_for(user)
-   root_path
+   if !user.profile.blank?
+     root_path
+   else
+     '/profiles/new'
+   end
  end
-
+ 
  def grant_access(ward, user)
    if user.assignments.blank?
      return false
