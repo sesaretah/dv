@@ -23,11 +23,17 @@ class WorkflowsController < ApplicationController
 
   # GET /workflows/new
   def new
+    if !grant_access("create_workflow", current_user)
+      head(403)
+    end
     @workflow = Workflow.new
   end
 
   # GET /workflows/1/edit
   def edit
+    if !owner(@workflow, current_user)
+      head(403)
+    end
     @edges = @workflow.prepare_edges
     @nodes = JSON.parse @workflow.nodes
   end
@@ -35,6 +41,9 @@ class WorkflowsController < ApplicationController
   # POST /workflows
   # POST /workflows.json
   def create
+    if !grant_access("create_workflow", current_user)
+      head(403)
+    end
     @workflow = Workflow.new(workflow_params)
     @workflow.user_id = current_user.id
     @nodes = JSON.parse params[:workflow][:nodes]
@@ -67,6 +76,9 @@ class WorkflowsController < ApplicationController
   # PATCH/PUT /workflows/1
   # PATCH/PUT /workflows/1.json
   def update
+    if !owner(@workflow, current_user)
+      head(403)
+    end
     @workflow.user_id = current_user.id
     @nodes = JSON.parse params[:workflow][:nodes]
     @trimed_nodes = []
@@ -106,6 +118,9 @@ class WorkflowsController < ApplicationController
   # DELETE /workflows/1
   # DELETE /workflows/1.json
   def destroy
+    if !owner(@workflow, current_user)
+      head(403)
+    end
     @workflow.destroy
     respond_to do |format|
       format.html { redirect_to workflows_url, notice: 'Workflow was successfully destroyed.' }

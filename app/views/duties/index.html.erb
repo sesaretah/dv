@@ -5,8 +5,10 @@
         <div class="card">
           <div class="card-body">
             <div class="text-center">
-              <%= link_to  new_duty_url, class: "btn btn-lime  btn-sm" do%>
-              <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
+              <% if grant_access("alter_duties", current_user)%>
+                <%= link_to  new_duty_url, class: "btn btn-lime  btn-sm" do%>
+                  <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
+                <%end%>
               <%end%>
             </div>
           </div>
@@ -39,9 +41,11 @@
                 <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
                   <a href="/duties/<%= duty.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
-                  <a href="/duties/<%= duty.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
-                  <%= link_to duty, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
-                  <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
+                  <% if grant_access("alter_duties", current_user)%>
+                    <a href="/duties/<%= duty.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
+                    <%= link_to duty, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
+                      <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
+                    <%end%>
                   <%end%>
                 </div>
               </div>

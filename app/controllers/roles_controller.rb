@@ -24,16 +24,25 @@ class RolesController < ApplicationController
 
   # GET /roles/new
   def new
+    if !grant_access("alter_roles", current_user)
+      head(403)
+    end
     @role = Role.new
   end
 
   # GET /roles/1/edit
   def edit
+    if !grant_access("alter_roles", current_user)
+      head(403)
+    end
   end
 
   # POST /roles
   # POST /roles.json
   def create
+    if !grant_access("alter_roles", current_user)
+      head(403)
+    end
     @role = Role.new(role_params)
     @role.user_id = current_user.id
     respond_to do |format|
@@ -50,6 +59,9 @@ class RolesController < ApplicationController
   # PATCH/PUT /roles/1
   # PATCH/PUT /roles/1.json
   def update
+    if !grant_access("alter_roles", current_user)
+      head(403)
+    end
     @role.user_id = current_user.id
     respond_to do |format|
       if @role.update(role_params)
@@ -65,6 +77,9 @@ class RolesController < ApplicationController
   # DELETE /roles/1
   # DELETE /roles/1.json
   def destroy
+    if !grant_access("alter_roles", current_user)
+      head(403)
+    end
     @role.destroy
     respond_to do |format|
       format.html { redirect_to roles_url, notice: 'Role was successfully destroyed.' }

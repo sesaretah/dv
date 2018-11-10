@@ -24,11 +24,15 @@
           <%= link_to "/articles/article_states/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
           <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%=t :workflow%>
           <%end%>
-          <%= link_to "/articles/article_logs/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-          <i class="fe fe-activity" style="vertical-align: -3px;"></i> <%=t :compare%>
+          <% if grant_access("view_article_logs", current_user)%>
+            <%= link_to "/articles/article_logs/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+              <i class="fe fe-activity" style="vertical-align: -3px;"></i> <%=t :compare%>
+            <%end%>
           <%end%>
-          <%= link_to "/articles/workflow_transitions/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-          <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%=t :workflow_transitions%>
+          <% if grant_access("view_workflow_transactions", current_user)%>
+            <%= link_to "/articles/workflow_transitions/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+              <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%=t :workflow_transitions%>
+            <%end%>
           <%end%>
           <%= link_to "/articles/article_detail/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
           <i class="fe fe-play" style="vertical-align: -3px;"></i> <%=t :article_detail%>

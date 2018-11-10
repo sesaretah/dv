@@ -23,16 +23,25 @@ class ArticleAreasController < ApplicationController
 
   # GET /article_areas/new
   def new
+    if !grant_access("alter_article_areas", current_user)
+      head(403)
+    end
     @article_area = ArticleArea.new
   end
 
   # GET /article_areas/1/edit
   def edit
+    if !grant_access("alter_article_areas", current_user)
+      head(403)
+    end
   end
 
   # POST /article_areas
   # POST /article_areas.json
   def create
+    if !grant_access("alter_article_areas", current_user)
+      head(403)
+    end
     @article_area = ArticleArea.new(article_area_params)
     @article_area.user_id = current_user.id
     respond_to do |format|
@@ -49,6 +58,9 @@ class ArticleAreasController < ApplicationController
   # PATCH/PUT /article_areas/1
   # PATCH/PUT /article_areas/1.json
   def update
+    if !grant_access("alter_article_areas", current_user)
+      head(403)
+    end
     @article_area.user_id = current_user.id
     respond_to do |format|
       if @article_area.update(article_area_params)
@@ -64,6 +76,9 @@ class ArticleAreasController < ApplicationController
   # DELETE /article_areas/1
   # DELETE /article_areas/1.json
   def destroy
+    if !grant_access("alter_article_areas", current_user)
+      head(403)
+    end
     @article_area.destroy
     respond_to do |format|
       format.html { redirect_to article_areas_url, notice: 'Article area was successfully destroyed.' }

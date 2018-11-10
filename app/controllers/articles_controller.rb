@@ -38,12 +38,18 @@ class ArticlesController < ApplicationController
   end
 
   def workflow_transitions
+    if !grant_access("view_workflow_transactions", current_user)
+      head(403)
+    end
   end
 
   def article_detail
   end
 
   def article_logs
+    if !grant_access("view_article_logs", current_user)
+      head(403)
+    end
   end
 
   def article_states
@@ -208,7 +214,6 @@ class ArticlesController < ApplicationController
       end
     end
   end
-
 
   # DELETE /articles/1
   # DELETE /articles/1.json

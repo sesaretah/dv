@@ -34,7 +34,15 @@ class ApplicationController < ActionController::Base
      '/profiles/new'
    end
  end
- 
+
+ def owner(obj, user)
+   if obj.user_id == user.id
+     return true
+   else
+     return false
+   end
+ end
+
  def grant_access(ward, user)
    if user.assignments.blank?
      return false

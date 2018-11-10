@@ -14,16 +14,25 @@ class TitleTypesController < ApplicationController
 
   # GET /title_types/new
   def new
+    if !grant_access("alter_title_types", current_user)
+      head(403)
+    end
     @title_type = TitleType.new
   end
 
   # GET /title_types/1/edit
   def edit
+    if !grant_access("alter_title_types", current_user)
+      head(403)
+    end
   end
 
   # POST /title_types
   # POST /title_types.json
   def create
+    if !grant_access("alter_title_types", current_user)
+      head(403)
+    end
     @title_type = TitleType.new(title_type_params)
     @title_type.user_id = current_user.id
     respond_to do |format|
@@ -40,6 +49,9 @@ class TitleTypesController < ApplicationController
   # PATCH/PUT /title_types/1
   # PATCH/PUT /title_types/1.json
   def update
+    if !grant_access("alter_title_types", current_user)
+      head(403)
+    end
     @title_type.user_id = current_user.id
     respond_to do |format|
       if @title_type.update(title_type_params)
@@ -55,6 +67,9 @@ class TitleTypesController < ApplicationController
   # DELETE /title_types/1
   # DELETE /title_types/1.json
   def destroy
+    if !grant_access("alter_title_types", current_user)
+      head(403)
+    end
     @title_type.destroy
     respond_to do |format|
       format.html { redirect_to title_types_url, notice: 'Title type was successfully destroyed.' }

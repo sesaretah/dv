@@ -24,16 +24,25 @@ class ArticleRelationTypesController < ApplicationController
 
   # GET /article_relation_types/new
   def new
+    if !grant_access("alter_article_relation_types", current_user)
+      head(403)
+    end
     @article_relation_type = ArticleRelationType.new
   end
 
   # GET /article_relation_types/1/edit
   def edit
+    if !grant_access("alter_article_relation_types", current_user)
+      head(403)
+    end
   end
 
   # POST /article_relation_types
   # POST /article_relation_types.json
   def create
+    if !grant_access("alter_article_relation_types", current_user)
+      head(403)
+    end
     @article_relation_type = ArticleRelationType.new(article_relation_type_params)
     @article_relation_type.user_id = current_user.id
     respond_to do |format|
@@ -50,7 +59,10 @@ class ArticleRelationTypesController < ApplicationController
   # PATCH/PUT /article_relation_types/1
   # PATCH/PUT /article_relation_types/1.json
   def update
-    @article_relation_type.user_id = current_user.id 
+    if !grant_access("alter_article_relation_types", current_user)
+      head(403)
+    end
+    @article_relation_type.user_id = current_user.id
     respond_to do |format|
       if @article_relation_type.update(article_relation_type_params)
         format.html { redirect_to @article_relation_type, notice: 'Article relation type was successfully updated.' }
@@ -65,6 +77,9 @@ class ArticleRelationTypesController < ApplicationController
   # DELETE /article_relation_types/1
   # DELETE /article_relation_types/1.json
   def destroy
+    if !grant_access("alter_article_relation_types", current_user)
+      head(403)
+    end
     @article_relation_type.destroy
     respond_to do |format|
       format.html { redirect_to article_relation_types_url, notice: 'Article relation type was successfully destroyed.' }

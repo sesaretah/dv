@@ -15,16 +15,25 @@ class LanguagesController < ApplicationController
 
   # GET /languages/new
   def new
+    if !grant_access("alter_languages", current_user)
+      head(403)
+    end
     @language = Language.new
   end
 
   # GET /languages/1/edit
   def edit
+    if !grant_access("alter_languages", current_user)
+      head(403)
+    end
   end
 
   # POST /languages
   # POST /languages.json
   def create
+    if !grant_access("alter_languages", current_user)
+      head(403)
+    end
     @language = Language.new(language_params)
     @language.user_id = current_user.id
     respond_to do |format|
@@ -41,6 +50,9 @@ class LanguagesController < ApplicationController
   # PATCH/PUT /languages/1
   # PATCH/PUT /languages/1.json
   def update
+    if !grant_access("alter_languages", current_user)
+      head(403)
+    end
     @language.user_id = current_user.id
     respond_to do |format|
       if @language.update(language_params)
@@ -56,6 +68,9 @@ class LanguagesController < ApplicationController
   # DELETE /languages/1
   # DELETE /languages/1.json
   def destroy
+    if !grant_access("alter_languages", current_user)
+      head(403)
+    end
     @language.destroy
     respond_to do |format|
       format.html { redirect_to languages_url, notice: 'Language was successfully destroyed.' }

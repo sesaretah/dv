@@ -23,16 +23,25 @@ class ArticleSourcesController < ApplicationController
 
   # GET /article_sources/new
   def new
+    if !grant_access("alter_article_sources", current_user)
+      head(403)
+    end
     @article_source = ArticleSource.new
   end
 
   # GET /article_sources/1/edit
   def edit
+    if !grant_access("alter_article_sources", current_user)
+      head(403)
+    end
   end
 
   # POST /article_sources
   # POST /article_sources.json
   def create
+    if !grant_access("alter_article_sources", current_user)
+      head(403)
+    end
     @article_source = ArticleSource.new(article_source_params)
     @article_source.user_id = current_user.id
     respond_to do |format|
@@ -49,6 +58,9 @@ class ArticleSourcesController < ApplicationController
   # PATCH/PUT /article_sources/1
   # PATCH/PUT /article_sources/1.json
   def update
+    if !grant_access("alter_article_sources", current_user)
+      head(403)
+    end
     @article_source.user_id = current_user.id
     respond_to do |format|
       if @article_source.update(article_source_params)
@@ -64,6 +76,9 @@ class ArticleSourcesController < ApplicationController
   # DELETE /article_sources/1
   # DELETE /article_sources/1.json
   def destroy
+    if !grant_access("alter_article_sources", current_user)
+      head(403)
+    end
     @article_source.destroy
     respond_to do |format|
       format.html { redirect_to article_sources_url, notice: 'Article source was successfully destroyed.' }

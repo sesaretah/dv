@@ -14,16 +14,25 @@ class ArticleTypesController < ApplicationController
 
   # GET /article_types/new
   def new
+    if !grant_access("alter_article_types", current_user)
+      head(403)
+    end
     @article_type = ArticleType.new
   end
 
   # GET /article_types/1/edit
   def edit
+    if !grant_access("alter_article_types", current_user)
+      head(403)
+    end
   end
 
   # POST /article_types
   # POST /article_types.json
   def create
+    if !grant_access("alter_article_types", current_user)
+      head(403)
+    end
     @article_type = ArticleType.new(article_type_params)
     @article_type.user_id = current_user.id
     respond_to do |format|
@@ -40,6 +49,9 @@ class ArticleTypesController < ApplicationController
   # PATCH/PUT /article_types/1
   # PATCH/PUT /article_types/1.json
   def update
+    if !grant_access("alter_article_types", current_user)
+      head(403)
+    end
     @article_type.user_id = current_user.id
     respond_to do |format|
       if @article_type.update(article_type_params)
@@ -55,6 +67,9 @@ class ArticleTypesController < ApplicationController
   # DELETE /article_types/1
   # DELETE /article_types/1.json
   def destroy
+    if !grant_access("alter_article_types", current_user)
+      head(403)
+    end
     @article_type.destroy
     respond_to do |format|
       format.html { redirect_to article_types_url, notice: 'Article type was successfully destroyed.' }

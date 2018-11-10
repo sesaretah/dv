@@ -25,16 +25,25 @@ class DutiesController < ApplicationController
 
   # GET /duties/new
   def new
+    if !grant_access("alter_duties", current_user)
+      head(403)
+    end
     @duty = Duty.new
   end
 
   # GET /duties/1/edit
   def edit
+    if !grant_access("alter_duties", current_user)
+      head(403)
+    end
   end
 
   # POST /duties
   # POST /duties.json
   def create
+    if !grant_access("alter_duties", current_user)
+      head(403)
+    end
     @duty = Duty.new(duty_params)
     @duty.user_id = current_user.id
     respond_to do |format|
@@ -51,6 +60,9 @@ class DutiesController < ApplicationController
   # PATCH/PUT /duties/1
   # PATCH/PUT /duties/1.json
   def update
+    if !grant_access("alter_duties", current_user)
+      head(403)
+    end
     @duty.user_id = current_user.id
     respond_to do |format|
       if @duty.update(duty_params)
@@ -66,6 +78,9 @@ class DutiesController < ApplicationController
   # DELETE /duties/1
   # DELETE /duties/1.json
   def destroy
+    if !grant_access("alter_duties", current_user)
+      head(403)
+    end
     @duty.destroy
     respond_to do |format|
       format.html { redirect_to duties_url, notice: 'Duty was successfully destroyed.' }

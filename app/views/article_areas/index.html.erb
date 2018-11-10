@@ -5,8 +5,10 @@
         <div class="card">
           <div class="card-body">
             <div class="text-center">
-              <%= link_to  new_article_area_url, class: "btn btn-lime  btn-sm" do%>
-              <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
+              <% if grant_access("alter_article_areas", current_user)%>
+                <%= link_to  new_article_area_url, class: "btn btn-lime  btn-sm" do%>
+                  <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
+                <%end%>
               <%end%>
             </div>
           </div>
@@ -39,9 +41,11 @@
                 <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
                   <a href="/article_areas/<%= article_area.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
-                  <a href="/article_areas/<%= article_area.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
-                  <%= link_to article_area, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
-                  <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
+                  <% if grant_access("alter_article_areas", current_user)%>
+                    <a href="/article_areas/<%= article_area.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
+                    <%= link_to article_area, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
+                      <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
+                    <%end%>
                   <%end%>
                 </div>
               </div>
@@ -50,7 +54,7 @@
             <td>
               <div class="tag tag-dark" style='vertical-align: 6px;'>
                 <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
-                <%= article_area.articles.count %>                
+                <%= article_area.articles.count %>
               </div>
             </td>
             <td>

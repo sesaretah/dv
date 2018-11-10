@@ -25,14 +25,28 @@
         <tbody>
           <% @profiles.each do |profile| %>
           <tr>
-            <td><%= profile.name %></td>
-            <td><%= profile.surename %></td>
-            <td><%= profile.user_id %></td>
-            <td><%= profile.phone_number %></td>
-            <td><%= profile.cellphone_number %></td>
-            <td><%= link_to t(:show), profile %></td>
-            <td><%= link_to t(:edit), edit_profile_path(profile) %></td>
-            <td><%= link_to t(:destroy), profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td class="text-center">
+              <div class="item-action dropdown">
+                <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a href="/profiles/<%= profile.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
+                  <% if grant_access("alter_profiles", current_user)%>
+                    <a href="/profiles/<%= profile.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
+                    <%= link_to profile, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
+                      <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
+                    <%end%>
+                  <%end%>
+                </div>
+              </div>
+            </td>
+            <td class="w-1"><span class="avatar" style="background-image: url(<%= profile.avatar(:thumb)%>)"></span></td>
+            <td><%= profile.fullname %></td>
+            <td>
+              <div class="tag tag-dark" style='vertical-align: 6px;'>
+                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
+                <%= profile.articles.count %>
+              </div>
+            </td>
           </tr>
           <% end %>
         </tbody>
