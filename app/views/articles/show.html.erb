@@ -21,6 +21,9 @@
     <div class="card">
       <div class="card-header">
         <div class="card-options">
+          <%= link_to "/articles/article_comments/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+          <i class="fe fe-message-square" style="vertical-align: -3px;"></i> <%=t :comments%>
+          <%end%>
           <%= link_to "/articles/article_states/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
           <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%=t :workflow%>
           <%end%>

@@ -1,0 +1,33 @@
+<%= form_for(comment, remote: true) do |f| %>
+  <% if comment.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+    <ul>
+      <% comment.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <%= f.text_area :content , class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#comment_content").emojioneArea();
+      });
+    </script>
+    <%= f.hidden_field :commentable_id , value: commentable_id %>
+    <%= f.hidden_field :commentable_type , value: commentable_type %>
+
+    <div class="text-right mt-0">
+      <button type="submit" class="btn btn-sm btn-primary"><%=t :submit%></button>
+    </div>
+<% end %>

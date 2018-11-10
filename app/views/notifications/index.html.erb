@@ -1,0 +1,39 @@
+<div class="row row-cards">
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="card">
+      <table class="table card-table table-vcenter">
+        <tbody>
+          <% @notifications.each do |notification| %>
+          <tr>
+                        <td><%= notification.title %></td>
+                        <td><%= notification.content %></td>
+                        <td><%= notification.notifiable_id %></td>
+                        <td><%= notification.notifiable_type %></td>
+                        <td><%= link_to t(:show), notification %></td>
+            <td><%= link_to t(:edit), edit_notification_path(notification) %></td>
+            <td><%= link_to t(:destroy), notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -12,6 +12,7 @@ class HomeController < ApplicationController
     else
         @articles = []
     end
+     @notifications = Notification.where('notifiable_type = ?  AND notifiable_id IN (?)', 'Article', @articles.pluck(:id))
   end
 
   def advanced_search

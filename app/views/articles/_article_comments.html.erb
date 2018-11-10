@@ -1,0 +1,8 @@
+<div class="card-body" id='article-show'>
+  <div class='row'>
+    <div class='col-md-12 col-lg-12'>
+      <%= render partial: 'comments/remote_form', locals: {commentable_type: 'Article', commentable_id: article.id, comment: Comment.new }%>
+      <%= render partial: 'comments/list', locals: {comments: Comment.where(commentable_type: 'Article', commentable_id: article.id).order('created_at DESC')  }%>
+    </div>
+  </div>
+</div>

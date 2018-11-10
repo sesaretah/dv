@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :comments
+  resources :notifications
   resources :access_controls
   resources :upload_histories
   resources :speaking_histories
@@ -60,6 +62,7 @@ Rails.application.routes.draw do
   match "/articles/compare/:id" => "articles#compare", :via => :get
   match "/articles/search/:id" => "articles#search", :via => :get
   match "/articles/article_states/:id" => "articles#article_states", :via => :get
+  match "/articles/article_comments/:id" => "articles#article_comments", :via => :get
 
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
 

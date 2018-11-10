@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  content: MyText
+  notifiable_id: MyString
+  notifiable_type: MyString
+
+two:
+  title: MyString
+  content: MyText
+  notifiable_id: MyString
+  notifiable_type: MyString

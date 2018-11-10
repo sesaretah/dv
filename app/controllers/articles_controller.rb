@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments ]
 
   def search
     if !params[:q].blank?
@@ -50,6 +50,10 @@ class ArticlesController < ApplicationController
     if !grant_access("view_article_logs", current_user)
       head(403)
     end
+  end
+
+  def article_comments
+
   end
 
   def article_states

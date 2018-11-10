@@ -310,6 +310,8 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  comments: 'تبادل نظر'
+  notifications: 'آگاهسازی‌ها '
   in_your_dashboard: 'سند در میز کار شماست '
   new_access_control: 'کنترل دسترسی'
   no_new_article_in_your_dashboard: 'فعلا سندی در میز کار شما موجود نیست'

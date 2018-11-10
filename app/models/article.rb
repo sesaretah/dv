@@ -39,6 +39,8 @@ class Article < ActiveRecord::Base
 
   has_many :taggings, dependent: :destroy
 
+  has_many :comments, :as => :commentable, :dependent => :destroy
+
   has_many :article_histories
 
   belongs_to :workflow_state

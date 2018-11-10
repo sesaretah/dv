@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181106101705) do
+ActiveRecord::Schema.define(version: 20181110145708) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
     t.integer  "role_id",                      limit: 4
-    t.integer  "view_unrelated_articles",      limit: 4
+    t.integer  "view_unrelated_articles",      limit: 4, default: 0
     t.integer  "view_article_logs",            limit: 4
     t.integer  "view_workflow_transactions",   limit: 4
     t.integer  "create_workflow",              limit: 4
@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(version: 20181106101705) do
     t.integer  "alter_roles",                  limit: 4
     t.integer  "alter_duties",                 limit: 4
     t.integer  "alter_title_types",            limit: 4
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
   end
 
   create_table "areaing_histories", force: :cascade do |t|
@@ -133,6 +133,15 @@ ActiveRecord::Schema.define(version: 20181106101705) do
     t.integer  "assigner_id", limit: 4
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "content",          limit: 191
+    t.integer  "commentable_id",   limit: 4
+    t.string   "commentable_type", limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "user_id",          limit: 4
   end
 
   create_table "contribution_histories", force: :cascade do |t|
@@ -239,6 +248,15 @@ ActiveRecord::Schema.define(version: 20181106101705) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "user_id",     limit: 4
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string   "title",           limit: 255
+    t.text     "content",         limit: 65535
+    t.string   "notifiable_id",   limit: 255
+    t.string   "notifiable_type", limit: 255
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "originating_histories", force: :cascade do |t|
