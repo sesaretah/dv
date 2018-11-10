@@ -11,12 +11,25 @@
         </div>
       </div>
       <%else%>
-        <%= render partial: 'articles/list_wo_progress', locals: {articles: @articles}%>
+      <%= render partial: 'articles/list_wo_progress', locals: {articles: @articles}%>
       <%end%>
 
     </div>
   </div>
   <div class="col-lg-4">
+
+    <div class="card p-3">
+      <div class="d-flex align-items-center">
+        <span class="stamp stamp-md bg-green mr-3">
+          <i class="fe fe-feather" style='vertical-align:-3px'></i>
+        </span>
+        <div class="mt-1">
+          <h4 class="m-0"><%=t :articles%></h4>
+          <small class="text-muted"><%= @articles.count%> <%=t :in_your_dashboard%></small>
+        </div>
+      </div>
+    </div>
+
     <div class="card">
       <div class="card-header">
         <i class="fe fe-message-square"></i>&nbsp&nbsp<%=t :messages%>
@@ -26,14 +39,5 @@
       </div>
     </div>
 
-
-    <div class="card">
-      <div class="card-header">
-        <i class="fe fe-trending-down" style="vertical-align: -3px;"></i>&nbsp&nbsp<%=t :previous_workflow_actions%>
-      </div>
-      <div class="card-body">
-
-      </div>
-    </div>
   </div>
 </div>
