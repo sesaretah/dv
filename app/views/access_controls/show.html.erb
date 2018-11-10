@@ -21,8 +21,10 @@
       <div class="card-header">
         <h3 class="card-title"></h3>
         <div class="card-options">
+          <% if grant_access("alter_roles", current_user)%>
           <%= link_to "/access_controls/#{@access_control.id}/edit", class: "btn btn-secondary btn-sm ml-1" do %>
             <i class="fe fe-edit" style="vertical-align: -3px;"></i> <%=t :edit%>
+          <%end%>
           <%end%>
           <%= link_to "/roles", class: "btn btn-secondary btn-sm ml-1" do %>
             <i class="fe fe-arrow-left" style="vertical-align: -3px;"></i> <%=t :back%>

@@ -4,6 +4,9 @@ class AccessControlsController < ApplicationController
   # GET /access_controls
   # GET /access_controls.json
   def index
+    if !grant_access("alter_roles", current_user)
+      head(403)
+    end
     @access_controls = AccessControl.all
   end
 
@@ -14,11 +17,17 @@ class AccessControlsController < ApplicationController
 
   # GET /access_controls/new
   def new
+    if !grant_access("alter_roles", current_user)
+      head(403)
+    end
     @access_control = AccessControl.new
   end
 
   # GET /access_controls/1/edit
   def edit
+    if !grant_access("alter_roles", current_user)
+      head(403)
+    end
   end
 
   # POST /access_controls
@@ -54,6 +63,9 @@ class AccessControlsController < ApplicationController
   # DELETE /access_controls/1
   # DELETE /access_controls/1.json
   def destroy
+    if !grant_access("alter_roles", current_user)
+      head(403)
+    end
     @access_control.destroy
     respond_to do |format|
       format.html { redirect_to access_controls_url, notice: 'Access control was successfully destroyed.' }
