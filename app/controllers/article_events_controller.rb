@@ -1,6 +1,6 @@
 class ArticleEventsController < ApplicationController
   before_action :set_article_event, only: [:show, :edit, :update, :destroy]
-
+  before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
   # GET /article_events
   # GET /article_events.json
   def index
@@ -14,25 +14,16 @@ class ArticleEventsController < ApplicationController
 
   # GET /article_events/new
   def new
-    if !grant_access("alter_article_events", current_user)
-      head(403)
-    end
     @article_event = ArticleEvent.new
   end
 
   # GET /article_events/1/edit
   def edit
-    if !grant_access("alter_article_events", current_user)
-      head(403)
-    end
   end
 
   # POST /article_events
   # POST /article_events.json
   def create
-    if !grant_access("alter_article_events", current_user)
-      head(403)
-    end
     @article_event = ArticleEvent.new(article_event_params)
     @article_event.user_id = current_user.id
     respond_to do |format|
@@ -49,9 +40,6 @@ class ArticleEventsController < ApplicationController
   # PATCH/PUT /article_events/1
   # PATCH/PUT /article_events/1.json
   def update
-    if !grant_access("alter_article_events", current_user)
-      head(403)
-    end
     @article_event.user_id = current_user.id
     respond_to do |format|
       if @article_event.update(article_event_params)
@@ -67,13 +55,16 @@ class ArticleEventsController < ApplicationController
   # DELETE /article_events/1
   # DELETE /article_events/1.json
   def destroy
-    if !grant_access("alter_article_events", current_user)
-      head(403)
-    end
     @article_event.destroy
     respond_to do |format|
       format.html { redirect_to article_events_url, notice: 'Article event was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def check_grant
+    if !grant_access("alter_article_events", current_user)
+      head(403)
     end
   end
 

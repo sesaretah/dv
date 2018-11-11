@@ -10,6 +10,9 @@
               <% @jalali = JalaliDate.to_jalali(comment.created_at)%>
               <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%> (<%= comment.created_at.strftime("%H:%M")  %>)
             </span>
+            <%= link_to comment, method: :delete, remote: true, data: { confirm: "#{t(:are_you_sure_?)}" } do%>
+              <i class="fe fe-trash" style="vertical-align:-3px"></i>
+            <%end%>
           </small>
           <h5><%= comment.user.profile.fullname%></h5>
         </div>

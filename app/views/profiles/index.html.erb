@@ -31,10 +31,10 @@
                 <div class="dropdown-menu dropdown-menu-right">
                   <a href="/profiles/<%= profile.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
                   <% if grant_access("alter_profiles", current_user)%>
-                    <a href="/profiles/<%= profile.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
-                    <%= link_to profile, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
-                      <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
-                    <%end%>
+                  <a href="/profiles/<%= profile.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
+                  <%= link_to profile, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
+                  <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
+                  <%end%>
                   <%end%>
                 </div>
               </div>
@@ -42,10 +42,29 @@
             <td class="w-1"><span class="avatar" style="background-image: url(<%= profile.avatar(:thumb)%>)"></span></td>
             <td><%= profile.fullname %></td>
             <td>
+              <% if profile.user_id.blank?%>
+              <i class="fe fe-shield-off"></i>
+              <%else%>
+              <i class="fe fe-shield"></i>
+              <%end%>
+            </td>
+            <td>
               <div class="tag tag-dark" style='vertical-align: 6px;'>
                 <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
                 <%= profile.articles.count %>
               </div>
+            </td>
+            <td>
+              <% if !profile.user_id.blank?%>
+              <% for role in profile.user.roles%>
+              <div class="tag mt-1">
+                <span class="tag-addon tag-yellow">
+                  <i class="fe fe-briefcase"></i>
+                </span>
+                <%= role.title%>
+              </div>
+              <%end%>
+              <%end%>
             </td>
           </tr>
           <% end %>

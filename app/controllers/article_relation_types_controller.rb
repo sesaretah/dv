@@ -1,5 +1,6 @@
 class ArticleRelationTypesController < ApplicationController
   before_action :set_article_relation_type, only: [:show, :edit, :update, :destroy]
+  before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
 
   def search
     if !params[:q].blank?
@@ -24,25 +25,16 @@ class ArticleRelationTypesController < ApplicationController
 
   # GET /article_relation_types/new
   def new
-    if !grant_access("alter_article_relation_types", current_user)
-      head(403)
-    end
     @article_relation_type = ArticleRelationType.new
   end
 
   # GET /article_relation_types/1/edit
   def edit
-    if !grant_access("alter_article_relation_types", current_user)
-      head(403)
-    end
   end
 
   # POST /article_relation_types
   # POST /article_relation_types.json
   def create
-    if !grant_access("alter_article_relation_types", current_user)
-      head(403)
-    end
     @article_relation_type = ArticleRelationType.new(article_relation_type_params)
     @article_relation_type.user_id = current_user.id
     respond_to do |format|
@@ -59,9 +51,6 @@ class ArticleRelationTypesController < ApplicationController
   # PATCH/PUT /article_relation_types/1
   # PATCH/PUT /article_relation_types/1.json
   def update
-    if !grant_access("alter_article_relation_types", current_user)
-      head(403)
-    end
     @article_relation_type.user_id = current_user.id
     respond_to do |format|
       if @article_relation_type.update(article_relation_type_params)
@@ -77,13 +66,16 @@ class ArticleRelationTypesController < ApplicationController
   # DELETE /article_relation_types/1
   # DELETE /article_relation_types/1.json
   def destroy
-    if !grant_access("alter_article_relation_types", current_user)
-      head(403)
-    end
     @article_relation_type.destroy
     respond_to do |format|
       format.html { redirect_to article_relation_types_url, notice: 'Article relation type was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def check_grant
+    if !grant_access("alter_article_relation_types", current_user)
+      head(403)
     end
   end
 

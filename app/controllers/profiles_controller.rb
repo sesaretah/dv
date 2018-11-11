@@ -48,7 +48,9 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = Profile.new(profile_params)
-    @profile.user_id = current_user.id
+    if @profile.email == current_user.email
+      @profile.user_id = current_user.id
+    end
     respond_to do |format|
       if @profile.save
         if params[:profile][:avatar].blank?
@@ -67,7 +69,9 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
-    @profile.user_id = current_user.id
+    if @profile.email == current_user.email
+      @profile.user_id = current_user.id
+    end
     respond_to do |format|
       if @profile.update(profile_params)
         if params[:profile][:avatar].blank?

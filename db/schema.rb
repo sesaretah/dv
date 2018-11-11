@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181110145708) do
+ActiveRecord::Schema.define(version: 20181111081119) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -136,11 +136,11 @@ ActiveRecord::Schema.define(version: 20181110145708) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.string   "content",          limit: 191
+    t.text     "content",          limit: 4294967295
     t.integer  "commentable_id",   limit: 4
     t.string   "commentable_type", limit: 255
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "user_id",          limit: 4
   end
 
@@ -289,6 +289,7 @@ ActiveRecord::Schema.define(version: 20181110145708) do
     t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size",    limit: 8
     t.datetime "avatar_updated_at"
+    t.string   "email",               limit: 255
   end
 
   create_table "roles", force: :cascade do |t|

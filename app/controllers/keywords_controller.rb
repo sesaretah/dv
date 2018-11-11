@@ -1,5 +1,6 @@
 class KeywordsController < ApplicationController
   before_action :set_keyword, only: [:show, :edit, :update, :destroy]
+  before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
 
   def search
     if !params[:q].blank?
@@ -24,25 +25,16 @@ class KeywordsController < ApplicationController
 
   # GET /keywords/new
   def new
-    if !grant_access("alter_keywords", current_user)
-      head(403)
-    end
     @keyword = Keyword.new
   end
 
   # GET /keywords/1/edit
   def edit
-    if !grant_access("alter_keywords", current_user)
-      head(403)
-    end
   end
 
   # POST /keywords
   # POST /keywords.json
   def create
-    if !grant_access("alter_keywords", current_user)
-      head(403)
-    end
     @keyword = Keyword.new(keyword_params)
     @keyword.user_id = current_user.id
     respond_to do |format|
@@ -59,9 +51,6 @@ class KeywordsController < ApplicationController
   # PATCH/PUT /keywords/1
   # PATCH/PUT /keywords/1.json
   def update
-    if !grant_access("alter_keywords", current_user)
-      head(403)
-    end
     @keyword.user_id = current_user.id
     respond_to do |format|
       if @keyword.update(keyword_params)
@@ -77,13 +66,16 @@ class KeywordsController < ApplicationController
   # DELETE /keywords/1
   # DELETE /keywords/1.json
   def destroy
-    if !grant_access("alter_keywords", current_user)
-      head(403)
-    end
     @keyword.destroy
     respond_to do |format|
       format.html { redirect_to keywords_url, notice: 'Keyword was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def check_grant
+    if !grant_access("alter_keywords", current_user)
+      head(403)
     end
   end
 

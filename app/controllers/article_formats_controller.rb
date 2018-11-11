@@ -1,6 +1,6 @@
 class ArticleFormatsController < ApplicationController
   before_action :set_article_format, only: [:show, :edit, :update, :destroy]
-
+  before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
   # GET /article_formats
   # GET /article_formats.json
   def index
@@ -14,25 +14,16 @@ class ArticleFormatsController < ApplicationController
 
   # GET /article_formats/new
   def new
-    if !grant_access("alter_article_formats", current_user)
-      head(403)
-    end
     @article_format = ArticleFormat.new
   end
 
   # GET /article_formats/1/edit
   def edit
-    if !grant_access("alter_article_formats", current_user)
-      head(403)
-    end
   end
 
   # POST /article_formats
   # POST /article_formats.json
   def create
-    if !grant_access("alter_article_formats", current_user)
-      head(403)
-    end
     @article_format = ArticleFormat.new(article_format_params)
     @article_format.user_id = current_user.id
     respond_to do |format|
@@ -49,9 +40,6 @@ class ArticleFormatsController < ApplicationController
   # PATCH/PUT /article_formats/1
   # PATCH/PUT /article_formats/1.json
   def update
-    if !grant_access("alter_article_formats", current_user)
-      head(403)
-    end
     @article_format.user_id = current_user.id
     respond_to do |format|
       if @article_format.update(article_format_params)
@@ -67,13 +55,16 @@ class ArticleFormatsController < ApplicationController
   # DELETE /article_formats/1
   # DELETE /article_formats/1.json
   def destroy
-    if !grant_access("alter_article_formats", current_user)
-      head(403)
-    end
     @article_format.destroy
     respond_to do |format|
       format.html { redirect_to article_formats_url, notice: 'Article format was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def check_grant
+    if !grant_access("alter_article_formats", current_user)
+      head(403)
     end
   end
 

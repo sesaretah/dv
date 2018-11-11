@@ -310,6 +310,7 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  created_successfully: 'با موفقیت ثبت شد'
   comments: 'تبادل نظر'
   notifications: 'آگاهسازی‌ها '
   in_your_dashboard: 'سند در میز کار شماست '
