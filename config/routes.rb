@@ -40,7 +40,9 @@ Rails.application.routes.draw do
   resources :article_relation_types
   resources :article_formats
   resources :article_events
-  devise_for :users
+  #devise_for :users
+  devise_for :users, :controllers => { :passwords => "passwords" }
+
   resources :article_areas
   root to: 'home#index'
 

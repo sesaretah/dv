@@ -310,6 +310,8 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  password_confirmation: 'تکرار رمز '
+  change_your_password: 'تغییر رمز'
   created_successfully: 'با موفقیت ثبت شد'
   comments: 'تبادل نظر'
   notifications: 'آگاهسازی‌ها '
