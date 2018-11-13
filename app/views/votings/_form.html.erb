@@ -1,0 +1,53 @@
+<%= form_for(@voting, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :new_voting %></h3>
+</div>
+<% if @voting.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@voting.errors.count, "error") %> prohibited this voting from being saved:</h2>
+
+  <ul>
+    <% @voting.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="card-body">
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :votable_id, class: "form-label" %>
+      <%= f.number_field :votable_id , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :votable_type, class: "form-label" %>
+      <%= f.text_field :votable_type , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :deadline, class: "form-label" %>
+      <%= f.number_field :deadline , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :voting_type, class: "form-label" %>
+      <%= f.number_field :voting_type , class: "form-control" %>
+          </div>
+  </div>
+</div>
+<div class="card-footer text-right">
+  <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+</div>
+<% end %>

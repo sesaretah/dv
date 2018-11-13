@@ -28,7 +28,7 @@ class AssignmentsController < ApplicationController
 
     respond_to do |format|
       if @assignment.save
-        send_mail user_id: @assignment.user.id, role_title: @assignment.role.title, mail_type: 'role_assignment'
+        send_mail user_id: @assignment.user_id, role_title: @assignment.role.title, mail_type: 'role_assignment'
         format.html { redirect_to '/assignments', notice: 'Assignment was successfully created.' }
         format.json { render :show, status: :created, location: @assignment }
       else

@@ -1,0 +1,16 @@
+<fieldset class="form-fieldset">
+  <%=t :refund_to%>
+  <%= form_tag "/articles/refund_to/#{article.id}", method: :get, remote: true do %>
+  <div class="form-group">
+    <label class="form-label"></label>
+    <%= select_tag  "workflow_state", options_for_select(prv.collect { |p| [ p.title, p.id ] }), {class: "form-control"} %>
+  </div>
+  <div class="form-group">
+    <label class="form-label"></label>
+    <%= text_area_tag  "message", nil, class: "form-control" , placeholder: t(:message_content) %>
+  </div>
+  <div class="text-right">
+    <button type="submit" class="btn btn-instagram btn-sm"><i class="fe fe-trending-down" style="vertical-align: -3px;"></i>&nbsp&nbsp<%=t :refund%></button>
+  </div>
+  <%end%>
+</fieldset>

@@ -296,7 +296,7 @@ fa:
             user_id: 'فرد'
             role_id: 'نقش'
             user: 'فرد'
-            role: 'نقش'            
+            role: 'نقش'
         access_control:
             view_unrelated_articles: 'نمایش اسناد غیر مرتبط'
             view_article_logs: 'منوی مقایسه در اسناد'
@@ -319,6 +319,7 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  votable: 'اجبار رای گیری'
   error: 'خطا '
   prohibited_this_assignment_from_being_saved: 'مانع از ثبت این اعطای نقش شد'
   make_sure_you_check_your_spam_folder: 'درصورت عدم دریافت لطفا پوشه spam را هم چک کنید.'

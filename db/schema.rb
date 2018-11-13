@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181111081119) do
+ActiveRecord::Schema.define(version: 20181113130228) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -422,6 +422,23 @@ ActiveRecord::Schema.define(version: 20181111081119) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "votes", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "voting_id",  limit: 4
+    t.integer  "outcome",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "votings", force: :cascade do |t|
+    t.integer  "votable_id",   limit: 4
+    t.string   "votable_type", limit: 255
+    t.integer  "deadline",     limit: 4
+    t.integer  "voting_type",  limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
   create_table "workflow_states", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.integer  "workflow_id", limit: 4
@@ -434,6 +451,7 @@ ActiveRecord::Schema.define(version: 20181111081119) do
     t.integer  "start_point", limit: 4
     t.integer  "end_point",   limit: 4
     t.integer  "role_id",     limit: 4
+    t.integer  "votable",     limit: 4
   end
 
   create_table "workflow_transitions", force: :cascade do |t|

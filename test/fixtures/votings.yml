@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  votable_id: 1
+  votable_type: MyString
+  deadline: 1
+  voting_type: 1
+
+two:
+  votable_id: 1
+  votable_type: MyString
+  deadline: 1
+  voting_type: 1

@@ -99,6 +99,7 @@ class WorkflowsController < ApplicationController
           @state.start_point = node['start_point']
           @state.end_point = node['end_point']
           @state.role_id = node['role']
+          @state.votable = node['votable']
           @state.save
         end
       end

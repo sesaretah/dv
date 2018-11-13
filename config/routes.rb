@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :votes
+  resources :votings
   resources :comments
   resources :notifications
   resources :access_controls

@@ -153,6 +153,14 @@
         <div class="col-md-3">
           <div class="form-group">
             <label class="form-label">
+              <%=t :votable%>
+            </label>
+            <%= select_tag 'votable', options_for_select(existence)  ,{include_blank: true, class:"form-control "}%>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="form-label">
               <%=t :start_point%>
             </label>
             <%= select_tag 'start_point', options_for_select(existence)  ,{include_blank: true, class:"form-control "}%>
@@ -604,6 +612,7 @@ GraphCreator.prototype.circleMouseUp = function(d3node, d){
           }
           d3.select("#refundable").property('value', d.refundable);
           d3.select("#commentable").property('value', d.commentable);
+          d3.select("#votable").property('value', d.votable);
           d3.select("#start_point").property('value', d.start_point);
           d3.select("#end_point").property('value', d.end_point);
           thisGraph.replaceSelectNode(d3node, d);
@@ -655,6 +664,13 @@ d3.select('#start_point')
   var currentNodeId = d3.select('#current-node-id').text();
   var newData = d3.select(this).property('value');
   updateNode('start_point', parseInt(currentNodeId), newData);
+});
+
+d3.select('#votable')
+.on('change', function() {
+  var currentNodeId = d3.select('#current-node-id').text();
+  var newData = d3.select(this).property('value');
+  updateNode('votable', parseInt(currentNodeId), newData);
 });
 
 d3.select('#end_point')

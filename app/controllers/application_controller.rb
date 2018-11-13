@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
  end
 
  def send_mail(**args)
-   @command = "node #{Rails.root.join('lib', 'nodemailer')}/mailer.js --id #{args[:user_id]} --article_ids #{args[:article_ids]} --role_title #{args[:role_title]} --mail_type #{args[:mail_type]}"
+   @command = "node #{Rails.root.join('lib', 'nodemailer')}/mailer.js --id #{args[:user_id]} --article_ids #{args[:article_ids]} --role_title '#{args[:role_title]}' --mail_type #{args[:mail_type]} &"
    system(@command)
  end
 
