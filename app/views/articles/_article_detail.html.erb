@@ -87,7 +87,7 @@
       <td style='color: #7795c1;text-align:left;'><%=t :relations%></td>
       <td>
         <% for kinship in @article.kinships %>
-        <% if !kinship.blank?%>
+        <% if !kinship.kin.blank?%>
         <%=t :article_relation_type%>: <%= kinship.article_relation_type.title%>, <%=t :kin%>: <%= kinship.kin.title%> |
         <%end%>
         <%end%>
