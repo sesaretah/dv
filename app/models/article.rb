@@ -37,7 +37,7 @@ class Article < ActiveRecord::Base
   has_many :title_types, :through => :titlings
   has_many :titlings, dependent: :destroy
 
-  has_many :taggings, dependent: :destroy
+  has_many :taggings, :as => :taggable, :dependent => :destroy
 
   has_many :comments, :as => :commentable, :dependent => :destroy
 
