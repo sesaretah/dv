@@ -45,6 +45,7 @@
             <%end%>
             <div class="form-group">
               <%= label :access_control, :view_unrelated_articles , class: "form-label", style: 'color: #7795c1;'%>
+              <%= @access_control.view_unrelated_articles%>
               <div class="form-control-plaintext"><%= rcontrols(@access_control.view_unrelated_articles) %></div>
             </div>
             <div class="form-group">
