@@ -53,9 +53,9 @@ class ApplicationController < ActionController::Base
    end
    @flag = 1
    for assignment in user.assignments
-     @access_control = AccessControl.where(role_id: assignment.role_id).first
-     if !@access_control.blank?
-       @flag = @flag * @access_control["#{ward}"].to_i
+     @ac = AccessControl.where(role_id: assignment.role_id).first
+     if !@ac.blank?
+       @flag = @flag * @ac["#{ward}"].to_i
      end
    end
    if @flag == 0
