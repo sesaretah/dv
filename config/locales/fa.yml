@@ -310,6 +310,11 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  make_sure_you_check_your_spam_folder: 'درصورت عدم دریافت لطفا پوشه spam را هم چک کنید.'
+  you_will_receive_an_email_shortly: 'به زودی ایمیلی دریافت خواهید کرد.'
+  enter_your_email: 'ایمیل خود را وارد کنید'
+  we_will_send_you_reset_password_instructions: 'روش تغییر رمز را برایتان ارسال می‌کنیم.'
+  forgot_your_password: 'رمز خود را فراموش کرده اید؟ '
   password_confirmation: 'تکرار رمز '
   change_your_password: 'تغییر رمز'
   created_successfully: 'با موفقیت ثبت شد'

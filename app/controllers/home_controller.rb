@@ -1,4 +1,8 @@
 class HomeController < ApplicationController
+  before_action :authenticate_user!, :except => [:email_sent]
+  def email_sent
+    render layout: 'layouts/devise'
+  end
   def change_current_role
     current_user.current_role_id = params[:role_id]
     current_user.save
@@ -9,10 +13,12 @@ class HomeController < ApplicationController
     if !@role.blank?
       @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
       @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids).paginate(:page => params[:page], :per_page => 5)
+      @notifications = Notification.where('notifiable_type = ?  AND notifiable_id IN (?)', 'Article', @articles.pluck(:id))
     else
         @articles = []
+        @notifications = []
     end
-     @notifications = Notification.where('notifiable_type = ?  AND notifiable_id IN (?)', 'Article', @articles.pluck(:id))
+
   end
 
   def advanced_search

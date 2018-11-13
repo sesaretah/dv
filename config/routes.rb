@@ -49,6 +49,8 @@ Rails.application.routes.draw do
   match "/home/advanced_search" => "home#advanced_search", :via => :get
   match "/home/change_current_role" => "home#change_current_role", :via => :get
 
+  match "/home/email_sent" => "home#email_sent", :via => :get
+
   match "/titlings/add_item/:id" => "titlings#add_item", :via => :get
 
   match "/articles/article_descriptors/:id" => "articles#article_descriptors", :via => :get

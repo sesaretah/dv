@@ -57,12 +57,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_states
-    @ws = @article.workflow_state
-    @w = @article.workflow_state.workflow
-    if !@ws.blank? && !@w.blank?
-      @next_workflow_states = @w.next_nodes(@ws.node_id)
-      @previous_workflow_states =  @w.previous_nodes(@ws.node_id)
-    end
+    extract_nxt_prv(@article)
   end
 
 
@@ -86,6 +81,7 @@ class ArticlesController < ApplicationController
 
   def send_to
     @next_workflow_state = WorkflowState.find(params[:workflow_state])
+    @role = @next_workflow_state.role
     @revision_number = SecureRandom.hex(4)
     if @article.workflow_state.workflow.is_next_node(@article.workflow_state.node_id, @next_workflow_state.node_id) && @article.workflow_state.role_id == current_user.current_role_id
       @workflow_transition = WorkflowTransition.create(workflow_id: @article.workflow_state.workflow.id, from_state_id: @article.workflow_state.id, to_state_id: @next_workflow_state.id, article_id: @article.id, message: params[:message], user_id: current_user.id, role_id: current_user.current_role_id, transition_type: 1, revision_number: @revision_number)
@@ -93,11 +89,9 @@ class ArticlesController < ApplicationController
       @article.workflow_state_id = params[:workflow_state]
       @article.save
     end
-    @ws = @article.workflow_state
-    @w = @article.workflow_state.workflow
-    if !@ws.blank? && !@w.blank?
-      @next_workflow_states = @w.next_nodes(@ws.node_id)
-      @previous_workflow_states =  @w.previous_nodes(@ws.node_id)
+    extract_nxt_prv(@article)
+    if !@role.blank?
+      send_mail user_id: @role.users.pluck(:id).join(','), article_ids: @article.id, mail_type: 'article_sent'
     end
   end
 
@@ -105,6 +99,7 @@ class ArticlesController < ApplicationController
 
   def refund_to
     @previous_workflow_state = WorkflowState.find(params[:workflow_state])
+    @role = @previous_workflow_state.role
     @revision_number = SecureRandom.hex(4)
     if @article.workflow_state.workflow.is_previous_node(@article.workflow_state.node_id, @previous_workflow_state.node_id) && @article.workflow_state.role_id == current_user.current_role_id
       @workflow_transition = WorkflowTransition.create(workflow_id: @article.workflow_state.workflow.id, from_state_id: @article.workflow_state.id, to_state_id: @previous_workflow_state.id, article_id: @article.id, message: params[:message], user_id: current_user.id, role_id: current_user.current_role_id, transition_type: 2, revision_number: @revision_number)
@@ -112,11 +107,9 @@ class ArticlesController < ApplicationController
       @article.workflow_state_id = params[:workflow_state]
       @article.save
     end
-    @ws = @article.workflow_state
-    @w = @article.workflow_state.workflow
-    if !@ws.blank? && !@w.blank?
-      @next_workflow_states = @w.next_nodes(@ws.node_id)
-      @previous_workflow_states =  @w.previous_nodes(@ws.node_id)
+    extract_nxt_prv(@article)
+    if !@role.blank?
+      send_mail user_id: @role.users.pluck(:id).join(','), article_ids: @article.id, mail_type: 'article_refund'
     end
   end
   # GET /articles
@@ -134,12 +127,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
-    @workflow_state = @article.workflow_state
-    @workflow = @article.workflow_state.workflow
-    if !@workflow_state.blank? && !@workflow.blank?
-      @next_workflow_states = @workflow.next_nodes(@workflow_state.node_id)
-      @previous_workflow_states =  @workflow.previous_nodes(@workflow_state.node_id)
-    end
+    extract_nxt_prv(@article)
   end
 
   # GET /articles/new
@@ -227,6 +215,18 @@ class ArticlesController < ApplicationController
       format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def extract_nxt_prv(article)
+    @workflow_state = article.workflow_state
+    @workflow = article.workflow_state.workflow
+    @next_workflow_states = []
+    @previous_workflow_states = []
+    if !@workflow_state.blank? && !@workflow.blank?
+      @next_workflow_states = @workflow.next_nodes(@workflow_state.node_id)
+      @previous_workflow_states =  @workflow.previous_nodes(@workflow_state.node_id)
+    end
+    return @next_workflow_states, @previous_workflow_states
   end
 
   def history(**args)

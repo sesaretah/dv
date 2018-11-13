@@ -1,39 +1,36 @@
 <div class="container">
   <div class="row">
     <div class="col col-login mx-auto">
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'card' }) do |f| %>
+    <div class="card-body p-6">
+      <div class="text-center mb-6">
+        <img src="/assets/logo.png" class="h-6" alt="">
+      </div>
+      <div class="card-title"><%=t :change_your_password%></div>
+      <%= devise_error_messages! %>
+      <%= f.hidden_field :reset_password_token %>
 
+      <div class="form-group">
+        <label class="form-label" for="user_password">
+          <%=t :password%>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> <%=t :characters_minimum%>)</em><br />
+          <% end %>
+        </label>
+        <%= f.password_field :password, autofocus: true, autocomplete: "new-password",  class: "form-control"%>
+      </div>
 
+      <div class="form-group">
+        <label class="form-label" for="user_password">
+          <%=t :password_confirmation%>
+        </label>
+        <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control" %>
+      </div>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'card' }) do |f| %>
-<div class="card-body p-6">
-  <div class="text-center mb-6">
-    <img src="/assets/logo.png" class="h-6" alt="">
+      <div class="form-footer mb-3">
+        <button type="submit" class="btn btn-primary btn-block"><%=t :change_your_password%></button>
+      </div>
+      <% end %>
+    </div>
   </div>
-  <div class="card-title"><%=t :change_your_password%></div>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
-
-  <div class="form-group">
-    <label class="form-label" for="user_password">
-      <%=t :password%>
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> <%=t :characters_minimum%>)</em><br />
-    <% end %>
-    </label>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password",  class: "form-control"%>
-  </div>
-
-  <div class="form-group">
-    <label class="form-label" for="user_password">
-      <%=t :password_confirmation%>
-    </label>
-      <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control" %>
-  </div>
-
-  <div class="form-footer mb-3">
-    <button type="submit" class="btn btn-primary btn-block"><%=t :change_your_password%></button>
-  </div>
-<% end %>
-</div>
-</div>
 </div>

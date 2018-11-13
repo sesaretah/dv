@@ -14,7 +14,7 @@
       <div class="form-group">
         <label class="form-label">
           <%=t :password%>
-          <%=link_to t(:i_forgot_password), edit_user_registration_path, class:"float-right small"%>
+          <%=link_to t(:i_forgot_password), '/users/password/new', class:"float-right small"%>
         </label>
         <%= f.password_field :password, autocomplete: "current-password",  class:"form-control" %>
       </div>

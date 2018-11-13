@@ -1,9 +1,15 @@
 class PasswordsController < Devise::PasswordsController
+  def show
+
+  end
   def create
     @user = User.where(email: params[:user][:email]).first
     @user.reset_password_token = SecureRandom.hex(30)
     if @user.save
-      system("node #{Rails.root.join('lib', 'nodemailer')}/mailer.js --to #{@user.id} --mail_type change_password")
+      send_mail user_id: @user.id, mail_type: 'change_password'
+      respond_to do |format|
+        format.html { redirect_to '/home/email_sent', notice: :the_email_has_been_sent }
+      end
     end
   end
 

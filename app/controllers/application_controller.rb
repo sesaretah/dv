@@ -42,6 +42,10 @@ class ApplicationController < ActionController::Base
    end
  end
 
+ def send_mail(**args)
+   system("node #{Rails.root.join('lib', 'nodemailer')}/mailer.js --id #{args[:user_id]} --article_ids #{args[:article_ids]} --mail_type #{args[:mail_type]} &")
+ end
+
  def grant_access(ward, user)
    if user.assignments.blank?
      return false
