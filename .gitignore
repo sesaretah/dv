@@ -16,5 +16,5 @@
 !/log/.keep
 /tmp
 
-/home/hosein/Projects/divan/lib/fcm/divan-97d24-firebase-adminsdk-d7wgz-e53c675733.json
+/lib/fcm/*
 
