@@ -1,4 +1,4 @@
-function fireThisUponEvent(event) {
+function startFcm(event) {
   var config = {
     apiKey: "AIzaSyD3FXsFmgM-7yvOAPhfxU7AKCBxbj5-H7Y",
     authDomain: "divan-97d24.firebaseapp.com",
@@ -44,4 +44,4 @@ function fireThisUponEvent(event) {
   });
 }
 
-$(document).on('turbolinks:load', fireThisUponEvent)
+$(document).on('turbolinks:load', startFcm)
