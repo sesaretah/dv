@@ -79,7 +79,7 @@ module ApplicationHelper
     end
     @flag = 1
     for assignment in user.assignments
-      @ac = Accesscontrol.where(role_id: assignment.role_id).first
+      @ac = AccessControl.where(role_id: assignment.role_id).first
       if !@access_control.blank?
         @flag = @flag * @ac["#{ward}"].to_i
       end
