@@ -15,31 +15,31 @@
 <% end %>
 
 <div class="card-body">
-<div class="row">
-  <div class="col-md-5">
-    <div class="form-group">
-          <%= f.label :article_id, class: "form-label" %>
-      <%= f.number_field :article_id , class: "form-control" %>
-          </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :article_id, class: "form-label" %>
+        <%= f.number_field :article_id , class: "form-control" %>
+      </div>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-5">
-    <div class="form-group">
-          <%= f.label :role_id, class: "form-label" %>
-      <%= f.number_field :role_id , class: "form-control" %>
-          </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :role_id, class: "form-label" %>
+        <%= f.number_field :role_id , class: "form-control" %>
+      </div>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-5">
-    <div class="form-group">
-          <%= f.label :duty_id, class: "form-label" %>
-      <%= f.number_field :duty_id , class: "form-control" %>
-          </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :duty_id, class: "form-label" %>
+        <%= f.number_field :duty_id , class: "form-control" %>
+      </div>
+    </div>
   </div>
-</div>
-<div class="card-footer text-right">
-  <button type="submit" class="btn btn-primary"><%=t :submit%></button>
-</div>
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+  </div>
 <% end %>

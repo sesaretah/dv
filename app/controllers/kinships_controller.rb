@@ -34,6 +34,7 @@ class KinshipsController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @kinship.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -48,6 +49,7 @@ class KinshipsController < ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @kinship.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

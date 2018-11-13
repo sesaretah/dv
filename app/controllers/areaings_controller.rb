@@ -34,6 +34,7 @@ class AreaingsController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @areaing.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

@@ -275,13 +275,20 @@ fa:
             profile_id: 'فرد پدیدآور'
             duty_id: 'سمت پدیدآور'
             role_id: 'نقش در سند'
+            profile: 'فرد پدیدآور'
+            duty: 'سمت پدیدآور'
+            role: 'نقش در سند'            
         kinship:
             article_relation_type_id: 'نوع ارتباط'
             kin_id: 'سند هدف'
+            kin: 'سند هدف'
+            article_relation_type: 'نوع ارتباط'
         originating:
             article_source_id: 'منبع'
+            article_source: 'منبع'
         areaing:
             article_area_id: 'حوزه'
+            article_area: 'حوزه'
         keyword:
             title: 'عنوان'
             description: 'شرح'
