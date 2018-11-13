@@ -277,7 +277,7 @@ fa:
             role_id: 'نقش در سند'
             profile: 'فرد پدیدآور'
             duty: 'سمت پدیدآور'
-            role: 'نقش در سند'            
+            role: 'نقش در سند'
         kinship:
             article_relation_type_id: 'نوع ارتباط'
             kin_id: 'سند هدف'
@@ -295,6 +295,8 @@ fa:
         assignment:
             user_id: 'فرد'
             role_id: 'نقش'
+            user: 'فرد'
+            role: 'نقش'            
         access_control:
             view_unrelated_articles: 'نمایش اسناد غیر مرتبط'
             view_article_logs: 'منوی مقایسه در اسناد'
@@ -317,6 +319,8 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  error: 'خطا '
+  prohibited_this_assignment_from_being_saved: 'مانع از ثبت این اعطای نقش شد'
   make_sure_you_check_your_spam_folder: 'درصورت عدم دریافت لطفا پوشه spam را هم چک کنید.'
   you_will_receive_an_email_shortly: 'به زودی ایمیلی دریافت خواهید کرد.'
   enter_your_email: 'ایمیل خود را وارد کنید'

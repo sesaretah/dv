@@ -20,11 +20,22 @@
     <div class="card">
       <table class="table card-table table-vcenter">
         <tbody>
-          <% @assignments.each do |assignment| %>
+          <% @assignments.group_by(&:user).each do |u, m| %>
           <tr>
-            <td><%= assignment.user.profile.fullname %></td>
-            <td><%= assignment.role.title %></td>
-            <td><%= link_to t(:destroy), assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= u.profile.fullname %></td>
+            <td>
+              <% m.each do |a|%>
+              <div class="tag mt-1">
+                <%= link_to a, method: :delete, class: "tag-addon",data: { confirm: 'Are you sure?' } do%>
+                  <i class="fe fe-x" style="vertical-align:-3px"></i>
+                <%end%>
+                <span class="tag-addon tag-yellow" style="border-top-right-radius: 0px;border-bottom-right-radius: 0px;">
+                  <i class="fe fe-briefcase"></i>
+                </span>
+                <%= a.role.title%>
+              </div>
+              <%end%>
+            </td>
           </tr>
           <% end %>
         </tbody>

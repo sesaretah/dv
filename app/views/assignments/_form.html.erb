@@ -2,19 +2,19 @@
 <div class="card-header">
   <h3 class="card-title"><%=t :new_assignment %></h3>
 </div>
-<% if @assignment.errors.any? %>
-<div id="error_explanation">
-  <h2><%= pluralize(@assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
-
-  <ul>
-    <% @assignment.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-    <% end %>
-  </ul>
-</div>
-<% end %>
 
 <div class="card-body">
+  <% if @assignment.errors.any? %>
+  <div class="alert alert-danger" role="alert">
+    <h4><%= @assignment.errors.count%> <%=t :error%> <%=t :prohibited_this_assignment_from_being_saved%></h4>
+
+    <ul>
+      <% @assignment.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
   <div class="row">
     <div class="col-md-5">
       <div class="form-group">
