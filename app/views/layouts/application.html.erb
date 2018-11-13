@@ -12,6 +12,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
+  <link rel="manifest" href="/manifest.json">
   <title>Divan</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -35,6 +36,7 @@
     overflow-x: hidden;
   }
   </style>
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
 
 </head>
 <body class="">
@@ -64,4 +66,7 @@ new Noty({
 }).show();
 </script>
 <%end%>
+
+
+
 </html>
