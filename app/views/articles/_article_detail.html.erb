@@ -77,9 +77,15 @@
       <td style='color: #7795c1;text-align:left;'><%=t :contributors%></td>
       <td>
         <% for contribution in @article.contributions %>
+        <% if  !contribution.profile.blank? %>
         <%=t :fullname%>: <%= contribution.profile.fullname%>,
+        <%end%>
+        <% if  !contribution.role.blank? %>
         <%=t :role%>: <%= contribution.role.title%>,
-        <%=t :duty%>: <%= contribution.duty.title%> |
+        <%end%>
+        <% if  !contribution.duty.blank? %>
+        <%=t :duty%>: <%= contribution.duty.title%>
+        <%end%>  |
         <%end%>
       </td>
     </tr>
