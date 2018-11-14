@@ -1,6 +1,13 @@
 class VotesController < ApplicationController
   before_action :set_vote, only: [:show, :edit, :update, :destroy]
 
+  def remotec
+    @voting = Voting.find(params[:voting_id])
+    @vote = Vote.where(voting_id: @voting.id, user_id: current_user.id)
+    if @vote.blank?
+      Vote.create(voting_id: @voting.id, outcome: params[:outcome] ,user_id: current_user.id)
+    end
+  end
   # GET /votes
   # GET /votes.json
   def index

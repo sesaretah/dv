@@ -97,5 +97,7 @@ Rails.application.routes.draw do
   match "/profiles/profile_details/:id" => "profiles#profile_details", :via => :get
   match "/profiles/cropper/:id" => "profiles#cropper", :via => :get
 
+  match "/votes/remotec/:id" => "votes#remotec", :via => :get
+
 
 end

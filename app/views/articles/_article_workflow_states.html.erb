@@ -10,7 +10,11 @@
         <%end%>
       <%end%>
     <%else%>
-
+    <div class="alert alert-info" role="alert">
+      <%=t :this_transition_must_be_done_by_voting%>
+    </div>
+    <% @voting = Voting.where(votable_type: 'WorkflowState', votable_id: article.workflow_state.id).first%>
+    <%= render partial: 'votings/remote_form', locals: {article: @article, voting: @voting, nxt: nxt, prv: prv}%>
     <%end%>
   <%end%>
     <div class='text-center'>

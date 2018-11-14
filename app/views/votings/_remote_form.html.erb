@@ -1,0 +1,39 @@
+<div class="col-md-12 mb-4">
+  <% @vote = Vote.where(voting_id: voting.id, user_id: current_user.id).first%>
+  <div class="row">
+    <div class="col-md-6 text-center small">
+      <% for n in nxt %>
+      <% @votes = Vote.where(voting_id: voting.id, outcome: n.id).count%>
+      <% if @vote.blank?%>
+      <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{n.id}", remote: true,class: "btn btn-lime btn-sm mt-1 col-md-12" do%>
+      <i class="fe fe-trending-up" style="vertical-align: -3px;"></i>&nbsp&nbsp<%=t :send_to%> <%= truncate(n.title, length: 20)%> (<%= @votes%> <%=t :votes%>)
+      <%end%>
+      <%else%>
+      <span class="btn btn-lime btn-sm mt-1 col-md-12 disabled">
+        <i class="fe fe-trending-up" style="vertical-align: -3px;"></i>&nbsp&nbsp<%=t :send_to%> <%= truncate(n.title, length: 20)%> (<%= @votes%> <%=t :votes%>)
+        <%if @vote.outcome == n.id%>
+          <i class="fe fe-check-square" style="vertical-align: -3px"></i> <%=t :your_choice%>
+        <%end%>
+      </span>
+      <%end%>
+      <%end%>
+    </div>
+    <div class="col-md-6 text-center small">
+      <% for p in prv %>
+      <% @votes = Vote.where(voting_id: voting.id, outcome: p.id).count%>
+      <% if @vote.blank?%>
+      <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{p.id}", remote: true,class: "btn btn-instagram btn-sm mt-1 col-md-12" do%>
+        <i class="fe fe-trending-down" style="vertical-align: -3px;"></i>&nbsp&nbsp<%=t :refund_to%> <%= truncate(p.title, length: 20)%> (<%= @votes%> <%=t :votes%>)
+      <%end%>
+      <%else%>
+      <span class="btn btn-instagram btn-sm mt-1 col-md-12 disabled">
+        <i class="fe fe-trending-down" style="vertical-align: -3px;"></i>&nbsp&nbsp<%=t :send_to%> <%= truncate(n.title, length: 20)%> (<%= @votes%> <%=t :votes%>)
+        <%if @vote.outcome == p.id%>
+          <i class="fe fe-check-square" style="vertical-align: -3px"></i> <%=t :your_choice%>
+        <%end%>
+      </span>
+      <%end%>
+      <%end%>
+    </div>
+  </div>
+</div>
