@@ -34,7 +34,7 @@
           <%end%>
           <% if grant_access("view_workflow_transactions", current_user)%>
             <%= link_to "/articles/workflow_transitions/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-              <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%=t :workflow_transitions%>
+              <i class="fe fe-layers" style="vertical-align: -3px;"></i> <%=t :workflow_transitions%>
             <%end%>
           <%end%>
           <%= link_to "/articles/article_detail/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>

@@ -72,6 +72,26 @@ class Workflow < ActiveRecord::Base
     return @result
   end
 
+  def end_states
+    @result = []
+    for workflow_state in self.workflow_states
+      if workflow_state.end_point == 2
+        @result << workflow_state.id
+      end
+    end
+    return @result
+  end
+
+  def not_end_states
+    @result = []
+    for workflow_state in self.workflow_states
+      if workflow_state.end_point != 2
+        @result << workflow_state.id
+      end
+    end
+    return @result
+  end
+
   def find_node_index(nodes, node_id)
     for node in nodes
       if node['id'] == node_id

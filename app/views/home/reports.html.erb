@@ -1,0 +1,121 @@
+<div class='row'>
+  <div class="col-lg-6 col-xl-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><%=t :keywords%></h3>
+      </div>
+      <div class="card-body">
+        <div id="chart-pie" style="height: 16rem"></div>
+      </div>
+    </div>
+    <% @t = Tagging.where(taggable_type: 'Article', target_type: 'Keyword').group(:target_id).order('count_id desc').count('id')%>
+    <script>
+    function randomValueOf( obj ) {
+      var keys = Object.keys(obj);
+      var len = keys.length;
+      var rnd = Math.floor(Math.random()*len);
+      var key = keys[rnd];
+      return obj[key];
+    }
+
+    $(document).ready(function(){
+      console.log(randomValueOf(tabler.colors));
+      var chart = c3.generate({
+        bindto: '#chart-pie', // id of chart wrapper
+        data: {
+          columns: [
+            <% @t.each do |k,v|%>
+            ['data<%= k%>', <%= v%>],
+            <%end%>
+          ],
+          type: 'pie', // default type of chart
+          colors: {
+            <% @t.each do |k,v|%>
+            'data<%= k%>': randomValueOf(tabler.colors),
+            <%end%>
+          },
+          names: {
+            <% @t.each do |k,v|%>
+            'data<%= k%>': '<%= Keyword.find(v).title%>',
+            <%end%>
+          }
+        },
+        axis: {
+        },
+        legend: {
+          show: false, //hide legend
+        },
+        padding: {
+          bottom: 0,
+          top: 0
+        }
+      });
+    });
+    </script>
+  </div>
+
+  <div class="col-lg-6 col-xl-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><%=t :workflows%></h3>
+      </div>
+      <div class="card-body">
+        <div id="chart-bar-stacked" style="height: 16rem; padding-bottom: 30px;"></div>
+      </div>
+    </div>
+    <% @ends, @notends, @titles = [],[],[]%>
+    <% for workflow in Workflow.all%>
+      <% @ends << Article.where('workflow_state_id IN (?)', workflow.end_states).count%>
+      <% @notends << Article.where('workflow_state_id IN (?)', workflow.not_end_states).count%>
+      <% @titles << workflow.title%>
+    <%end%>
+    <script>
+    $(document).ready(function(){
+      var chart = c3.generate({
+        bindto: '#chart-bar-stacked', // id of chart wrapper
+        data: {
+          columns: [
+            // each columns data
+
+            ['data1', <%= @ends.join(',')%>],
+            ['data2', <%= @notends.join(',')%>]
+          ],
+          type: 'bar', // default type of chart
+          groups: [
+            [ 'data1', 'data2']
+          ],
+          colors: {
+            'data1': tabler.colors["blue"],
+            'data2': tabler.colors["pink"]
+          },
+          names: {
+            // name of each serie
+            'data1': '<%=t :end_states %>',
+            'data2': '<%=t :not_end_states %>'
+          }
+        },
+        axis: {
+          x: {
+            type: 'category',
+            tick: {
+               multiline: false
+           },
+           categories: [<%=raw @titles.map { |i| "'" + i.to_s + "'" }.join(",")%>]
+          },
+        },
+        bar: {
+          width: 16
+        },
+        legend: {
+          show: false, //hide legend
+        },
+
+        padding: {
+          bottom: 10,
+          top: 0
+        },
+      });
+    });
+    </script>
+  </div>
+</div>

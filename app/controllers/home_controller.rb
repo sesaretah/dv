@@ -1,5 +1,8 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!, :except => [:email_sent]
+  def reports
+
+  end
   def email_sent
     render layout: 'layouts/devise'
   end

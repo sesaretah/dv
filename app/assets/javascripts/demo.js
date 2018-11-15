@@ -481,6 +481,8 @@ function fireThisUponEvent(event) {
     }
   });
 
+
+
 }
 $(document).on('turbolinks:load', fireThisUponEvent)
 //$(document).ready(fireThisUponEvent);

@@ -314,7 +314,7 @@ fa:
             alter_article_relation_types: 'تغییر در جدول پایه انواع ارتباط اسناد'
             alter_article_sources: 'تغییر در جدول پایه انواع منابع'
             alter_article_types: 'تغییر در جدول پایه انواع سند'
-            alter_keywords: 'تغییر در جدول پایه کلیدواژه'
+            alter_keywords: 'تغییر در جدول پایه کلمات کلیدی'
             alter_languages: 'تغییر در جدول پایه زبان'
             alter_profiles: 'تغییر در جدول پایه افراد'
             alter_roles: 'تغییر در جدول پایه نقش ها'
@@ -326,6 +326,9 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  end_states: 'مراحل نهایی'
+  not_end_states: 'در حال کار'
+  reports: 'گزارشات'
   more_details: 'شرح بیشتر'
   your_workflows: 'گردش‌کارهای شما'
   new_content_template: 'محتوای پیشفرض'
@@ -391,7 +394,7 @@ fa:
   titles: 'عناوین'
   descriptors: 'توصیفگرها '
   submit_and_go: 'ثبت و ادامه'
-  keywords: 'کلیدواژه ها'
+  keywords: 'کلمات کلیدی'
   related_dates: 'تاریخ ها و فایل های پیوست '
   article_dates_form:  'فرم ثبت تاریخ'
   article_dates_list: 'لیست تاریخ‌های سند'
@@ -490,7 +493,7 @@ fa:
   refund_to: 'اعاده به '
   send: 'ارسال '
   refund: 'اعاده'
-  workflow_transitions: 'تراکنش‌ها'
+  workflow_transitions: 'انتقال ها'
   message_content: 'متن پیام ...'
   transition: 'انتقال'
   from: 'از'

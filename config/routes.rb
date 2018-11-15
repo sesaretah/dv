@@ -104,5 +104,6 @@ Rails.application.routes.draw do
   match "/workflow_states/workflow_state_articles/:id" => "workflow_states#workflow_state_articles", :via => :get
   match "/workflow_states/show_by_node/:id" => "workflow_states#show_by_node", :via => :get
 
+  match "/home/reports" => "home#reports", :via => :get
 
 end

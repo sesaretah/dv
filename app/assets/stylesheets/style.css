@@ -26,3 +26,12 @@
 .match {
   font-weight: 600;
 }
+
+.c3 svg {
+  font-family: yekan !important;
+}
+
+.c3-axis-x text
+{
+  font-size: 7px; 
+}
