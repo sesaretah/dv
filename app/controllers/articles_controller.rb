@@ -217,17 +217,7 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def extract_nxt_prv(article)
-    @workflow_state = article.workflow_state
-    @workflow = article.workflow_state.workflow
-    @next_workflow_states = []
-    @previous_workflow_states = []
-    if !@workflow_state.blank? && !@workflow.blank?
-      @next_workflow_states = @workflow.next_nodes(@workflow_state.node_id)
-      @previous_workflow_states =  @workflow.previous_nodes(@workflow_state.node_id)
-    end
-    return @next_workflow_states, @previous_workflow_states
-  end
+
 
   def history(**args)
     if args[:alias].blank?

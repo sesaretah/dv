@@ -4,6 +4,8 @@ class WorkflowState < ActiveRecord::Base
   belongs_to :role
   after_save :set_voting
 
+  has_many :votings, :as => :votable, :dependent => :destroy
+
   def set_voting
     if self.votable == 2
       @voting = Voting.where(votable_type: 'WorkflowState', votable_id: self.id)

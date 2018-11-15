@@ -1,0 +1,133 @@
+<div id='article-show'>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label">
+          <%=t :step_title%>
+        </label>
+        <%= text_field_tag 'step-title', workflow_state.title, class:"form-control", disabled: true%>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label">
+          <%=t :related_role%>
+        </label>
+        <% if !workflow_state.role.blank?%>
+        <%= select_tag 'role', options_for_select(Role.all.collect{ |u| ["#{u.title}", u.id] }, workflow_state.role.title) ,{include_blank: true, class:"form-control", disabled: true}%>
+        <%end%>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label">
+          <%=t :refundable%>
+        </label>
+        <%= select_tag 'refundable', options_for_select(ability, workflow_state.refundable)  ,{include_blank: true, class:"form-control", disabled: true}%>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label">
+          <%=t :commentable%>
+        </label>
+        <%= select_tag 'commentable', options_for_select(ability,  workflow_state.commentable)  ,{include_blank: true, class:"form-control ", disabled: true}%>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <div class="form-label"><%=t :editable%></div>
+        <div>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="title_checkbox" id="title_checkbox" value="option1" disabled <%if workflow_state.editable.include?('title_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :title%></span>
+          </label>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="abstract_checkbox" id="abstract_checkbox" value="option2" disabled <%if workflow_state.editable.include?('abstract_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :abstract%></span>
+          </label>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="url_checkbox" id="url_checkbox" value="option2" disabled <%if workflow_state.editable.include?('url_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :url%></span>
+          </label>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="content_checkbox" id="content_checkbox" value="option3" disabled <%if workflow_state.editable.include?('content_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :content%></span>
+          </label>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="keywords_checkbox" id="keywords_checkbox" value="option3" disabled <%if workflow_state.editable.include?('keywords_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :keywords%></span>
+          </label>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="datings_checkbox" id="datings_checkbox" value="option3" disabled <%if workflow_state.editable.include?('datings_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :datings%></span>
+          </label>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="" id="uploads_checkbox" value="option3" disabled <%if workflow_state.editable.include?('uploads_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :uploads%></span>
+          </label>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="article_type_checkbox" id="article_type_checkbox" value="option3" disabled <%if workflow_state.editable.include?('article_type_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :article_type%></span>
+          </label>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="language_checkbox" id="language_checkbox" value="option3" disabled <%if workflow_state.editable.include?('language_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :language%></span>
+          </label>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="article_format_checkbox" id="article_format_checkbox" value="option3" disabled <%if workflow_state.editable.include?('article_format_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :article_format%></span>
+          </label>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="contributions_checkbox" id="contributions_checkbox" value="option3" disabled <%if workflow_state.editable.include?('contributions_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :contributions%></span>
+          </label>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="relations_checkbox" id="relations_checkbox" value="option3" disabled <%if workflow_state.editable.include?('relations_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :relations%></span>
+          </label>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="article_source_checkbox" id="article_source_checkbox" value="option3" disabled <%if workflow_state.editable.include?('article_source_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :article_source%></span>
+          </label>
+          <label class="custom-control custom-checkbox custom-control-inline ml-0 pr-2">
+            <input type="checkbox" class="custom-control-input" name="article_area_checkbox" id="article_area_checkbox" value="option3" disabled <%if workflow_state.editable.include?('article_area_checkbox')%>checked<%end%>>
+            <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :article_area%></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label">
+          <%=t :votable%>
+        </label>
+        <%= select_tag 'votable', options_for_select(existence, workflow_state.votable)  ,{include_blank: true, class:"form-control", disabled: true}%>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label">
+          <%=t :start_point%>
+        </label>
+        <%= select_tag 'start_point', options_for_select(existence, workflow_state.start_point)  ,{include_blank: true, class:"form-control ", disabled: true}%>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label">
+          <%=t :end_point%>
+        </label>
+        <%= select_tag 'end_point', options_for_select(existence, workflow_state.end_point)  ,{include_blank: true, class:"form-control", disabled: true}%>
+      </div>
+    </div>
+  </div>
+</div>

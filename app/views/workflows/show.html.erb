@@ -169,8 +169,10 @@
                 </thead>
                 <tbody id='article-table'>
 
-                </tabody>
+                </tbody>
               </table>
+              <hr class='mb-2 mt-0'/>
+              <div id='table-footer' class='small'></div>
             </div>
             </div>
           </div>
@@ -463,6 +465,7 @@
                     var prevNode = state.selectedNode;
 
                     if (!prevNode || prevNode.id !== d.id){
+                      d3.select("#current-node-id").text(d.id);
                       d3.select("#article-table").html('');
                       d3.json('/workflows/related_articles/<%= @workflow.id%>?node_id='+d.id, function(error, response) {
                         //console.log(response);
@@ -474,8 +477,8 @@
                           }
                         }
                       });
+                      d3.select("#table-footer").html("<a href='/workflow_states/show_by_node/1?node_id="+d3.select("#current-node-id").text()+"&workflow_id=<%=@workflow.id%>'><%=t :more_details%></a>");
                       d3.select("#step-title").property('value', d.title);
-                      d3.select("#current-node-id").text(d.id);
                       d3.select("#role").property('value', d.role);
                       d3.selectAll('.custom-control-input').property('checked', false);
                       var editables = d.editable.split(',')

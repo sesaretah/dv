@@ -3,7 +3,7 @@ class WorkflowsController < ApplicationController
 
   def related_articles
     @workflow_state = WorkflowState.where(workflow_id: @workflow.id, node_id: params[:node_id]).first
-    @articles = Article.where(workflow_state_id: @workflow_state.id)
+    @articles = Article.where(workflow_state_id: @workflow_state.id).limit(5)
     resp = []
     for a in @articles
       resp << {'title' => a.title.truncate(30), 'abstract' => a.abstract, 'id' => a.id}

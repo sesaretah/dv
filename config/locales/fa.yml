@@ -297,6 +297,12 @@ fa:
             role_id: 'نقش'
             user: 'فرد'
             role: 'نقش'
+        content_template:
+            content: 'محتوا'
+            title: 'عنوان'
+        workflow_state:
+            title: 'عنوان'
+            workflow_id: 'گردشکار'
         access_control:
             view_unrelated_articles: 'نمایش اسناد غیر مرتبط'
             view_article_logs: 'منوی مقایسه در اسناد'
@@ -314,11 +320,16 @@ fa:
             alter_roles: 'تغییر در جدول پایه نقش ها'
             alter_duties: 'تغییر در جدول پایه سمت ها'
             alter_title_types: 'تغییر در جدول پایه انواع عنوان'
+            alter_content_templates: 'تغییر محتوای پیشفرض'
             user_id: 'توسط'
   will_paginate:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  more_details: 'شرح بیشتر'
+  your_workflows: 'گردش‌کارهای شما'
+  new_content_template: 'محتوای پیشفرض'
+  content_templates: 'محتوای پیشفرض'
   votable: 'اجبار رای گیری'
   error: 'خطا '
   votes: 'رای'

@@ -1,11 +1,11 @@
 <div class="col-md-12 mb-4">
-  <% @vote = Vote.where(voting_id: voting.id, user_id: current_user.id).first%>
+  <% @vote = Vote.where(voting_id: voting.id, user_id: current_user.id, article_id: article.id).first%>
   <div class="row">
     <div class="col-md-6 text-center small">
       <% for n in nxt %>
-      <% @votes = Vote.where(voting_id: voting.id, outcome: n.id).count%>
+      <% @votes = Vote.where(voting_id: voting.id, outcome: n.id, article_id: article.id).count%>
       <% if @vote.blank?%>
-      <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{n.id}", remote: true,class: "btn btn-lime btn-sm mt-1 col-md-12" do%>
+      <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{n.id}&article_id=#{article.id}", remote: true,class: "btn btn-lime btn-sm mt-1 col-md-12" do%>
       <i class="fe fe-trending-up" style="vertical-align: -3px;"></i>&nbsp&nbsp<%=t :send_to%> <%= truncate(n.title, length: 20)%> (<%= @votes%> <%=t :votes%>)
       <%end%>
       <%else%>
@@ -20,9 +20,9 @@
     </div>
     <div class="col-md-6 text-center small">
       <% for p in prv %>
-      <% @votes = Vote.where(voting_id: voting.id, outcome: p.id).count%>
+      <% @votes = Vote.where(voting_id: voting.id, outcome: p.id, article_id: article.id).count%>
       <% if @vote.blank?%>
-      <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{p.id}", remote: true,class: "btn btn-instagram btn-sm mt-1 col-md-12" do%>
+      <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{p.id}&article_id=#{article.id}", remote: true,class: "btn btn-instagram btn-sm mt-1 col-md-12" do%>
         <i class="fe fe-trending-down" style="vertical-align: -3px;"></i>&nbsp&nbsp<%=t :refund_to%> <%= truncate(p.title, length: 20)%> (<%= @votes%> <%=t :votes%>)
       <%end%>
       <%else%>

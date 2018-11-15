@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181113130228) do
+ActiveRecord::Schema.define(version: 20181114160420) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20181113130228) do
     t.integer  "alter_title_types",            limit: 4
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
+    t.integer  "alter_content_templates",      limit: 4
   end
 
   create_table "areaing_histories", force: :cascade do |t|
@@ -117,14 +118,15 @@ ActiveRecord::Schema.define(version: 20181113130228) do
   end
 
   create_table "articles", force: :cascade do |t|
-    t.string   "title",             limit: 255
-    t.text     "abstract",          limit: 65535
-    t.text     "content",           limit: 65535
-    t.string   "url",               limit: 255
-    t.string   "slug",              limit: 255
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "workflow_state_id", limit: 4
+    t.string   "title",               limit: 255
+    t.text     "abstract",            limit: 65535
+    t.text     "content",             limit: 65535
+    t.string   "url",                 limit: 255
+    t.string   "slug",                limit: 255
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "workflow_state_id",   limit: 4
+    t.integer  "content_template_id", limit: 4
   end
 
   create_table "assignments", force: :cascade do |t|
@@ -142,6 +144,14 @@ ActiveRecord::Schema.define(version: 20181113130228) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "user_id",          limit: 4
+  end
+
+  create_table "content_templates", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.text     "content",    limit: 65535
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "contribution_histories", force: :cascade do |t|
@@ -428,6 +438,7 @@ ActiveRecord::Schema.define(version: 20181113130228) do
     t.integer  "outcome",    limit: 4
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "article_id", limit: 4
   end
 
   create_table "votings", force: :cascade do |t|
@@ -437,6 +448,7 @@ ActiveRecord::Schema.define(version: 20181113130228) do
     t.integer  "voting_type",  limit: 4
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "article_id",   limit: 4
   end
 
   create_table "workflow_states", force: :cascade do |t|
@@ -452,6 +464,7 @@ ActiveRecord::Schema.define(version: 20181113130228) do
     t.integer  "end_point",   limit: 4
     t.integer  "role_id",     limit: 4
     t.integer  "votable",     limit: 4
+    t.integer  "article_id",  limit: 4
   end
 
   create_table "workflow_transitions", force: :cascade do |t|

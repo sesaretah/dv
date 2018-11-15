@@ -1,10 +1,11 @@
-<table class="table table-hover table-outline table-striped table-vcenter text-nowrap card-table">
+<table class="table table-hover table-outline table-striped table-vcenter text-nowrap card-table"  id='article-list'>
   <thead>
     <tr>
       <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
       <th><%=t :title%></th>
       <th><%=t :workflow_state %></th>
       <th><%=t :came_from %></th>
+      <th><i class="fe fe-package"></i></th>
     </tr>
   </thead>
   <tbody>
@@ -46,6 +47,19 @@
           <span class="tag-avatar avatar" style="background-image: url('<%= @user.profile.avatar(:tiny)%>')"></span>
           <%= truncate(@user.profile.fullname, length: 15)%>
         </span>
+        <%end%>
+      </td>
+      <td style="direction:ltr;">
+        <% if article.workflow_state.votable != 2%>
+        <i class="fe fe-circle"></i>
+        <%else%>
+          <% @voting = Voting.where(votable_type: 'WorkflowState', votable_id: article.workflow_state.id).first%>
+          <% if !@voting.blank?%>
+            <% @votes = Vote.where(voting_id: @voting.id, article_id: article.id)%>
+            <%= @votes.count%>/<%= Assignment.where(role_id: article.workflow_state.role.id).count rescue nil%>
+          <%else%>
+            0/<%= Assignment.where(role_id: article.workflow_state.role.id).count rescue nil%>
+          <%end%>
         <%end%>
       </td>
 

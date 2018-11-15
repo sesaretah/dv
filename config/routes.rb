@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :content_templates
   resources :votes
   resources :votings
   resources :comments
@@ -98,6 +99,10 @@ Rails.application.routes.draw do
   match "/profiles/cropper/:id" => "profiles#cropper", :via => :get
 
   match "/votes/remotec/:id" => "votes#remotec", :via => :get
+
+  match "/workflow_states/view_remote/:id" => "workflow_states#view_remote", :via => :get
+  match "/workflow_states/workflow_state_articles/:id" => "workflow_states#workflow_state_articles", :via => :get
+  match "/workflow_states/show_by_node/:id" => "workflow_states#show_by_node", :via => :get
 
 
 end

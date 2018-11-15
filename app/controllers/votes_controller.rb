@@ -3,10 +3,12 @@ class VotesController < ApplicationController
 
   def remotec
     @voting = Voting.find(params[:voting_id])
-    @vote = Vote.where(voting_id: @voting.id, user_id: current_user.id)
-    if @vote.blank?
-      Vote.create(voting_id: @voting.id, outcome: params[:outcome] ,user_id: current_user.id)
+    @article = Article.find(params[:article_id])
+    @vote = Vote.where(voting_id: @voting.id, user_id: current_user.id, article_id: @article.id)
+    if @vote.blank? && @article.workflow_state.role_id == current_user.current_role_id
+      Vote.create(voting_id: @voting.id, outcome: params[:outcome] ,user_id: current_user.id, article_id: @article.id )
     end
+    extract_nxt_prv(@article)
   end
   # GET /votes
   # GET /votes.json

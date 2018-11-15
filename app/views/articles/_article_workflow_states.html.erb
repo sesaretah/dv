@@ -1,6 +1,6 @@
 <div class="card-body" id='article-show'>
   <% if article.workflow_state.role_id == current_user.current_role_id%>
-    <% if article.workflow_state.votable != 2%>
+    <% if article.workflow_state.votable != 2 || article.workflow_state.workflow.user_id == current_user.id%>
       <% if !nxt.first.blank?%>
         <%= render partial: 'workflow_transitions/send_to', locals: {article: @article, nxt: nxt}%>
       <%end%>
@@ -9,14 +9,15 @@
           <%= render partial: 'workflow_transitions/refund_to', locals: {article: @article, prv: prv}%>
         <%end%>
       <%end%>
-    <%else%>
-    <div class="alert alert-info" role="alert">
-      <%=t :this_transition_must_be_done_by_voting%>
-    </div>
-    <% @voting = Voting.where(votable_type: 'WorkflowState', votable_id: article.workflow_state.id).first%>
-    <%= render partial: 'votings/remote_form', locals: {article: @article, voting: @voting, nxt: nxt, prv: prv}%>
     <%end%>
-  <%end%>
+    <% if article.workflow_state.votable == 2 %>
+      <div class="alert alert-info" role="alert">
+        <%=t :this_transition_must_be_done_by_voting%>
+      </div>
+      <% @voting = Voting.where(votable_type: 'WorkflowState', votable_id: article.workflow_state.id).first%>
+      <%= render partial: 'votings/remote_form', locals: {article: @article, voting: @voting, nxt: nxt, prv: prv}%>
+      <%end%>
+    <%end%>
     <div class='text-center'>
     <span id='node-id' style="display:none;"><%= @article.workflow_state.node_id%></span>
     <div id='graphDiv'style="border: 1px dotted #999;"></div>
