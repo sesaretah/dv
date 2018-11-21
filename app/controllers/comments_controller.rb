@@ -29,6 +29,9 @@ class CommentsController < ApplicationController
     @article = @comment.article
     respond_to do |format|
       if @comment.save
+        for user in @article.workflow_state.workflow.users
+          generate_notfication user_id: user.id , notifiable_type: 'Comment', notifiable_id: @comment.id, notification_type: 'article_comment', emmiter_id: current_user.id
+        end
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
         format.js

@@ -326,6 +326,15 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  article_comment: 'نظرات بر اسناد'
+  article_refunded_received: 'دریافت عودت سند'
+  article_refunded: 'عودت سند'
+  article_received: 'دریافت سند '
+  article_sent: 'ارسال سند '
+  nothing_found: 'سندی پیدا نشد.'
+  enter_email: 'ایمیل خود را وارد کنید'
+  comment_author: 'نویسنده نظر'
+  publish_date: 'زمان انتشار'
   end_states: 'مراحل نهایی'
   not_end_states: 'در حال کار'
   reports: 'گزارشات'

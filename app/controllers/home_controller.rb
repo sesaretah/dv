@@ -16,7 +16,7 @@ class HomeController < ApplicationController
     if !@role.blank?
       @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
       @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids).paginate(:page => params[:page], :per_page => 5)
-      @notifications = Notification.where('notifiable_type = ?  AND notifiable_id IN (?)', 'Article', @articles.pluck(:id))
+      @notifications = Notification.where(user_id: current_user.id).order('created_at desc').limit(10)
     else
         @articles = []
         @notifications = []

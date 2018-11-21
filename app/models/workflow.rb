@@ -100,4 +100,15 @@ class Workflow < ActiveRecord::Base
     end
   end
 
+  def users
+    @workflow_states = self.workflow_states
+    @role_ids = []
+    for workflow_state in @workflow_states
+      @role_ids << workflow_state.role_id
+    end
+    @user_ids = Assignment.where('role_id IN (?)', @role_ids).pluck(:user_id)
+    @users = User.where('id IN (?)', @user_ids)
+    return @users
+  end
+
 end

@@ -106,4 +106,6 @@ Rails.application.routes.draw do
 
   match "/home/reports" => "home#reports", :via => :get
 
+  match "/apis/comments" => "apis#comments_api", :via => :post
+
 end

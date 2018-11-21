@@ -4,8 +4,10 @@ class Profile < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :ratio, :caller
   after_update :reprocess_avatar, :if => :cropping?
-  validates :name, presence: true
-  validates :surename, presence: true
+  #validates :name, presence: true
+  #validates :surename, presence: true
+  #validate :fullname_or_stage_name
+
 
   has_many :articles, :through => :contributions
   has_many :contributions, dependent: :destroy
@@ -25,6 +27,7 @@ class Profile < ActiveRecord::Base
     @geometry ||= {}
     @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
   end
+
 
   private
 

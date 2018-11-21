@@ -61,8 +61,8 @@ html {
 }
 
 @font-face{font-family:'yekan';src:url('/assets/BYekan.eot'),url('/assets/BYekan.woff'),url('/assets/BYekan.ttf');}
-
 @font-face{font-family:'koodak';src:url('/assets/BKoodakBold.eot'),url('/assets/BKoodakBold.woff'),url('/assets/BKoodakBold.ttf');}
+@font-face{font-family:'iransans';src:url('/assets/IRANSansWeb(FaNum).eot'),url('/assets/IRANSansWeb(FaNum).woff'),url('/assets/IRANSansWeb(FaNum).ttf');}
 
 article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
@@ -70,7 +70,7 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 
 body {
   margin: 0;
-  font-family: yekan, Arial, sans-serif;
+  font-family: iransans, Arial, sans-serif;
   font-size: 0.9375rem;
   font-weight: 400;
   line-height: 1.5;

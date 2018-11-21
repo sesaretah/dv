@@ -59,10 +59,12 @@
               </div>
             </td>
             <td>
+              <% if !role.user.blank?%>
               <span class="tag" style='vertical-align: -3px;'>
                 <span class="tag-avatar avatar" style="background-image: url('<%= role.user.profile.avatar(:tiny)%>')"></span>
                 <%= truncate(role.user.profile.fullname, length: 15)%>
               </span>
+              <%end%>
             </td>
             <td>
               <%= link_to role.access_control do%>

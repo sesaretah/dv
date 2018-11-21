@@ -42,6 +42,10 @@ class ApplicationController < ActionController::Base
    end
  end
 
+ def date_sanity_check(str)
+   return Date.parse str
+ end
+
  def extract_nxt_prv(article)
    @workflow_state = article.workflow_state
    @workflow = article.workflow_state.workflow
@@ -52,6 +56,10 @@ class ApplicationController < ActionController::Base
      @previous_workflow_states =  @workflow.previous_nodes(@workflow_state.node_id)
    end
    return @next_workflow_states, @previous_workflow_states
+ end
+
+ def generate_notfication(**args)
+   Notification.create(args)
  end
 
  def send_mail(**args)

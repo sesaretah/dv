@@ -12,6 +12,7 @@ class ArticlesController < ApplicationController
     render :json => resp.to_json, :callback => params['callback']
   end
 
+
   def article_descriptors
     @taggings = Tagging.where(taggable_id: @article.id, taggable_type: 'Article', target_type: 'Keyword')
     @keywords = []
@@ -80,8 +81,10 @@ class ArticlesController < ApplicationController
 
 
   def send_to
+    @this_workflow_state = @article.workflow_state
     @next_workflow_state = WorkflowState.find(params[:workflow_state])
-    @role = @next_workflow_state.role
+    @this_role = @this_workflow_state.role
+    @next_role = @next_workflow_state.role
     @revision_number = SecureRandom.hex(4)
     if @article.workflow_state.workflow.is_next_node(@article.workflow_state.node_id, @next_workflow_state.node_id) && @article.workflow_state.role_id == current_user.current_role_id
       @workflow_transition = WorkflowTransition.create(workflow_id: @article.workflow_state.workflow.id, from_state_id: @article.workflow_state.id, to_state_id: @next_workflow_state.id, article_id: @article.id, message: params[:message], user_id: current_user.id, role_id: current_user.current_role_id, transition_type: 1, revision_number: @revision_number)
@@ -90,16 +93,26 @@ class ArticlesController < ApplicationController
       @article.save
     end
     extract_nxt_prv(@article)
-    if !@role.blank?
-      send_mail user_id: @role.users.pluck(:id).join(','), article_ids: @article.id, mail_type: 'article_sent'
+    if !@this_role.blank?
+      for user in @this_role.users
+        generate_notfication user_id: user.id , notifiable_type: 'WorkflowTransition', notifiable_id: @workflow_transition.id, notification_type: 'article_sent', emmiter_id: current_user.id
+      end
     end
+    if !@next_role.blank?
+      for user in @next_role.users
+        generate_notfication user_id: user.id , notifiable_type: 'WorkflowTransition', notifiable_id: @workflow_transition.id, notification_type: 'article_received', emmiter_id: current_user.id
+      end
+    end
+      #send_mail user_id: @role.users.pluck(:id).join(','), article_ids: @article.id, mail_type: 'article_sent'
   end
 
 
 
   def refund_to
+    @this_workflow_state = @article.workflow_state
     @previous_workflow_state = WorkflowState.find(params[:workflow_state])
-    @role = @previous_workflow_state.role
+    @this_role = @this_workflow_state.role
+    @prv_role = @previous_workflow_state.role
     @revision_number = SecureRandom.hex(4)
     if @article.workflow_state.workflow.is_previous_node(@article.workflow_state.node_id, @previous_workflow_state.node_id) && @article.workflow_state.role_id == current_user.current_role_id
       @workflow_transition = WorkflowTransition.create(workflow_id: @article.workflow_state.workflow.id, from_state_id: @article.workflow_state.id, to_state_id: @previous_workflow_state.id, article_id: @article.id, message: params[:message], user_id: current_user.id, role_id: current_user.current_role_id, transition_type: 2, revision_number: @revision_number)
@@ -108,9 +121,17 @@ class ArticlesController < ApplicationController
       @article.save
     end
     extract_nxt_prv(@article)
-    if !@role.blank?
-      send_mail user_id: @role.users.pluck(:id).join(','), article_ids: @article.id, mail_type: 'article_refund'
+    if !@prv_role.blank?
+      for user in @prv_role.users
+        generate_notfication user_id: user.id , notifiable_type: 'WorkflowTransition', notifiable_id: @workflow_transition.id, notification_type: 'article_refunded_received', emmiter_id: current_user.id
+      end
     end
+    if !@this_role.blank?
+      for user in @this_role.users
+        generate_notfication user_id: user.id , notifiable_type: 'WorkflowTransition', notifiable_id: @workflow_transition.id, notification_type: 'article_refunded', emmiter_id: current_user.id
+      end
+    end
+
   end
   # GET /articles
   # GET /articles.json

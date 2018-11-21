@@ -41,13 +41,16 @@
       <div class="card-header">
         <i class="fe fe-bell"></i>&nbsp&nbsp<%=t :notifications%>
       </div>
-      <table class="table table-hover table-outline table-vcenter text-nowrap card-table">.
+      <table class="table  card-table  table-vcenter">
           <tbody>
             <% for notification in @notifications%>
+            <% if notification.valid%>
             <tr>
-              <td></td>
-              <td></td>
+              <td style="padding-right:10px; padding-left:0px;"><%= raw notification.icon%></td>
+              <td style="padding-right:10px; padding-left:0px; font-size:12px;"><%= raw notification.title%></td>
+              <td style="padding-right:10px; padding-left:0px;"><span style='font-size:9px;'><%=t notification.notification_type%></span></td>
             </tr>
+            <%end%>
             <%end%>
           </tbody>
       </table>
