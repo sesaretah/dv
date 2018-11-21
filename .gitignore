@@ -18,3 +18,10 @@
 
 /lib/fcm/*
 
+/public/system
+/public/system/*
+
+/db/sphinx/*
+
+
+
