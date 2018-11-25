@@ -19,7 +19,7 @@ class Notification < ActiveRecord::Base
 
   def title
     @item = self.notifiable_type.classify.constantize.find_by_id(self.notifiable_id)
-    if !@item.blank?
+    if !@item.article.blank?
       case self.notification_type
       when 'article_sent'
         return "<div class='small text-muted'>#{truncate(@item.article.title, length: 29)}</div><div style='font-size:smaller;'>#{truncate(@item.message, length: 29)}</div>"
@@ -37,7 +37,7 @@ class Notification < ActiveRecord::Base
 
   def full_title
     @item = self.notifiable_type.classify.constantize.find_by_id(self.notifiable_id)
-    if !@item.blank?
+    if !@item.article.blank?
       case self.notification_type
       when 'article_sent'
         return "<div class='small text-muted'>#{@item.article.title}</div><div style='font-size:smaller;'>#{@item.message}</div>"
