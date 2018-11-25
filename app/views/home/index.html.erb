@@ -44,7 +44,7 @@
       <table class="table  card-table  table-vcenter">
           <tbody>
             <% for notification in @notifications%>
-            <% if notification.valid%>
+            <% if notification.valid && !notification.blank?%>
             <tr>
               <td style="padding-right:10px; padding-left:0px;"><%= raw notification.icon%></td>
               <td style="padding-right:10px; padding-left:0px; font-size:12px;"><%= raw notification.title%></td>
