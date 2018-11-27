@@ -80,13 +80,13 @@
         <% for contribution in @article.contributions %>
         <li>
         <% if  !contribution.profile.blank? %>
-        <%=t :fullname%>: <%= contribution.profile.fullname%>,
+        <%=t :fullname%>: <%=link_to contribution.profile.fullname, contribution.profile%>,
         <%end%>
         <% if  !contribution.role.blank? %>
-        <%=t :role%>: <%= contribution.role.title%>,
+        <%=t :role%>: <%= link_to contribution.role.title, contribution.role%>,
         <%end%>
         <% if  !contribution.duty.blank? %>
-        <%=t :duty%>: <%= contribution.duty.title%>
+        <%=t :duty%>: <%= link_to contribution.duty.title, contribution.duty%>
         <%end%>
         </li>
         <%end%>
