@@ -4,12 +4,10 @@
       <td style="text-align:left;width: 170px;"><%= label :article, :title , class: "form-label", style: 'color: #7795c1;'%></td>
       <td><%= @article.title %><br />
       <% @article.titlings.group_by(&:title_type_id).each do |k,v| %>
-      <%= TitleType.find(k).title%>:
-      <ul>
         <% for t in v%>
-        <li><%= t.content%></li>
+        | <%= t.content%>
         <%end%>
-      </ul>
+
       <%end%>
       </td>
     </tr>
