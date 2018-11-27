@@ -41,22 +41,7 @@
           <%end%>
         </td>
       </tr>
-      <tr>
-        <td style='color: #7795c1;text-align:left;'><%=t :attachments%></td>
-        <td>
-          <% for upload in Upload.where(uploadable_type: 'Article', uploadable_id: @article.id, attachment_type: 'article_attachment')%>
-          <% if upload.attachment_content_type.include?("application") || upload.attachment_content_type.include?("text")%>
-          <%= link_to upload.attachment.url do%>
-          <i class="fe fe-download" style="vertical-align:middle;"></i> <%=t :download_file%>
-          <%end%>
-          <%else%>
-          <a href="#" data-featherlight="<%= upload.attachment(:large)%>" data-featherlight-type="image">
-            <%= image_tag upload.attachment(:tiny)%>
-          </a>
-          <%end%>
-          <%end%>
-        </td>
-      </tr>
+
       <tr>
         <td style='color: #7795c1;text-align:left;'><%=t :article_type%></td>
         <td>
@@ -130,7 +115,22 @@
             <%end%>
           </td>
         </tr>
-
+        <tr>
+          <td style='color: #7795c1;text-align:left;'><%=t :attachments%></td>
+          <td>
+            <% for upload in Upload.where(uploadable_type: 'Article', uploadable_id: @article.id, attachment_type: 'article_attachment')%>
+            <% if upload.attachment_content_type.include?("application") || upload.attachment_content_type.include?("text")%>
+            <%= link_to upload.attachment.url do%>
+            <i class="fe fe-download" style="vertical-align:middle;"></i> <%=t :download_file%>
+            <%end%>
+            <%else%>
+            <a href="#" data-featherlight="<%= upload.attachment(:large)%>" data-featherlight-type="image">
+              <%= image_tag upload.attachment(:tiny)%>
+            </a>
+            <%end%>
+            <%end%>
+          </td>
+        </tr>
         <tr>
           <td style='color: #7795c1;text-align:left;'><%=t :full_text%></td>
           <td>
