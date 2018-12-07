@@ -78,10 +78,10 @@
               <%=link_to contribution.profile.fullname, contribution.profile%>,
               <%end%>
               <% if  !contribution.duty.blank? %>
-              <%= link_to contribution.duty.title, contribution.duty%>
+              <%= link_to contribution.duty.title, contribution.duty%>,
               <%end%>
               <% if  !contribution.role.blank? %>
-              <%= link_to contribution.role.title, contribution.role%>,
+              <%= link_to contribution.role.title, contribution.role%>
               <%end%>
             </li>
             <%end%>
