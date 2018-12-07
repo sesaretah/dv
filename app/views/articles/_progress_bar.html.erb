@@ -13,6 +13,10 @@
 
 <% if article.id != nil && !article.title.blank?%>
 <div class="alert alert-primary mt-5 ">
-  <%=t :title%>: <%= truncate(article.title, length: 70) %>
+  <%=t :title%>: <%= truncate(article.title, length: 70) %><br />
+  <% @article.titlings.group_by(&:title_type_id).each do |k,v| %>
+    <% for t in v%>
+    |<%=truncate(t.content , length: 70)%>
+    <%end%>
 </div>
 <%end%>
