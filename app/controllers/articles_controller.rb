@@ -181,15 +181,7 @@ class ArticlesController < ApplicationController
       @article.workflow_state_id = @workflow_state.id
     end
     @article.save
-    params.each do |param|
-    if param[0].include?('_title_type')
-        @h = param[0].split('_')[0]
-        if !params["#{@h}_other_title"].blank?
-          @title_type = TitleType.find_by_id(param[1].to_i)
-          Titling.create(title_type_id: @title_type.id, article_id: @article.id, content: params["#{@h}_other_title"] )
-        end
-      end
-    end
+    extract_other_titles
     respond_to do |format|
       format.html { redirect_to '/articles/article_descriptors/'+@article.id.to_s , notice: :article_is_created }
     end
@@ -203,23 +195,10 @@ class ArticlesController < ApplicationController
         if !params[:keyword].blank?
           extract_keywords(@article, params[:keyword])
         end
-        for titling in @article.titlings
-          titling.destroy
+        if params[:caller] != 'descriptors'
+          extract_other_titles
         end
-        params.each do |param|
-        if param[0].include?('_title_type')
-            @h = param[0].split('_')[0]
-            if !params["#{@h}_other_title"].blank?
-              @title_type = TitleType.find_by_id(param[1].to_i)
-              Titling.create(title_type_id: @title_type.id, article_id: @article.id, content: params["#{@h}_other_title"] )
-            end
-          end
-        end
-        if !params[:keyword].blank?
-          format.html { redirect_to '/articles/article_related_dates/'+@article.id.to_s, notice: :article_is_updated }
-        else
-          format.html { redirect_to '/articles/article_descriptors/'+@article.id.to_s, notice: 'Article was successfully updated.' }
-        end
+        format.html { redirect_to '/articles/article_related_dates/'+@article.id.to_s, notice: :article_is_updated }
         format.json { render :show, status: :ok, location: @article }
       else
         format.html { render :edit }
@@ -238,6 +217,21 @@ class ArticlesController < ApplicationController
     end
   end
 
+
+  def extract_other_titles
+    for titling in @article.titlings
+      titling.destroy
+    end
+    params.each do |param|
+      if param[0].include?('_title_type')
+        @h = param[0].split('_')[0]
+        if !params["#{@h}_other_title"].blank?
+          @title_type = TitleType.find_by_id(param[1].to_i)
+          Titling.create(title_type_id: @title_type.id, article_id: @article.id, content: params["#{@h}_other_title"] )
+        end
+      end
+    end
+  end
 
 
   def history(**args)
