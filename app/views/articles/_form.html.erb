@@ -3,6 +3,7 @@
 <div class="card-header">
   <h3 class="card-title"><%=t :titles_and_workflows %></h3>
 </div>
+<%= hidden_field_tag 'caller', 'mainform'%>
 <% if @article.errors.any? %>
 <div id="error_explanation">
   <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:</h2>

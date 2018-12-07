@@ -198,7 +198,11 @@ class ArticlesController < ApplicationController
         if params[:caller] != 'descriptors'
           extract_other_titles
         end
-        format.html { redirect_to '/articles/article_related_dates/'+@article.id.to_s, notice: :article_is_updated }
+        if params[:caller] == 'descriptors'
+          format.html { redirect_to '/articles/article_related_dates/'+@article.id.to_s, notice: :article_is_updated }
+        else
+          format.html { redirect_to '/articles/article_descriptors/'+@article.id.to_s, notice: :article_is_updated }
+        end
         format.json { render :show, status: :ok, location: @article }
       else
         format.html { render :edit }
