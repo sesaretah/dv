@@ -25,7 +25,7 @@ class HomeController < ApplicationController
   end
 
   def advanced_search
-    @model_results = Article.search params[:q], star: true, , :page => params[:page], :per_page => 15, with: restrict_articles
+    @model_results = Article.search params[:q], star: true, :page => params[:page], :per_page => 15, with: restrict_articles
     @model_results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
     @group_results = group_articles(restrict_articles)
   end
