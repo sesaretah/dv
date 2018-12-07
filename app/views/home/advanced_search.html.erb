@@ -64,6 +64,11 @@
         </div>
         <%end%>
       </div>
+      <% if defined?(@model_results.total_pages)%>
+      <div class="digg_pagination  mb-2 mt-2 mr-auto ml-auto">
+          <%= will_paginate @model_results %>
+      </div>
+      <%end%>
     </div>
   </div>
 </div>
