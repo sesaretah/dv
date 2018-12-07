@@ -20,6 +20,7 @@
         <%= label :article, :url , class: "form-label", style: 'color: #7795c1;'%></td>
         <td><%= link_to @article.url, @article.url %></td>
       </tr>
+<% if false %>
       <tr>
         <td style='color: #7795c1;text-align:left;'><%=t :keywords%></td>
         <td><% for tagging in Tagging.where(taggable_id: @article.id, taggable_type: 'Article', target_type: 'Keyword') %>
@@ -30,6 +31,7 @@
           <%end%>
         </td>
       </tr>
+    <%end%>
       <tr>
         <td style='color: #7795c1;text-align:left;'><%=t :datings%></td>
         <td><% for dating in @article.datings %>
@@ -75,11 +77,11 @@
               <% if  !contribution.profile.blank? %>
               <%=link_to contribution.profile.fullname, contribution.profile%>,
               <%end%>
-              <% if  !contribution.role.blank? %>
-              <%= link_to contribution.role.title, contribution.role%>,
-              <%end%>
               <% if  !contribution.duty.blank? %>
               <%= link_to contribution.duty.title, contribution.duty%>
+              <%end%>
+              <% if  !contribution.role.blank? %>
+              <%= link_to contribution.role.title, contribution.role%>,
               <%end%>
             </li>
             <%end%>
@@ -92,8 +94,12 @@
             <% @article.kinships.group_by(&:article_relation_type_id).each do |k,v| %>
             <%= ArticleRelationType.find(k).title%>:
             <ul>
+              <% @kins = []%>
               <% for kinship in v%>
-              <li><%= link_to kinship.kin.title, kinship.kin%></li>
+              <% @kins << kinship.kin%>
+              <%end%>
+              <%for kin in @kins.sort_by(&:title)%>
+              <li><%= link_to kin.title, kin%></li>
               <%end%>
             </ul>
             <%end%>

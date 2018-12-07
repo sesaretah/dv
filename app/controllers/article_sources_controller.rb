@@ -15,7 +15,7 @@ class ArticleSourcesController < ApplicationController
   # GET /article_sources
   # GET /article_sources.json
   def index
-    @article_sources = ArticleSource.all
+    @article_sources = ArticleSource.all.order("title asc")
   end
 
   # GET /article_sources/1

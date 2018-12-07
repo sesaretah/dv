@@ -15,7 +15,7 @@ class ArticleRelationTypesController < ApplicationController
   # GET /article_relation_types
   # GET /article_relation_types.json
   def index
-    @article_relation_types = ArticleRelationType.all
+    @article_relation_types = ArticleRelationType.all.order("title asc")
   end
 
   # GET /article_relation_types/1

@@ -38,7 +38,7 @@
   </div>
   <%end%>
 
-  <% if permit_by_workflow(@article, current_user,'keywords')%>
+  <% if false && permit_by_workflow(@article, current_user,'keywords')%>
   <div class="form-group">
     <label class="form-label"><%=t :keywords%></label>
     <input type="text" class="form-control" id="input-tags" value="" data-data='<%= raw @keywords.to_json%>'>

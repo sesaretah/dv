@@ -5,7 +5,7 @@ class ArticleTypesController < ApplicationController
   # GET /article_types
   # GET /article_types.json
   def index
-    @article_types = ArticleType.all
+    @article_types = ArticleType.all.order("title asc")
   end
 
   # GET /article_types/1

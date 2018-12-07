@@ -5,7 +5,7 @@ class ContentTemplatesController < ApplicationController
   # GET /content_templates
   # GET /content_templates.json
   def index
-    @content_templates = ContentTemplate.all
+    @content_templates = ContentTemplate.all.order("title asc")
   end
 
   # GET /content_templates/1

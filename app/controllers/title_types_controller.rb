@@ -4,7 +4,7 @@ class TitleTypesController < ApplicationController
   # GET /title_types
   # GET /title_types.json
   def index
-    @title_types = TitleType.all
+    @title_types = TitleType.all.order("title asc")
   end
 
   # GET /title_types/1

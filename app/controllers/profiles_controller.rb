@@ -19,6 +19,8 @@ class ProfilesController < ApplicationController
     for r in @profiles
       if !r.user.blank?
         resp << {'title' => r.fullname , 'id' => r.id, 'user_id' => r.user.id}
+      else
+        resp << {'title' => r.fullname , 'id' => r.id}
       end
     end
     render :json => resp.to_json, :callback => params['callback']
@@ -26,7 +28,7 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all
+    @profiles = Profile.all.order("surename asc")
   end
 
   # GET /profiles/1

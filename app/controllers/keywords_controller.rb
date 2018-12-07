@@ -15,7 +15,7 @@ class KeywordsController < ApplicationController
   # GET /keywords
   # GET /keywords.json
   def index
-    @keywords = Keyword.all
+    @keywords = Keyword.all.order("title asc")
   end
 
   # GET /keywords/1

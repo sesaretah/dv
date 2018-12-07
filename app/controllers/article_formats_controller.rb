@@ -4,7 +4,7 @@ class ArticleFormatsController < ApplicationController
   # GET /article_formats
   # GET /article_formats.json
   def index
-    @article_formats = ArticleFormat.all
+    @article_formats = ArticleFormat.all.order("title asc")
   end
 
   # GET /article_formats/1

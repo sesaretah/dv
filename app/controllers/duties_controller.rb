@@ -15,7 +15,7 @@ class DutiesController < ApplicationController
   # GET /duties
   # GET /duties.json
   def index
-    @duties = Duty.all
+    @duties = Duty.all.order("title asc")
   end
 
   # GET /duties/1

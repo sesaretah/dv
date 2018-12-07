@@ -4,7 +4,7 @@ class ArticleEventsController < ApplicationController
   # GET /article_events
   # GET /article_events.json
   def index
-    @article_events = ArticleEvent.all
+    @article_events = ArticleEvent.all.order("title asc")
   end
 
   # GET /article_events/1
