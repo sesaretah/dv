@@ -15,23 +15,75 @@
 <% end %>
 
 <div class="card-body">
-<div class="row">
-  <div class="col-md-5">
-    <div class="form-group">
-          <%= f.label :title, class: "form-label" %>
-      <%= f.text_field :title , class: "form-control" %>
-          </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :title, class: "form-label" %>
+        <%= f.text_field :title , class: "form-control" %>
+      </div>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-5">
-    <div class="form-group">
-          <%= f.label :description, class: "form-label" %>
-      <%= f.text_area :description , class: "form-control" %>
-          </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :description, class: "form-label" %>
+        <%= f.text_area :description , class: "form-control" %>
+      </div>
+    </div>
   </div>
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+  </div>
+  <% end %>
 </div>
-<div class="card-footer text-right">
-  <button type="submit" class="btn btn-primary"><%=t :submit%></button>
-</div>
-<% end %>
+<% if !@article_source.id.blank?%>
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title"><%=t :attached_file%></h3>
+    </div>
+    <div class="card-body">
+      <%= form_for(Upload.new, html: {class: 'dropzone'}) do |f| %>
+      <%= f.hidden_field :uploadable_type, value: 'ArticleSource'%>
+      <%= f.hidden_field :uploadable_id, value: @article_source.id%>
+      <%= f.hidden_field :attachment_type, value: 'article_source_attachment'%>
+      <%= hidden_field_tag :file_type, 'picture'%>
+      <div class="fallback">
+        <%= f.file_field :picture %><br>
+        <%= f.hidden_field :uploadable_type, value: 'ArticleSource'%>
+        <%= f.hidden_field :uploadable_id, value: @article_source.id%>
+        <%= f.hidden_field :attachment_type, value: 'article_source_attachment'%>
+        <%= f.submit "Upload" %>
+      </div>
+      <% end %>
+      <script>
+      Dropzone.autoDiscover = false;
+      $("#new_upload").dropzone({
+        dictDefaultMessage : "<%=t :drop_files_here_to_upload%>",
+        dictRemoveFile : "<%=t :remove_file %>",
+        acceptedFiles : '.docx,.doc,.pdf,.txt, .png,.jpg,.jpeg',
+        addRemoveLinks: true,
+        removedfile: function(file) {
+          $.get( "/uploads/remoted/" + file.id, function( data ) {
+            console.log(data);
+          });
+          var _ref;
+          return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+        },
+        init: function () {
+          this.on("success", function(file, responseText) {
+            file.id = responseText.id;
+          });
+
+          <% for upload in Upload.where(uploadable_type: 'ArticleSource', uploadable_id: @article_source.id, attachment_type: 'article_source_attachment')%>
+          var mockFile = { name: "<%= upload.attachment_file_name%>", size: <%= upload.attachment_file_size%>, url: "<%= upload.attachment.url%>", id: <%= upload.id%> };
+          this.options.addedfile.call(this, mockFile);
+          this.options.thumbnail.call(this, mockFile, "<%= upload.attachment(:large)%>");
+          mockFile.previewElement.classList.add('dz-success');
+          mockFile.previewElement.classList.add('dz-complete');
+          <%end%>
+        }
+      });
+      </script>
+    </div>
+  </div>
+<% end%>

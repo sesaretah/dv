@@ -12,6 +12,20 @@
           <div class='mt-2 mr-3 ml-3 mb-2' style="font-size:smaller; text-align:justify;">
             <b><%=t :description%>:</b> <%= @article_source.description%>
           </div>
+          <div class='mt-2 mr-3 ml-3 mb-2' style="font-size:smaller; text-align:justify;">
+            <b><%=t :attachments%>:</b><br />
+            <% for upload in Upload.where(uploadable_type: 'ArticleSource', uploadable_id: @article_source.id, attachment_type: 'article_source_attachment')%>
+            <% if upload.attachment_content_type.include?("application") || upload.attachment_content_type.include?("text")%>
+            <%= link_to upload.attachment.url do%>
+            <i class="fe fe-download" style="vertical-align:middle;"></i> <%=t :download_file%>
+            <%end%>
+            <%else%>
+            <a href="#" data-featherlight="<%= upload.attachment(:large)%>" data-featherlight-type="image">
+              <%= image_tag upload.attachment(:thumb)%>
+            </a>
+            <%end%>
+            <%end%>
+          </div>
         </div>
       </div>
     </div>
@@ -21,7 +35,7 @@
       <div class="card-header">
         <div class="card-options">
           <%= link_to "/article_sources", class: "btn btn-secondary btn-sm ml-1" do %>
-            <i class="fe fe-arrow-left" style="vertical-align: -3px;"></i> <%=t :back%>
+          <i class="fe fe-arrow-left" style="vertical-align: -3px;"></i> <%=t :back%>
           <%end%>
         </div>
       </div>

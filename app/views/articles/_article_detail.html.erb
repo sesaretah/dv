@@ -121,6 +121,14 @@
             <%end%>
           </td>
         </tr>
+
+        <tr>
+          <td style='color: #7795c1;text-align:left;'><%=t :full_text%></td>
+          <td>
+            <%= raw @article.content%>
+          </td>
+        </tr>
+
         <tr>
           <td style='color: #7795c1;text-align:left;'><%=t :attachments%></td>
           <td>
@@ -135,12 +143,6 @@
             </a>
             <%end%>
             <%end%>
-          </td>
-        </tr>
-        <tr>
-          <td style='color: #7795c1;text-align:left;'><%=t :full_text%></td>
-          <td>
-            <%= raw @article.content%>
           </td>
         </tr>
 
