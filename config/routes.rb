@@ -48,7 +48,8 @@ Rails.application.routes.draw do
 
   resources :article_areas
   root to: 'home#index'
-
+  get ':slug' => 'home#index'
+  
   match "/home/advanced_search" => "home#advanced_search", :via => :get
   match "/home/change_current_role" => "home#change_current_role", :via => :get
 

@@ -12,16 +12,22 @@ class HomeController < ApplicationController
   end
 
   def index
-    @role = Role.find_by_id(current_user.current_role_id)
-    if !@role.blank?
-      @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
-      @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids).paginate(:page => params[:page], :per_page => 5)
-      @notifications = Notification.where(user_id: current_user.id).order('created_at desc').limit(10)
+    if !params[:slug].blank?
+      @article = Article.find_by_slug(params[:slug])
+      if !@article.blank?
+        redirect_to @article
+      end
     else
+      @role = Role.find_by_id(current_user.current_role_id)
+      if !@role.blank?
+        @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
+        @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids).paginate(:page => params[:page], :per_page => 5)
+        @notifications = Notification.where(user_id: current_user.id).order('created_at desc').limit(10)
+      else
         @articles = []
         @notifications = []
+      end
     end
-
   end
 
   def advanced_search
@@ -32,13 +38,13 @@ class HomeController < ApplicationController
 
   def restrict_articles
     @h = {
-          'profile_ids'        => [],
-          'language_ids'       => [],
-          'article_type_ids'   => [],
-          'article_format_ids' => [],
-          'article_area_ids'   => [],
-          'article_source_ids' => []
-        }
+      'profile_ids'        => [],
+      'language_ids'       => [],
+      'article_type_ids'   => [],
+      'article_format_ids' => [],
+      'article_area_ids'   => [],
+      'article_source_ids' => []
+    }
     params.each do |name, value|
       @model = name.split('_')[0]
       case @model
