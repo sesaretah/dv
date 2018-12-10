@@ -74,15 +74,15 @@ module ApplicationHelper
 
 
   def grant_access(ward, user)
+    @flag = 0
     if user.assignments.blank?
       return false
     end
-    @flag = 1
-    for assignment in user.assignments
-      @ac = AccessControl.where(role_id: assignment.role_id).first
-      if !@ac.blank?
-        @flag = @flag * @ac["#{ward}"].to_i
-      end
+    if user.current_role_id.blank?
+      return false
+    else
+      @ac = AccessControl.where(role_id: user.current_role_id).first
+      @flag = @ac["#{ward}"].to_i
     end
     if @flag == 0
       return false
