@@ -61,7 +61,7 @@
         <div class="form-group">
           <div class= "form-label" style= 'color: #7795c1;'><%= link_to result do%><%= raw result.excerpts.title%><%end%></div>
           <div class="form-control-plaintext" style="font-size: smaller;"><%=raw result.excerpts.abstract %></div>
-          <div class="form-control-plaintext" style="font-size: smaller;"><%=raw white_list_sanitizer.sanitize(result.excerpts.content, tags: %w(span), attributes: %w(id class style)) %></div>
+          <div class="form-control-plaintext" style="font-size: smaller;"><%=raw white_list_sanitizer.sanitize(result.excerpts.content_wo_tags, tags: %w(span), attributes: %w(id class style)) %></div>
         </div>
         <%end%>
       </div>
