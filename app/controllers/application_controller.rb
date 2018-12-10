@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   require 'jalali_date'
   before_filter :authenticate_user!, :except => [:after_sign_in_path_for,:after_inactive_sign_up_path_for,     :after_sign_up_path_for]
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  
+
 
  def configure_permitted_parameters
  end
@@ -68,15 +68,15 @@ class ApplicationController < ActionController::Base
  end
 
  def grant_access(ward, user)
+   @flag = 0
    if user.assignments.blank?
      return false
    end
-   @flag = 1
-   for assignment in user.assignments
-     @ac = AccessControl.where(role_id: assignment.role_id).first
-     if !@ac.blank?
-       @flag = @flag * @ac["#{ward}"].to_i
-     end
+   if user.current_role_id.blank?
+     return false
+   else
+     @ac = AccessControl.where(role_id: user.current_role_id).first
+     @flag = @ac["#{ward}"].to_i
    end
    if @flag == 0
      return false
@@ -84,5 +84,5 @@ class ApplicationController < ActionController::Base
      return true
    end
  end
-
+ 
 end
