@@ -2,7 +2,7 @@
   <tbody>
     <tr>
       <td style="text-align:left;"><%= label :article, :slug , class: "form-label", style: 'color: #7795c1;'%></td>
-      <td><%= link_to @article.slug, request.base_url + @article.slug %></td>
+      <td><%= link_to @article.slug, request.base_url+'/'+@article.slug %></td>
     </tr>
     <tr>
       <td style="text-align:left;width: 170px;"><%= label :article, :title , class: "form-label", style: 'color: #7795c1;'%></td>
