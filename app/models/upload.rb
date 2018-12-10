@@ -7,6 +7,8 @@ class Upload < ActiveRecord::Base
     "text/plain"]
   before_post_process :rename_avatar
   before_post_process :resize_images
+  belongs_to :uploadable, :polymorphic => true
+  belongs_to :article, :class_name => "Article", :foreign_key => "uploadable_id"
   def rename_avatar
     if !self.attachment.blank?
       extension = File.extname(attachment_file_name).downcase
