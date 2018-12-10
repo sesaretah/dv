@@ -190,6 +190,14 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1
   # PATCH/PUT /articles/1.json
   def update
+    if @article.slug.blank?
+        @article.slug = SecureRandom.hex(4)
+    end
+    @article.document_contents = ''
+    for upload in @article.uploads
+      @text =  %x[java -jar /home/shafiei/tika-app-1.19.jar -h #{upload.document.path}]
+      @article.document_contents =  @article.document_contents + ' ' + @text
+    end
       respond_to do |format|
       if @article.update(article_params)
         if !params[:keyword].blank?
