@@ -47,5 +47,5 @@ class Article < ActiveRecord::Base
 
   belongs_to :workflow_state
   has_many :workflow_transitions
-  has_many :uploads, :as => :likeable, :dependent => :destroy
+  has_many :uploads, :as => :uploadable, :dependent => :destroy
 end
