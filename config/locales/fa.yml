@@ -229,6 +229,7 @@ fa:
             content: 'محتوا'
             url: 'پیوند(url)'
             workflow_state_id: 'گام فعلی'
+            slug: 'شناسه یکتا'
         tag:
             title: 'عنوان'
             tag_type_id: 'نوع موضوع'
