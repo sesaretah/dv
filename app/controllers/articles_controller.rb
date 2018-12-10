@@ -198,6 +198,7 @@ class ArticlesController < ApplicationController
       @text =  %x[java -jar /home/shafiei/tika-app-1.19.jar -h #{upload.attachment.path}]
       @article.document_contents =  @article.document_contents + ' ' + @text
     end
+    @article.content_wo_tags = params[:article][:content]
       respond_to do |format|
       if @article.update(article_params)
         if !params[:keyword].blank?

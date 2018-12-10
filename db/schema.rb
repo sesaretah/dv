@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181210112709) do
+ActiveRecord::Schema.define(version: 20181210114509) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20181210112709) do
     t.integer  "workflow_state_id",   limit: 4
     t.integer  "content_template_id", limit: 4
     t.text     "document_contents",   limit: 65535
+    t.text     "content_wo_tags",     limit: 65535
   end
 
   create_table "assignments", force: :cascade do |t|
