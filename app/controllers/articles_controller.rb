@@ -195,7 +195,7 @@ class ArticlesController < ApplicationController
     end
     @article.document_contents = ''
     for upload in @article.uploads
-      @text =  %x[java -jar /home/shafiei/tika-app-1.19.jar -h #{upload.document.path}]
+      @text =  %x[java -jar /home/shafiei/tika-app-1.19.jar -h #{upload.attachment.path}]
       @article.document_contents =  @article.document_contents + ' ' + @text
     end
       respond_to do |format|
