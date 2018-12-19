@@ -1,7 +1,18 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!, :except => [:email_sent]
   def reports
-
+    if !params[:start_yyyy].blank?
+      @start_date = JalaliDate.to_gregorian(params[:start_yyyy],params[:start_mm],params[:start_dd])
+    end
+    if !params[:end_yyyy].blank?
+      @end_date = JalaliDate.to_gregorian(params[:end_yyyy],params[:end_mm],params[:end_dd])
+    end
+    if !@start_date.blank? && !@end_date.blank?
+      @dating_ids = Dating.where('event_date <= ? AND event_date >= ?', @end_date, @start_date).pluck(:article_id)
+      @article_ids = Article.where('id IN (?)', @dating_ids).pluck(:id)
+    else
+      @article_ids = Article.all.pluck(:id)
+    end
   end
   def email_sent
     render layout: 'layouts/devise'

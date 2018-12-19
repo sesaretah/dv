@@ -1,5 +1,57 @@
 <div class='row'>
-  <div class="col-lg-6 col-xl-4">
+  <div class="col-lg-12 col-xl-12">
+    <%= form_tag '/home/reports', method: :get , class: 'card' do |f| %>
+      <% if @start_date.blank?%>
+      <% @start = JalaliDate.to_jalali(Time.now)%>
+      <%else%>
+      <% @start = JalaliDate.to_jalali(@start_date)%>
+      <%end%>
+      <div class="card-body">
+        <div class="col-lg-5 col-xl-5">
+          <label  class="form-label"><%=t :start_date%></label>
+          <div class="row gutters-xs">
+
+            <div class='col-4'>
+              <%= select_tag  "start_dd", options_for_select(1..31, @start.day), {class: "form-control"} %>
+            </div>
+            <div class='col-4'>
+              <%= select_tag "start_mm", options_for_select(1..12, @start.month), {class: "form-control"} %>
+            </div>
+            <div class='col-4'>
+              <%= select_year(@start.year, {:start_year => 1360, :end_year => 1400}, {class: "form-control", :name =>"start_yyyy"}) %>
+            </div>
+          </div>
+        </div>
+        <% if @end_date.blank?%>
+        <% @end = JalaliDate.to_jalali(Time.now)%>
+        <%else%>
+        <% @end = JalaliDate.to_jalali(@end_date)%>
+        <%end%>
+        <div class="col-lg-5 col-xl-5">
+          <label  class="form-label"><%=t :end_date%></label>
+          <div class="row gutters-xs">
+
+            <div class='col-4'>
+              <%= select_tag  "end_dd", options_for_select(1..31, @end.day), {class: "form-control"} %>
+            </div>
+            <div class='col-4'>
+              <%= select_tag "end_mm", options_for_select(1..12, @end.month), {class: "form-control"} %>
+            </div>
+            <div class='col-4'>
+              <%= select_year(@end.year, {:start_year => 1360, :end_year => 1400}, {class: "form-control", :name =>"end_yyyy"}) %>
+            </div>
+          </div>
+        </div>
+
+      <div class="card-footer text-right">
+        <button type="submit" class="btn btn-primary"><%=t :show%></button>
+      </div>
+        </div>
+    <%end%>
+  </div>
+</div>
+<div class='row'>
+  <div class="col-lg-6 col-xl-6">
     <div class="card">
       <div class="card-header">
         <h3 class="card-title"><%=t :keywords%></h3>
@@ -8,7 +60,7 @@
         <div id="chart-pie" style="height: 16rem"></div>
       </div>
     </div>
-    <% @t = Tagging.where(taggable_type: 'Article', target_type: 'Keyword').group(:target_id).order('count_id desc').count('id')%>
+    <% @t = Tagging.where('taggable_type = ? AND taggable_id IN (?) AND target_type = ?', 'Article', @article_ids,'Keyword').group(:target_id).order('count_id desc').count('id')%>
     <script>
     function randomValueOf( obj ) {
       var keys = Object.keys(obj);
@@ -19,7 +71,6 @@
     }
 
     $(document).ready(function(){
-      console.log(randomValueOf(tabler.colors));
       var chart = c3.generate({
         bindto: '#chart-pie', // id of chart wrapper
         data: {
@@ -36,7 +87,7 @@
           },
           names: {
             <% @t.each do |k,v|%>
-            'data<%= k%>': '<%= Keyword.find(v).title%>',
+            'data<%= k%>': '<%= Keyword.find(k).title%>',
             <%end%>
           }
         },
@@ -53,8 +104,106 @@
     });
     </script>
   </div>
+  <div class="col-lg-6 col-xl-6">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><%=t :article_types%></h3>
+      </div>
+      <div class="card-body">
+        <div id="chart-donut" style="height: 16rem"></div>
+      </div>
+    </div>
+    <% @typings = Typing.all.group(:article_type_id).count%>
+      <script>
+    $(document).ready(function(){
+      var chart = c3.generate({
+        bindto: '#chart-donut', // id of chart wrapper
+        data: {
+          columns: [
+            <%for typing in @typings.keys%>
+            ['data<%= typing%>', <%= @typings[typing]%>],
+            <%end%>
+          ],
+          type: 'donut', // default type of chart
+          colors: {
+            <%for typing in @typings.keys%>
+            'data<%= typing%>': randomValueOf(tabler.colors),
+            <%end%>
+          },
+          names: {
+            <%for typing in @typings.keys%>
+            'data<%= typing%>': ' <%= ArticleType.find(typing).title%>',
+            <%end%>
+          }
+        },
+        axis: {
+        },
+        legend: {
+          show: false, //hide legend
+        },
+        padding: {
+          bottom: 0,
+          top: 0
+        },
+      });
+    });
+    </script>
+  </div>
 
-  <div class="col-lg-6 col-xl-4">
+</div>
+<div class='row'>
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><%=t :date_histogram%></h3>
+      </div>
+      <div class="card-body">
+        <div id="chart-spline" style="height: 16rem"></div>
+      </div>
+    </div>
+    <% @dating = Dating.where('article_id IN (?)', @article_ids).group(:event_date).order('event_date desc').count('id')%>
+    <script>
+    $(document).ready(function(){
+      var chart = c3.generate({
+        bindto: '#chart-spline', // id of chart wrapper
+        data: {
+          columns: [
+            ['data1', <%= @dating.values.join(',')%>]
+            // each columns data
+          ],
+          labels: true,
+          type: 'spline', // default type of chart
+          colors: {
+            'data1': tabler.colors["green"]
+          },
+          names: {
+            // name of each serie
+            'data1': '<%=t :artilce_date%>',
+          }
+        },
+        axis: {
+          x: {
+            type: 'category',
+            // name of each category
+            categories: [<%= raw @dating.keys.map{ |e| "'#{e}'" }.join(',')%>]
+          },
+        },
+        legend: {
+          show: false, //hide legend
+        },
+        padding: {
+          bottom: 0,
+          top: 0
+        },
+      });
+    });
+
+    </script>
+  </div>
+</div>
+<div class="row">
+
+  <div class="col-lg-6 col-xl-6">
     <div class="card">
       <div class="card-header">
         <h3 class="card-title"><%=t :workflows%></h3>
@@ -65,9 +214,9 @@
     </div>
     <% @ends, @notends, @titles = [],[],[]%>
     <% for workflow in Workflow.all%>
-      <% @ends << Article.where('workflow_state_id IN (?)', workflow.end_states).count%>
-      <% @notends << Article.where('workflow_state_id IN (?)', workflow.not_end_states).count%>
-      <% @titles << workflow.title%>
+    <% @ends << Article.where('workflow_state_id IN (?) AND id IN (?)', workflow.end_states, @article_ids).count%>
+    <% @notends << Article.where('workflow_state_id IN (?) AND id IN (?)', workflow.not_end_states, @article_ids).count%>
+    <% @titles << workflow.title%>
     <%end%>
     <script>
     $(document).ready(function(){
@@ -98,9 +247,9 @@
           x: {
             type: 'category',
             tick: {
-               multiline: false
-           },
-           categories: [<%=raw @titles.map { |i| "'" + i.to_s + "'" }.join(",")%>]
+              multiline: false
+            },
+            categories: [<%=raw @titles.map { |i| "'" + i.to_s + "'" }.join(",")%>]
           },
         },
         bar: {
@@ -118,4 +267,5 @@
     });
     </script>
   </div>
+
 </div>

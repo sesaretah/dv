@@ -327,6 +327,10 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  start_date: 'تاریخ شروع'
+  end_date: 'تاریخ پایان'
+  artilce_date: 'تاریخ'
+  date_histogram: 'هیستوگرام تاریخ'
   full_text: 'متن کامل'
   article_comment: 'نظرات بر اسناد'
   article_refunded_received: 'دریافت عودت سند'
