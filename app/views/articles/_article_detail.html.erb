@@ -135,17 +135,20 @@
 
         <tr>
           <td style='color: #7795c1;text-align:left;'><%=t :attachments%></td>
+
+
           <td>
-            <% for upload in Upload.where(uploadable_type: 'Article', uploadable_id: @article.id, attachment_type: 'article_attachment')%>
-            <% if upload.attachment_content_type.include?("application") || upload.attachment_content_type.include?("text")%>
-            <%= link_to upload.attachment.url do%>
-            <i class="fe fe-download" style="vertical-align:middle;"></i> <%=t :download_file%>
-            <%end%>
-            <%else%>
-            <a href="#" data-featherlight="<%= upload.attachment(:large)%>" data-featherlight-type="image">
-              <%= image_tag upload.attachment(:tiny)%>
-            </a>
-            <%end%>
+            <% Upload.where(uploadable_type: 'Article', uploadable_id: @article.id).group_by(&:attachment_type).each do |k,v| %>
+            <%=t k%>
+            <ul>
+              <% for u in v%>
+              <li><%= link_to u.attachment.url do%><i class="fe fe-download" style="vertical-align:middle;"></i> <%= u.title%><%end%>
+                <p class="text-muted">
+                    <%= u.detail%>
+                </p>
+              </li>
+              <%end%>
+            </ul>
             <%end%>
           </td>
         </tr>

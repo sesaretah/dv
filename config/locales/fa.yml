@@ -327,6 +327,9 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  article_attachment: 'ضمائم نامشخص'
+  article_citation: 'مستندات'
+  article_documents: 'پیوست ها'
   start_date: 'تاریخ شروع'
   end_date: 'تاریخ پایان'
   artilce_date: 'تاریخ'
