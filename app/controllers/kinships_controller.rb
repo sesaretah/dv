@@ -1,6 +1,15 @@
 class KinshipsController < ApplicationController
-  before_action :set_kinship, only: [:show, :edit, :update, :destroy]
+  before_action :set_kinship, only: [:show, :edit, :update, :destroy, :change_rank]
 
+  def change_rank
+    @article = @kinship.article
+    if params[:to] == 'up'
+      @kinship.rank = @kinship.rank.to_i + 1
+    else
+      @kinship.rank = @kinship.rank.to_i - 1
+    end
+    @kinship.save
+  end
   # GET /kinships
   # GET /kinships.json
   def index

@@ -1,5 +1,9 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments ]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print ]
+
+  def print
+    render layout: 'layouts/devise'
+  end
 
   def search
     if !params[:q].blank?

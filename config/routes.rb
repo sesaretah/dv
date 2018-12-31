@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   resources :article_areas
   root to: 'home#index'
   get ':slug' => 'home#index'
-  
+
   match "/home/advanced_search" => "home#advanced_search", :via => :get
   match "/home/change_current_role" => "home#change_current_role", :via => :get
 
@@ -106,6 +106,8 @@ Rails.application.routes.draw do
   match "/workflow_states/show_by_node/:id" => "workflow_states#show_by_node", :via => :get
 
   match "/home/reports" => "home#reports", :via => :get
+  match "/kinships/change_rank/:id" => "kinships#change_rank", :via => :get
+  match "/articles/print/:id" => "articles#print", :via => :get
 
   match "/apis/comments" => "apis#comments_api", :via => :post
 

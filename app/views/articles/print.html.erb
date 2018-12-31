@@ -1,0 +1,57 @@
+<%= @article.title %><br />
+<% @article.titlings.group_by(&:title_type_id).each do |k,v| %>
+  <% for t in v%>
+   <%= t.content%><br />
+  <%end%>
+<%end%>
+<%= @article.abstract %><br />
+<% for dating in @article.datings %>
+<%= dating.article_event.title%>:
+<span>
+  <% @jalali = JalaliDate.to_jalali(dating.event_date)%>
+  <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
+</span> <br />
+<%end%>
+
+<% for contribution in @article.contributions %>
+  <% if  !contribution.profile.blank? %>
+  <%= contribution.profile.fullname%>,
+  <%end%>
+  <% if  !contribution.duty.blank? %>
+  <%= contribution.duty.title%>,
+  <%end%>
+  <% if  !contribution.role.blank? %>
+  <%= contribution.role.title%>
+  <%end%> <br />
+<%end%>
+<br />
+<br />
+<br />
+
+<% @article.kinships.group_by(&:article_relation_type_id).each do |k,v| %>
+<%= ArticleRelationType.find(k).title%><br />
+  <% @kins = []%>
+  <% for kinship in v.sort_by!(&:rank).reverse!%>
+  <% @kins << kinship.kin%>
+  <%end%>
+  <%for kin in @kins%>
+    <%= kin.title%><br />
+    <% kin.titlings.group_by(&:title_type_id).each do |k,v| %>
+      <% for t in v%>
+       <%= t.content%><br />
+      <%end%>
+    <%end%>
+    <%= kin.abstract%><br />
+    <% for dating in kin.datings %>
+    <%= dating.article_event.title%>:
+    <span>
+      <% @jalali = JalaliDate.to_jalali(dating.event_date)%>
+      <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
+    </span> <br />
+    <%end%>
+    <br />
+    <br />
+    <br />
+
+  <%end%>
+<%end%>

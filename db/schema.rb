@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181223065610) do
+ActiveRecord::Schema.define(version: 20181231074416) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -250,10 +250,11 @@ ActiveRecord::Schema.define(version: 20181223065610) do
   create_table "kinships", force: :cascade do |t|
     t.integer  "user_id",                  limit: 4
     t.integer  "kin_id",                   limit: 4
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.integer  "article_relation_type_id", limit: 4
     t.integer  "article_id",               limit: 4
+    t.integer  "rank",                     limit: 4, default: 0
   end
 
   create_table "languages", force: :cascade do |t|
