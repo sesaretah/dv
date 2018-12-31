@@ -6,7 +6,7 @@
       <%else%>
       <span class='mr-2'></span>
       <%end%>
-      <%= role.title%>
+      <%= truncate(role.title, length: 20)%>
     <%end%>
   <%end%>
 </div>
