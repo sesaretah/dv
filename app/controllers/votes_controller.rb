@@ -4,9 +4,13 @@ class VotesController < ApplicationController
   def remotec
     @voting = Voting.find(params[:voting_id])
     @article = Article.find(params[:article_id])
-    @vote = Vote.where(voting_id: @voting.id, user_id: current_user.id, article_id: @article.id)
+    @vote = Vote.where(voting_id: @voting.id, user_id: current_user.id, article_id: @article.id).first
     if @vote.blank? && @article.workflow_state.role_id == current_user.current_role_id
       Vote.create(voting_id: @voting.id, outcome: params[:outcome] ,user_id: current_user.id, article_id: @article.id )
+    end
+    if !@vote.blank? && @article.workflow_state.role_id == current_user.current_role_id
+      @vote.outcome = params[:outcome]
+      @vote.save
     end
     extract_nxt_prv(@article)
   end
