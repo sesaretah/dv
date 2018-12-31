@@ -22,7 +22,7 @@
             <span class="avatar" style="background-image: url(<%= current_user.profile.avatar(:thumb)%>)"></span>
             <span class="ml-2 d-none d-lg-block">
               <span class="text-default"><%= current_user.profile.fullname%></span>
-              <small class="text-muted d-block mt-1"><%= Role.find_by_id(current_user.current_role_id).title rescue nil%></small>
+              <small class="text-muted d-block mt-1"><%= truncate(Role.find_by_id(current_user.current_role_id).title, length: 30) rescue nil%></small>
             </span>
           </a>
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" style=" right: auto !important;">
