@@ -36,11 +36,7 @@
     <div class="col-md-5">
       <div class="form-group">
         <%= f.label :email, class: "form-label" %>
-        <% if @profile.email.blank?%>
-          <%= f.text_field :email , class: "form-control" %>
-        <%else%>
-          <%= f.text_field :email , @profile.email,class: "form-control", disabled: true %>
-        <%end%>
+        <%= f.text_field :email , value: current_user.email, class: "form-control" %>
       </div>
     </div>
   </div>
