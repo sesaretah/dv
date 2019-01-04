@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!, :except => [:after_sign_in_path_for,:after_inactive_sign_up_path_for,     :after_sign_up_path_for]
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-
  def configure_permitted_parameters
  end
 
@@ -84,5 +83,5 @@ class ApplicationController < ActionController::Base
      return true
    end
  end
- 
+
 end
