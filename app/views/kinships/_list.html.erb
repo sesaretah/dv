@@ -10,11 +10,11 @@
         </tr>
       </thead>
       <tbody>
-        <% for kinship in article.kinships.order('rank desc')%>
+        <% for kinship in article.kinships.order(:rank).reverse!%>
         <% if !kinship.kin.blank?%>
         <tr>
           <td><%= kinship.article_relation_type.title%></td>
-          <td><%= truncate(kinship.kin.title, length: 30) %></td>
+          <td><%= truncate(kinship.kin.title, length: 30) %> (<%= kinship.rank%>)</td>
           <td>
             <% if article.kinships.order('rank desc').first.id != kinship.id%>
             <%= link_to "/kinships/change_rank/#{kinship.id}?to=up", class: "icon", remote: true do %>
