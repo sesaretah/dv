@@ -102,7 +102,7 @@
               <% @kins = []%>
               <% for kinship in v.sort_by!(&:rank).reverse!%>
               <% @kins << kinship.kin%>
-              <li><%= link_to kinship.kin.title, kin%></li>
+              <li><%= link_to kinship.kin.title, kinship.kin%></li>
               <%end%>
               <%for kin in @kins%>
 
