@@ -16,19 +16,13 @@
           <td><%= kinship.article_relation_type.title%></td>
           <td><%= truncate(kinship.kin.title, length: 30) %> (<%= kinship.rank%>)</td>
           <td>
-            <% if article.kinships.order('rank desc').first.id != kinship.id%>
+
             <%= link_to "/kinships/change_rank/#{kinship.id}?to=up", class: "icon", remote: true do %>
             <i class="fe fe-chevrons-up" style='vertical-align:-3px;'></i>
             <%end%>
-            <%else%>
-            <span class='icon'><i class="fe fe-chevrons-up" style='vertical-align:-3px;color:#f2f4f9'></i></span>
-            <%end%>
-            <% if article.kinships.order('rank desc').last.id != kinship.id%>
+
             <%= link_to "/kinships/change_rank/#{kinship.id}?to=down", class: "icon", remote: true do %>
             <i class="fe fe-chevrons-down" style='vertical-align:-3px;'></i>
-            <%end%>
-            <%else%>
-            <span class='icon'><i class="fe fe-chevrons-up" style='vertical-align:-3px;color:#f2f4f9'></i></span>
             <%end%>
           </td>
           <td class="">
