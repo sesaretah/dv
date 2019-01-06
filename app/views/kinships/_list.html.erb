@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <% for kinship in article.kinships.order('rank desc, updated_at asc')%>
+        <% for kinship in article.kinships.order('rank desc')%>
         <% if !kinship.kin.blank?%>
         <tr>
           <td><%= kinship.article_relation_type.title%></td>
