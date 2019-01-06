@@ -99,14 +99,9 @@
             <% @article.kinships.group_by(&:article_relation_type_id).each do |k,v| %>
             <%= ArticleRelationType.find(k).title%>:
             <ul>
-              <% @kins = []%>
               <% for kinship in v.sort_by!(&:rank).reverse!%>
-              <% @kins << kinship.kin%>
-              <li><%= link_to kinship.kin.title, kinship.kin%></li>
-              <%end%>
-              <%for kin in @kins%>
-
-              <%end%>
+              <li><%= link_to kinship.kin.title, kinship.kin%> (<%= kinship.rank%>)</li>
+              <% end %>
             </ul>
             <%end%>
           </td>
