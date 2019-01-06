@@ -1,0 +1,28 @@
+<div class="alert alert-warning" role="alert">
+  <b><%=t :change_workflow%></b><br />
+<% for workflow in workflows%>
+<label class="custom-control custom-radio custom-control-inline">
+  <input type="radio" class="custom-control-input" name="change_workflow" id="workflow_<%= workflow.id%>" <% if article.workflow_state.workflow.id == workflow.id%>checked<%end%> value="<%= workflow.start_state.id%>">
+  <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= workflow.title%></span>
+</label>
+
+<script>
+$('#workflow_<%= workflow.id%>').change(function() {
+    $.ajax({
+      url: '/articles/change_workflow/<%= article.id%>',
+      type: 'GET',
+      dataType: 'json',
+      data: {
+        workflow_state_id: <%= workflow.start_state.id%>
+      },
+      error: function() {
+        $(this).attr("checked", false);
+      },
+      success: function(res) {
+        $(this).attr("checked", true);
+      }
+    });
+  });
+</script>
+<% end %>
+</div>

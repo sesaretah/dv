@@ -71,6 +71,7 @@ Rails.application.routes.draw do
   match "/articles/search/:id" => "articles#search", :via => :get
   match "/articles/article_states/:id" => "articles#article_states", :via => :get
   match "/articles/article_comments/:id" => "articles#article_comments", :via => :get
+  match "/articles/change_workflow/:id" => "articles#change_workflow", :via => :get
 
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
 
@@ -110,5 +111,7 @@ Rails.application.routes.draw do
   match "/articles/print/:id" => "articles#print", :via => :get
 
   match "/apis/comments" => "apis#comments_api", :via => :post
+
+
 
 end

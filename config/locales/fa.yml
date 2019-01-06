@@ -327,6 +327,7 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  change_workflow: 'تغییر فرآیند '
   agree: 'موافق'
   abstention: 'ممتنع'
   oppose: 'مخالف'

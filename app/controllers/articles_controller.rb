@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print ]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print, :change_workflow ]
 
   def print
     render layout: 'layouts/devise'
@@ -62,6 +62,15 @@ class ArticlesController < ApplicationController
   end
 
   def article_states
+    extract_nxt_prv(@article)
+    @workflow_states = WorkflowState.where(role_id: current_user.current_role_id, start_point: 2).group_by(&:workflow_id).keys
+    @workflows = Workflow.where('id in (?)', @workflow_states )
+  end
+
+  def change_workflow
+#    if @article.workflow_state.workflow.id ==
+    @article.workflow_state_id = params[:workflow_state_id]
+    @article.save
     extract_nxt_prv(@article)
   end
 

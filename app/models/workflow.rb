@@ -82,6 +82,16 @@ class Workflow < ActiveRecord::Base
     return @result
   end
 
+  def start_state
+    @result = []
+    for workflow_state in self.workflow_states
+      if workflow_state.start_point == 2
+        @result << workflow_state
+      end
+    end
+    return @result.first
+  end
+
   def not_end_states
     @result = []
     for workflow_state in self.workflow_states

@@ -1,4 +1,7 @@
 <div class="card-body" id='article-show'>
+  <% if !@workflows.blank?%>
+  <%= render partial: 'articles/change_workflow', locals: {article: @article, workflows: @workflows}%>
+  <% end %>
   <% if article.workflow_state.role_id == current_user.current_role_id%>
     <% if article.workflow_state.votable != 2 || article.workflow_state.workflow.user_id == current_user.id%>
       <% if !nxt.first.blank?%>
