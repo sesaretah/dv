@@ -155,6 +155,15 @@
                       <%= select_tag 'end_point', options_for_select(existence)  ,{include_blank: true, class:"form-control", disabled: true}%>
                     </div>
                   </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="form-label">
+                        <%=t :publishable%>
+                      </label>
+                      <%= select_tag 'publishable', options_for_select(existence)  ,{include_blank: true, class:"form-control", disabled: true}%>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -494,6 +503,7 @@
                       d3.select("#votable").property('value', d.votable);
                       d3.select("#start_point").property('value', d.start_point);
                       d3.select("#end_point").property('value', d.end_point);
+                      d3.select("#publishable").property('value', d.publishable);
                       thisGraph.replaceSelectNode(d3node, d);
                     } else{
                       thisGraph.removeSelectFromNode();
@@ -561,6 +571,13 @@
               updateNode('end_point', parseInt(currentNodeId), newData);
             });
 
+            d3.select('#publishable')
+            .on('change', function() {
+              var currentNodeId = d3.select('#current-node-id').text();
+              var newData = d3.select(this).property('value');
+              updateNode('publishable', parseInt(currentNodeId), newData);
+            });
+
             function updateNode(attribute, nodeId, newValue){
               graph.nodes.filter(function(d){ return d.id == nodeId })[0][attribute] = newValue;
               if (attribute == 'title'){
@@ -601,7 +618,7 @@
               } else if (state.graphMouseDown && d3.event.shiftKey){
                 // clicked not dragged from svg
                 var xycoords = d3.mouse(thisGraph.svgG.node()),
-                d = {id: thisGraph.idct++, title: "", x: xycoords[0], y: xycoords[1],  role: '', editable: '', refundable: '', commentable: '', start_point: '', end_point: ''};
+                d = {id: thisGraph.idct++, title: "", x: xycoords[0], y: xycoords[1],  role: '', editable: '', refundable: '', commentable: '', start_point: '', end_point: '', publishable: ''};
                 thisGraph.nodes.push(d);
                 thisGraph.updateGraph();
               } else if (state.shiftNodeDrag){
@@ -761,7 +778,7 @@
           // initial node data
 
           <% if @workflow.nodes.blank?%>
-          var nodes = [{title: "", id: 0, x: xLoc, y: yLoc, role: '', editable: '', refundable: '', commentable: '', start_point: '', end_point: ''}];
+          var nodes = [{title: "", id: 0, x: xLoc, y: yLoc, role: '', editable: '', refundable: '', commentable: '', start_point: '', end_point: '', publishable: ''}];
           <% else %>
           var nodes = <%=raw  @workflow.nodes%>;
           <%end%>

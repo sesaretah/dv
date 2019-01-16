@@ -327,6 +327,7 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  publishable: 'قابل انتشار '
   article_already_exists: 'این سند در گردشکار موجود است'
   copy_has_been_made: 'کپی استخراج شد'
   for_workflow: 'برای گردش کار'

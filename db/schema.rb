@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181231074416) do
+ActiveRecord::Schema.define(version: 20190116065548) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20181231074416) do
     t.integer  "content_template_id", limit: 4
     t.text     "document_contents",   limit: 4294967295
     t.text     "content_wo_tags",     limit: 65535
+    t.date     "published_at"
   end
 
   add_index "articles", ["slug"], name: "slug", using: :btree
@@ -474,6 +475,7 @@ ActiveRecord::Schema.define(version: 20181231074416) do
     t.integer  "end_point",   limit: 4
     t.integer  "role_id",     limit: 4
     t.integer  "votable",     limit: 4
+    t.integer  "publishable", limit: 4
   end
 
   create_table "workflow_transitions", force: :cascade do |t|
