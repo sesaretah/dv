@@ -1,0 +1,25 @@
+<div class="alert alert-warning" role="alert">
+  <b><%=t :make_a_copy%></b><br />
+  <%= form_tag "/articles/make_a_copy/#{@article.id}", method: :get, remote: true do%>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label class="form-label"><%=t :for_workflow%></label>
+        <%= select_tag :workflow_id, options_for_select(workflows.all.collect { |p| [ p.title, p.id ] }), {class: "form-control"} %>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="form-group">
+        <label class="form-label"><%=t :article_relation_type%></label>
+        <%= select_tag :article_relation_type_id, options_for_select(ArticleRelationType.all.collect { |p| [ p.title, p.id ] }), {class: "form-control"} %>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <label class="form-label"></label>
+        <button type="submit" class="btn btn-orange" style="margin-top:20px"><%=t :submit%></button>
+      </div>
+    </div>
+  </div>
+  <%end%>
+</div>

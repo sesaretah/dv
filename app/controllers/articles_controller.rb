@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print, :change_workflow ]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print, :change_workflow, :make_a_copy ]
 
   def print
     render layout: 'layouts/devise'
@@ -72,6 +72,26 @@ class ArticlesController < ApplicationController
     @article.workflow_state_id = params[:workflow_state_id]
     @article.save
     extract_nxt_prv(@article)
+  end
+
+  def make_a_copy
+    @workflow = Workflow.find(params[:workflow_id])
+    if @article.workflow_state.workflow.id != @workflow.id
+      @flag = true
+      @new_article = Article.create(title: @article.title, abstract: @article.abstract, content: @article.content, url: @article.url, document_contents: @article.document_contents, content_wo_tags: @article.content_wo_tags, workflow_state_id: @workflow.start_state.id, slug: SecureRandom.hex(4))
+      @taggings = Tagging.where(taggable_type: 'Article', taggable_id: @article.id, target_type: 'Keyword')
+      for t in @taggings
+        Tagging.where(taggable_type: 'Article', taggable_id: @new_article.id, target_id: t.target_id ,target_type: 'Keyword')
+      end
+      @article_relation_type = ArticleRelationType.find(params[:article_relation_type_id])
+      Kinship.create(kin_id: @article.id, article_id: @new_article.id, user_id: current_user.id, article_relation_type_id: @article_relation_type.id)
+      @uploads = Upload.where(uploadable_type: 'Article', uploadable_id: @article.id)
+      for upload in @uploads
+        Upload.create(uploadable_type: 'Article', uploadable_id: @new_article.id, attachment_file_name: upload.attachment_file_name, attachment_content_type: upload.attachment_content_type, attachment_file_size: upload.attachment_file_size, attachment_type: upload.attachment_type, title: upload.title, detail: upload.detail)
+      end
+    else
+      @flag = false
+    end
   end
 
 
@@ -189,6 +209,9 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(article_params)
+    if @article.slug.blank?
+        @article.slug = SecureRandom.hex(4)
+    end
     if !params[:workflow].blank?
       @workflow_state = WorkflowState.where(workflow_id: params[:workflow].to_i, start_point: 2).first
       @article.workflow_state_id = @workflow_state.id

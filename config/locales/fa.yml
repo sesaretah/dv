@@ -327,6 +327,8 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  for_workflow: 'برای گردش کار'
+  make_a_copy: 'ایجاد کپی سند '
   change_workflow: 'تغییر فرآیند '
   agree: 'موافق'
   abstention: 'ممتنع'

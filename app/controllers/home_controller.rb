@@ -18,8 +18,12 @@ class HomeController < ApplicationController
     render layout: 'layouts/devise'
   end
   def change_current_role
-    current_user.current_role_id = params[:role_id]
-    current_user.save
+    @role = Role.find(params[:role_id])
+    @assignment = Assignment.where(role_id: @role.id, user_id: current_user.id)
+    if !@assignment.blank?
+      current_user.current_role_id = params[:role_id]
+      current_user.save
+    end
   end
 
   def index
