@@ -327,6 +327,8 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  article_already_exists: 'این سند موجود در گردشکار موجود است'
+  copy_has_been_made: 'کپی استخراج شد'
   for_workflow: 'برای گردش کار'
   make_a_copy: 'ایجاد کپی سند '
   change_workflow: 'تغییر فرآیند '
