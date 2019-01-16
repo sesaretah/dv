@@ -28,18 +28,9 @@
   </div>
   <%end%>
 
-  <% if permit_by_workflow(@article, current_user,'url')%>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="form-group">
-        <%= f.label :url, class: "form-label" %>
-        <%= f.text_field :url , class: "form-control", style: 'direction: ltr;' %>
-      </div>
-    </div>
-  </div>
-  <%end%>
 
-  <% if false && permit_by_workflow(@article, current_user,'keywords')%>
+
+  <% if permit_by_workflow(@article, current_user,'keywords')%>
   <div class="form-group">
     <label class="form-label"><%=t :keywords%></label>
     <input type="text" class="form-control" id="input-tags" value="" data-data='<%= raw @keywords.to_json%>'>
@@ -68,6 +59,17 @@
   <script>
     CKEDITOR.replace('sometext')
   </script>
+
+  <% if permit_by_workflow(@article, current_user,'url')%>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :url, class: "form-label" %>
+        <%= f.text_field :url , class: "form-control", style: 'direction: ltr;' %>
+      </div>
+    </div>
+  </div>
+  <%end%>
 
 </div>
 
