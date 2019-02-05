@@ -1,5 +1,5 @@
 <div class="card-body" id='article-show'>
-  <% if true || !@workflows.blank?%>
+  <% if !@workflows.blank?%>
   <%= render partial: 'articles/make_a_copy', locals: {article: @article, workflows: @workflows}%>
   <% end %>
   <% if article.workflow_state.role_id == current_user.current_role_id%>
