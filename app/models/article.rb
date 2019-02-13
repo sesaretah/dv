@@ -44,6 +44,7 @@ class Article < ActiveRecord::Base
   has_many :article_histories
 
   belongs_to :content_template
+  belongs_to :access_group
 
   belongs_to :workflow_state
   has_many :workflow_transitions

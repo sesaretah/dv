@@ -41,6 +41,60 @@
     </div>
   </div>
 
+<% if @role.id != nil%>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="form-label"><%=t :access_groups%></label>
+      <% for access_group in AccessGroup.all%>
+      <% @role_access = RoleAccess.where(access_group_id: access_group.id, role_id: @role.id).first%>
+      <label class="custom-control custom-checkbox custom-control-inline">
+        <input type="checkbox" class="custom-control-input" id="access_group_<%= access_group.id%>" <% if !@role_access.blank?%>checked<%end%> value="<%= access_group.id%>">
+        <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= access_group.title%></span>
+      </label>
+      <script>
+      $('#access_group_<%= access_group.id%>').change(function() {
+        if($(this).is(":checked")) {
+          $.ajax({
+            url: '/role_accesses/',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              role_id: <%= @role.id%>,
+              access_group_id: <%= access_group.id %>
+            },
+            error: function() {
+              $(this).attr("checked", false);
+            },
+            success: function(res) {
+              $(this).attr("checked", true);
+            }
+          });
+        } else {
+          $.ajax({
+            url: '/role_accesses/destroy',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+              role_id: <%= @role.id%>,
+              access_group_id: <%= access_group.id %>
+            },
+            error: function() {
+              $(this).attr("checked", true);
+            },
+            success: function(res) {
+              $(this).attr("checked", false);
+            }
+          });
+        }
+      });
+      </script>
+      <%end%>
+    </div>
+    </div>
+  </div>
+  <%end%>
+
   <div class="card-footer text-right">
     <button type="submit" class="btn btn-primary"><%=t :submit%></button>
   </div>

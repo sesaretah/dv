@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190116065548) do
+ActiveRecord::Schema.define(version: 20190213072334) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(version: 20190116065548) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.integer  "alter_content_templates",      limit: 4
+  end
+
+  create_table "access_groups", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "areaing_histories", force: :cascade do |t|
@@ -130,6 +137,7 @@ ActiveRecord::Schema.define(version: 20190116065548) do
     t.text     "document_contents",   limit: 4294967295
     t.text     "content_wo_tags",     limit: 65535
     t.date     "published_at"
+    t.integer  "access_group_id",     limit: 4
   end
 
   add_index "articles", ["slug"], name: "slug", using: :btree
@@ -310,6 +318,13 @@ ActiveRecord::Schema.define(version: 20190116065548) do
     t.datetime "avatar_updated_at"
     t.string   "email",               limit: 255
     t.string   "stage_name",          limit: 255
+  end
+
+  create_table "role_accesses", force: :cascade do |t|
+    t.integer  "role_id",         limit: 4
+    t.integer  "access_group_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "roles", force: :cascade do |t|

@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print, :change_workflow, :make_a_copy ]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print, :change_workflow, :make_a_copy, :article_publishable, :change_access_group ]
 
   def print
     render layout: 'layouts/devise'
@@ -14,6 +14,15 @@ class ArticlesController < ApplicationController
       resp << {'title' => k.title, 'id' => k.id}
     end
     render :json => resp.to_json, :callback => params['callback']
+  end
+
+  def change_access_group
+    @article.access_group_id = params[:access_group_id]
+    @article.save
+  end
+
+  def article_publishable
+
   end
 
 

@@ -21,6 +21,11 @@
     <div class="card">
       <div class="card-header">
         <div class="card-options">
+          <% if !@article.workflow_state.blank? && @article.workflow_state.publishable == 2 %>
+          <%= link_to "/articles/article_publishable/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+          <i class="fe fe-book-open" style="vertical-align: -3px;"></i> <%=t :publish%>
+          <%end%>
+          <%end%>
           <%= link_to "/articles/article_comments/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
           <i class="fe fe-message-square" style="vertical-align: -3px;"></i> <%=t :comments%>
           <%end%>

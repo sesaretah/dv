@@ -304,6 +304,8 @@ fa:
         workflow_state:
             title: 'عنوان'
             workflow_id: 'گردشکار'
+        access_group:
+            title: 'عنوان'
         access_control:
             view_unrelated_articles: 'نمایش اسناد غیر مرتبط'
             view_article_logs: 'منوی مقایسه در اسناد'
@@ -327,6 +329,12 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  access_group_changed: 'گروه دسترسی تغییر کرد '
+  change_access_group: 'تعیین گروه دسترسی'
+  access_group: 'گروه دسترسی'
+  publish: 'انتشار'
+  new_access_group: 'گروه دسترسی جدید'
+  access_groups: 'گروه های دسترسی'
   publishable: 'قابل انتشار '
   article_already_exists: 'این سند در گردشکار موجود است'
   copy_has_been_made: 'کپی استخراج شد'

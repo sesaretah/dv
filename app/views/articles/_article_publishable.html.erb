@@ -1,0 +1,25 @@
+<div class="card-body" id='article-show'>
+  <div class="row">
+    <div class="col-lg-12">
+  <div class="alert alert-primary" role="alert">
+    <b><%=t :change_access_group%></b><br />
+    <%= form_tag "/articles/change_access_group/#{@article.id}", method: :get, remote: true do%>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group">
+          <label class="form-label"><%=t :access_group%></label>
+          <%= select_tag :access_group_id, options_for_select(AccessGroup.all.collect { |p| [ p.title, p.id ] }, @article.access_group_id), {include_blank: true,class: "form-control"} %>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label class="form-label"></label>
+          <button type="submit" class="btn btn-orange" style="margin-top:20px"><%=t :submit%></button>
+        </div>
+      </div>
+    </div>
+    <%end%>
+  </div>
+</div>
+</div>
+</div>

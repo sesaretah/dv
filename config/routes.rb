@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :access_groups
   resources :content_templates
   resources :votes
   resources :votings
@@ -72,6 +73,8 @@ Rails.application.routes.draw do
   match "/articles/article_states/:id" => "articles#article_states", :via => :get
   match "/articles/article_comments/:id" => "articles#article_comments", :via => :get
   match "/articles/make_a_copy/:id" => "articles#make_a_copy", :via => :get
+  match "/articles/article_publishable/:id" => "articles#article_publishable", :via => :get
+  match "/articles/change_access_group/:id" => "articles#change_access_group", :via => :get
 
 
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
@@ -113,6 +116,7 @@ Rails.application.routes.draw do
 
   match "/apis/comments" => "apis#comments_api", :via => :post
 
-
+  post '/role_accesses', to:'role_accesses#create'
+  get '/role_accesses/destroy', to: 'role_accesses#destroy'
 
 end
