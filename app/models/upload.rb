@@ -3,6 +3,7 @@ class Upload < ActiveRecord::Base
   validates_attachment_content_type :attachment, :content_type => ["image/jpg", "image/jpeg", "image/png", "application/pdf","application/vnd.ms-excel",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     "application/msword",
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     "text/plain"]
   before_post_process :rename_avatar

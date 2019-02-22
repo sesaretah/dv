@@ -159,6 +159,7 @@ function fireThisUponEvent(event) {
     maxItems: 1,
     preload:      true,
     onItemAdd: function (value, item) {
+      console.log(this.options[value]);
       $('#assignment_user_id').val(this.options[value]['user_id']);
     },
     render: {
