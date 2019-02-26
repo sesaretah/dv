@@ -119,4 +119,8 @@ Rails.application.routes.draw do
   post '/role_accesses', to:'role_accesses#create'
   get '/role_accesses/destroy', to: 'role_accesses#destroy'
 
+  get '/api/login', to: 'api#login'
+  get '/api/dashboard', to: 'api#dashboard'
+  get '/api/article/:id', to: 'api#article'
+
 end
