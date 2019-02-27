@@ -1,6 +1,6 @@
 class ApiController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_filter :authenticate_user!, :except => [:login, :sign_up, :article, :articles]
+  before_filter :authenticate_user!, :except => [:login, :sign_up, :article, :articles, :dashboard, :roles, :change_role]
   before_action :extract_page, only: [:articles, :dashboard]
   include ActionView::Helpers::TextHelper
 
