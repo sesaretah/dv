@@ -22,6 +22,7 @@ class ApiController < ApplicationController
   end
 
   def dashboard
+    @roles = current_user.roles
     @role = Role.find_by_id(current_user.current_role_id)
     if !@role.blank?
       @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
@@ -30,7 +31,24 @@ class ApiController < ApplicationController
       @articles = []
     end
     article_detail
-    render :json => @result.to_json, :callback => params['callback']
+      render :json => {result: 'OK', articles: @result, roles: @roles, current_role: @role}.to_json , :callback => params['callback']
+    #render :json => @result.to_json, :callback => params['callback']
+  end
+
+  def roles
+    @roles = current_user.roles
+    @role = Role.find_by_id(current_user.current_role_id)
+    render :json => {result: 'OK', roles: @roles, current_role: @role}.to_json , :callback => params['callback']
+  end
+
+  def change_role
+    @role = Role.find(params[:role_id])
+    @assignment = Assignment.where(role_id: @role.id, user_id: current_user.id)
+    if !@assignment.blank?
+      current_user.current_role_id = params[:role_id]
+      current_user.save
+    end
+    render :json => {result: 'OK', current_role: @role}.to_json , :callback => params['callback']
   end
 
   def login
@@ -55,6 +73,7 @@ class ApiController < ApplicationController
   def article_detail
     @result = []
     for article in @articles
+      extract_nxt_prv(article)
       if !article.workflow_state.blank? && !article.workflow_state.workflow.blank?
         @workflow= article.workflow_state.workflow.title
         @workflow_state= article.workflow_state.title
@@ -87,7 +106,26 @@ class ApiController < ApplicationController
         end
         @uploads << {title: I18n.t(k), items: @items}
       end
-      @result << {id: article.id, title: article.title, abstract: article.abstract, content: article.content, workflow_state: @workflow_state, workflow: @workflow, datings: @datings, typings: @typings, speakings: @speakings, formatings: @formatings, uploads: @uploads, updated_at: article.updated_at}
+      @owner = false
+      if !article.workflow_state.blank? && !article.workflow_state.workflow.blank? && current_user && article.workflow_state.workflow.user_id == current_user.id
+        @owner = true
+      end
+      @votable = false
+      if !article.workflow_state.blank? && article.workflow_state.votable == 2
+        @votable = true
+      end
+
+      @nexts = []
+      @previouses = []
+      if !article.workflow_state.blank? && current_user && article.workflow_state.role_id == current_user.current_role_id
+        for nxt in  @next_workflow_states
+          @nexts << nxt.title
+        end
+        for prv in  @previous_workflow_states
+          @previouses << prv.title
+        end
+      end
+      @result << {id: article.id, title: article.title, abstract: article.abstract, content: article.content, workflow_state: @workflow_state, workflow: @workflow, datings: @datings, typings: @typings, speakings: @speakings, formatings: @formatings, uploads: @uploads, votable: @votable, owner: @owner, nexts: @nexts, previouses: @previouses, updated_at: article.updated_at}
     end
   end
 

@@ -121,6 +121,8 @@ Rails.application.routes.draw do
 
   get '/api/login', to: 'api#login'
   get '/api/dashboard', to: 'api#dashboard'
+  get '/api/roles', to: 'api#roles'
+  get '/api/change_role', to: 'api#change_role'  
   get '/api/article/:id', to: 'api#article'
 
 end
