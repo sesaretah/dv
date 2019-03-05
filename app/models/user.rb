@@ -12,4 +12,5 @@ class User < ActiveRecord::Base
   has_many :workflows
   has_many :notifications
   has_many :access_groups
+  has_many :word_templates
 end

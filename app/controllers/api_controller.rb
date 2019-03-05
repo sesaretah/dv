@@ -10,14 +10,14 @@ class ApiController < ApplicationController
     else
       @articles = Article.search params[:q], star: true
     end
-    article_detail
+    @result = article_inspect(@articles)
     render :json => @result.to_json, :callback => params['callback']
   end
 
   def article
     @articles = []
     @articles << Article.find(params[:id])
-    article_detail
+    @result = article_inspect(@articles)
     render :json => @result.to_json, :callback => params['callback']
   end
 
@@ -30,7 +30,7 @@ class ApiController < ApplicationController
     else
       @articles = []
     end
-    article_detail
+    @result = article_inspect(@articles)
       render :json => {result: 'OK', articles: @result, roles: @roles, current_role: @role}.to_json , :callback => params['callback']
     #render :json => @result.to_json, :callback => params['callback']
   end
@@ -70,64 +70,7 @@ class ApiController < ApplicationController
     end
   end
 
-  def article_detail
-    @result = []
-    for article in @articles
-      extract_nxt_prv(article)
-      if !article.workflow_state.blank? && !article.workflow_state.workflow.blank?
-        @workflow= article.workflow_state.workflow.title
-        @workflow_state= article.workflow_state.title
-      else
-        @workflow= nil
-        @workflow_state= nil
-      end
-      @datings = ''
-      for dating in article.datings
-        @jalali = JalaliDate.to_jalali(dating.event_date)
-        @datings = @datings +  " #{dating.article_event.title} : #{@jalali.year}/#{@jalali.month}/#{@jalali.day} | "
-      end
-      @typings = ''
-      for typing in article.typings
-        @typings  = @typings + "#{typing.article_type.title} | "
-      end
-      @speakings = ''
-      for speaking in article.speakings
-        @speakings = @speakings + "#{speaking.language.title} | "
-      end
-      @formatings = ''
-      for formating in article.formatings
-        @formatings = @formatings + "#{formating.article_format.title} |"
-      end
-      @uploads = []
-      Upload.where(uploadable_type: 'Article', uploadable_id: article.id).group_by(&:attachment_type).each do |k,v|
-        @items = []
-        for u in v
-          @items << {url: request.base_url + u.attachment.url, title: u.title, detail: u.detail}
-        end
-        @uploads << {title: I18n.t(k), items: @items}
-      end
-      @owner = false
-      if !article.workflow_state.blank? && !article.workflow_state.workflow.blank? && current_user && article.workflow_state.workflow.user_id == current_user.id
-        @owner = true
-      end
-      @votable = false
-      if !article.workflow_state.blank? && article.workflow_state.votable == 2
-        @votable = true
-      end
 
-      @nexts = []
-      @previouses = []
-      if !article.workflow_state.blank? && current_user && article.workflow_state.role_id == current_user.current_role_id
-        for nxt in  @next_workflow_states
-          @nexts << nxt.title
-        end
-        for prv in  @previous_workflow_states
-          @previouses << prv.title
-        end
-      end
-      @result << {id: article.id, title: article.title, abstract: article.abstract, content: article.content, workflow_state: @workflow_state, workflow: @workflow, datings: @datings, typings: @typings, speakings: @speakings, formatings: @formatings, uploads: @uploads, votable: @votable, owner: @owner, nexts: @nexts, previouses: @previouses, updated_at: article.updated_at}
-    end
-  end
 
   def extract_page
     if !params[:page].blank?

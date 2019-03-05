@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190303145617) do
+ActiveRecord::Schema.define(version: 20190305153252) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -487,6 +487,18 @@ ActiveRecord::Schema.define(version: 20190303145617) do
     t.integer  "voting_type",  limit: 4
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+  end
+
+  create_table "word_templates", force: :cascade do |t|
+    t.string   "title",                 limit: 255
+    t.integer  "workflow_id",           limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "user_id",               limit: 4
+    t.string   "document_file_name",    limit: 255
+    t.string   "document_content_type", limit: 255
+    t.integer  "document_file_size",    limit: 8
+    t.datetime "document_updated_at"
   end
 
   create_table "workflow_states", force: :cascade do |t|

@@ -1,0 +1,38 @@
+<%= form_for(@word_template, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :new_word_template %></h3>
+</div>
+<% if @word_template.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@word_template.errors.count, "error") %> prohibited this word_template from being saved:</h2>
+
+  <ul>
+    <% @word_template.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="card-body">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :title, class: "form-label" %>
+        <%= f.text_field :title , class: "form-control" %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :workflow_id, class: "form-label" %>
+        <%= f.select :workflow_id, options_for_select(current_user.workflows.all.collect { |p| [ p.title, p.id ] }), {}, {class: "form-control"} %>
+      </div>
+    </div>
+  </div>
+  <%= f.file_field :document %>
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+  </div>
+  <% end %>

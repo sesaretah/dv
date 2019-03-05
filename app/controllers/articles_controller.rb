@@ -2,7 +2,39 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print, :change_workflow, :make_a_copy, :article_publishable, :change_access_group ]
 
   def print
-    render layout: 'layouts/devise'
+    @word_tempate = WordTemplate.find(params[:word_template])
+    @articles = []
+    @articles << Article.find(params[:id])
+    @result = article_inspect(@articles)
+    #render layout: 'layouts/devise'
+    respond_to do |format|
+      format.docx do
+        # Initialize DocxReplace with your template
+        doc = DocxReplace::Doc.new("#{@word_tempate.document.path}", "#{Rails.root}/tmp")
+
+        # Replace some variables. $var$ convention is used here, but not required.
+        doc.replace("1000101", @result[0][:title])
+        doc.replace("1000102", @result[0][:abstract])
+        doc.replace("1000103", @result[0][:url])
+        doc.replace("1000104", @result[0][:datings])
+        doc.replace("1000105", @result[0][:typings])
+        doc.replace("1000106", @result[0][:speakings])
+        doc.replace("1000107", @result[0][:formatings])
+        doc.replace("1000108", @result[0][:contributors].map(&:inspect).join(', '))
+        doc.replace("1000109", @result[0][:kinships].map(&:inspect).join(', '))
+        doc.replace("1000110", @result[0][:contributors].map(&:inspect).join(', '))
+        doc.replace("1000111", @result[0][:originatings].map(&:inspect).join(', '))
+        doc.replace("1000112", @result[0][:areaings].map(&:inspect).join(', '))
+        doc.replace("1000113", @result[0][:content])
+
+        # Write the document back to a temporary file
+        tmp_file = Tempfile.new("word_tempate_#{SecureRandom.hex(10)}", "#{Rails.root}/tmp")
+        doc.commit(tmp_file.path)
+
+        # Respond to the request by sending the temp file
+        send_file tmp_file.path, filename: "#{@article.id}.docx", disposition: 'attachment'
+      end
+    end
   end
 
   def search
@@ -77,7 +109,7 @@ class ArticlesController < ApplicationController
   end
 
   def change_workflow
-#    if @article.workflow_state.workflow.id ==
+    #    if @article.workflow_state.workflow.id ==
     @article.workflow_state_id = params[:workflow_state_id]
     @article.save
     extract_nxt_prv(@article)
@@ -108,16 +140,16 @@ class ArticlesController < ApplicationController
     @result = {
       sah: ArticleHistory.where(revision_number: params[:source]).first,
       tah: ArticleHistory.where(revision_number: params[:target]).first,
-       th: history(model:'Keyword', params: params, alias: 'Tagging', model_key: 'target_id'),
-       dh: history(model: 'Dating', params: params),
+      th: history(model:'Keyword', params: params, alias: 'Tagging', model_key: 'target_id'),
+      dh: history(model: 'Dating', params: params),
       tyh: history(model: 'Typing', params: params),
-       fh: history(model: 'Formating', params: params),
-       ch: history(model: 'Contribution', params: params),
-       kh: history(model: 'Kinship', params: params),
-       oh: history(model: 'Originating', params: params),
-       ah: history(model: 'Areaing', params: params),
-       sh: history(model: 'Speaking', params: params),
-       uh: history(model: 'Upload', params: params)
+      fh: history(model: 'Formating', params: params),
+      ch: history(model: 'Contribution', params: params),
+      kh: history(model: 'Kinship', params: params),
+      oh: history(model: 'Originating', params: params),
+      ah: history(model: 'Areaing', params: params),
+      sh: history(model: 'Speaking', params: params),
+      uh: history(model: 'Upload', params: params)
     }
   end
 
@@ -145,7 +177,7 @@ class ArticlesController < ApplicationController
         generate_notfication user_id: user.id , notifiable_type: 'WorkflowTransition', notifiable_id: @workflow_transition.id, notification_type: 'article_received', emmiter_id: current_user.id
       end
     end
-      #send_mail user_id: @role.users.pluck(:id).join(','), article_ids: @article.id, mail_type: 'article_sent'
+    #send_mail user_id: @role.users.pluck(:id).join(','), article_ids: @article.id, mail_type: 'article_sent'
   end
 
 
@@ -219,7 +251,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     if @article.slug.blank?
-        @article.slug = SecureRandom.hex(4)
+      @article.slug = SecureRandom.hex(4)
     end
     if !params[:workflow].blank?
       @workflow_state = WorkflowState.where(workflow_id: params[:workflow].to_i, start_point: 2).first
@@ -236,7 +268,7 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1.json
   def update
     if @article.slug.blank?
-        @article.slug = SecureRandom.hex(4)
+      @article.slug = SecureRandom.hex(4)
     end
     @article.document_contents = ''
     for upload in @article.uploads
@@ -244,7 +276,7 @@ class ArticlesController < ApplicationController
       @article.document_contents =  @article.document_contents + ' ' + @text
     end
     @article.content_wo_tags = ActionView::Base.full_sanitizer.sanitize(params[:article][:content])
-      respond_to do |format|
+    respond_to do |format|
       if @article.update(article_params)
         if !params[:keyword].blank?
           extract_keywords(@article, params[:keyword])
@@ -369,13 +401,13 @@ class ArticlesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_article
-      @article = Article.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_article
+    @article = Article.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def article_params
-      params.require(:article).permit(:title, :abstract, :content, :url, :slug,:workflow_state_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def article_params
+    params.require(:article).permit(:title, :abstract, :content, :url, :slug,:workflow_state_id)
+  end
 end

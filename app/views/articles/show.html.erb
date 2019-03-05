@@ -23,6 +23,15 @@
   <input type="hidden" id="shoa-source-id"  value="<%= @article.id%>">
   <input type="hidden" id="shoa-title"  value="<%= @article.title%>">
   <input type="hidden" id="shoa-content"  value="<%= @article.abstract%>">
+  <div class="example mt-4">
+    <span class="text-muted small"><%=t :download_word_file%></span>
+    <%= select_tag :word_template, options_for_select(@article.workflow_state.workflow.word_templates.all.collect { |p| [ p.title, p.id ] }),  {include_blank: true, class: "form-control"} %>
+    <script>
+    $( "#word_template" ).change(function() {
+      window.location.href='/articles/print/<%= @article.id%>.docx?word_template=' + $(this).val();
+    });
+    </script>
+  </div>
 </div>
 <div class="col-lg-9 order-lg-1">
   <div class="card">

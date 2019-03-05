@@ -84,4 +84,89 @@ class ApplicationController < ActionController::Base
    end
  end
 
+ def article_inspect(articles)
+   @article_inspect_result = []
+   for article in articles
+     extract_nxt_prv(article)
+     if !article.workflow_state.blank? && !article.workflow_state.workflow.blank?
+       @article_inspect_workflow= article.workflow_state.workflow.title
+       @article_inspect_workflow_state= article.workflow_state.title
+     else
+       @article_inspect_workflow= nil
+       @article_inspect_workflow_state= nil
+     end
+     @article_inspect_datings = ''
+     for dating in article.datings
+       @article_inspect_jalali = JalaliDate.to_jalali(dating.event_date)
+       @article_inspect_datings = @article_inspect_datings +  " #{dating.article_event.title} : #{@article_inspect_jalali.year}/#{@article_inspect_jalali.month}/#{@article_inspect_jalali.day} | "
+     end
+     @article_inspect_typings = ''
+     for typing in article.typings
+       @article_inspect_typings  = @article_inspect_typings + "#{typing.article_type.title} | "
+     end
+     @article_inspect_speakings = ''
+     for speaking in article.speakings
+       @article_inspect_speakings = @article_inspect_speakings + "#{speaking.language.title} | "
+     end
+     @article_inspect_formatings = ''
+     for formating in article.formatings
+       @article_inspect_formatings = @article_inspect_formatings + "#{formating.article_format.title} |"
+     end
+
+     @article_inspect_contributours = []
+     for contribution in article.contributions
+       @article_inspect_contributours << "#{contribution.profile.fullname rescue nil}, #{contribution.duty.title rescue nil}, #{ontribution.role.title rescue nil}"
+     end
+
+     @article_inspect_originatings = []
+     for originating in article.originatings
+      @article_inspect_originatings << "#{originating.article_source.title}"
+     end
+
+     @article_inspect_areaings = []
+     for areaing in article.areaings
+      @article_inspect_areaings << "#{areaing.article_area.title}"
+     end
+
+     @article_inspect_kinships = []
+     article.kinships.group_by(&:article_relation_type_id).each do |k,v|
+       @article_inspect_kinship_titles = ''
+       for kinship in v.sort_by!(&:rank)
+         @article_inspect_kinship_titles = @article_inspect_kinship_titles + "#{kinship.kin.title}, "
+       end
+       @article_inspect_kinships << "#{ArticleRelationType.find(k).title}: #{@article_inspect_kinship_titles}"
+     end
+
+     @article_inspect_uploads = []
+     Upload.where(uploadable_type: 'Article', uploadable_id: article.id).group_by(&:attachment_type).each do |k,v|
+       @article_inspect_items = []
+       for u in v
+         @article_inspect_items << {url: request.base_url + u.attachment.url, title: u.title, detail: u.detail}
+       end
+       @article_inspect_uploads << {title: I18n.t(k), items: @article_inspect_items}
+     end
+     @article_inspect_owner = false
+     if !article.workflow_state.blank? && !article.workflow_state.workflow.blank? && current_user && article.workflow_state.workflow.user_id == current_user.id
+       @article_inspect_owner = true
+     end
+     @article_inspect_votable = false
+     if !article.workflow_state.blank? && article.workflow_state.votable == 2
+       @article_inspect_votable = true
+     end
+
+     @article_inspect_nexts = []
+     @article_inspect_previouses = []
+     if !article.workflow_state.blank? && current_user && article.workflow_state.role_id == current_user.current_role_id
+       for nxt in  @next_workflow_states
+         @article_inspect_nexts << nxt.title
+       end
+       for prv in  @previous_workflow_states
+         @article_inspect_previouses << prv.title
+       end
+     end
+     @article_inspect_result << {id: article.id, title: article.title, abstract: article.abstract, url: article.url, content: ActionController::Base.helpers.sanitize(article.content).gsub("<p>", "").gsub("</p>", ""), workflow_state: @article_inspect_workflow_state, workflow: @article_inspect_workflow, datings: @article_inspect_datings, typings: @article_inspect_typings, speakings: @article_inspect_speakings, formatings: @article_inspect_formatings, uploads: @article_inspect_uploads, votable: @article_inspect_votable, owner: @article_inspect_owner, nexts: @article_inspect_nexts, previouses: @article_inspect_previouses, updated_at: article.updated_at, contributors: @article_inspect_contributours, kinships: @article_inspect_kinships, originatings: @article_inspect_originatings, areaings: @article_inspect_areaings}
+   end
+   return @article_inspect_result
+ end
+
 end

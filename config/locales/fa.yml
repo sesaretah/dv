@@ -304,6 +304,9 @@ fa:
         workflow_state:
             title: 'عنوان'
             workflow_id: 'گردشکار'
+        word_template:
+            title: 'عنوان'
+            workflow_id: 'گردشکار'
         access_group:
             title: 'عنوان'
         access_control:
@@ -329,6 +332,10 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  download_word_file: 'دریافت فایل MSWORD'
+  new_word_template: 'قالب Word جدید'
+  word_template: 'قالب های Word '
+  word_templates: 'قالب های Word '
   access_group_changed: 'گروه دسترسی تغییر کرد '
   change_access_group: 'تعیین گروه دسترسی'
   access_group: 'گروه دسترسی'

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :word_templates
   resources :access_groups
   resources :content_templates
   resources :votes
