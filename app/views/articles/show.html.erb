@@ -16,43 +16,50 @@
 
       </div>
     </div>
-  </div>
-  <div class="col-lg-9 order-lg-1">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-options">
-          <% if !@article.workflow_state.blank? && @article.workflow_state.publishable == 2 %>
-          <%= link_to "/articles/article_publishable/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-          <i class="fe fe-book-open" style="vertical-align: -3px;"></i> <%=t :publish%>
-          <%end%>
-          <%end%>
-          <%= link_to "/articles/article_comments/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-          <i class="fe fe-message-square" style="vertical-align: -3px;"></i> <%=t :comments%>
-          <%end%>
-          <%= link_to "/articles/article_states/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-          <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%=t :workflow%>
-          <%end%>
-          <% if grant_access("view_article_logs", current_user)%>
-            <%= link_to "/articles/article_logs/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-              <i class="fe fe-activity" style="vertical-align: -3px;"></i> <%=t :compare%>
-            <%end%>
-          <%end%>
-          <% if grant_access("view_workflow_transactions", current_user)%>
-            <%= link_to "/articles/workflow_transitions/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-              <i class="fe fe-layers" style="vertical-align: -3px;"></i> <%=t :workflow_transitions%>
-            <%end%>
-          <%end%>
-          <%= link_to "/articles/article_detail/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-          <i class="fe fe-play" style="vertical-align: -3px;"></i> <%=t :article_detail%>
-          <%end%>
-          <a href="/articles/<%= @article.id%>/edit" class="btn btn-secondary btn-sm ml-1"><i class="fe fe-edit-2" style="vertical-align: -3px;"></i> <%=t :edit%></a>
-        </div>
-      </div>
-      <div id='article-show'>
-        <%= render partial: 'articles/article_detail', locals: {article: @article}%>
-      </div>
-      <div class="card-footer">
+
+  <div id="shoa-box"></div>
+  <div id="shoa-modal"></div>
+  <input type="hidden" id="shoa-type"  value="Publication">
+  <input type="hidden" id="shoa-source-id"  value="<%= @article.id%>">
+  <input type="hidden" id="shoa-title"  value="<%= @article.title%>">
+  <input type="hidden" id="shoa-content"  value="<%= @article.abstract%>">
+</div>
+<div class="col-lg-9 order-lg-1">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-options">
+        <% if !@article.workflow_state.blank? && @article.workflow_state.publishable == 2 %>
+        <%= link_to "/articles/article_publishable/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+        <i class="fe fe-book-open" style="vertical-align: -3px;"></i> <%=t :publish%>
+        <%end%>
+        <%end%>
+        <%= link_to "/articles/article_comments/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+        <i class="fe fe-message-square" style="vertical-align: -3px;"></i> <%=t :comments%>
+        <%end%>
+        <%= link_to "/articles/article_states/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+        <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%=t :workflow%>
+        <%end%>
+        <% if grant_access("view_article_logs", current_user)%>
+        <%= link_to "/articles/article_logs/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+        <i class="fe fe-activity" style="vertical-align: -3px;"></i> <%=t :compare%>
+        <%end%>
+        <%end%>
+        <% if grant_access("view_workflow_transactions", current_user)%>
+        <%= link_to "/articles/workflow_transitions/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+        <i class="fe fe-layers" style="vertical-align: -3px;"></i> <%=t :workflow_transitions%>
+        <%end%>
+        <%end%>
+        <%= link_to "/articles/article_detail/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+        <i class="fe fe-play" style="vertical-align: -3px;"></i> <%=t :article_detail%>
+        <%end%>
+        <a href="/articles/<%= @article.id%>/edit" class="btn btn-secondary btn-sm ml-1"><i class="fe fe-edit-2" style="vertical-align: -3px;"></i> <%=t :edit%></a>
       </div>
     </div>
+    <div id='article-show'>
+      <%= render partial: 'articles/article_detail', locals: {article: @article}%>
+    </div>
+    <div class="card-footer">
+    </div>
   </div>
+</div>
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190213072334) do
+ActiveRecord::Schema.define(version: 20190303145617) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -235,6 +235,18 @@ ActiveRecord::Schema.define(version: 20190213072334) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
+
+  create_table "interconnects", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "provider",   limit: 255
+    t.string   "uuid",       limit: 255
+    t.string   "token",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "interconnects", ["token"], name: "index_interconnects_on_token", using: :btree
+  add_index "interconnects", ["uuid"], name: "index_interconnects_on_uuid", using: :btree
 
   create_table "keywords", force: :cascade do |t|
     t.string   "title",       limit: 255
