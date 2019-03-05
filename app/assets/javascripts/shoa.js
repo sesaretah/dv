@@ -1,4 +1,5 @@
-const shoa_url = 'http://localhost:3000';
+//const shoa_url = 'http://localhost:3000';
+const shoa_url = 'http://95.156.255.35:8080';
 var token = localStorage.getItem("shoa-token");
 function auth() {
   var win = window.open(shoa_url + "/interconnects/req?provider=Divan", "", "width=400,height=500");
