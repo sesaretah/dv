@@ -28,7 +28,7 @@
           <tr>
             <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
             <th><%=t :title%></th>
-            <th><%=t :articles %></th>
+            <th><%=t :workflow%></th>
             <th><%=t :last_editor %></th>
             <th><%=t :last_edit %></th>
           </tr>
@@ -51,12 +51,7 @@
               </div>
             </td>
             <td><%= word_template.title %></td>
-            <td>
-              <div class="tag tag-dark" style='vertical-align: 6px;'>
-                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
-                <%= word_template.articles.count %>
-              </div>
-            </td>
+            <td><%= word_template.workflow.title%></td>
             <td>
               <span class="tag" style='vertical-align: -3px;'>
                 <span class="tag-avatar avatar" style="background-image: url('<%= word_template.user.profile.avatar(:tiny)%>')"></span>
