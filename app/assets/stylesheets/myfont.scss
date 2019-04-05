@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'iransans';
+    src: asset-url('IRANSansWeb.eot');
+    src: asset-url('IRANSansWeb.eot') format('embedded-opentype'),
+         asset-url('IRANSansWeb.woff') format('woff'),
+         asset-url('IRANSansWeb.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "feather";
+  src: asset-url("feather-webfont.eot");
+
+  src: asset-url("feather-webfont.eot") format("embedded-opentype"),
+       asset-url("feather-webfont.woff") format("woff"),
+       asset-url("feather-webfont.ttf") format("truetype"),
+       asset-url("feather-webfont.svg") format("svg");
+}

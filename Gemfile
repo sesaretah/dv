@@ -46,7 +46,6 @@ group :development do
 end
 
 gem 'devise'
-gem 'ckeditor'
 gem 'paperclip'
 gem 'mysql2',          '~> 0.3.18', :platform => :ruby
 gem 'font-awesome-rails' # required

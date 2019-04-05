@@ -3,6 +3,7 @@
         <h4 class="card-title"><%=t :workflow_detail%></h4>
         <div class="card-options">
           <a href="/workflows/<%= @workflow.id%>/edit" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-edit-2"></i> <%=t :edit%></a>
+          <a href="/sections?workflow_id=<%= @workflow.id%>" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-edit-2"></i> <%=t :sections%></a>
         </div>
       </div>
       <div class="card-body">

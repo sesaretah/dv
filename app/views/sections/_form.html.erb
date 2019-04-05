@@ -1,0 +1,38 @@
+<%= form_for(@section, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :new_section %></h3>
+</div>
+<% if @section.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@section.errors.count, "error") %> prohibited this section from being saved:</h2>
+
+  <ul>
+    <% @section.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="card-body">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+            <%= f.label :title, class: "form-label" %>
+        <%= f.text_field :title , class: "form-control" %>
+            </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :workflow_id, class: "form-label" %>
+        <%= f.select :workflow_id, options_for_select(Workflow.all.collect { |p| [ p.title, p.id ] }), {} ,{class: "form-control"} %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+  </div>
+  <% end %>

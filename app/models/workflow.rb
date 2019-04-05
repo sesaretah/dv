@@ -4,6 +4,7 @@ class Workflow < ActiveRecord::Base
   has_many :workflow_states, dependent: :destroy
   belongs_to :user
   has_many :word_templates
+  has_many :sections
 
   def next_nodes(current_node_id)
     @nodes = JSON.parse self.nodes

@@ -13,4 +13,5 @@ class User < ActiveRecord::Base
   has_many :notifications
   has_many :access_groups
   has_many :word_templates
+  has_many :sections
 end

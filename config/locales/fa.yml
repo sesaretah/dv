@@ -309,6 +309,9 @@ fa:
             workflow_id: 'گردشکار'
         access_group:
             title: 'عنوان'
+        section:
+            title: 'عنوان'
+            workflow_id: 'گردش کار'
         access_control:
             view_unrelated_articles: 'نمایش اسناد غیر مرتبط'
             view_article_logs: 'منوی مقایسه در اسناد'
@@ -332,6 +335,10 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  divan: 'سامانه دیوان'
+  copyrights: 'کلیه ی حقوق این سایت متعق است به'
+  new_section: 'بخش جدید'
+  sections: 'بخش ها'
   download_word_file: 'دریافت فایل MSWORD'
   new_word_template: 'قالب Word جدید'
   word_template: 'قالب های Word '

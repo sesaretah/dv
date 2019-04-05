@@ -1,4 +1,13 @@
 module ApplicationHelper
+
+  def item_names
+    @options = [
+      [t(:article_attachment), 'article_attachment'],
+      [t(:article_citation), 'article_citation'],
+      [t(:article_documents), 'article_documents']
+    ]
+    return @options
+  end
   def attachment_types
     @options = [
       [t(:article_attachment), 'article_attachment'],

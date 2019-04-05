@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :sections
   resources :word_templates
   resources :access_groups
   resources :content_templates
@@ -49,6 +50,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :passwords => "passwords" }
 
   resources :article_areas
+  resources :section_items
   root to: 'home#index'
   get ':slug' => 'home#index'
 
@@ -123,7 +125,7 @@ Rails.application.routes.draw do
   get '/api/login', to: 'api#login'
   get '/api/dashboard', to: 'api#dashboard'
   get '/api/roles', to: 'api#roles'
-  get '/api/change_role', to: 'api#change_role'  
+  get '/api/change_role', to: 'api#change_role'
   get '/api/article/:id', to: 'api#article'
 
 end
