@@ -50,3 +50,7 @@
 .header {
   background: #fff;
 }
+
+.hidden {
+     display:none;
+}

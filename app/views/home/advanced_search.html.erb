@@ -2,27 +2,36 @@
   <div class="col-lg-3 ">
     <div class="row">
       <div class="col-md-6 col-lg-12">
-        <%= form_tag '/home/advanced_search', method: :get, class:'card' do -%>
-        <div class="card-body">
-          <div class="form-group">
-            <% for result in @group_results%>
-            <% if !result[1].blank?%>
-            <div class="form-label"><%=t result[0].underscore.pluralize%></div>
-            <% result[1].each_with_group_and_count do |r, group, count| %>
-            <div class="custom-controls-stacked">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" name="<%= result[0]%>_<%= group%>" value="<%= group%>" <% if params["#{result[0]}_#{group}"]%> checked<%end%>>
-                <span class="custom-control-label" style='padding-top: 4px;padding-right: 22px;'>
-                  <%= result[0].classify.constantize.find_by_id(group).title%> (<%= count%>)
-                </span>
-              </label>
+        <%= form_tag '/home/advanced_search', method: :get do -%>
+
+        <% for result in @group_results%>
+        <% if !result[1].blank?%>
+        <div class="card">
+          <div class="card-header" style='padding: 8px; min-height: 10px;'><%=t result[0].underscore.pluralize%></div>
+          <div class="card-body" style='padding: 10px; min-height: 10px;'>
+            <div class="form-group small">
+              <% @i = 1%>
+              <% result[1].each_with_group_and_count do |r, group, count| %>
+              <% if @i == 5%><span id='<%= result[0].underscore.pluralize%>' class="hidden"><%end%>
+                <% @i += 1%>
+                <div class="custom-controls-stacked">
+                  <label class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="<%= result[0]%>_<%= group%>" value="<%= group%>" <% if params["#{result[0]}_#{group}"]%> checked<%end%>>
+                    <span class="custom-control-label pr-0" style='padding-top: 4px;padding-right: 22px;'>
+                      <%= truncate(result[0].classify.constantize.find_by_id(group).title, length: 20)%> (<%= count%>)
+                    </span>
+                  </label>
+                </div>
+                <% if @i == 5%><span id='<%= result[0].underscore.pluralize%>-more' class="mr-auto ml-auto" style='color: #467fcf;' onclick="toggler('<%= result[0].underscore.pluralize%>');"><%=t :more%></span><%end%>
+                <%end%>
+                <% if @i > 5 && result[1].length == @i%></span><%end%>
+              </div>
             </div>
-            <%end%>
-            <%end%>
-            <%end%>
           </div>
-          <%= hidden_field_tag :q, params[:q]%>
+          <%end%>
+          <%end%>
         </div>
+        <%= hidden_field_tag :q, params[:q]%>
         <div class="card-footer">
           <div class="text-center">
             <button type="button" id='clear' class="btn btn-gray btn-sm"><i class="fe fe-delete" style="vertical-align:-3px;"></i> <%=t :clear%> </button>
@@ -30,6 +39,10 @@
           </div>
         </div>
         <script>
+        function toggler(divId) {
+          $("#" + divId).css('display', 'block');
+          $("#" + divId+'-more').css('display', 'none');
+        }
         $(document).ready(function() {
           $( "#clear" ).on("click", function(){
             $('input:checkbox').removeAttr('checked');
@@ -40,36 +53,35 @@
         <%end%>
       </div>
     </div>
-  </div>
-  <div class="col-lg-9">
-    <div class="card">
-      <div class="card-header">
-        <%= form_tag '/home/advanced_search', method: :get , class:"col-lg-12" do -%>
-        <div class="input-group">
-          <input type="text" name='q' class="form-control" placeholder="<%=t :search%>" value='<%= params[:q]%>'>
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-secondary">
-              <i class="fe fe-search"></i>
-            </button>
+    <div class="col-lg-9">
+      <div class="card">
+        <div class="card-header">
+          <%= form_tag '/home/advanced_search', method: :get , class:"col-lg-12" do -%>
+          <div class="input-group">
+            <input type="text" name='q' class="form-control" placeholder="<%=t :search%>" value='<%= params[:q]%>'>
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-secondary">
+                <i class="fe fe-search"></i>
+              </button>
+            </div>
           </div>
+          <%end%>
         </div>
-        <%end%>
-      </div>
-      <div class="card-body">
-        <%white_list_sanitizer = Rails::Html::WhiteListSanitizer.new%>
-        <% for result in @model_results%>
-        <div class="form-group">
-          <div class= "form-label" style= 'color: #7795c1;'><%= link_to result do%><%= raw result.excerpts.title%><%end%></div>
-          <div class="form-control-plaintext" style="font-size: smaller;"><%=raw result.excerpts.abstract %></div>
-          <div class="form-control-plaintext" style="font-size: smaller;"><%=raw white_list_sanitizer.sanitize(result.excerpts.content_wo_tags, tags: %w(span), attributes: %w(id class style)) %></div>
+        <div class="card-body">
+          <%white_list_sanitizer = Rails::Html::WhiteListSanitizer.new%>
+          <% for result in @model_results%>
+          <div class="form-group">
+            <div class= "form-label" style= 'color: #7795c1;'><%= link_to result do%><%= raw result.excerpts.title%><%end%></div>
+            <div class="form-control-plaintext" style="font-size: smaller;"><%=raw result.excerpts.abstract %></div>
+            <div class="form-control-plaintext" style="font-size: smaller;"><%=raw white_list_sanitizer.sanitize(result.excerpts.content_wo_tags, tags: %w(span), attributes: %w(id class style)) %></div>
+          </div>
+          <%end%>
         </div>
-        <%end%>
-      </div>
-      <% if defined?(@model_results.total_pages)%>
-      <div class="digg_pagination  mb-2 mt-2 mr-auto ml-auto">
+        <% if defined?(@model_results.total_pages)%>
+        <div class="digg_pagination  mb-2 mt-2 mr-auto ml-auto">
           <%= will_paginate @model_results %>
+        </div>
+        <%end%>
       </div>
-      <%end%>
     </div>
   </div>
-</div>
