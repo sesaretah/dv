@@ -29,7 +29,9 @@
         <td>
           <div class='small'><%= truncate(article.title, length: 45)%></div>
           <div class="small text-muted">
-            <%= truncate(article.titlings.first.content, length: 45)%>
+            <% if !article.titlings.first.blank?%>
+              <%= truncate(article.titlings.first.content, length: 45)%>
+            <%end%>
           </div>
         </td>
         <td>
