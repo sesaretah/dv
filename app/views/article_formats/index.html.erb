@@ -51,11 +51,11 @@
                 </div>
               </div>
             </td>
-            <td><%= article_format.title %></td>
+            <td><%= truncate(article_format.title, length: 20) %></td>
             <td>
               <div class="tag tag-dark" style='vertical-align: 6px;'>
-                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
                 <%= article_format.articles.count %>
+                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
               </div>
             </td>
             <td>

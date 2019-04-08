@@ -21,7 +21,8 @@
       <div class="card-header">
         <%=t :profiles%>
       </div>
-      <table class="table card-table table-vcenter">
+      <div class='table-responsive'>
+        <table class="table table-hover table-outline table-vcenter text-nowrap">
         <tbody>
           <% @profiles.each do |profile| %>
           <tr>
@@ -40,7 +41,7 @@
               </div>
             </td>
             <td class="w-1"><span class="avatar" style="background-image: url(<%= profile.avatar(:thumb)%>)"></span></td>
-            <td><%= profile.fullname %></td>
+            <td><%= truncate(profile.fullname, length: 25) %></td>
             <td>
               <% if profile.user_id.blank?%>
               <i class="fe fe-shield-off"></i>
@@ -50,18 +51,18 @@
             </td>
             <td>
               <div class="tag tag-dark" style='vertical-align: 6px;'>
-                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
                 <%= profile.articles.count %>
+                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
               </div>
             </td>
             <td>
               <% if !profile.user_id.blank?%>
               <% for role in profile.user.roles%>
               <div class="tag mt-1">
+                <%= role.title%>
                 <span class="tag-addon tag-yellow">
                   <i class="fe fe-briefcase"></i>
                 </span>
-                <%= role.title%>
               </div>
               <%end%>
               <%end%>
@@ -70,8 +71,7 @@
           <% end %>
         </tbody>
       </table>
-      <div class="card-footer">
-      </div>
+    </div>
     </div>
   </div>
 </div>

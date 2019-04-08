@@ -23,7 +23,8 @@
       <div class="card-header">
         <%=t :keywords%>
       </div>
-      <table class="table card-table table-vcenter">
+      <div class='table-responsive'>
+        <table class="table table-hover table-outline table-vcenter text-nowrap">
         <thead>
           <tr>
             <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
@@ -50,11 +51,11 @@
                 </div>
               </div>
             </td>
-            <td><%= keyword.title %></td>
+            <td><%= truncate(keyword.title, length: 20) %></td>
             <td>
               <div class="tag tag-dark" style='vertical-align: 6px;'>
+                <%= Tagging.where(taggable_type: 'Article', target_type: 'Keyword', target_id: keyword.id).count %>
                   <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
-                  <%= Tagging.where(taggable_type: 'Article', target_type: 'Keyword', target_id: keyword.id).count %>
               </div>
             </td>
             <td>
@@ -75,6 +76,7 @@
           <% end %>
         </tbody>
       </table>
+    </div>
     </div>
   </div>
 </div>

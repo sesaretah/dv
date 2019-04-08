@@ -23,7 +23,8 @@
       <div class="card-header">
         <%=t :duties%>
       </div>
-      <table class="table card-table table-vcenter">
+      <div class='table-responsive'>
+        <table class="table table-hover table-outline table-vcenter text-nowrap">
         <thead>
           <tr>
             <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
@@ -50,11 +51,11 @@
                 </div>
               </div>
             </td>
-            <td><%= duty.title %></td>
+            <td><%= truncate(duty.title, length: 30) %></td>
             <td>
               <div class="tag tag-dark" style='vertical-align: 6px;'>
-                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
                 <%= duty.articles.count %>
+                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
               </div>
             </td>
             <td>
