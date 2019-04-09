@@ -69,6 +69,7 @@
     <%= render partial: 'titlings/remote_item', locals: {titling: titling}%>
     <%end%>
   </div>
+  <%= hidden_field_tag :form_type, params[:form_type]%>
 <%end%>
   <div class="card-footer text-right">
     <button type="submit" class="btn btn-primary"><%=t :submit_and_go%></button>

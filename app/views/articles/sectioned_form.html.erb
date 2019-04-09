@@ -1,9 +1,9 @@
 <div class='pcontainer'>
   <ul class="progressbar">
-    <li class="active"><%= link_to t(:titles), '/@articles/'+@article.id.to_s+'/edit' %></li>
+    <li class="active"><%= link_to t(:titles), '/articles/'+@article.id.to_s+'/edit' %></li>
     <% if @article.id != nil%>
     <% for section in @article.workflow_state.workflow.sections%>
-    <li class="active"><%= link_to section.title, '/@articles/sectioned_form/'+@article.id.to_s+'?section_id='+section.id.to_s %></li>
+    <li class="active"><%= link_to section.title, '/articles/sectioned_form/'+@article.id.to_s+'?section_id='+section.id.to_s %></li>
     <%end%>
     <%end%>
   </ul>
@@ -42,6 +42,8 @@
       <%= render partial: 'articles/language_form', locals: {article: @article}%>
     <% when 'upload'%>
       <%= render partial: 'articles/upload_form', locals: {article: @article}%>
+    <% when 'contribution'%>
+      <%= render partial: 'articles/contribution_form', locals: {article: @article}%>
   <%end%>
 
 <%end%>

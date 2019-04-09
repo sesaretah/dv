@@ -50,6 +50,14 @@ class Article < ActiveRecord::Base
   has_many :workflow_transitions
   has_many :uploads, :as => :uploadable, :dependent => :destroy
 
+  def start_section
+    if !self.workflow_state.blank? && !self.workflow_state.workflow.blank? && !self.workflow_state.workflow.sections.blank?
+      @section = self.workflow_state.workflow.sections.first
+    else
+      @section = nil
+    end
+  end
+
   def keywords
     @taggings = Tagging.where(taggable_id: self.id, taggable_type: 'Article', target_type: 'Keyword')
     @keywords = []

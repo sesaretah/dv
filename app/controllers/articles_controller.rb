@@ -254,7 +254,11 @@ class ArticlesController < ApplicationController
     @article.save
     extract_other_titles
     respond_to do |format|
-      format.html { redirect_to '/articles/article_descriptors/'+@article.id.to_s , notice: :article_is_created }
+      if params[:form_type] == 'custom'
+        format.html { redirect_to '/articles/sectioned_form/'+@article.id.to_s+'?section_id='+ @article.start_section , notice: :article_is_created }
+      else
+        format.html { redirect_to '/articles/article_descriptors/'+@article.id.to_s , notice: :article_is_created }
+      end
     end
   end
 
