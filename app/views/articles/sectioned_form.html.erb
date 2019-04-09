@@ -1,0 +1,47 @@
+<div class='pcontainer'>
+  <ul class="progressbar">
+    <li class="active"><%= link_to t(:titles), '/@articles/'+@article.id.to_s+'/edit' %></li>
+    <% if @article.id != nil%>
+    <% for section in @article.workflow_state.workflow.sections%>
+    <li class="active"><%= link_to section.title, '/@articles/sectioned_form/'+@article.id.to_s+'?section_id='+section.id.to_s %></li>
+    <%end%>
+    <%end%>
+  </ul>
+</div>
+
+<% if @article.id != nil && !@article.title.blank?%>
+<div class="alert alert-primary mt-5 ">
+  <%=t :title%>: <%= truncate(@article.title, length: 70) %><br />
+  <% @article.titlings.group_by(&:title_type_id).each do |k,v| %>
+    <% for t in v%>
+    |<%=truncate(t.content , length: 70)%>
+    <%end%>
+    <%end%>
+</div>
+<%end%>
+
+<% for section_item in @section.section_items%>
+  <% case section_item.klass_name%>
+    <% when 'article_area'%>
+      <%= render partial: 'articles/areas_form', locals: {article: @article}%>
+    <% when 'article_event'%>
+      <%= render partial: 'articles/dates_form', locals: {article: @article}%>
+    <% when 'article_format'%>
+      <%= render partial: 'articles/formats_form', locals: {article: @article}%>
+    <% when 'article_relation_type'%>
+      <%= render partial: 'articles/relation_type_form', locals: {article: @article}%>
+    <% when 'article_source'%>
+      <%= render partial: 'articles/sources_form', locals: {article: @article}%>
+    <% when 'article_type'%>
+      <%= render partial: 'articles/types_form', locals: {article: @article}%>
+    <% when 'keyword'%>
+      <%= render partial: 'articles/keywords_form', locals: {article: @article}%>
+    <% when 'descriptor'%>
+      <%= render partial: 'articles/descriptor_form', locals: {article: @article}%>
+    <% when 'language'%>
+      <%= render partial: 'articles/language_form', locals: {article: @article}%>
+    <% when 'upload'%>
+      <%= render partial: 'articles/upload_form', locals: {article: @article}%>
+  <%end%>
+
+<%end%>

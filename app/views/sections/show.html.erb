@@ -22,16 +22,50 @@
         </div>
 
         <div class="col-12 pt-2">
-      <%= form_for SectionItem.new, remote: true do |f|%>
-      <%= hidden_field_tag :section_id, @section.id%>
-      <div class="row">
-        <div class="col-md-5">
-          <div class="form-group">
-            <%= f.label :item_name, class: "form-label" %>
-            <%= select_tag :item_name, options_for_select(item_names), {class: "form-control"} %>
-          </div>
-        </div>
-      </div>
+
+      <% for section_item in SectionItem.all%>
+      <%@sectioning = Sectioning.where(section_id: @section.id, section_item_id: section_item.id).first%>
+      <label class="custom-control custom-checkbox custom-control-inline">
+        <input type="checkbox" class="custom-control-input" id="section_item_<%= section_item.id%>" <% if !@sectioning.blank?%>checked<%end%> value="<%= section_item.id%>">
+        <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= section_item.title%></span>
+      </label>
+      <script>
+      $('#section_item_<%= section_item.id%>').change(function() {
+        if($(this).is(":checked")) {
+          $.ajax({
+            url: '/sectionings/remotec/1',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+              section_id: <%= @section.id%>,
+              section_item_id: <%= section_item.id %>
+            },
+            error: function() {
+              $(this).attr("checked", false);
+            },
+            success: function(res) {
+              $(this).attr("checked", true);
+            }
+          });
+        } else {
+          $.ajax({
+            url: '/sectionings/remoted/1',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+              section_id: <%= @section.id%>,
+              section_item_id: <%= section_item.id %>
+            },
+            error: function() {
+              $(this).attr("checked", true);
+            },
+            success: function(res) {
+              $(this).attr("checked", false);
+            }
+          });
+        }
+      });
+      </script>
       <%end%>
 
       <div class="text-right mt-2 mb-2">

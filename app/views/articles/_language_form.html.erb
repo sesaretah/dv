@@ -1,0 +1,51 @@
+<% if permit_by_workflow(article, current_user,'language')%>
+<div class="form-group">
+<div class="form-label"><%=t :languages%></div>
+<div>
+  <% for language in Language.all%>
+  <%@speaking = Speaking.where(article_id: article.id, language_id: language.id).first%>
+  <label class="custom-control custom-checkbox custom-control-inline">
+    <input type="checkbox" class="custom-control-input" id="language_<%= language.id %>" <% if !@speaking.blank?%>checked<%end%> value="<%= language.id %>">
+    <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= language.title%></span>
+  </label>
+  <script>
+  $('#language_<%= language.id%>').change(function() {
+    if($(this).is(":checked")) {
+      $.ajax({
+        url: '/speakings/remotec/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          article_id: <%= article.id%>,
+          language_id: <%= language.id %>
+        },
+        error: function() {
+          $(this).attr("checked", false);
+        },
+        success: function(res) {
+          $(this).attr("checked", true);
+        }
+      });
+    } else {
+      $.ajax({
+        url: '/speakings/remoted/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          article_id: <%= article.id%>,
+          language_id: <%= language.id %>
+        },
+        error: function() {
+          $(this).attr("checked", true);
+        },
+        success: function(res) {
+          $(this).attr("checked", false);
+        }
+      });
+    }
+  });
+  </script>
+  <%end%>
+</div>
+</div>
+<%end%>

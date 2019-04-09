@@ -50,6 +50,26 @@ class Article < ActiveRecord::Base
   has_many :workflow_transitions
   has_many :uploads, :as => :uploadable, :dependent => :destroy
 
+  def keywords
+    @taggings = Tagging.where(taggable_id: self.id, taggable_type: 'Article', target_type: 'Keyword')
+    @keywords = []
+    @keyword_ids = []
+    for tagging in @taggings
+      @keyword = Keyword.find_by_id(tagging.target_id)
+      if !@keyword.blank?
+        @keyword_ids << @keyword.id
+        @keywords << { 'title' => @keyword.title, 'id' => @keyword.id}
+      end
+    end
+    if @keywords.blank?
+      @keywords = ''
+    end
+    if @keyword_ids.blank?
+      @keyword_ids = ''
+    end
+    return {keywords: @keywords, keyword_ids: @keyword_ids}
+  end
+
   def other_title
 
   end

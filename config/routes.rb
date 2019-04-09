@@ -46,6 +46,8 @@ Rails.application.routes.draw do
   resources :article_relation_types
   resources :article_formats
   resources :article_events
+  resources :section_items
+  resources :sections
   #devise_for :users
   devise_for :users, :controllers => { :passwords => "passwords" }
 
@@ -78,6 +80,8 @@ Rails.application.routes.draw do
   match "/articles/make_a_copy/:id" => "articles#make_a_copy", :via => :get
   match "/articles/article_publishable/:id" => "articles#article_publishable", :via => :get
   match "/articles/change_access_group/:id" => "articles#change_access_group", :via => :get
+  match "/articles/sectioned_form/:id" => "articles#sectioned_form", :via => :get
+
 
 
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
@@ -127,5 +131,8 @@ Rails.application.routes.draw do
   get '/api/roles', to: 'api#roles'
   get '/api/change_role', to: 'api#change_role'
   get '/api/article/:id', to: 'api#article'
+
+  match "/sectionings/remotec/:id" => "sectionings#remotec", :via => :get
+  match "/sectionings/remoted/:id" => "sectionings#remoted", :via => :get
 
 end

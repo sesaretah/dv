@@ -1,0 +1,11 @@
+<% if permit_by_workflow(article, current_user,'keywords')%>
+<div class="form-group">
+  <label class="form-label"><%=t :keywords%></label>
+  <input type="text" class="form-control" id="input-tags" value="" data-data='<%= raw article.keywords[:keywords].to_json%>'>
+</div>
+<% if !article.keywords[:keyword_ids].blank?%>
+  <%= hidden_field_tag :keyword, ','+article.keywords[:keyword_ids].map(&:inspect).join(',') %>
+<%else%>
+    <%= hidden_field_tag :keyword, '' %>
+<%end%>
+<%end%>

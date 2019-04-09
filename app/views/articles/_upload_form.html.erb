@@ -1,0 +1,3 @@
+<% if permit_by_workflow(article, current_user,'uploads')%>
+<%= render partial: 'uploads/upload_form', locals: {class_name: 'Article', id: article.id, type: 'article_attachment'}%>
+<%end%>

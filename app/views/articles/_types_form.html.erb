@@ -1,0 +1,51 @@
+<% if permit_by_workflow(article, current_user,'article_type')%>
+<div class="form-group">
+  <div class="form-label"><%=t :article_types%></div>
+  <div>
+    <% for article_type in ArticleType.all%>
+    <%@typing = Typing.where(article_id: article.id, article_type_id: article_type.id).first%>
+    <label class="custom-control custom-checkbox custom-control-inline">
+      <input type="checkbox" class="custom-control-input" id="article_type_<%= article_type.id%>" <% if !@typing.blank?%>checked<%end%> value="<%= article_type.id%>">
+      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= article_type.title%></span>
+    </label>
+    <script>
+    $('#article_type_<%= article_type.id%>').change(function() {
+      if($(this).is(":checked")) {
+        $.ajax({
+          url: '/typings/remotec/1',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            article_id: <%= article.id%>,
+            article_type_id: <%= article_type.id %>
+          },
+          error: function() {
+            $(this).attr("checked", false);
+          },
+          success: function(res) {
+            $(this).attr("checked", true);
+          }
+        });
+      } else {
+        $.ajax({
+          url: '/typings/remoted/1',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            article_id: <%= article.id%>,
+            article_type_id: <%= article_type.id %>
+          },
+          error: function() {
+            $(this).attr("checked", true);
+          },
+          success: function(res) {
+            $(this).attr("checked", false);
+          }
+        });
+      }
+    });
+    </script>
+    <%end%>
+  </div>
+</div>
+<%end%>

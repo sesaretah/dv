@@ -1,6 +1,9 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print, :change_workflow, :make_a_copy, :article_publishable, :change_access_group ]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print, :change_workflow, :make_a_copy, :article_publishable, :change_access_group, :sectioned_form ]
 
+  def sectioned_form
+    @section = Section.find(params[:section_id])
+  end
   def print
     @word_tempate = WordTemplate.find(params[:word_template])
     @articles = []
@@ -59,16 +62,7 @@ class ArticlesController < ApplicationController
 
 
   def article_descriptors
-    @taggings = Tagging.where(taggable_id: @article.id, taggable_type: 'Article', target_type: 'Keyword')
-    @keywords = []
-    @keyword_ids = []
-    for tagging in @taggings
-      @keyword = Keyword.find_by_id(tagging.target_id)
-      if !@keyword.blank?
-        @keyword_ids << @keyword.id
-        @keywords << { 'title' => @keyword.title, 'id' => @keyword.id}
-      end
-    end
+
   end
 
   def article_related_dates

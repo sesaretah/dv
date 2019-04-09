@@ -312,6 +312,9 @@ fa:
         section:
             title: 'عنوان'
             workflow_id: 'گردش کار'
+        section_item:
+            title: 'عنوان'
+            description: 'شرح '
         access_control:
             view_unrelated_articles: 'نمایش اسناد غیر مرتبط'
             view_article_logs: 'منوی مقایسه در اسناد'
@@ -330,11 +333,14 @@ fa:
             alter_duties: 'تغییر در جدول پایه سمت ها'
             alter_title_types: 'تغییر در جدول پایه انواع عنوان'
             alter_content_templates: 'تغییر محتوای پیشفرض'
+            alter_section_items: 'تغییر  عناصر بخش بندی ها'
             user_id: 'توسط'
   will_paginate:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  section_item_form: 'فرم عناصر بخش بندی'
+  section_items: 'عناصر بخش بندی'
   more: 'بیشتر'
   divan: 'سامانه دیوان'
   copyrights: 'کلیه ی حقوق این سایت متعق است به'

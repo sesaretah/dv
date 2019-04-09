@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190313082904) do
+ActiveRecord::Schema.define(version: 20190409084354) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20190313082904) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.integer  "alter_content_templates",      limit: 4
+    t.integer  "alter_section_items",          limit: 4
   end
 
   create_table "access_groups", force: :cascade do |t|
@@ -349,10 +350,21 @@ ActiveRecord::Schema.define(version: 20190313082904) do
   end
 
   create_table "section_items", force: :cascade do |t|
-    t.integer  "section_id", limit: 4
-    t.string   "item_name",  limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "section_id",  limit: 4
+    t.string   "item_name",   limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "title",       limit: 255
+    t.string   "description", limit: 255
+    t.integer  "user_id",     limit: 4
+    t.string   "klass_name",  limit: 255
+  end
+
+  create_table "sectionings", force: :cascade do |t|
+    t.integer  "section_id",      limit: 4
+    t.integer  "section_item_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "sections", force: :cascade do |t|

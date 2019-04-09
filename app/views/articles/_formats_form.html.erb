@@ -1,0 +1,51 @@
+<% if permit_by_workflow(article, current_user,'article_format')%>
+<div class="form-group">
+  <div class="form-label"><%=t :article_formats%></div>
+  <div>
+    <% for article_format in ArticleFormat.all%>
+    <%@formating = Formating.where(article_id: article.id, article_format_id: article_format.id).first%>
+    <label class="custom-control custom-checkbox custom-control-inline">
+      <input type="checkbox" class="custom-control-input" id="article_format_<%= article_format.id%>" <% if !@formating.blank?%>checked<%end%> value="option3">
+      <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= article_format.title%></span>
+    </label>
+    <script>
+    $('#article_format_<%= article_format.id%>').change(function() {
+      if($(this).is(":checked")) {
+        $.ajax({
+          url: '/formatings/remotec/1',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            article_id: <%= article.id%>,
+            article_format_id: <%= article_format.id %>
+          },
+          error: function() {
+            $(this).attr("checked", false);
+          },
+          success: function(res) {
+            $(this).attr("checked", true);
+          }
+        });
+      } else {
+        $.ajax({
+          url: '/formatings/remoted/1',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            article_id: <%= article.id%>,
+            article_format_id: <%= article_format.id %>
+          },
+          error: function() {
+            $(this).attr("checked", true);
+          },
+          success: function(res) {
+            $(this).attr("checked", false);
+          }
+        });
+      }
+    });
+    </script>
+    <%end%>
+  </div>
+</div>
+<%end%>

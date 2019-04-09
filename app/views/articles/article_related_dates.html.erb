@@ -1,33 +1,9 @@
 <%= render partial: 'articles/progress_bar', locals: {article: @article, active: ['titles', 'descriptors', 'related_dates']}%>
-<div class='row row-cards row-deck'>
-  <div  class='col-sm-6 col-lg-6'>
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%=t :article_dates_form%></h3>
-      </div>
-      <div class="card-status card-status-left bg-blue"></div>
-      <div class="card-body">
-        <% if permit_by_workflow(@article, current_user,'datings')%>
-          <%= render partial: 'datings/remote_form', locals: {article: @article, dating: Dating.new}%>
-        <%end%>
-      </div>
-    </div>
-  </div>
 
-  <div class='col-sm-6 col-lg-6'>
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%=t :article_dates_list%></h3>
-      </div>
-        <%= render partial: 'datings/list', locals: {article: @article}%>
-    </div>
-  </div>
-</div>
+<%= render partial: 'articles/dates_form', locals: {article: @article}%>
 
 <div class="card">
-  <% if permit_by_workflow(@article, current_user,'uploads')%>
-  <%= render partial: 'uploads/upload_form', locals: {class_name: 'Article', id: @article.id, type: 'article_attachment'}%>
-  <%end%>
+  <%= render partial: 'articles/upload_form', locals: {article: @article}%>
   <div class="card-footer text-right">
     <a href='/articles/article_descriptors/<%= @article.id%>' class="btn btn-lime"><%=t :back%></a>
     <a href='/articles/article_other_details/<%= @article.id%>' class="btn btn-primary"><%=t :submit_and_go%></a>

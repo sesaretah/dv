@@ -5,8 +5,8 @@
         <div class="card">
           <div class="card-body">
             <div class="text-center">
-              <% if true || grant_access("alter_sections", current_user)%>
-                <%= link_to  new_section_url(workflow_id: params[:workflow_id]), class: "btn btn-lime  btn-sm" do%>
+              <% if grant_access("alter_section_items", current_user)%>
+                <%= link_to  new_section_item_url, class: "btn btn-lime  btn-sm" do%>
                   <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
                 <%end%>
               <%end%>
@@ -21,9 +21,10 @@
   <div class="col-lg-9">
     <div class="card">
       <div class="card-header">
-        <%=t :sections%>
+        <%=t :section_items%>
       </div>
-      <table class="table card-table table-vcenter">
+      <div class='table-responsive'>
+        <table class="table table-hover table-outline table-vcenter text-nowrap">
         <thead>
           <tr>
             <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
@@ -33,33 +34,33 @@
           </tr>
         </thead>
         <tbody>
-          <% @sections.each do |section| %>
+          <% @section_items.each do |section_item| %>
           <tr>
             <td class="text-center">
               <div class="item-action dropdown">
                 <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a href="/sections/<%= section.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
-                  <% if true || grant_access("alter_sections", current_user)%>
-                    <a href="/sections/<%= section.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
-                    <%= link_to section, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
+                  <a href="/section_items/<%= section_item.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
+                  <% if grant_access("alter_section_items", current_user)%>
+                    <a href="/section_items/<%= section_item.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
+                    <%= link_to section_item, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
                       <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
                     <%end%>
                   <%end%>
                 </div>
               </div>
             </td>
-            <td><%= section.title %></td>
+            <td><%= truncate(section_item.title, length: 50) %></td>
             <td>
               <span class="tag" style='vertical-align: -3px;'>
-                <span class="tag-avatar avatar" style="background-image: url('<%= section.user.profile.avatar(:tiny)%>')"></span>
-                <%= truncate(section.user.profile.fullname, length: 15)%>
+                <span class="tag-avatar avatar" style="background-image: url('<%= section_item.user.profile.avatar(:tiny)%>')"></span>
+                <%= truncate(section_item.user.profile.fullname, length: 35)%>
               </span>
             </td>
             <td>
               <small class="text-muted">
                 <span>
-                  <% @jalali = JalaliDate.to_jalali(section.updated_at)%>
+                  <% @jalali = JalaliDate.to_jalali(section_item.updated_at)%>
                   <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
                 </span>
               </small>
@@ -68,6 +69,7 @@
           <% end %>
         </tbody>
       </table>
+    </div>
     </div>
   </div>
 </div>

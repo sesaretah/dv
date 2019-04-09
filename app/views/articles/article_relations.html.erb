@@ -1,81 +1,8 @@
 <%= render partial: 'articles/progress_bar', locals: {article: @article, active: ['titles', 'descriptors', 'related_dates', 'other_details', 'contributors' ,'relations']}%>
 
-<div class='row row-cards row-deck'>
-  <div  class='col-sm-6 col-lg-6'>
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%=t :article_kinships_form%></h3>
-      </div>
-      <div class="card-status card-status-left bg-blue"></div>
-      <div class="card-body">
-        <% if permit_by_workflow(@article, current_user,'relations')%>
-          <%= render partial: 'kinships/remote_form', locals: {article: @article, kinship: Kinship.new}%>
-        <%end%>
-      </div>
-    </div>
-  </div>
-
-  <div class='col-sm-6 col-lg-6'>
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%=t :article_kinships_list%></h3>
-      </div>
-        <%= render partial: 'kinships/list', locals: {article: @article}%>
-    </div>
-  </div>
-</div>
-
-
-<div class='row row-cards row-deck'>
-  <div  class='col-sm-6 col-lg-6'>
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%=t :article_sources_form%></h3>
-      </div>
-      <div class="card-status card-status-left bg-blue"></div>
-      <div class="card-body">
-        <% if permit_by_workflow(@article, current_user,'article_source')%>
-          <%= render partial: 'originatings/remote_form', locals: {article: @article, originating: Originating.new}%>
-        <%end%>
-      </div>
-    </div>
-  </div>
-
-  <div class='col-sm-6 col-lg-6'>
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%=t :article_sources_list%></h3>
-      </div>
-        <%= render partial: 'originatings/list', locals: {article: @article}%>
-    </div>
-  </div>
-</div>
-
-
-<div class='row row-cards row-deck'>
-  <div  class='col-sm-6 col-lg-6'>
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%=t :article_areas_form%></h3>
-      </div>
-      <div class="card-status card-status-left bg-blue"></div>
-      <div class="card-body">
-        <% if permit_by_workflow(@article, current_user,'article_area')%>
-          <%= render partial: 'areaings/remote_form', locals: {article: @article, areaing: Areaing.new}%>
-        <%end%>
-      </div>
-    </div>
-  </div>
-
-  <div class='col-sm-6 col-lg-6'>
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%=t :article_areas_list%></h3>
-      </div>
-      <%= render partial: 'areaings/list', locals: {article: @article}%>
-      </div>
-  </div>
-</div>
+<%= render partial: 'articles/relation_type_form', locals: {article: @article}%>
+<%= render partial: 'articles/sources_form', locals: {article: @article}%>
+<%= render partial: 'articles/areas_form', locals: {article: @article}%>
 
 <div class="card">
   <div class="card-header">
