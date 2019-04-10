@@ -52,7 +52,15 @@ class Article < ActiveRecord::Base
 
   def start_section
     if !self.workflow_state.blank? && !self.workflow_state.workflow.blank? && !self.workflow_state.workflow.sections.blank?
-      @section = self.workflow_state.workflow.sections.first
+      @section = self.workflow_state.workflow.sections.first.id.to_s
+    else
+      @section = ''
+    end
+  end
+
+  def next_section(id)
+    if !self.workflow_state.blank? && !self.workflow_state.workflow.blank? && !self.workflow_state.workflow.sections.where("id > ?", id).blank?
+      @section = self.workflow_state.workflow.sections.where("id > ?", id).first.id.to_s
     else
       @section = nil
     end

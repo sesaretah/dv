@@ -45,5 +45,12 @@
     <% when 'contribution'%>
       <%= render partial: 'articles/contribution_form', locals: {article: @article}%>
   <%end%>
-
 <%end%>
+
+<div class="card-footer text-right">
+  <% if !@article.next_section(@section.id).blank?%>
+    <a href='/articles/sectioned_form/<%= @article.id%>?section_id=<%= @article.next_section(@section.id)%>' class="btn btn-primary"><%=t :submit_and_go%></a>
+  <%else%>
+    <a href='/articles/sectioned_form/<%= @article.id%>' class="btn btn-primary"><%=t :submit_and_view%></a>
+  <%end%>
+</div>
