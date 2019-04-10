@@ -339,6 +339,7 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  sectioned_form: 'فرم مخصوص '
   section_item_form: 'فرم عناصر بخش بندی'
   section_items: 'عناصر بخش بندی'
   more: 'بیشتر'
