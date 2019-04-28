@@ -1,4 +1,4 @@
-function fireThisUponEvent(event) {
+function fireAutoCompleteEvent(event) {
   console.log('FiredUp');
   $( function() {
     $( ".exhibition_title" ).autocomplete({
@@ -486,8 +486,8 @@ function fireThisUponEvent(event) {
 
 
 }
-$(document).on('turbolinks:load', fireThisUponEvent)
-$(document).ready(fireThisUponEvent);
-$(document).on("focus", ".exhibition_title",  fireThisUponEvent)
-$(document).on("focus", ".certification_title",  fireThisUponEvent)
-$(document).on("focus", "#article_relation_type",  fireThisUponEvent)
+$(document).on('turbolinks:load', fireAutoCompleteEvent)
+$(document).ready(fireAutoCompleteEvent);
+$(document).on("focus", ".exhibition_title",  fireAutoCompleteEvent)
+$(document).on("focus", ".certification_title",  fireAutoCompleteEvent)
+$(document).on("focus", "#article_relation_type",  fireAutoCompleteEvent)
