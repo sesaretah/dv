@@ -1,4 +1,5 @@
 //const shoa_url = 'http://localhost:3000';
+/*
 const shoa_url = 'http://95.156.255.35:8080';
 var token = localStorage.getItem("shoa-token");
 function auth() {
@@ -181,3 +182,4 @@ function fireShoa(event) {
   }
 }
 $(document).on('turbolinks:load', fireShoa)
+*/
