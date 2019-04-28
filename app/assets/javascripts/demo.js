@@ -486,7 +486,7 @@ function fireThisUponEvent(event) {
 
 }
 $(document).on('turbolinks:load', fireThisUponEvent)
-//$(document).ready(fireThisUponEvent);
+$(document).ready(fireThisUponEvent);
 $(document).on("focus", ".exhibition_title",  fireThisUponEvent)
 $(document).on("focus", ".certification_title",  fireThisUponEvent)
 $(document).on("focus", "#article_relation_type",  fireThisUponEvent)
