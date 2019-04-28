@@ -1,4 +1,5 @@
 function fireThisUponEvent(event) {
+  console.log('FiredUp');
   $( function() {
     $( ".exhibition_title" ).autocomplete({
       source: function( request, response ) {
