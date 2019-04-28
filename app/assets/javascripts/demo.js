@@ -1,5 +1,4 @@
 function fireAutoCompleteEvent(event) {
-  console.log('FiredUp');
   $( function() {
     $( ".exhibition_title" ).autocomplete({
       source: function( request, response ) {
@@ -487,7 +486,7 @@ function fireAutoCompleteEvent(event) {
 
 }
 $(document).on('turbolinks:load', fireAutoCompleteEvent)
-$(document).ready(fireAutoCompleteEvent);
+//$(document).ready(fireAutoCompleteEvent);
 $(document).on("focus", ".exhibition_title",  fireAutoCompleteEvent)
 $(document).on("focus", ".certification_title",  fireAutoCompleteEvent)
 $(document).on("focus", "#article_relation_type",  fireAutoCompleteEvent)

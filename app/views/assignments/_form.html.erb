@@ -33,43 +33,6 @@
       </div>
     </div>
   </div>
-  <script>
-  $('#assignment_profile').selectize({
-    create:       false,
-    labelField:   'title',
-    valueField:   'title',
-    searchField:  'title',
-    maxItems: 1,
-    preload:      true,
-    onItemAdd: function (value, item) {
-      console.log('test', this.options[value]);
-      $('#assignment_user_id').val(this.options[value]['user_id']);
-    },
-    render: {
-      option: function (item, escape) {
-        //console.log(item);
-        return '<div>' + escape(item.title) + '</div>';
-      }
-    },
-    load: function(query, callback) {
-      if (!query.length) return callback();
-      $.ajax({
-        url: '/profiles/search/1',
-        type: 'GET',
-        dataType: 'json',
-        data: {
-          q: query,
-        },
-        error: function() {
-          callback();
-        },
-        success: function(res) {
-          callback(res);
-        }
-      });
-    }
-  });
-  </script>
 
   <div class="card-footer text-right">
     <button type="submit" class="btn btn-primary"><%=t :submit%></button>
