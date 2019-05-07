@@ -1,4 +1,4 @@
-<%= form_for(article) do |f| %>
+<%= form_for article, html: {id: 'discriptors'}  do |f| %>
 <%= hidden_field_tag 'caller', 'descriptors'%>
 <% if article.errors.any? %>
 <div id="error_explanation">
@@ -60,3 +60,31 @@
   </div>
   <%end%>
 <% end %>
+
+<script>
+$('.form-control').bind('keyup', function() {
+    $('#discriptors').delay(200).submit();
+});
+
+CKEDITOR.instances.sometext.on('key', function(e) {
+    var self = this;
+
+    setTimeout(function() {
+         CKEDITOR.instances.sometext.updateElement();
+     $('#discriptors').submit();
+  //      console.log(self.getData());
+    }, 200);
+});
+$("#discriptors").submit(function (event) {
+    event.preventDefault();
+    $.ajax({
+        type: "post",
+        dataType: "html",
+        url: '/articles/<%= @article.id%>',
+        data: $("#discriptors").serialize(),
+        success: function (response) {
+            //write here any code needed for handling success         }
+    }
+  });
+});
+</script>

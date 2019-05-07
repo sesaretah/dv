@@ -259,6 +259,7 @@ class ArticlesController < ApplicationController
       else
         format.html { redirect_to '/articles/article_descriptors/'+@article.id.to_s , notice: :article_is_created }
       end
+
     end
   end
 
@@ -290,6 +291,7 @@ class ArticlesController < ApplicationController
         format.json { render :show, status: :ok, location: @article }
       else
         format.html { render :edit }
+        format.js
         format.json { render json: @article.errors, status: :unprocessable_entity }
       end
     end
