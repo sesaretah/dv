@@ -160,6 +160,17 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_publishers, class: "form-label" %>
+        <%= f.select( :alter_publishers, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
+
+
+
 
   <div class="card-footer text-right">
     <button type="submit" class="btn btn-primary"><%=t :submit%></button>

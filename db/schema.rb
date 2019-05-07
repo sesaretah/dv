@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190507125420) do
+ActiveRecord::Schema.define(version: 20190507193140) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20190507125420) do
     t.datetime "updated_at",                             null: false
     t.integer  "alter_content_templates",      limit: 4
     t.integer  "alter_section_items",          limit: 4
+    t.integer  "alter_publishers",             limit: 4
   end
 
   create_table "access_groups", force: :cascade do |t|
@@ -331,6 +332,16 @@ ActiveRecord::Schema.define(version: 20190507125420) do
     t.datetime "avatar_updated_at"
     t.string   "email",               limit: 255
     t.string   "stage_name",          limit: 255
+  end
+
+  create_table "publications", force: :cascade do |t|
+    t.integer  "article_id",       limit: 4
+    t.integer  "publisher_id",     limit: 4
+    t.date     "publication_date"
+    t.string   "pp",               limit: 255
+    t.string   "vol",              limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "publishers", force: :cascade do |t|

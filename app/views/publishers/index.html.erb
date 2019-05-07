@@ -4,14 +4,15 @@
       <div class="col-md-6 col-lg-12">
         <div class="card">
           <div class="card-body">
-
+            <div class="text-center">
+              <% if grant_access("alter_publishers", current_user)%>
+                <%= link_to  new_publisher_url, class: "btn btn-lime  btn-sm" do%>
+                  <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
+                <%end%>
+              <%end%>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-12">
-        <div class="card">
-          <div class="card-body">
-
+          <div class="card-footer">
           </div>
         </div>
       </div>
@@ -19,20 +20,63 @@
   </div>
   <div class="col-lg-9">
     <div class="card">
-      <table class="table card-table table-vcenter">
+      <div class="card-header">
+        <%=t :publishers%>
+      </div>
+      <div class='table-responsive'>
+        <table class="table table-hover table-outline table-vcenter text-nowrap">
+        <thead>
+          <tr>
+            <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
+            <th><%=t :title%></th>
+            <th><%=t :articles %></th>
+            <th><%=t :last_editor %></th>
+            <th><%=t :last_edit %></th>
+          </tr>
+        </thead>
         <tbody>
           <% @publishers.each do |publisher| %>
           <tr>
-                        <td><%= publisher.title %></td>
-                        <td><%= publisher.description %></td>
-                        <td><%= publisher.user_id %></td>
-                        <td><%= link_to t(:show), publisher %></td>
-            <td><%= link_to t(:edit), edit_publisher_path(publisher) %></td>
-            <td><%= link_to t(:destroy), publisher, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td class="text-center">
+              <div class="item-action dropdown">
+                <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a href="/publishers/<%= publisher.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
+                  <% if grant_access("alter_publishers", current_user)%>
+                    <a href="/publishers/<%= publisher.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
+                    <%= link_to publisher, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
+                      <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
+                    <%end%>
+                  <%end%>
+                </div>
+              </div>
+            </td>
+            <td><%= truncate(publisher.title, length: 50) %></td>
+            <td>
+              <div class="tag tag-dark" style='vertical-align: 6px;'>
+                <%= publisher.articles.count %>
+                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
+              </div>
+            </td>
+            <td>
+              <span class="tag" style='vertical-align: -3px;'>
+                <span class="tag-avatar avatar" style="background-image: url('<%= publisher.user.profile.avatar(:tiny)%>')"></span>
+                <%= truncate(publisher.user.profile.fullname, length: 35)%>
+              </span>
+            </td>
+            <td>
+              <small class="text-muted">
+                <span>
+                  <% @jalali = JalaliDate.to_jalali(publisher.updated_at)%>
+                  <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
+                </span>
+              </small>
+            </td>
           </tr>
           <% end %>
         </tbody>
       </table>
+    </div>
     </div>
   </div>
 </div>
