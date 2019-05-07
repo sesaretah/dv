@@ -272,7 +272,7 @@ class ArticlesController < ApplicationController
     @article.document_contents = ''
     for upload in @article.uploads
       @text =  %x[java -jar #{Rails.root}/lib/tika-app-1.20.jar -h #{upload.attachment.path}]
-      if @text.blank?
+      if !@text.blank?
         @article.document_contents =  @article.document_contents + ' ' + @text
       end
     end
