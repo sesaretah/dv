@@ -360,7 +360,7 @@ function fireAutoCompleteEvent(event) {
   });
 
 
-  $('#input-tags').selectize({
+  $('.input-tags').selectize({
     plugins: ['remove_button'],
     create:       false,
     hideSelected: true,
@@ -371,6 +371,16 @@ function fireAutoCompleteEvent(event) {
     //  options: JSON.parse($('#keyword_data').val()) ,
     onItemAdd: function (value, item) {
       $('#keyword').val($('#keyword').val() +','+ this.options[value]['id']);
+      var id = $('.input-tags').attr('id');
+      $.ajax({
+          type: "post",
+          dataType: "html",
+          url: '/articles/'+id,
+          data: $("#keywords").serialize(),
+          success: function (response) {
+              //write here any code needed for handling success         }
+      }
+    });
     },
     onItemRemove: function (value, item) {
       var value = $('#keyword').val().replace(","+this.options[value]['id'], "");

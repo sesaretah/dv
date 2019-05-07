@@ -276,7 +276,9 @@ class ArticlesController < ApplicationController
         @article.document_contents =  @article.document_contents + ' ' + @text
       end
     end
-    @article.content_wo_tags = ActionView::Base.full_sanitizer.sanitize(params[:article][:content])
+    if !params[:article].blank? && !params[:article][:content].blank?
+      @article.content_wo_tags = ActionView::Base.full_sanitizer.sanitize(params[:article][:content])
+    end
     respond_to do |format|
       if @article.update(article_params)
         if !params[:keyword].blank?
