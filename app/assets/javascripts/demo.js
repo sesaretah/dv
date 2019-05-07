@@ -378,13 +378,21 @@ function fireAutoCompleteEvent(event) {
           url: '/articles/'+id,
           data: $("#keywords").serialize(),
           success: function (response) {
-              //write here any code needed for handling success         }
       }
     });
     },
     onItemRemove: function (value, item) {
       var value = $('#keyword').val().replace(","+this.options[value]['id'], "");
       $('#keyword').val(value);
+      var id = $('.input-tags').attr('id');
+      $.ajax({
+          type: "post",
+          dataType: "html",
+          url: '/articles/'+id,
+          data: $("#keywords").serialize(),
+          success: function (response) {
+      }
+    });
     },
     render: {
       option: function (item, escape) {

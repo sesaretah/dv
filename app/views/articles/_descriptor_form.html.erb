@@ -62,7 +62,7 @@
 <% end %>
 
 <script>
-$('.form-control').bind('keyup', function() {
+$('.form-control').bind('change keyup input', function() {
     $('#discriptors').delay(200).submit();
 });
 

@@ -281,7 +281,7 @@ class ArticlesController < ApplicationController
     end
     respond_to do |format|
       if @article.update(article_params)
-        if !params[:keyword].blank?
+        if !params[:keyword].blank? || params[:keyword] == ''
           extract_keywords(@article, params[:keyword])
         end
         if params[:caller] != 'descriptors'
