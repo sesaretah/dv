@@ -1,6 +1,6 @@
 //const shoa_url = 'http://localhost:3000';
-/*
-const shoa_url = 'http://95.156.255.35:8080';
+
+const shoa_url = 'https://sn.ut.ac.ir';
 var token = localStorage.getItem("shoa-token");
 function auth() {
   var win = window.open(shoa_url + "/interconnects/req?provider=Divan", "", "width=400,height=500");
@@ -181,5 +181,5 @@ function fireShoa(event) {
     window.attachEvent("onmessage", displayMessage);
   }
 }
-$(document).on('turbolinks:load', fireShoa)
-*/
+
+$(document).ready(fireShoa);

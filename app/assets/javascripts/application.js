@@ -11,5 +11,5 @@
 // about supported directives.
 //
 //= require ckeditor/init
-//= require turbolinks
+// require turbolinks
 //= require_tree .

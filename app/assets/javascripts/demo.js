@@ -503,8 +503,8 @@ function fireAutoCompleteEvent(event) {
 
 
 }
-$(document).on('turbolinks:load', fireAutoCompleteEvent)
-//$(document).ready(fireAutoCompleteEvent);
+//$(document).on('turbolinks:load', fireAutoCompleteEvent)
+$(document).ready(fireAutoCompleteEvent);
 $(document).on("focus", ".exhibition_title",  fireAutoCompleteEvent)
 $(document).on("focus", ".certification_title",  fireAutoCompleteEvent)
 $(document).on("focus", "#article_relation_type",  fireAutoCompleteEvent)
