@@ -318,6 +318,13 @@ fa:
         publisher:
             title: 'عنوان'
             description: 'شرح '
+        location:
+            title: 'عنوان'
+            description: 'شرح'
+        publish_source:
+            title: 'عنوان'
+            description: 'شرح'
+            publisher_id: 'سازمان'
         access_control:
             view_unrelated_articles: 'نمایش اسناد غیر مرتبط'
             view_article_logs: 'منوی مقایسه در اسناد'
@@ -338,13 +345,21 @@ fa:
             alter_content_templates: 'تغییر محتوای پیشفرض'
             alter_section_items: 'تغییر  عناصر بخش بندی ها'
             alter_publishers: 'تغییر منتشرکنندگان'
+            alter_locations: 'تغییر جدول مکان ها'
+            alter_publish_sources: 'تغییر جدول منابع'
             user_id: 'توسط'
   will_paginate:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
-
-  publishers: 'منتشرکنندگان'
+  taggings: 'کلمات کلیدی'
+  publisher: 'منبع'
+  publish_source_form: 'فرم مراجع'
+  publish_sources: 'منابع'
+  location_form: 'فرم مکان ها '
+  locations: 'مکان ها '
+  publishers_form: 'فرم سازمان ها'
+  publishers: 'سازمان ها'
   sectioned_form: 'فرم مخصوص '
   section_item_form: 'فرم عناصر بخش بندی'
   section_items: 'عناصر بخش بندی'

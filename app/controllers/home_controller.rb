@@ -53,6 +53,7 @@ class HomeController < ApplicationController
 
   def restrict_articles
     @h = {
+      'tagging_ids' => [],
       'profile_ids'        => [],
       'language_ids'       => [],
       'article_type_ids'   => [],
@@ -75,19 +76,24 @@ class HomeController < ApplicationController
         @h['article_area_ids']   << value.to_i
       when 'ArticleSource'
         @h['article_source_ids'] << value.to_i
+      when 'Tagging'
+        @h['tagging_ids'] << value.to_i
       end
+
     end
     return @h
   end
 
   def group_articles(with_hash)
     @result  = {
+      'Tagging' => grouper(Article, params[:q], 'tagging_ids', with_hash),
       'Profile'       => grouper(Article, params[:q], 'profile_ids',  with_hash),
       'Language'      => grouper(Article, params[:q], 'language_ids', with_hash) ,
       'ArticleType'   => grouper(Article, params[:q], 'article_type_ids', with_hash),
       'ArticleFormat' => grouper(Article, params[:q], 'article_format_ids', with_hash),
       'ArticleArea'   => grouper(Article, params[:q], 'article_area_ids', with_hash) ,
       'ArticleSource' => grouper(Article, params[:q], 'article_source_ids', with_hash)
+
     }
     return @result
   end

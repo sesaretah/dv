@@ -25,7 +25,7 @@ class PublishersController < ApplicationController
   # POST /publishers.json
   def create
     @publisher = Publisher.new(publisher_params)
-
+    @publisher.user_id = current_user.id
     respond_to do |format|
       if @publisher.save
         format.html { redirect_to @publisher, notice: 'Publisher was successfully created.' }

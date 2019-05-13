@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190507193140) do
+ActiveRecord::Schema.define(version: 20190513120808) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20190507193140) do
     t.integer  "alter_content_templates",      limit: 4
     t.integer  "alter_section_items",          limit: 4
     t.integer  "alter_publishers",             limit: 4
+    t.integer  "alter_locations",              limit: 4
+    t.integer  "alter_publish_sources",        limit: 4
   end
 
   create_table "access_groups", force: :cascade do |t|
@@ -288,6 +290,16 @@ ActiveRecord::Schema.define(version: 20190507193140) do
     t.integer  "user_id",     limit: 4
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.integer  "user_id",     limit: 4
+    t.float    "longitude",   limit: 24
+    t.float    "latidue",     limit: 24
+    t.text     "description", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.string   "title",             limit: 255
     t.text     "content",           limit: 65535
@@ -342,6 +354,16 @@ ActiveRecord::Schema.define(version: 20190507193140) do
     t.string   "vol",              limit: 255
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.integer  "location_id",      limit: 4
+  end
+
+  create_table "publish_sources", force: :cascade do |t|
+    t.string   "title",        limit: 255
+    t.text     "description",  limit: 65535
+    t.integer  "publisher_id", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "user_id",      limit: 4
   end
 
   create_table "publishers", force: :cascade do |t|

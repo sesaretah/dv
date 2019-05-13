@@ -1,0 +1,33 @@
+<div class='row'>
+  <div class="col-lg-3 order-lg-1">
+    <div class="card">
+      <div class="card-body" style="padding: 1rem;">
+        <div class="list-group list-group-transparent mb-0">
+          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center active" style="color: #464a4e;font-size:smaller; background-color: #e7e8ea;border-color: #dddfe2;">
+            <%=t :locations%>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center active mt-1" style="font-size:smaller;">
+            <%= @location.title%>
+          </a>
+          <div class='mt-2 mr-3 ml-3 mb-2' style="font-size:smaller; text-align:justify;">
+            <b><%=t :description%>:</b> <%= @location.description%><br />
+            <b><%=t :longitude%>:</b> <%= @location.description%><br />
+            <b><%=t :latidue%>:</b> <%= @location.description%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9 order-lg-1">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-options">
+          <%= link_to "/locations", class: "btn btn-secondary btn-sm ml-1" do %>
+            <i class="fe fe-arrow-left" style="vertical-align: -3px;"></i> <%=t :back%>
+          <%end%>
+        </div>
+      </div>
+      <%= render partial: 'articles/list', locals: {articles: @location.articles}%>
+    </div>
+  </div>
+</div>

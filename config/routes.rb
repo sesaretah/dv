@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :publish_sources
+  resources :locations
   resources :publishers
   resources :sections
   resources :word_templates
