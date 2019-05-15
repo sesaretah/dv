@@ -68,7 +68,7 @@ $('.form-control').bind('change keyup input', function() {
 
 CKEDITOR.instances.sometext.on('change', function(e) {
     var self = this;
-
+    console.log('changed');
     setTimeout(function() {
          CKEDITOR.instances.sometext.updateElement();
      $('#discriptors').submit();
