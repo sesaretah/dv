@@ -66,7 +66,7 @@ $('.form-control').bind('change keyup input', function() {
     $('#discriptors').delay(200).submit();
 });
 
-CKEDITOR.instances.sometext.on('key', function(e) {
+CKEDITOR.instances.sometext.on('change', function(e) {
     var self = this;
 
     setTimeout(function() {
