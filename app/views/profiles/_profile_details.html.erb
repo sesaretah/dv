@@ -1,7 +1,7 @@
 <div class="card-body"  id='profile-show'>
   <div class='row'>
     <div class='col-md-12 col-lg-12'>
-      <% if !@profile.user_id.blank?%>
+      <% if !@profile.user_id.blank? && grant_access("alter_profiles", current_user)%>
       <div class="form-group">
         <%= label :profile, :user_id , class: "form-label", style: 'color: #7795c1;'%>
         <div class="form-control-plaintext"><%= @profile.user.email %>
