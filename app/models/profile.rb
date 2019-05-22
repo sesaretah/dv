@@ -4,13 +4,30 @@ class Profile < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :ratio, :caller
   after_update :reprocess_avatar, :if => :cropping?
+
   #validates :name, presence: true
   #validates :surename, presence: true
   #validate :fullname_or_stage_name
 
-
+  before_destroy :delete_contributions
   has_many :articles, :through => :contributions
-  has_many :contributions, dependent: :destroy
+  has_many :contributions
+
+  def self.merge_profile(profile_1, profile_2)
+    @contributions = profile_2.contributions
+    for contribution in @contributions
+      contribution.profile_id = profile_1.id
+      contribution.save
+    end
+    profile_2.destroy
+  end
+
+  def delete_contributions
+    for contribution in Contribution.where(profile_id: self.id)
+      contribution.destroy
+    end
+  end
+
   def fullname
     "#{self.name} #{self.surename}"
   end

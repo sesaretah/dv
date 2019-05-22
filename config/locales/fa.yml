@@ -352,6 +352,10 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  merge: 'ادغام '
+  profile_1: 'پروفایل اصلی'
+  profile_2: 'پروفایل فرعی'
+  merge_profile: 'ادغام افراد'
   taggings: 'کلمات کلیدی'
   publisher: 'منبع'
   publish_source_form: 'فرم مراجع'

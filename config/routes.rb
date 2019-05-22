@@ -138,4 +138,6 @@ Rails.application.routes.draw do
   match "/sectionings/remotec/:id" => "sectionings#remotec", :via => :get
   match "/sectionings/remoted/:id" => "sectionings#remoted", :via => :get
 
+  match "/profiles/mergerer/:id" => "profiles#mergerer", :via => :get
+  match "/profiles/merge/:id" => "profiles#merge", :via => :get
 end

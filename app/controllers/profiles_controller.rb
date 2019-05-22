@@ -1,12 +1,25 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy, :contributions, :profile_details, :cropper]
 
+  def mergerer
+
+  end
+
+  def merge
+    @profile_1 = Profile.find(params[:profile_1])
+    @profile_2 = Profile.find(params[:profile_2])
+    Profile.merge_profile(@profile_1, @profile_2)
+    redirect_to '/profiles'
+  end
+
   def cropper
 
   end
+
   def profile_details
 
   end
+
   def contributions
 
   end
@@ -18,9 +31,9 @@ class ProfilesController < ApplicationController
     resp = []
     for r in @profiles
       if !r.user.blank?
-        resp << {'title' => r.fullname , 'id' => r.id, 'user_id' => r.user.id}
+        resp << {'title' => r.fullname + " (#{r.id})" , 'id' => r.id, 'user_id' => r.user.id}
       else
-        resp << {'title' => r.fullname , 'id' => r.id}
+        resp << {'title' => r.fullname + " (#{r.id})" , 'id' => r.id}
       end
     end
     render :json => resp.to_json, :callback => params['callback']
