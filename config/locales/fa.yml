@@ -217,6 +217,7 @@ fa:
             rank: 'مرتبه علمی'
             digest_email: 'ایمیل آگاهسازی'
             email: 'ایمیل'
+            user_id: 'کاربر '
         user:
             email: 'ایمیل'
             login: 'نام کاربر'
@@ -352,6 +353,8 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  detached: 'قطع اتصال انجام شد '
+  detach_profile: 'قطع اتصال'
   merge: 'ادغام '
   profile_1: 'پروفایل اصلی'
   profile_2: 'پروفایل فرعی'

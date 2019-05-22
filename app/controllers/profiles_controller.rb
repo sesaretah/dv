@@ -1,5 +1,10 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: [:show, :edit, :update, :destroy, :contributions, :profile_details, :cropper]
+  before_action :set_profile, only: [:show, :edit, :update, :destroy, :contributions, :profile_details, :cropper, :detach_profile]
+
+  def detach_profile
+    @profile.user_id = nil
+    @profile.save
+  end
 
   def mergerer
 

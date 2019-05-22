@@ -1,6 +1,16 @@
 <div class="card-body"  id='profile-show'>
   <div class='row'>
     <div class='col-md-12 col-lg-12'>
+      <% if !@profile.user_id.blank?%>
+      <div class="form-group">
+        <%= label :profile, :user_id , class: "form-label", style: 'color: #7795c1;'%>
+        <div class="form-control-plaintext"><%= @profile.user.email %>
+          <%= link_to  "/profiles/detach_profile/#{@profile.id}", remote: true, confirm: t(:are_you_sure_?)  ,class: "btn btn-red  btn-sm" do%>
+          <i class="fas fa-minus-square"></i> <%=t :detach_profile%>
+          <%end%>
+        </div>
+      </div>
+      <%end%>
       <div class="form-group">
         <%= label :profile, :name , class: "form-label", style: 'color: #7795c1;'%>
         <div class="form-control-plaintext"><%= @profile.name %></div>

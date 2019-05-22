@@ -140,4 +140,5 @@ Rails.application.routes.draw do
 
   match "/profiles/mergerer/:id" => "profiles#mergerer", :via => :get
   match "/profiles/merge/:id" => "profiles#merge", :via => :get
+  match "/profiles/detach_profile/:id" => "profiles#detach_profile", :via => :get
 end
