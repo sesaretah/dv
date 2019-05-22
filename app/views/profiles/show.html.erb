@@ -21,11 +21,10 @@
           <%= link_to "/profiles/contributions/#{@profile.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
           <i class="fe fe-book-open" style="vertical-align: -3px;"></i> <%=t :contributed_articles%>
           <%end%>
-          <% if grant_access("alter_profiles", current_user)%>
-          <%= link_to "/profiles/profile_details/#{@profile.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-          <i class="fe fe-play" style="vertical-align: -3px;"></i> <%=t :profile_details%>
-          <%end%>
-          <%end%>
+    
+            <%= link_to "/profiles/profile_details/#{@profile.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+              <i class="fe fe-play" style="vertical-align: -3px;"></i> <%=t :profile_details%>
+            <%end%>
         </div>
       </div>
       <div id='profile-show'>

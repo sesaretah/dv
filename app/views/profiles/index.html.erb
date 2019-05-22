@@ -10,11 +10,13 @@
               <%end%>
             </div>
 
+            <% if grant_access("alter_profiles", current_user)%>
             <div class="text-center mt-2">
               <%= link_to  '/profiles/mergerer/1', class: "btn btn-orange  btn-sm" do%>
               <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :merge%>
               <%end%>
             </div>
+            <%end%>
           </div>
           <div class="card-footer">
           </div>
@@ -29,55 +31,55 @@
       </div>
       <div class='table-responsive'>
         <table class="table table-hover table-outline table-vcenter text-nowrap">
-        <tbody>
-          <% @profiles.each do |profile| %>
-          <tr>
-            <td class="text-center">
-              <div class="item-action dropdown">
-                <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <a href="/profiles/<%= profile.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
-                  <% if grant_access("alter_profiles", current_user)%>
-                  <a href="/profiles/<%= profile.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
-                  <%= link_to profile, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
-                  <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
-                  <%end%>
-                  <%end%>
+          <tbody>
+            <% @profiles.each do |profile| %>
+            <tr>
+              <td class="text-center">
+                <div class="item-action dropdown">
+                  <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a href="/profiles/<%= profile.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
+                    <% if grant_access("alter_profiles", current_user)%>
+                    <a href="/profiles/<%= profile.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
+                    <%= link_to profile, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
+                    <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
+                    <%end%>
+                    <%end%>
+                  </div>
                 </div>
-              </div>
-            </td>
-            <td class="w-1"><span class="avatar" style="background-image: url(<%= profile.avatar(:thumb)%>)"></span></td>
-            <td><%= truncate(profile.fullname, length: 25) %></td>
-            <td>
-              <% if profile.user_id.blank?%>
-              <i class="fe fe-shield-off"></i>
-              <%else%>
-              <i class="fe fe-shield"></i>
-              <%end%>
-            </td>
-            <td>
-              <div class="tag tag-dark" style='vertical-align: 6px;'>
-                <%= profile.articles.count %>
-                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
-              </div>
-            </td>
-            <td>
-              <% if !profile.user_id.blank?%>
-              <% for role in profile.user.roles%>
-              <div class="tag mt-1">
-                <%= role.title%>
-                <span class="tag-addon tag-yellow">
-                  <i class="fe fe-briefcase"></i>
-                </span>
-              </div>
-              <%end%>
-              <%end%>
-            </td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+              </td>
+              <td class="w-1"><span class="avatar" style="background-image: url(<%= profile.avatar(:thumb)%>)"></span></td>
+              <td><%= truncate(profile.fullname, length: 25) %></td>
+              <td>
+                <% if profile.user_id.blank?%>
+                <i class="fe fe-shield-off"></i>
+                <%else%>
+                <i class="fe fe-shield"></i>
+                <%end%>
+              </td>
+              <td>
+                <div class="tag tag-dark" style='vertical-align: 6px;'>
+                  <%= profile.articles.count %>
+                  <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
+                </div>
+              </td>
+              <td>
+                <% if !profile.user_id.blank?%>
+                <% for role in profile.user.roles%>
+                <div class="tag mt-1">
+                  <%= role.title%>
+                  <span class="tag-addon tag-yellow">
+                    <i class="fe fe-briefcase"></i>
+                  </span>
+                </div>
+                <%end%>
+                <%end%>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
