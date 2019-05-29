@@ -1,5 +1,25 @@
 class PublishersController < ApplicationController
-  before_action :set_publisher, only: [:show, :edit, :update, :destroy]
+  before_action :set_publisher, only: [:show, :edit, :update, :destroy, :publish_sources]
+
+  def publish_sources
+    @publish_sources = @publisher.publish_sources
+    resp = []
+    for r in @publish_sources
+      resp << {'title' => r.title, 'id' => r.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
+
+  def search
+    if !params[:q].blank?
+      @publishers = Publisher.search params[:q], :star => true
+    end
+    resp = []
+    for r in @publishers
+      resp << {'title' => r.title, 'id' => r.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
 
   # GET /publishers
   # GET /publishers.json

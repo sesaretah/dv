@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190513120808) do
+ActiveRecord::Schema.define(version: 20190526142321) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -347,14 +347,15 @@ ActiveRecord::Schema.define(version: 20190513120808) do
   end
 
   create_table "publications", force: :cascade do |t|
-    t.integer  "article_id",       limit: 4
-    t.integer  "publisher_id",     limit: 4
+    t.integer  "article_id",        limit: 4
+    t.integer  "publisher_id",      limit: 4
     t.date     "publication_date"
-    t.string   "pp",               limit: 255
-    t.string   "vol",              limit: 255
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.integer  "location_id",      limit: 4
+    t.string   "pp",                limit: 255
+    t.string   "vol",               limit: 255
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "location_id",       limit: 4
+    t.integer  "publish_source_id", limit: 4
   end
 
   create_table "publish_sources", force: :cascade do |t|

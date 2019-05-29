@@ -326,6 +326,11 @@ fa:
             title: 'عنوان'
             description: 'شرح'
             publisher_id: 'سازمان'
+        publication:
+            publisher_id: 'سازمان'
+            publish_source_id: 'منبع'
+            location_id: 'مکان '
+            pp: 'سایر جزپیات '
         access_control:
             view_unrelated_articles: 'نمایش اسناد غیر مرتبط'
             view_article_logs: 'منوی مقایسه در اسناد'
@@ -353,6 +358,11 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  source: 'منبع'
+  location: 'مکان'
+  article_publications_list: 'لیست اطلاعات نشر'
+  article_publications_form: 'فرم اطلاعات نشر'
+  publication: 'نشر '
   detached: 'قطع اتصال انجام شد '
   detach_profile: 'قطع اتصال'
   merge: 'ادغام '

@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   resources :article_events
   resources :section_items
   resources :sections
+  resources :publications
   #devise_for :users
   devise_for :users, :controllers => { :passwords => "passwords" }
 
@@ -141,4 +142,8 @@ Rails.application.routes.draw do
   match "/profiles/mergerer/:id" => "profiles#mergerer", :via => :get
   match "/profiles/merge/:id" => "profiles#merge", :via => :get
   match "/profiles/detach_profile/:id" => "profiles#detach_profile", :via => :get
+
+  match "/publishers/search/:id" => "publishers#search", :via => :get
+  match "/publishers/publish_sources/:id" => "publishers#publish_sources", :via => :get
+
 end

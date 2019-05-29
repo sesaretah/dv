@@ -2,6 +2,8 @@
 
 <%= render partial: 'articles/dates_form', locals: {article: @article}%>
 
+<%= render partial: 'articles/publishers_form', locals: {article: @article}%>
+
 <div class="card">
   <%= render partial: 'articles/upload_form', locals: {article: @article}%>
   <div class="card-footer text-right">

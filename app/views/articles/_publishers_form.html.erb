@@ -6,7 +6,7 @@
       </div>
       <div class="card-status card-status-left bg-blue"></div>
       <div class="card-body">
-        <% if permit_by_workflow(article, current_user, 'publications')%>
+        <% if permit_by_workflow(article, current_user, 'publication')%>
           <%= render partial: 'publications/remote_form', locals: {article: article, publication: Publication.new}%>
         <%end%>
       </div>
