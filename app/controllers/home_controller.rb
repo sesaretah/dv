@@ -106,7 +106,7 @@ class HomeController < ApplicationController
 
   def fix_query
     if !params[:q].blank?
-      @query = "#{params[:q]} | #{params[:q].replace('ی','ي')} | #{params[:q].replace('ي','ی')} | #{params[:q].replace('ک', 'ك')} | #{params[:q].replace('ك', 'ک')} "
+      @query = "#{params[:q]} | #{params[:q].gsub('ی','ي')} | #{params[:q].gsub('ي','ی')} | #{params[:q].gsub('ک', 'ك')} | #{params[:q].gsub('ك', 'ک')} "
     else
       @query = ''
     end
