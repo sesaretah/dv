@@ -56,6 +56,38 @@
       </div>
     </div>
   </div>
+  <p id='similar_titles' style="display:none">
+    <b><%=t :similar_titles%></b>
+    <ul id='similars'></ul>
+  </p>
+  <script>
+  $('#article_title').keyup(function() {
+    var query = $('#article_title').val();
+    $.ajax({
+      url: '/articles/title_search/1',
+      type: 'GET',
+      dataType: 'json',
+      data: {
+        q: query,
+      },
+      error: function() {
+        $('#similar_titles').hide();
+      },
+      success: function(res) {
+        if (res.length > 0) {
+          $('#similar_titles').show();
+        } else {
+          $('#similar_titles').hide();
+        }
+
+        $('#similars').html('');
+        for (var i = 0, len = res.length; i < len; i++) {
+          $('#similars').append("<li><a href='/articles/"+ res[i].id +"'>"+ res[i].title+'</a></li>');
+        }
+      }
+    });
+  });
+  </script>
 
   <div class="alert alert-warning" role="alert">
     <%=t :other_titles%>

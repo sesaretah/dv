@@ -465,6 +465,7 @@ function fireAutoCompleteEvent(event) {
   });
 
 
+
   $('.input-tags').selectize({
     plugins: ['remove_button'],
     create:       false,

@@ -1,3 +1,15 @@
+<style>
+.progressbar li {
+    list-style-type: none;
+    width: <%= 100 / (@article.workflow_state.workflow.sections.count + 1)- 1%>%;
+    float: right;
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    color: #7d7d7d;
+}
+</style>
 <div class='pcontainer'>
   <ul class="progressbar">
     <li class="active"><%= link_to t(:titles), '/articles/'+@article.id.to_s+'/edit' %></li>
@@ -19,7 +31,8 @@
     <%end%>
 </div>
 <%end%>
-
+<div class="card">
+  <div class="card-body p-1">
 <% for section_item in @section.section_items%>
   <% case section_item.klass_name%>
     <% when 'article_area'%>
@@ -44,8 +57,13 @@
       <%= render partial: 'articles/upload_form', locals: {article: @article}%>
     <% when 'contribution'%>
       <%= render partial: 'articles/contribution_form', locals: {article: @article}%>
+    <% when 'publisher'%>
+      <%= render partial: 'articles/publishers_form', locals: {article: @article}%>
   <%end%>
+  <hr />
 <%end%>
+
+</div>
 
 <div class="card-footer text-right">
   <% if !@article.next_section(@section.id).blank?%>
@@ -53,4 +71,5 @@
   <%else%>
     <a href='/articles/sectioned_form/<%= @article.id%>' class="btn btn-primary"><%=t :submit_and_view%></a>
   <%end%>
+</div>
 </div>

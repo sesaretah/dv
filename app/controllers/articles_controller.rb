@@ -4,6 +4,18 @@ class ArticlesController < ApplicationController
   def sectioned_form
     @section = Section.find(params[:section_id])
   end
+
+  def title_search
+    if !params[:q].blank?
+      @articles = Article.search :conditions => {:title => params[:q]}, :star => true
+    end
+    resp = []
+    for r in @articles
+      resp << {'title' => r.title , 'id' => r.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
+
   def print
     @word_tempate = WordTemplate.find(params[:word_template])
     @articles = []
