@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!, :except => [:email_sent]
+  before_action :fix_query, :only => [:advanced_search]
   def reports
     if !params[:start_yyyy].blank?
       @start_date = JalaliDate.to_gregorian(params[:start_yyyy],params[:start_mm],params[:start_dd])
@@ -46,7 +47,6 @@ class HomeController < ApplicationController
   end
 
   def advanced_search
-    @query = "#{params[:q]} | #{params[:q].replace('ی','ي')} | #{params[:q].replace('ي','ی')} | #{params[:q].replace('ک', 'ك')} | #{params[:q].replace('ك', 'ک')} "
     @model_results = Article.search params[:q], :page => params[:page], :per_page => 15, with: restrict_articles
     @model_results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
     @group_results = group_articles(restrict_articles)
@@ -102,5 +102,13 @@ class HomeController < ApplicationController
   private
   def grouper(model, query, group_by, with_hash)
     return model.search query, with: with_hash, :group_by => group_by,  :order_group_by => 'count(*) desc'
+  end
+
+  def fix_query
+    if !params[:q].blank?
+      @query = "#{params[:q]} | #{params[:q].replace('ی','ي')} | #{params[:q].replace('ي','ی')} | #{params[:q].replace('ک', 'ك')} | #{params[:q].replace('ك', 'ک')} "
+    else
+      @query = ''
+    end
   end
 end
