@@ -100,6 +100,6 @@ class HomeController < ApplicationController
 
   private
   def grouper(model, query, group_by, with_hash)
-    return model.search query, star: true, with: with_hash, :group_by => group_by,  :order_group_by => 'count(*) desc'
+    return model.search query, with: with_hash, :group_by => group_by,  :order_group_by => 'count(*) desc'
   end
 end
