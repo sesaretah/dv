@@ -47,7 +47,7 @@ class HomeController < ApplicationController
   end
 
   def advanced_search
-    @model_results = Article.search params[:q], :page => params[:page], :per_page => 15, with: restrict_articles
+    @model_results = Article.search @query, :page => params[:page], :per_page => 15, with: restrict_articles
     @model_results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
     @group_results = group_articles(restrict_articles)
   end
@@ -87,13 +87,13 @@ class HomeController < ApplicationController
 
   def group_articles(with_hash)
     @result  = {
-      'Tagging' => grouper(Article, params[:q], 'tagging_ids', with_hash),
-      'Profile'       => grouper(Article, params[:q], 'profile_ids',  with_hash),
-      'Language'      => grouper(Article, params[:q], 'language_ids', with_hash) ,
-      'ArticleType'   => grouper(Article, params[:q], 'article_type_ids', with_hash),
-      'ArticleFormat' => grouper(Article, params[:q], 'article_format_ids', with_hash),
-      'ArticleArea'   => grouper(Article, params[:q], 'article_area_ids', with_hash) ,
-      'ArticleSource' => grouper(Article, params[:q], 'article_source_ids', with_hash)
+      'Tagging' => grouper(Article, @query, 'tagging_ids', with_hash),
+      'Profile'       => grouper(Article, @query, 'profile_ids',  with_hash),
+      'Language'      => grouper(Article, @query, 'language_ids', with_hash) ,
+      'ArticleType'   => grouper(Article, @query, 'article_type_ids', with_hash),
+      'ArticleFormat' => grouper(Article, @query, 'article_format_ids', with_hash),
+      'ArticleArea'   => grouper(Article, @query, 'article_area_ids', with_hash) ,
+      'ArticleSource' => grouper(Article, @query, 'article_source_ids', with_hash)
 
     }
     return @result
