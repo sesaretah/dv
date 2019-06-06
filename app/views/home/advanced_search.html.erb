@@ -82,6 +82,25 @@
           <%= will_paginate @model_results %>
         </div>
         <%end%>
+
       </div>
+      <% if  @all_results%>
+      <div class='card'>
+        <div class="card-header"><%=t :search_in_other_tables%></div>
+        <div class="card-body">
+          <% @all_results.group_by(&:class).each do |c,i|%>
+          <ul>
+            <li><%=t c%>:
+              <ul>
+                <% for item in i%>
+                <li><%= link_to item.title, item%></li>
+                <% end%>
+              </ul>
+            </li>
+          </ul>
+          <%end%>
+        </div>
+      </div>
+      <%end%>
     </div>
   </div>
