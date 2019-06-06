@@ -46,6 +46,7 @@ class HomeController < ApplicationController
   end
 
   def advanced_search
+    @query = "#{params[:q]} | #{params[:q].replace('ی','ي')} | #{params[:q].replace('ي','ی')} | #{params[:q].replace('ک', 'ك')} | #{params[:q].replace('ك', 'ک')} "
     @model_results = Article.search params[:q], :page => params[:page], :per_page => 15, with: restrict_articles
     @model_results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
     @group_results = group_articles(restrict_articles)
