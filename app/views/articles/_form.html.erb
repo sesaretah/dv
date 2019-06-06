@@ -89,6 +89,15 @@
   });
   </script>
 
+  <div class="row">
+    <div class="col-md-10">
+      <div class="form-group">
+        <%= f.label :description, class: "form-label" %>
+        <%= f.text_field :description , class: "form-control"%>
+      </div>
+    </div>
+  </div>
+
   <div class="alert alert-warning" role="alert">
     <%=t :other_titles%>
     <%= link_to '/titlings/add_item/1', remote: true do%>

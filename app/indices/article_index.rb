@@ -4,6 +4,7 @@ ThinkingSphinx::Index.define :article, :with => :real_time do
   indexes title
   indexes document_contents
   indexes content_wo_tags
+  indexes notes
 
   has article_source_ids, :type => :integer, :multi => true
   has article_area_ids, :type => :integer, :multi => true

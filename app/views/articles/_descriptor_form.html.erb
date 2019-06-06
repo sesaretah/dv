@@ -24,6 +24,14 @@
   </div>
   <%end%>
 
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :notes, class: "form-label" %>
+        <%= f.text_area :notes , row: 4, class: "form-control" %>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -59,6 +67,24 @@
     </div>
   </div>
   <%end%>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :dimensions, class: "form-label" %>
+        <%= f.text_field :dimensions , class: "form-control"%>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :retrieval_number, class: "form-label" %>
+        <%= f.text_field :retrieval_number , class: "form-control" %>
+      </div>
+    </div>
+  </div>
 <% end %>
 
 <script>

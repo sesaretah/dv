@@ -231,6 +231,10 @@ fa:
             url: 'پیوند(url)'
             workflow_state_id: 'گام فعلی'
             slug: 'شناسه یکتا'
+            description: 'توصیف'
+            notes: 'یادداشت'
+            dimensions: 'ابعاد و اندازه'
+            retrieval_number: 'شماره بازیابی'
         tag:
             title: 'عنوان'
             tag_type_id: 'نوع موضوع'
