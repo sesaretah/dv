@@ -13,7 +13,7 @@
         <% for publication in article.publications%>
         <tr>
         <td><%= publication.publisher.title%></td>
-        <td><%= publication.publish_source.title%></td>
+        <td><%= publication.publish_source.title rescue nil%></td>
         <td><%= publication.location.title%></td>
         <td><%= publication.pp%></td>
           <td class="">

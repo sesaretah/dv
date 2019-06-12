@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   match "/home/change_current_role" => "home#change_current_role", :via => :get
 
   match "/home/email_sent" => "home#email_sent", :via => :get
+  match "/home/search" => "home#search", :via => :get
 
   match "/titlings/add_item/:id" => "titlings#add_item", :via => :get
 

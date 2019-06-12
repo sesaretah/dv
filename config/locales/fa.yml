@@ -362,6 +362,7 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  sign_in_or_sign_up: 'ثبت نام/ ورود'
   Profile: 'افراد'
   Keyword: 'کلمات کلیدی'
   search_in_other_tables: 'جستجو در سایر جداول'

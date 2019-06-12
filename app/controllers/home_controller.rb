@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, :except => [:email_sent]
+  before_action :authenticate_user!, :except => [:email_sent, :search, :advanced_search]
   before_action :fix_query, :only => [:advanced_search]
   def reports
     if !params[:start_yyyy].blank?
@@ -25,6 +25,10 @@ class HomeController < ApplicationController
       current_user.current_role_id = params[:role_id]
       current_user.save
     end
+  end
+
+  def search
+    render layout: false
   end
 
   def index

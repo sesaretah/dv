@@ -6,7 +6,7 @@
       </a>
       <div class="d-flex order-lg-2 mr-auto">
         <div class="nav-item d-none d-md-flex">
-          <% if !current_user.roles.blank?%>
+          <% if user_signed_in? && !current_user.roles.blank?%>
           <div class="dropdown">
             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
               <i class="fe fe-briefcase mr-2"></i><%=t :change_current_role%>
@@ -17,7 +17,13 @@
             </div>
             <%end%>
         </div>
+        <div class="nav-item d-none d-md-flex">
+          <% if !user_signed_in?%>
+            <a href="/users/sign_in" class="btn btn-sm btn-secondary"><%=t :sign_in_or_sign_up%></a>
+          <%end%>
+        </div>
         <div class="dropdown" >
+          <% if user_signed_in?%>
           <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
             <span class="avatar" style="background-image: url(<%= current_user.profile.avatar(:thumb)%>)"></span>
             <span class="ml-2 d-none d-lg-block">
@@ -25,6 +31,7 @@
               <small class="text-muted d-block mt-1"><%= truncate(Role.find_by_id(current_user.current_role_id).title, length: 30) rescue nil%></small>
             </span>
           </a>
+
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" style=" right: auto !important;">
             <a class="dropdown-item" href="/profiles/<%= current_user.profile.id%>">
               <i class="dropdown-icon fe fe-user"></i><%=t :my_profile%>
@@ -34,6 +41,7 @@
               <i class="dropdown-icon fe fe-log-out"></i><%=t :sign_out%>
             </a>
           </div>
+          <%end%>
         </div>
       </div>
       <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
@@ -55,15 +63,20 @@
       </div>
       <div class="col-lg order-lg-first">
         <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+          <% if !user_signed_in?%>
           <li class="nav-item">
             <a href="/" class="nav-link"><i class="fe fe-home"></i><%=t :home%></a>
           </li>
+          <%end%>
+          <% if !user_signed_in?%>
           <li class="nav-item">
             <a href="/articles" class="nav-link"><i class="fe fe-book-open"></i><%=t :articles%></a>
           </li>
+          <%end%>
           <li class="nav-item">
             <a href="/home/advanced_search" class="nav-link"><i class="fe fe-search"></i><%=t :advanced_search%></a>
           </li>
+          <% if !user_signed_in?%>
           <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-grid"></i><%=t :base_tables%></a>
             <div class="dropdown-menu dropdown-menu-arrow">
@@ -88,6 +101,8 @@
               <a href="/publish_sources" class="dropdown-item "><%=t :publish_sources%></a>
             </div>
           </li>
+          <%end%>
+          <% if !user_signed_in?%>
           <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-settings"></i><%=t :settings%></a>
             <div class="dropdown-menu dropdown-menu-arrow">
@@ -95,9 +110,12 @@
               <a href="/assignments" class="dropdown-item "><%=t :assignments%></a>
             </div>
           </li>
+          <%end%>
+          <% if !user_signed_in?%>
           <li class="nav-item">
             <a href="/home/reports" class="nav-link"><i class="fe fe-bar-chart-2" ></i><%=t :reports%></a>
           </li>
+          <%end%>
         </ul>
       </div>
     </div>
