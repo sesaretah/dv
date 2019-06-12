@@ -62,7 +62,7 @@ Rails.application.routes.draw do
 
   match "/home/advanced_search" => "home#advanced_search", :via => :get
   match "/home/change_current_role" => "home#change_current_role", :via => :get
-
+  match "/home" => "home#index", :via => :get
   match "/home/email_sent" => "home#email_sent", :via => :get
   match "/home/search" => "home#search", :via => :get
 

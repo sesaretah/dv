@@ -28,11 +28,15 @@ class HomeController < ApplicationController
   end
 
   def search
-    render layout: false
+  #  if user_signed_in?
+  #    render '/home/index'
+  #  else
+      render layout: false
+  #  end
   end
 
   def index
-    if !params[:slug].blank?
+    if params[:slug] != 'home' && !params[:slug].blank?
       @article = Article.find_by_slug(params[:slug])
       if !@article.blank?
         redirect_to @article
