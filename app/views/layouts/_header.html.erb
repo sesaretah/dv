@@ -63,12 +63,12 @@
       </div>
       <div class="col-lg order-lg-first">
         <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
-          <% if !user_signed_in?%>
+          <% if user_signed_in?%>
           <li class="nav-item">
             <a href="/" class="nav-link"><i class="fe fe-home"></i><%=t :home%></a>
           </li>
           <%end%>
-          <% if !user_signed_in?%>
+          <% if user_signed_in?%>
           <li class="nav-item">
             <a href="/articles" class="nav-link"><i class="fe fe-book-open"></i><%=t :articles%></a>
           </li>
@@ -76,7 +76,7 @@
           <li class="nav-item">
             <a href="/home/advanced_search" class="nav-link"><i class="fe fe-search"></i><%=t :advanced_search%></a>
           </li>
-          <% if !user_signed_in?%>
+          <% if user_signed_in?%>
           <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-grid"></i><%=t :base_tables%></a>
             <div class="dropdown-menu dropdown-menu-arrow">
@@ -102,7 +102,7 @@
             </div>
           </li>
           <%end%>
-          <% if !user_signed_in?%>
+          <% if user_signed_in?%>
           <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-settings"></i><%=t :settings%></a>
             <div class="dropdown-menu dropdown-menu-arrow">
@@ -111,7 +111,7 @@
             </div>
           </li>
           <%end%>
-          <% if !user_signed_in?%>
+          <% if user_signed_in?%>
           <li class="nav-item">
             <a href="/home/reports" class="nav-link"><i class="fe fe-bar-chart-2" ></i><%=t :reports%></a>
           </li>
