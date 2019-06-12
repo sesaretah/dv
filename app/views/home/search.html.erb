@@ -1810,6 +1810,8 @@
   <div class="nav-item d-none d-md-flex" style="text-align:  left; padding: 10px; background-color: black; color: white !important">
     <% if !user_signed_in?%>
       <a href="/users/sign_in" class="btn btn-sm btn-secondary"><%=t :sign_in_or_sign_up%></a>
+    <%else%>
+        <a href="/home" class="btn btn-sm btn-secondary"><%=t :home%></a>
     <%end%>
   </div>
   <div class="s002">

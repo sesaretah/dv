@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
  def after_sign_in_path_for(user)
    if !user.profile.blank?
-     session['user_return_to'] || root_path
+     session['user_return_to'] || '/home'
    else
      '/profiles/new'
    end
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
  def after_sign_up_path_for(user)
    if !user.profile.blank?
-     root_path
+     '/home'
    else
      '/profiles/new'
    end
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
  def after_inactive_sign_up_path_for(user)
    if !user.profile.blank?
-     root_path
+     '/home'
    else
      '/profiles/new'
    end
