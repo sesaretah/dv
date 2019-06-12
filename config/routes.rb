@@ -57,7 +57,7 @@ Rails.application.routes.draw do
 
   resources :article_areas
   resources :section_items
-  root to: 'home#index'
+  root to: 'home#search'
   get ':slug' => 'home#index'
 
   match "/home/advanced_search" => "home#advanced_search", :via => :get
