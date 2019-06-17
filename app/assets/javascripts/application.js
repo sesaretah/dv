@@ -12,7 +12,16 @@
 //
 //= require ckeditor/init
 //= require 'jquery-3.3.1.min'
+//= require 'jquery-ui.min.js'
+//= require 'persian-date.min'
+//= require 'rails.min.js'
 //= require 'popper.min.js'
 //= require 'bootstrap.min.js'
+//= require 'dropzone.min.js'
+//= require 'moment.min.js'
+//= require 'fa.js'
+//= require 'selectize.min.js'
+//= require 'async.min.js'
+//= require 'c3.min.js'
 // require turbolinks
 //= require_tree .
