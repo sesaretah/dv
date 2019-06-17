@@ -7,6 +7,13 @@
 }
 
 @font-face {
+    font-family: 'irannastaliq';
+    src: asset-url('IranNastaliq-Web.woff');
+    src: asset-url('IranNastaliq-Web.woff') format('woff'),
+         asset-url('IranNastaliq-Web.ttf') format('truetype');
+}
+
+@font-face {
   font-family: "feather";
   src: asset-url("feather-webfont.eot");
 
