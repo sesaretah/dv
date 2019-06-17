@@ -21,7 +21,9 @@
       <table class="table card-table table-vcenter">
         <tbody>
           <% @assignments.group_by(&:user).each do |u, m| %>
+
           <tr>
+            <% if u.profile %>
             <td><%= u.profile.fullname %></td>
             <td>
               <% m.each do |a|%>
@@ -38,6 +40,9 @@
               </div>
               <%end%>
             </td>
+            <%else%>
+              <%=u.id%>
+            <%end%>
           </tr>
           <% end %>
         </tbody>
