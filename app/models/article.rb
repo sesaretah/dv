@@ -1,6 +1,7 @@
 class Article < ActiveRecord::Base
   after_save ThinkingSphinx::RealTime.callback_for(:article)
 
+
   has_many :datings
 
   has_many :article_events, :through => :datings

@@ -25,4 +25,21 @@ class Upload < ActiveRecord::Base
   def resize_images
     return false unless image?
   end
+
+  def extract_text
+    if self.uploadable_type = 'Article'
+      @article = Article.find_by_id(self.uploadable_id)
+      if !@article.blank?
+        @article.document_contents = ''
+        for upload in @article.uploads
+          @text =  %x[java -jar #{Rails.root}/lib/tika-app-1.20.jar -h #{upload.attachment.path}]
+          if !@text.blank?
+            @article.document_contents =  @article.document_contents + ' ' + @text
+          end
+        end
+        @article.save
+      end
+    end
+  end
+
 end

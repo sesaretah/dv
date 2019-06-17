@@ -281,13 +281,13 @@ class ArticlesController < ApplicationController
     if @article.slug.blank?
       @article.slug = SecureRandom.hex(4)
     end
-    @article.document_contents = ''
-    for upload in @article.uploads
-      @text =  %x[java -jar #{Rails.root}/lib/tika-app-1.20.jar -h #{upload.attachment.path}]
-      if !@text.blank?
-        @article.document_contents =  @article.document_contents + ' ' + @text
-      end
-    end
+  #  @article.document_contents = ''
+  #  for upload in @article.uploads
+  #    @text =  %x[java -jar #{Rails.root}/lib/tika-app-1.20.jar -h #{upload.attachment.path}]
+  #    if !@text.blank?
+  #      @article.document_contents =  @article.document_contents + ' ' + @text
+  #    end
+  #  end
     if !params[:article].blank? && !params[:article][:content].blank?
       @article.content_wo_tags = ActionView::Base.full_sanitizer.sanitize(params[:article][:content])
     end
