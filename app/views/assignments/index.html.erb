@@ -41,7 +41,22 @@
               <%end%>
             </td>
             <%else%>
-              <%=u.id%>
+            <td><%= u.email %></td>
+            <td>
+              <% m.each do |a|%>
+              <div class="tag mt-1">
+                  <%= a.role.title%>
+
+                <span class="tag-addon tag-yellow" style="border-top-right-radius: 0px;border-bottom-right-radius: 0px;">
+                  <i class="fe fe-briefcase"></i>
+                </span>
+                <%= link_to a, method: :delete, class: "tag-addon",data: { confirm: 'Are you sure?' } do%>
+                  <i class="fe fe-x" style="vertical-align:-3px"></i>
+                <%end%>
+
+              </div>
+              <%end%>
+            </td>
             <%end%>
           </tr>
           <% end %>
