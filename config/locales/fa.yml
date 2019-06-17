@@ -224,6 +224,8 @@ fa:
             password: 'رمز عبور'
             password_confirmation: 'تکرار رمز عبور'
             remember_me: 'مرا به خاطر بسپار'
+            current_password: 'رمز عبور کنونی'
+            new_password: 'رمز عبور جدید '
         article:
             title: 'عنوان اصلی'
             abstract: 'چکیده/خلاصه'
@@ -362,6 +364,10 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  update: 'بروزرسانی'
+  change_password: 'تغییر رمز عبور'
+  leave_blank_if_you_dont_want_to_change_it: ''
+  we_need_your_current_password_to_confirm_your_changes: ''
   sign_in_or_sign_up: 'ثبت نام/ ورود'
   Profile: 'افراد'
   Keyword: 'کلمات کلیدی'
