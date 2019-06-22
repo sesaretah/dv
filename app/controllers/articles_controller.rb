@@ -244,11 +244,13 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
-    @workflow_states = WorkflowState.where(role_id: current_user.current_role_id).group_by(&:workflow_id).keys
-    if !@workflow_states.blank?
-      @workflows = Workflow.where('id in (?)', @workflow_states )
+    if !article_owner(@article, current_user)
+      head(403)
     else
-      redirect_to '/articles', notice: :you_have_not_the_right_permission_to_create_article
+      @workflow_states = WorkflowState.where(role_id: current_user.current_role_id).group_by(&:workflow_id).keys
+      if !@workflow_states.blank?
+        @workflows = Workflow.where('id in (?)', @workflow_states )
+      end
     end
   end
 
@@ -316,10 +318,10 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1
   # DELETE /articles/1.json
   def destroy
-    @article.destroy
-    respond_to do |format|
-      format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
-      format.json { head :no_content }
+    if !article_owner(@article, current_user)
+      head(403)
+    else
+      @article.destroy
     end
   end
 
@@ -421,6 +423,8 @@ class ArticlesController < ApplicationController
   def set_article
     @article = Article.find(params[:id])
   end
+
+
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def article_params

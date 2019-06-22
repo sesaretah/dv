@@ -364,6 +364,8 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  attachment: 'پیوست'
+  wokflow: 'گردش کار'
   update: 'بروزرسانی'
   change_password: 'تغییر رمز عبور'
   leave_blank_if_you_dont_want_to_change_it: ''
