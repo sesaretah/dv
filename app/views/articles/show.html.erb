@@ -61,7 +61,7 @@
         <%= link_to "/articles/article_detail/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
         <i class="fe fe-play" style="vertical-align: -3px;"></i> <%=t :article_detail%>
         <%end%>
-        <% if article_owner(article, current_user)%>
+        <% if article_owner(@article, current_user)%>
           <a href="/articles/<%= @article.id%>/edit" class="btn btn-secondary btn-sm ml-1"><i class="fe fe-edit-2" style="vertical-align: -3px;"></i> <%=t :edit%></a>
         <%end%>
       </div>
