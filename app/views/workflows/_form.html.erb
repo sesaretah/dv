@@ -60,7 +60,7 @@
             <label class="form-label">
               <%=t :related_role%>
             </label>
-            <%= select_tag 'role', options_for_select(Role.all.collect{ |u| ["#{u.title}", u.id] }) ,{include_blank: true, class:"form-control"}%>
+            <%= select_tag 'role', options_for_select(Role.all.order(:title).collect{ |u| ["#{u.title}", u.id] }) ,{include_blank: true, class:"form-control"}%>
           </div>
         </div>
 
