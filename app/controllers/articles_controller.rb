@@ -262,8 +262,10 @@ class ArticlesController < ApplicationController
       @article.slug = SecureRandom.hex(4)
     end
     if !params[:workflow].blank?
-      @workflow_state = WorkflowState.where(workflow_id: params[:workflow].to_i, start_point: 2).first
-      @article.workflow_state_id = @workflow_state.id
+      @workflow_state = WorkflowState.where(workflow_id: params[:workflow].to_i, start_point: 2, role_id: current_user.current_role_id).first
+      if !@workflow_state.blank?
+        @article.workflow_state_id = @workflow_state.id
+      end
     end
     @article.save
     extract_other_titles
