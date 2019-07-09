@@ -329,9 +329,12 @@ fa:
         publisher:
             title: 'عنوان'
             description: 'شرح '
+            organization_type: 'نوع سازمان '
         location:
             title: 'عنوان'
             description: 'شرح'
+        involvement:
+            publisher_id: 'نام سازمان'
         publish_source:
             title: 'عنوان'
             description: 'شرح'
@@ -368,6 +371,10 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  involvement_form: 'فرم سازمان های مرتبط'
+  article_involvements: 'سازمان های مرتبط با این سند '
+  temporal: 'موقت'
+  permanent: 'دائم'
   reply_all: 'پاسخ همه'
   reply: 'پاسخ'
   no_messages: 'در حال حاضر پیامی وجود ندارد'

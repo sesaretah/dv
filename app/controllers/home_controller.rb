@@ -28,11 +28,11 @@ class HomeController < ApplicationController
   end
 
   def search
-  #  if user_signed_in?
-  #    render '/home/index'
-  #  else
-      render layout: false
-  #  end
+    #  if user_signed_in?
+    #    render '/home/index'
+    #  else
+    render layout: false
+    #  end
   end
 
   def index
@@ -94,20 +94,27 @@ class HomeController < ApplicationController
       end
 
     end
-    p @h
     return @h
   end
 
   def date_filter
-    @start_date = JalaliDate.to_gregorian(params[:start_date_yyyy],params[:start_date_mm],params[:start_date_dd])
-    @end_date = JalaliDate.to_gregorian(params[:end_date_yyyy],params[:end_date_mm],params[:end_date_dd])
     @filtered_datings = []
-    for dating in Dating.all
+    if params[:start_date_yyyy].blank?
+      return []
+    else
+      @start_date = JalaliDate.to_gregorian(params[:start_date_yyyy],params[:start_date_mm],params[:start_date_dd])
+      @end_date = JalaliDate.to_gregorian(params[:end_date_yyyy],params[:end_date_mm],params[:end_date_dd])
+      for dating in Dating.all
         if(@start_date.to_date < dating.event_date &&  dating.event_date < @end_date.to_date)
           @filtered_datings << dating.id
         end
       end
-    return @filtered_datings
+      if @filtered_datings.length > 0
+        return @filtered_datings
+      else
+        return [0]
+      end
+    end
   end
 
 
@@ -119,7 +126,7 @@ class HomeController < ApplicationController
       'ArticleType'   => grouper(Article, @query, 'article_type_ids', with_hash),
       'ArticleFormat' => grouper(Article, @query, 'article_format_ids', with_hash),
       'ArticleArea'   => grouper(Article, @query, 'article_area_ids', with_hash) ,
-      'ArticleEvent' => grouper(Article, @query, 'article_event_ids', with_hash),
+      #    'ArticleEvent' => grouper(Article, @query, 'article_event_ids', with_hash),
       'ArticleSource' => grouper(Article, @query, 'article_source_ids', with_hash)
 
     }

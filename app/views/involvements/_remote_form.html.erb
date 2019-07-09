@@ -1,0 +1,27 @@
+<%= form_for(involvement, remote: true,html: {id: 'article_involvements_form'}) do |f| %>
+<% if involvement.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(involvement.errors.count, "error") %> prohibited this involvement from being saved:</h2>
+
+  <ul>
+    <% involvement.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+  <%= f.hidden_field :article_id , value: article.id %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+          <%= f.label :publisher_id, class: "form-label" %>
+        <%= text_field_tag :article_publisher, nil , class: "form-control" %>
+        <%= f.hidden_field :publisher_id , value: '' %>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+  </div>
+  <% end %>

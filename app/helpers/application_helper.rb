@@ -1,5 +1,13 @@
 module ApplicationHelper
 
+  def organization_types
+    @options = [
+      [t(:temporal), 1],
+      [t(:permanent) , 0]
+    ]
+    return @options
+  end
+
   def item_names
     @options = [
       [t(:article_attachment), 'article_attachment'],

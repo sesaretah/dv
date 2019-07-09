@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :involvements
   resources :messages
   resources :publish_sources
   resources :locations

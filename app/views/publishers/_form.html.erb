@@ -15,24 +15,32 @@
 <% end %>
 
 <div class="card-body">
-<div class="row">
-  <div class="col-md-5">
-    <div class="form-group">
-          <%= f.label :title, class: "form-label" %>
-      <%= f.text_field :title , class: "form-control" %>
-          </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :title, class: "form-label" %>
+        <%= f.text_field :title , class: "form-control" %>
+      </div>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-5">
-    <div class="form-group">
-          <%= f.label :description, class: "form-label" %>
-      <%= f.text_area :description , class: "form-control" %>
-          </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :description, class: "form-label" %>
+        <%= f.text_area :description , class: "form-control" %>
+      </div>
+    </div>
   </div>
-</div>
-<div class="card-footer text-right">
-  <button type="submit" class="btn btn-primary"><%=t :submit%></button>
-</div>
-<% end %>
+
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= f.label :organization_type, class: "form-label" %>
+      <%= f.select :organization_type, options_for_select(organization_types, @publisher.organization_type), {}  ,{include_blank: true, class:"form-control "}%>
+    </div>
+  </div>
+
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+  </div>
+  <% end %>
 </div>

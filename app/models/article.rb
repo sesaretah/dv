@@ -24,6 +24,9 @@ class Article < ActiveRecord::Base
   has_many :profiles, :through => :contributions
   has_many :contributions, dependent: :destroy
 
+  has_many :publishers, :through => :involvements
+  has_many :involvements, dependent: :destroy
+
   has_many :kinships, dependent: :destroy
   has_many :kins, :through => :kinships
   has_many :inverse_kinships, :class_name => "Kinship", :foreign_key => "kin_id", dependent: :destroy

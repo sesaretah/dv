@@ -116,6 +116,42 @@ function fireAutoCompleteEvent(event) {
     }
   });
 
+  $('#article_publisher').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'title',
+    searchField:  'title',
+    maxItems: 1,
+    preload:      true,
+    onItemAdd: function (value, item) {
+      $('#involvement_publisher_id').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/publishers/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+
   $('#article_duty').selectize({
     create:       false,
     labelField:   'title',

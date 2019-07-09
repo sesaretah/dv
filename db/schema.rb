@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190630104621) do
+ActiveRecord::Schema.define(version: 20190709174733) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -256,6 +256,14 @@ ActiveRecord::Schema.define(version: 20190630104621) do
   add_index "interconnects", ["token"], name: "index_interconnects_on_token", using: :btree
   add_index "interconnects", ["uuid"], name: "index_interconnects_on_uuid", using: :btree
 
+  create_table "involvements", force: :cascade do |t|
+    t.integer  "article_id",   limit: 4
+    t.integer  "publisher_id", limit: 4
+    t.text     "details",      limit: 65535
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "keywords", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
@@ -391,11 +399,12 @@ ActiveRecord::Schema.define(version: 20190630104621) do
   end
 
   create_table "publishers", force: :cascade do |t|
-    t.string   "title",       limit: 255
-    t.string   "description", limit: 255
-    t.integer  "user_id",     limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "title",             limit: 255
+    t.string   "description",       limit: 255
+    t.integer  "user_id",           limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "organization_type", limit: 4
   end
 
   create_table "role_accesses", force: :cascade do |t|
