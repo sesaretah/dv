@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :messages
   resources :publish_sources
   resources :locations
   resources :publishers
@@ -116,6 +117,8 @@ Rails.application.routes.draw do
   match "/profiles/contributions/:id" => "profiles#contributions", :via => :get
   match "/profiles/profile_details/:id" => "profiles#profile_details", :via => :get
   match "/profiles/cropper/:id" => "profiles#cropper", :via => :get
+  match "/profiles/search_in_users/:id" => "profiles#search_in_users", :via => :get
+
 
   match "/votes/remotec/:id" => "votes#remotec", :via => :get
 
@@ -147,5 +150,9 @@ Rails.application.routes.draw do
 
   match "/publishers/search/:id" => "publishers#search", :via => :get
   match "/publishers/publish_sources/:id" => "publishers#publish_sources", :via => :get
+
+  match "/messages/delete/:id" => "messages#delete", :via => :get
+  match "/messages/reply/:id" => "messages#reply", :via => :get
+  match "/messages/reply_all/:id" => "messages#reply_all", :via => :get
 
 end

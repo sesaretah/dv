@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190606122530) do
+ActiveRecord::Schema.define(version: 20190630104621) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -302,6 +302,25 @@ ActiveRecord::Schema.define(version: 20190606122530) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.text     "body",       limit: 65535
+    t.integer  "sender_id",  limit: 4
+    t.integer  "urgency",    limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "status",     limit: 4
+    t.integer  "parent_id",  limit: 4
+  end
+
+  create_table "messagings", force: :cascade do |t|
+    t.integer  "recipient_id", limit: 4
+    t.integer  "message_id",   limit: 4
+    t.integer  "status",       limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "notifications", force: :cascade do |t|

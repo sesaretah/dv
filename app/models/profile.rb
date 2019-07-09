@@ -1,4 +1,5 @@
 class Profile < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper
   after_save ThinkingSphinx::RealTime.callback_for(:profile)
   has_attached_file :avatar, :styles => { :medium => "140x140>", :tiny => "20x20>" ,:thumb => "35x35>", :large => "500x500>"  }, :default_url => "/assets/noimage-35-:style.jpg",  :processors => [:cropper]
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
@@ -31,7 +32,7 @@ class Profile < ActiveRecord::Base
   def fullname
     "#{self.name} #{self.surename}"
   end
-  
+
   def title
     "#{self.name} #{self.surename}"
   end
@@ -44,6 +45,10 @@ class Profile < ActiveRecord::Base
   def avatar_geometry(style = :original)
     @geometry ||= {}
     @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
+  end
+
+  def profile_tag
+    return "<span class='tag' data-toggle='tooltip' data-placement='top' title='#{self.fullname}'><span class='tag-avatar avatar' style='background-image: url(#{self.avatar(:tiny)})'></span>#{truncate(self.fullname, length: 15)}</span>"
   end
 
 

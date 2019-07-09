@@ -272,6 +272,10 @@ fa:
             title: 'عنوان'
             description: 'شرح'
             abr: 'مخفف (لاتین)'
+        message:
+            title: 'عنوان'
+            body: 'متن'
+            urgency: 'اولویت '
         duty:
             title: 'عنوان'
             description: 'شرح'
@@ -364,6 +368,18 @@ fa:
     page_gap: "&hellip;"
     previous_label: "قبلی"
     next_label: "بعدی"
+  reply_all: 'پاسخ همه'
+  reply: 'پاسخ'
+  no_messages: 'در حال حاضر پیامی وجود ندارد'
+  message: 'پیام'
+  retrun: 'بازگشت'
+  send: 'ارسال'
+  cancel: 'انصراف'
+  subject: 'موضوع '
+  recipients: 'دریافت کنندگان'
+  new_message: 'نوشتن پیام جدید'
+  sent: 'پیام های ارسالی'
+  inbox: 'پیام های رسیده'
   attachment: 'پیوست'
   wokflow: 'گردش کار'
   update: 'بروزرسانی'

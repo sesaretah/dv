@@ -1,0 +1,36 @@
+<div class="row row-cards">
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-center">
+              <% if true || grant_access("alter_article_areas", current_user)%>
+              <%= link_to  new_message_url, remote: true, class: "btn btn-lime  btn-sm" do%>
+              <i class="fe fe-plus" style="vertical-align:middle;"></i> <%=t :new_message%>
+              <%end%>
+              <%end%>
+            </div>
+          </div>
+        </div>
+
+        <div class="list-group list-group-transparent mb-2 text-center">
+          <%= link_to '/messages?type=inbox', class: "list-group-item list-group-item-action active small", style:'font-weight:normal;',  method: :get, remote: true do%>
+          <i class="fe fe-inbox" style="vertical-align:middle;"></i> <%=t :inbox%> (<%= @inbox_count%>)
+          <%end%>
+        </div>
+        <div class="list-group list-group-transparent mb-2 text-center">
+          <%= link_to '/messages?type=sent', class: "list-group-item list-group-item-action active small", style:'font-weight:normal;',  method: :get, remote: true do%>
+          <i class="fe fe-send" style="vertical-align:middle;"></i> <%=t :sent%> (<%= @sent_count%>)
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div id='messages'>
+      <%= render partial:'messages/list'%>
+      </div>
+    </div>
+  </div>
+</div>

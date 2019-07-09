@@ -43,6 +43,19 @@ class ProfilesController < ApplicationController
     end
     render :json => resp.to_json, :callback => params['callback']
   end
+
+  def search_in_users
+    if !params[:q].blank?
+      @profiles = Profile.search params[:q], :star => true
+    end
+    resp = []
+    for r in @profiles
+      if !r.user.blank?
+        resp << {'title' => r.fullname + " (#{r.id})" , 'id' => r.id, 'user_id' => r.user.id}
+      end
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
   # GET /profiles
   # GET /profiles.json
   def index

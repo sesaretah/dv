@@ -77,7 +77,7 @@
           </li>
           <%end%>
           <li class="nav-item">
-            <a href="/home/advanced_search" class="nav-link"><i class="fe fe-search"></i><%=t :advanced_search%></a>
+            <a href="/home/advanced_search" class="nav-link"><i class="fe fe-search"></i><%=t :search%></a>
           </li>
           <% if user_signed_in?%>
           <li class="nav-item">
@@ -103,6 +103,11 @@
               <a href="/locations" class="dropdown-item "><%=t :locations%></a>
               <a href="/publish_sources" class="dropdown-item "><%=t :publish_sources%></a>
             </div>
+          </li>
+          <%end%>
+          <% if user_signed_in?%>
+          <li class="nav-item">
+            <a href="/messages" class="nav-link"><i class="far fa-envelope"></i><%=t :messages%></a>
           </li>
           <%end%>
           <% if user_signed_in?%>

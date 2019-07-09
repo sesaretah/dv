@@ -68,6 +68,7 @@ function send(){
 Dropzone.autoDiscover = false;
 $("#new_upload").dropzone({
   dictDefaultMessage : "<%=t :drop_files_here_to_upload%>",
+  maxFilesize: 500,
   dictRemoveFile : "<%=t :remove_file %>",
   acceptedFiles : '.docx,.doc,.pdf,.txt, .png,.jpg,.jpeg, .ppt, .pptx, .xls, .xlsx, .tiff, .tif',
   addRemoveLinks: true,

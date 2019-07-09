@@ -71,6 +71,7 @@ class HomeController < ApplicationController
       'article_type_ids'   => [],
       'article_format_ids' => [],
       'article_area_ids'   => [],
+      'article_event_ids' =>  date_filter,
       'article_source_ids' => []
     }
     params.each do |name, value|
@@ -93,8 +94,22 @@ class HomeController < ApplicationController
       end
 
     end
+    p @h
     return @h
   end
+
+  def date_filter
+    @start_date = JalaliDate.to_gregorian(params[:start_date_yyyy],params[:start_date_mm],params[:start_date_dd])
+    @end_date = JalaliDate.to_gregorian(params[:end_date_yyyy],params[:end_date_mm],params[:end_date_dd])
+    @filtered_datings = []
+    for dating in Dating.all
+        if(@start_date.to_date < dating.event_date &&  dating.event_date < @end_date.to_date)
+          @filtered_datings << dating.id
+        end
+      end
+    return @filtered_datings
+  end
+
 
   def group_articles(with_hash)
     @result  = {
@@ -104,6 +119,7 @@ class HomeController < ApplicationController
       'ArticleType'   => grouper(Article, @query, 'article_type_ids', with_hash),
       'ArticleFormat' => grouper(Article, @query, 'article_format_ids', with_hash),
       'ArticleArea'   => grouper(Article, @query, 'article_area_ids', with_hash) ,
+      'ArticleEvent' => grouper(Article, @query, 'article_event_ids', with_hash),
       'ArticleSource' => grouper(Article, @query, 'article_source_ids', with_hash)
 
     }

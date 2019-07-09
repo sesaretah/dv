@@ -1,0 +1,58 @@
+<div id='messages'>
+  <div class="card" style='min-height: 400px'>
+    <div class="card-header">
+      <% if defined?(type)%><% @type = type%><%else%><% @type = 'inbox'%><%end%>
+      <%=t @type%>
+      <div class="card-options">
+        <% if @page.to_i > 1%>
+        <%= link_to "/messages?type=#{@type}&page=#{@page.to_i - 1}", remote:true do%>
+        <
+        <%end%>
+        <%end%>
+        <span class="small" style="vertical-align: 1px; color: #467fcf; padding-right: 2px; padding-left: 2px;"><%= @page%></span>
+        <% if (@messages.count / @per_page.to_i) > @page.to_i%>
+        <%= link_to "/messages?type=#{@type}&page=#{@page.to_i + 1}", remote:true do%>
+        >
+        <%end%>
+        <%end%>
+      </div>
+    </div>
+
+    <%if @messages.length == 0 %>
+    <div class="row p-4" >
+      <div class="col-lg-12 " >
+        <div class="alert alert-primary">
+          <%=t :no_messages%>
+        </div>
+      </div>
+    </div>
+    <%end%>
+
+    <div class='table-responsive'>
+      <table class="table table-inbox table-hover">
+        <tbody>
+          <span dir='ltr'>
+          </span>
+          <% @grouped.each do |g,i|%>
+          <% if !g.blank?%>
+          <% @message = g%>
+          <%= render partial: 'messages/message_row', locals: {message: @message}%>
+          <%else%>
+          <% for message in i %>
+          <% if !@grouped.keys.include?(message)%>
+            <%= render partial: 'messages/message_row', locals: {message: message}%>
+          <%end%>
+          <%end%>
+          <%end%>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+$( ".time" ).each(function( index ) {
+  $( this ).text(moment($( this ).text()).fromNow());
+});
+</script>
+</div>

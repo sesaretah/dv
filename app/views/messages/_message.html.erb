@@ -1,0 +1,92 @@
+<div id='messages'>
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title"><%=t :message %></h3>
+      <div class="card-options">
+        <%= link_to "/messages/reply/#{@message.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+        <i class="fas fa-reply"></i> <%=t :reply%>
+        <%end%>
+        <%= link_to "/messages/reply_all/#{@message.id}?recipients=#{@message.recipients.pluck(:id) + [@message.sender.id]}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+        <i class="fas fa-reply-all"></i> <%=t :reply_all%>
+        <%end%>
+        <%= link_to "/messages/delete/#{message.id}", method: :get, remote: true, class: "btn btn-secondary btn-sm ml-1" ,data: { confirm: 'Are you sure?' } do %>
+        <i class="fe fe-trash"></i><%=t :destroy%>
+        <%end%>
+        <%= link_to "/messages?type=#{type}&page=#{page}", method: :get, remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+        <i class="fas fa-door-open"></i> <%=t :retrun%>
+        <%end%>
+      </div>
+    </div>
+
+
+    <div class="card-body">
+
+      <div class="form-group">
+        <div class="row align-items-center">
+          <div class="col-sm-1 text-muted small p-0"><%=t :from%>:</div>
+          <div class="col-sm-11 small">
+            <%= raw message.sender.profile.profile_tag%>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row align-items-center">
+          <div class="col-sm-1 text-muted small p-0"><%=t :to%>:</div>
+          <div class="col-sm-11 small">
+            <% message.recipients.each do |user|%>
+            <%= raw user.profile.profile_tag%>
+            <%end%>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row align-items-center">
+          <div class="col-sm-1 text-muted small p-0" ><%=t :subject%>:</div>
+          <div class="col-sm-11 small">
+            <span style='font-weight:600'><%= message.title%></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row align-items-center" >
+          <div class="col-sm-12 small" style="padding: 15px; border: 1px solid #e4e5e6; min-height: 200px">
+            <span ><%= message.body%></span>
+          </div>
+        </div>
+      </div>
+
+      <% for m in @message.children%>
+      <div class="row">
+      <div class="col-lg-12  p-4  mb-2" style="background: #f1f4f7">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-sm-1 text-muted small p-0"><%=t :from%>:</div>
+            <div class="col-sm-11 small">
+              <%= raw m.sender.profile.profile_tag%>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row align-items-center" >
+            <div class="col-sm-12 small" style="padding: 15px; border: 1px solid #e4e5e6; min-height: 200px">
+              <span ><%= m.body%></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <%end%>
+
+      <div id='reply'></div>
+      <div class="btn-list mt-4 text-right">
+        <%= link_to  "/messages?type=#{type}&page=#{page}", remote: true, class: "btn btn-secondary btn-space" do%>
+        <%=t :retrun%>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

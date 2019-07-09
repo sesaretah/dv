@@ -1,0 +1,33 @@
+<% @messaging = message.messagings.where(recipient_id: current_user.id).first%>
+<% @not_seen_child = Messaging.where('message_id in (?) AND recipient_id = ? AND status = ?', message.not_user_children(current_user).pluck(:id), current_user.id, 0)%>
+<% @deleted_children = Messaging.where('message_id in (?) AND recipient_id = ? AND status = ?', message.not_user_children(current_user).pluck(:id), current_user.id, 2).count%>
+<% @user_children = Messaging.where('message_id in (?) AND recipient_id = ?', message.not_user_children(current_user).pluck(:id), current_user.id).count%>
+<% if message.has_child && @deleted_children == @user_children%>
+
+<%else%>
+<% if ((message.sender.id == current_user.id) && !message.has_child) || ((!@messaging.blank? && @messaging.status == 1)  && !message.has_child) ||  (message.has_child && @not_seen_child.blank?) %>
+<tr class="read">
+  <%else%>
+  <tr class="unread">
+    <%end%>
+    <td >
+      <input type="checkbox" class="mail-checkbox">
+    </td>
+    <td class="w-1"><i class="fa fa-star"></i></td>
+    <td><%= link_to "/messages/#{message.id}?type=#{@type}&page=#{@page}", remote: true do%><div style="height:100%;width:100%"><%= truncate(message.title, length: 15)%></div><%end%></td>
+    <td class="w-50"><%= link_to "/messages/#{message.id}?type=#{@type}&page=#{@page}", remote: true do%><div style="height:100%;width:100%"><%= truncate(message.body, length: 50)%></div><%end%></td>
+    <td class="w-1"><i class="fa fa-paperclip"></i></td>
+    <td class="w-1">
+      <% if message.sender.id == current_user.id%>
+      <%= link_to "/messages/delete/#{message.id}", method: :get,  remote: true,data: { confirm: 'Are you sure?' } do %>
+      <i class="fe fe-trash"></i>
+      <%end%>
+      <%else%>
+      <%= link_to "/messages/delete/#{message.id}", method: :get, remote: true ,data: { confirm: 'Are you sure?' } do %>
+      <i class="fe fe-trash"></i>
+      <%end%>
+      <%end%>
+    </td>
+    <td class="time w-20" style="font-weight: 200; font-size: 12px;"><%= message.created_at.rfc2822%></td>
+  </tr>
+  <%end%>

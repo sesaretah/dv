@@ -1,0 +1,40 @@
+<div id='messages'>
+  <%= form_for(message, html: {class: 'card'}, remote: true) do |f| %>
+  <div class="card-header">
+    <h3 class="card-title"><%=t :new_message %></h3>
+  </div>
+
+
+  <div class="card-body">
+
+    <div class="form-group">
+      <div class="row align-items-center">
+        <label class="col-sm-2"><%=t :to%></label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control input-users"  value="" data-data=''>
+          <%= hidden_field_tag :recipients, '' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="row align-items-center">
+        <label class="col-sm-2"><%=t :subject%></label>
+        <div class="col-sm-10">
+          <%= f.text_field :title , class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+    <%= f.text_area :body , class: "form-control", rows: 10 %>
+
+
+    <div class="btn-list mt-4 text-right">
+      <%= link_to  messages_url, remote: true, class: "btn btn-secondary btn-space" do%>
+      <%=t :cancel%>
+      <%end%>
+      <button type="submit" class="btn btn-primary btn-space"><%=t :send%></button>
+    </div>
+    <% end %>
+  </div>
+</div>

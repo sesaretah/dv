@@ -52,11 +52,10 @@
         <td>
           <% @previous_workflow_transition = WorkflowTransition.where(workflow_id: article.workflow_state.workflow.id, to_state_id: article.workflow_state_id, article_id: article.id).last%>
           <% if !@previous_workflow_transition.blank?%>
-          <% @user = User.find(@previous_workflow_transition.user_id)%>
-          <span class="tag">
-            <span class="tag-avatar avatar" style="background-image: url('<%= @user.profile.avatar(:tiny)%>')"></span>
-            <%= truncate(@user.profile.fullname, length: 15)%>
-          </span>
+            <%@user = User.find_by_id(@previous_workflow_transition.user_id)%>
+            <% if !@user.blank?%>
+              <%= raw @user.profile.profile_tag%>
+            <%end%>
           <%end%>
         </td>
         <td style="direction:ltr;">

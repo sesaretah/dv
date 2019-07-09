@@ -1,0 +1,20 @@
+<div id='reply' >
+  <div class="row">
+  <div class="col-lg-12  p-4" style="background: #e9ecef">
+    <%= form_for(message, remote: true) do |f| %>
+    <%= f.hidden_field :parent_id, value: parent.id %>
+    <% if defined?(recipients)%>
+      <%= hidden_field_tag :recipients, recipients%>
+    <%end%>
+    <%= f.text_area :body , class: "form-control", rows: 10 %>
+
+    <div class="btn-list mt-4 text-right">
+      <%= link_to  message_url(parent), remote: true, class: "btn btn-secondary btn-space" do%>
+      <%=t :cancel%>
+      <%end%>
+      <button type="submit" class="btn btn-primary btn-space"><%=t :send%></button>
+    </div>
+    <% end %>
+  </div>
+</div>
+</div>
