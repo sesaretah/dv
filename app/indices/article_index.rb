@@ -10,7 +10,7 @@ ThinkingSphinx::Index.define :article, :with => :real_time do
   has article_area_ids, :type => :integer, :multi => true
   has article_format_ids, type: :integer, :multi => true
   has article_type_ids, type: :integer, :multi => true
-  has article_event_ids, type: :integer, :multi => true
+  has dating_ids, type: :integer, :multi => true
   has language_ids, type: :integer, :multi => true
   has profile_ids, type: :integer, :multi => true
   has tagging_ids, type: :integer, :multi => true

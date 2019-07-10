@@ -71,7 +71,7 @@ class HomeController < ApplicationController
       'article_type_ids'   => [],
       'article_format_ids' => [],
       'article_area_ids'   => [],
-      'article_event_ids' =>  date_filter,
+      'dating_ids' =>  date_filter,
       'article_source_ids' => []
     }
     params.each do |name, value|
