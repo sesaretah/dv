@@ -285,13 +285,13 @@ class ArticlesController < ApplicationController
     if @article.slug.blank?
       @article.slug = SecureRandom.hex(4)
     end
-  #  @article.document_contents = ''
-  #  for upload in @article.uploads
-  #    @text =  %x[java -jar #{Rails.root}/lib/tika-app-1.20.jar -h #{upload.attachment.path}]
-  #    if !@text.blank?
-  #      @article.document_contents =  @article.document_contents + ' ' + @text
-  #    end
-  #  end
+    #  @article.document_contents = ''
+    #  for upload in @article.uploads
+    #    @text =  %x[java -jar #{Rails.root}/lib/tika-app-1.20.jar -h #{upload.attachment.path}]
+    #    if !@text.blank?
+    #      @article.document_contents =  @article.document_contents + ' ' + @text
+    #    end
+    #  end
     if !params[:article].blank? && !params[:article][:content].blank?
       @article.content_wo_tags = ActionView::Base.full_sanitizer.sanitize(params[:article][:content])
     end
@@ -300,7 +300,7 @@ class ArticlesController < ApplicationController
         if !params[:keyword].blank? || params[:keyword] == ''
           extract_keywords(@article, params[:keyword])
         end
-        if params[:caller] != 'descriptors'
+        if !params[:other_title].blank? && params[:other_title] == 'true'
           extract_other_titles
         end
         if params[:caller] == 'descriptors'
@@ -330,8 +330,12 @@ class ArticlesController < ApplicationController
 
 
   def extract_other_titles
-    for titling in @article.titlings
-      titling.destroy
+    params.each do |param|
+      if param[0].include?('_title_type')
+        for titling in @article.titlings
+          titling.destroy
+        end
+      end
     end
     params.each do |param|
       if param[0].include?('_title_type')
