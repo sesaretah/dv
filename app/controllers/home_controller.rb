@@ -139,10 +139,11 @@ class HomeController < ApplicationController
   end
 
   def fix_query
-    if !params[:q].blank?
-      @query = "#{params[:q]} | #{params[:q].gsub('ی','ي')} | #{params[:q].gsub('ي','ی')} | #{params[:q].gsub('ک', 'ك')} | #{params[:q].gsub('ك', 'ک')} "
-    else
-      @query = ''
-    end
+  #  if !params[:q].blank?
+  #    @query = "#{params[:q]} | #{params[:q].gsub('ی','ي')} | #{params[:q].gsub('ي','ی')} | #{params[:q].gsub('ک', 'ك')} | #{params[:q].gsub('ك', 'ک')} "
+  #  else
+  #    @query = ''
+  #  end
+  @query = params[:q]
   end
 end
