@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy, :contributions, :profile_details, :cropper, :detach_profile]
-
+  skip_before_action :verify_authenticity_toke, only: [:create, :update] 
   def detach_profile
     @profile.user_id = nil
     @profile.save
