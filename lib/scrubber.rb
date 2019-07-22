@@ -11,12 +11,13 @@ class Scrubber
 
   private
     def scrub(env)
-      #puts env
-      #return unless @routes.include?(env["PATH_INFO"])
+      return unless env["CONTENT_TYPE"] == "application/x-www-form-urlencoded"
       rack_input = env["rack.input"].read
       params = Rack::Utils.parse_query(rack_input, "&")
       params.each do |key, value|
+      if key != 'authenticity_token'
         params[key] = value.gsub('ي','ی').gsub('ك', 'ک')
+      end
       end
       env["rack.input"] = StringIO.new(Rack::Utils.build_query(params))
     rescue
