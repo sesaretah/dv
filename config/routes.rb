@@ -89,6 +89,7 @@ Rails.application.routes.draw do
   match "/articles/change_access_group/:id" => "articles#change_access_group", :via => :get
   match "/articles/sectioned_form/:id" => "articles#sectioned_form", :via => :get
   match "/articles/title_search/:id" => "articles#title_search", :via => :get
+  match "/articles/fixer/:id" => "articles#fixer", :via => :get
 
 
 
