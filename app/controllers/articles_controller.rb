@@ -1,23 +1,5 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print, :change_workflow, :make_a_copy, :article_publishable, :change_access_group, :sectioned_form ]
-  def fixer
-    for article in Article.all
-      article.title = op3(article.title)
-      article.abstract = op3(article.abstract)
-      article.content = op3(article.content)
-      article.content_wo_tags = op3(article.content_wo_tags)
-      article.save
-    end
-  end
-
-  def op3(str)
-    r = Open3.capture3("echo '#{str}' | sed -e 's/[ﺀﺁﺂﺃﺄﺅﺆﺇﺈﺉﺊﺋﺌﺍﺎ]/ا/g;' -e 's/[ﺏﺐﺑﺒ]/ب/g;' -e 's/[ﺓﺔ]/ه/g;' -e 's/[ﺕﺖﺗﺘ]/ت/g;' -e 's/[ﺙﺚﺛﺜ]/ث/g;' -e 's/[ﺝﺞﺟﺠ]/ج/g;' -e 's/[ﺡﺢﺣﺤ]/ح/g;' -e 's/[ﺥﺦﺧﺨ]/خ/g;' -e 's/[ﺩﺪ]/د/g;' -e 's/[ﺫﺬ]/ذ/g;' -e 's/[ﺭﺮ]/ر/g;' -e 's/[ﺯﺰ]/ز/g;' -e 's/[ﺱﺲﺳﺴ]/س/g;' -e 's/[ﺵﺶﺷﺸ]/ش/g;' -e 's/[ﺹﺺﺻﺼ]/ص/g;' -e 's/[ﺽﺾﺿﻀ]/ض/g;' -e 's/[ﻁﻂﻃﻄ]/ط/g;' -e 's/[ﻅﻆﻇﻈ]/ظ/g;' -e 's/[ﻉﻊﻋﻌ]/ع/g;' -e 's/[ﻍﻎﻏﻐ]/غ/g;' -e 's/[ﻑﻒﻓﻔ]/ف/g;' -e 's/[ﻕﻖﻗﻘ]/ق/g;' -e 's/[ﻙﻚﻛﻜ]/ك/g;' -e 's/[ﻝﻞﻟﻠ]/ل/g;' -e 's/[ﻡﻢﻣﻤ]/م/g;' -e 's/[ﻥﻦﻧﻨ]/ن/g;' -e 's/[ﻩﻪﻫﻬ]/ه/g;' -e 's/[ﻭﻮ]/و/g;' -e 's/[ﯿﻯﻰﻱيﻲﻳﻴ]/ي/g;' -e 's/[ﻵﻶﻷﻸﻹﻺﻻﻼ]/لا/g;'")
-    if  r[0].instance_of? String
-      return r[0]
-    else
-      return r[0].decode('utf-8')
-    end
-  end
 
   def sectioned_form
     @section = Section.find(params[:section_id])
