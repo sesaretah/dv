@@ -34,6 +34,6 @@ module Divan
     config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :fa
     config.autoload_paths << Rails.root.join('lib')
-    config.middleware.insert_before(ActionDispatch::ParamsParser,"Scrubber",:routes => [ "/articles" ])
+    #config.middleware.insert_before(ActionDispatch::ParamsParser,"Scrubber",:routes => [ "/articles" ])
   end
 end
