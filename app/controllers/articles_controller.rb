@@ -2,10 +2,10 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print, :change_workflow, :make_a_copy, :article_publishable, :change_access_group, :sectioned_form ]
   def fixer
     for article in Article.all
-      article.abstract = UnicodeFixer(article.abstract)
-      article.title = UnicodeFixer(article.title)
-      article.content = UnicodeFixer(article.content)
-      article.content_wo_tags = UnicodeFixer(article.content_wo_tags)
+      article.abstract = UnicodeFixer.fix(article.abstract)
+      article.title = UnicodeFixer.fix(article.title)
+      article.content = UnicodeFixer.fix(article.content)
+      article.content_wo_tags = UnicodeFixer.fix(article.content_wo_tags)
       article.save
     end
   end
