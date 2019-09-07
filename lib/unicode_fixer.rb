@@ -164,7 +164,8 @@ module UnicodeFixer
     str.gsub!('ﺋ', 'ئ')
     str.gsub!('ﺊ', 'ئ')
     str.gsub!('ﺉ', 'ئ')
-    p str
     return str
+  rescue
+    str
   end
 end
