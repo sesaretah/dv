@@ -24,7 +24,7 @@
         <%= label :article, :url , class: "form-label", style: 'color: #7795c1;'%></td>
         <td><%= link_to @article.url, @article.url %></td>
       </tr>
-<% if false %>
+
       <tr>
         <td style='color: #7795c1;text-align:left;'><%=t :keywords%></td>
         <td><% for tagging in Tagging.where(taggable_id: @article.id, taggable_type: 'Article', target_type: 'Keyword') %>
@@ -35,7 +35,7 @@
           <%end%>
         </td>
       </tr>
-    <%end%>
+
       <tr>
         <td style='color: #7795c1;text-align:left;'><%=t :datings%></td>
         <td>
