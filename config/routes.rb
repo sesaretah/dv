@@ -90,7 +90,7 @@ Rails.application.routes.draw do
   match "/articles/sectioned_form/:id" => "articles#sectioned_form", :via => :get
   match "/articles/title_search/:id" => "articles#title_search", :via => :get
   match "/articles/fixer/:id" => "articles#fixer", :via => :get
-
+  match "/articles/csv_to_db/:id" => "articles#csv_to_db", :via => :get
 
 
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get

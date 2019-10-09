@@ -60,3 +60,4 @@ gem 'rails-html-sanitizer'
 gem 'jwt'
 gem 'rack-cors', require: 'rack/cors'
 gem 'docx_replace'
+gem "roo", "~> 2.8.0"

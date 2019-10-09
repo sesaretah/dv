@@ -28,11 +28,12 @@ class HomeController < ApplicationController
   end
 
   def search
-    #  if user_signed_in?
-    #    render '/home/index'
-    #  else
-    render layout: false
-    #  end
+      if user_signed_in?
+        render '/home/index'
+      else
+        render '/users/sign_in'
+    #render layout: false
+      end
   end
 
   def index

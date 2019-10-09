@@ -10,6 +10,63 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def csv_to_db
+    require 'csv'
+    xlsx = Roo::Spreadsheet.open("#{Rails.root}/data.xlsx")
+
+    xlsx.each_row_streaming( offset: 1, max_rows: 2253) do |row|
+      article = Article.new
+      if !row[4].blank?
+        article.title = row[4].to_s.truncate(200)
+      end
+      article.abstract = row[8]
+      article.slug = SecureRandom.hex(4)
+      article.workflow_state_id = 51
+      article.save
+      area = ArticleArea.where(title: row[3]).first
+      if !row[3].blank? && area.blank?
+        area = ArticleArea.create(title: row[3])
+      end
+      if !area.blank?
+        Areaing.create(article_area_id:  area.id, article_id: article.id)
+      end
+
+      maghta = Keyword.where(title: row[5]).first
+      if !row[5].blank? && maghta.blank?
+        maghta = Keyword.create(title: row[5])
+      end
+      if !maghta.blank?
+        Tagging.create(taggable_type: 'Article', taggable_id: article.id, target_type: 'Keyword', target_id: maghta.id)
+      end
+
+      mozo = Keyword.where(title: row[6]).first
+      if !row[6].blank? && mozo.blank?
+        mozo = Keyword.create(title: row[6])
+      end
+      if !mozo.blank?
+        Tagging.create(taggable_type: 'Article', taggable_id: article.id, target_type: 'Keyword', target_id: mozo.id)
+      end
+      natije = Keyword.where(title: row[9]).first
+      if !row[9].blank? && natije.blank?
+        natije = Keyword.create(title: row[9])
+      end
+      if !natije.blank?
+        Tagging.create(taggable_type: 'Article', taggable_id: article.id, target_type: 'Keyword', target_id: natije.id)
+      end
+      if !row[1].blank?
+        date = row[1].to_s.split('/')
+        dating = Dating.new
+        jdate = JalaliDate.to_gregorian(date[0],date[1],date[2]) rescue nil
+        if jdate
+          dating.article_id = article.id
+          dating.article_event_id = ArticleEvent.last.id
+          dating.event_date = jdate
+          dating.save rescue nil
+        end
+      end
+    end
+  end
+
   def sectioned_form
     @section = Section.find(params[:section_id])
   end
