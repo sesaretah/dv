@@ -31,7 +31,7 @@ class HomeController < ApplicationController
       if user_signed_in?
         render '/home/index'
       else
-        render '/users/sign_in'
+        redirect_to '/users/sign_in'
     #render layout: false
       end
   end
