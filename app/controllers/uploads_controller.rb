@@ -1,5 +1,7 @@
 class UploadsController < ApplicationController
   before_action :set_upload, only: [:show, :edit, :update, :destroy]
+  before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
+
   def remoted
     @upload = Upload.find(params[:id])
     @upload.destroy
@@ -64,6 +66,12 @@ class UploadsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to uploads_url, notice: 'Upload was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def check_grant
+    if !grant_access("alter_keywords", current_user)
+      head(403)
     end
   end
 

@@ -142,6 +142,9 @@
               <li><%= link_to u.attachment.url do%><i class="fe fe-download" style="vertical-align:middle;"></i> <%= u.title%><%end%>
                 <p class="text-muted">
                     <%= u.detail%>
+                    <% if permit_by_workflow(@article, current_user,'keywords')%>
+                    <small><%= link_to t(:edit), edit_upload_path(u)%></small>
+                    <%end%>
                 </p>
               </li>
               <%end%>
