@@ -1,4 +1,15 @@
 module ApplicationHelper
+  def user_accessible?(article, user)
+    flag = false
+    @role = Role.find_by_id(user.current_role_id)
+    if !@role.blank?
+      @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
+      if @workflow_state_ids.include? article.workflow_state_id
+        flag = true
+      end
+    end
+    return flag
+  end
   def viewable?(article)
     flag = false
     @role = Role.find_by_id(current_user.current_role_id)
@@ -8,6 +19,25 @@ module ApplicationHelper
         flag = true
       end
       if article.access_for_others != 'none'
+        flag = true
+      end
+      for access_group in @role.access_groups
+        if article.access_group_id == access_group.id
+          flag = true
+        end
+      end
+    end
+    return flag
+  end
+  def viewable_level?(article, level)
+    flag = false
+    @role = Role.find_by_id(current_user.current_role_id)
+    if !@role.blank?
+      @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
+      if @workflow_state_ids.include? article.workflow_state_id
+        flag = true
+      end
+      if article.access_for_others == level
         flag = true
       end
       for access_group in @role.access_groups

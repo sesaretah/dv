@@ -48,7 +48,7 @@ end
 gem 'devise'
 gem 'ckeditor'
 gem 'paperclip'
-gem 'mysql2',          '~> 0.3.18', :platform => :ruby
+gem 'mysql2',          '~> 0.4.10', :platform => :ruby
 gem 'font-awesome-rails' # required
 gem 'jquery-ui-rails'
 gem 'thinking-sphinx', '~> 4.0'

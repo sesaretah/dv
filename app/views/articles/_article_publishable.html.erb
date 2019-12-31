@@ -8,13 +8,21 @@
           <div class="col-md-5">
             <div class="form-group">
               <label class="form-label"><%=t :access_group%></label>
-              <%= select_tag :access_group_id, options_for_select(AccessGroup.all.collect { |p| [ p.title, p.id ] }, @article.access_group_id), {include_blank: true,class: "form-control"} %>
+              <% if user_accessible?(@article, current_user)%>
+                <%= select_tag :access_group_id, options_for_select(AccessGroup.all.collect { |p| [ p.title, p.id ] }, @article.access_group_id), {include_blank: true,class: "form-control"} %>
+              <%else%>
+              <%= select_tag :access_group_id, options_for_select(AccessGroup.all.collect { |p| [ p.title, p.id ] }, @article.access_group_id), {disabled: true,class: "form-control"} %>
+              <%end%>
             </div>
           </div>
           <div class="col-md-10">
             <div class="form-group">
               <label class="form-label"><%=t :publish_details%></label>
+              <% if user_accessible?(@article, current_user)%>
               <%= text_area_tag  "publish_details", @article.publish_details, class: "form-control", placeholder: t(:message_content) %>
+              <%else%>
+              <%= text_area_tag  "publish_details", @article.publish_details, class: "form-control", placeholder: t(:message_content), disabled: true %>
+              <%end%>
             </div>
           </div>
 
@@ -22,26 +30,28 @@
             <div class="form-label"><%=t :access_for_others%></div>
             <div class="custom-controls-stacked">
               <label class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" name="access_for_others" value="all" <%if @article.access_for_others == 'all'%> checked=""<%end%> >
+                <input type="radio" class="custom-control-input" name="access_for_others" value="all" <%if @article.access_for_others == 'all'%> checked=""<%end%> <% if !user_accessible?(@article, current_user)%>disabled=""<%end%> >
                 <span class="custom-control-label"><%=t :all%></span>
               </label>
               <label class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" name="access_for_others" value="metadata" <%if @article.access_for_others == 'metadata'%> checked=""<%end%>>
+                <input type="radio" class="custom-control-input" name="access_for_others" value="metadata" <%if @article.access_for_others == 'metadata'%> checked=""<%end%> <% if !user_accessible?(@article, current_user)%>disabled=""<%end%>>
                 <span class="custom-control-label"><%=t :metadata%></span>
               </label>
               <label class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" name="access_for_others" value="none" <%if @article.access_for_others == 'none'%> checked=""<%end%>>
+                <input type="radio" class="custom-control-input" name="access_for_others" value="none" <%if @article.access_for_others == 'none'%> checked=""<%end%> <% if !user_accessible?(@article, current_user)%>disabled=""<%end%>>
                 <span class="custom-control-label"><%=t :none%></span>
               </label>
             </div>
           </div>
 
+          <% if user_accessible?(@article, current_user)%>
           <div class="col-md-2">
             <div class="form-group">
               <label class="form-label"></label>
               <button type="submit" class="btn btn-orange" style="margin-top:20px"><%=t :submit%></button>
             </div>
           </div>
+          <%end%>
         </div>
         <%end%>
       </div>

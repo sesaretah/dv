@@ -109,7 +109,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
-    mysql2 (0.3.21)
+    mysql2 (0.4.10)
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
@@ -231,7 +231,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   jwt
-  mysql2 (~> 0.3.18)
+  mysql2 (~> 0.4.10)
   paperclip
   rack-cors
   rails (= 4.2.8)
@@ -249,4 +249,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   1.16.4
+   1.17.2

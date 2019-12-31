@@ -1,5 +1,6 @@
 <table class="table card-table" id='article-show'>
   <tbody>
+  <% if viewable_level?(@article, 'all') || viewable_level?(@article, 'metadata')%>
     <tr>
       <td style="text-align:left;"><%= label :article, :slug , class: "form-label", style: 'color: #7795c1;'%></td>
       <td><%= link_to @article.slug, request.base_url+'/'+@article.slug %></td>
@@ -122,13 +123,15 @@
             <%end%>
           </td>
         </tr>
-
+        <%end%>
+        <% if viewable_level?(@article, 'all')%>
         <tr>
           <td style='color: #7795c1;text-align:left;'><%=t :full_text%></td>
           <td>
             <%= raw @article.content%>
           </td>
         </tr>
+       
 
         <tr>
           <td style='color: #7795c1;text-align:left;'><%=t :attachments%></td>
@@ -152,6 +155,7 @@
             <%end%>
           </td>
         </tr>
+        <%end%>
 
       </tbody>
     </table>
