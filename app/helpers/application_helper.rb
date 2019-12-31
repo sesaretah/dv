@@ -18,8 +18,8 @@ module ApplicationHelper
       if @workflow_state_ids.include? article.workflow_state_id
         flag = true
       end
-      if article.access_for_others != 'none'
-        flag = true
+      if article.access_for_others == 'none' || article.access_for_others.blank?
+        flag = false
       end
       for access_group in @role.access_groups
         if article.access_group_id == access_group.id
