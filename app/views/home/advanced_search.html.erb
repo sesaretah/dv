@@ -116,7 +116,7 @@
         <div>
           <%white_list_sanitizer = Rails::Html::WhiteListSanitizer.new%>
           <% for result in @model_results%>
-          <% if viewable?(result) && user_accessible?(result, current_user)%>
+          <% if viewable?(result) || user_accessible?(result, current_user)%>
           <div class="pr-2 pl-2 pt-2" >
             <div class="form-control-plaintext" style= 'color: #7795c1;'><%= link_to result do%><%= raw result.excerpts.title%><%end%></div>
             <div class="form-control-plaintext" style="font-size: smaller;"><%=raw result.excerpts.abstract %></div>
