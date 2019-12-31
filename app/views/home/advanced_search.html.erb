@@ -116,6 +116,7 @@
         <div>
           <%white_list_sanitizer = Rails::Html::WhiteListSanitizer.new%>
           <% for result in @model_results%>
+          <% if viewable?(result)%>
           <div class="pr-2 pl-2 pt-2" >
             <div class="form-control-plaintext" style= 'color: #7795c1;'><%= link_to result do%><%= raw result.excerpts.title%><%end%></div>
             <div class="form-control-plaintext" style="font-size: smaller;"><%=raw result.excerpts.abstract %></div>
@@ -157,6 +158,7 @@
               </tr>
             </table>
           </div>
+          <%end%>
           <%end%>
         </div>
         <% if defined?(@model_results.total_pages)%>

@@ -131,6 +131,8 @@ class ArticlesController < ApplicationController
 
   def change_access_group
     @article.access_group_id = params[:access_group_id]
+    @article.publish_details = params[:publish_details]
+    @article.access_for_others = params[:access_for_others]
     @article.save
   end
 

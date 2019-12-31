@@ -366,6 +366,7 @@ fa:
             alter_publishers: 'تغییر منتشرکنندگان'
             alter_locations: 'تغییر جدول مکان ها'
             alter_publish_sources: 'تغییر جدول منابع'
+            alter_access_groups: 'تغییر گروههای دسترسی'
             user_id: 'توسط'
   will_paginate:
     page_gap: "&hellip;"
@@ -672,6 +673,12 @@ fa:
   crop_photo: 'برش عکس'
   change_photo: 'تغییر عکس'
   description: 'شرح'
+  publish_details: 'توضیحات'
+  access_for_others: 'دسترسی برای بقیه'
+  metadata: 'فراداده'
+  all: 'همه'
+  none: 'هیچ کدام'
+
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

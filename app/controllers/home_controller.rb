@@ -29,7 +29,7 @@ class HomeController < ApplicationController
 
   def search
       if user_signed_in?
-        render '/home/index'
+        redirect_to '/home'
       else
         redirect_to '/users/sign_in'
     #render layout: false
@@ -37,6 +37,8 @@ class HomeController < ApplicationController
   end
 
   def index
+    @articles = []
+    @notifications = []
     if params[:slug] != 'home' && !params[:slug].blank?
       @article = Article.find_by_slug(params[:slug])
       if !@article.blank?
@@ -48,9 +50,6 @@ class HomeController < ApplicationController
         @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
         @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids).paginate(:page => params[:page], :per_page => 5)
         @notifications = Notification.where(user_id: current_user.id).order('created_at desc').limit(10)
-      else
-        @articles = []
-        @notifications = []
       end
     end
   end

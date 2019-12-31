@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190709174733) do
+ActiveRecord::Schema.define(version: 20191224075849) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20190709174733) do
     t.integer  "alter_publishers",             limit: 4
     t.integer  "alter_locations",              limit: 4
     t.integer  "alter_publish_sources",        limit: 4
+    t.integer  "alter_access_groups",          limit: 4
   end
 
   create_table "access_groups", force: :cascade do |t|
@@ -146,6 +147,8 @@ ActiveRecord::Schema.define(version: 20190709174733) do
     t.text     "notes",               limit: 65535
     t.string   "dimensions",          limit: 255
     t.string   "retrieval_number",    limit: 255
+    t.text     "publish_details",     limit: 65535
+    t.string   "access_for_others",   limit: 255
   end
 
   add_index "articles", ["slug"], name: "slug", using: :btree

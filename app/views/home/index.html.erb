@@ -32,7 +32,7 @@
         </span>
         <div class="mt-1">
           <h4 class="m-0"><%=t :articles%></h4>
-          <small class="text-muted"><%= @articles.count%> <%=t :in_your_dashboard%></small>
+          <small class="text-muted"><% if !@articles.blank?%><%= @articles.count%><%else%>0<%end%> <%=t :in_your_dashboard%></small>
         </div>
       </div>
     </div>
@@ -43,6 +43,7 @@
       </div>
       <table class="table  card-table  table-vcenter">
           <tbody>
+            <% if !@notifications.blank?%>
             <% for notification in @notifications%>
             <% if notification.valid && !notification.blank?%>
             <tr>
@@ -50,6 +51,7 @@
               <td style="padding-right:10px; padding-left:0px; font-size:12px;"><%= raw notification.title%></td>
               <td style="padding-right:10px; padding-left:0px;"><span style='font-size:9px;'><%=t notification.notification_type%></span></td>
             </tr>
+            <%end%>
             <%end%>
             <%end%>
           </tbody>
