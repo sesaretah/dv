@@ -14,9 +14,11 @@ module ApplicationHelper
     flag = false
     @role = Role.find_by_id(current_user.current_role_id)
     if !@role.blank?
-      @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
-      if @workflow_state_ids.include? article.workflow_state_id
-        flag = true
+      if article.workflow_state
+        @workflow_ids = WorkflowState.where(role_id: @role.id).collect(&:workflow_id).uniq
+        if @workflow_ids.include? article.workflow_state.workflow_id
+          flag = true
+        end
       end
       if article.access_for_others == 'none' || article.access_for_others.blank?
         flag = false
@@ -33,9 +35,11 @@ module ApplicationHelper
     flag = false
     @role = Role.find_by_id(current_user.current_role_id)
     if !@role.blank?
-      @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
-      if @workflow_state_ids.include? article.workflow_state_id
-        flag = true
+      if article.workflow_state
+        @workflow_ids = WorkflowState.where(role_id: @role.id).collect(&:workflow_id).uniq
+        if @workflow_ids.include? article.workflow_state.workflow_id
+          flag = true
+        end
       end
       if article.access_for_others == level
         flag = true
