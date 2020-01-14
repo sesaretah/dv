@@ -51,17 +51,14 @@
                 </div>
               </div>
             </td>
-            <td><%= truncate(profile_groups.title, length: 50) %></td>
+            <td><%= truncate(profile_group.title, length: 50) %></td>
             <td>
-              <div class="tag tag-dark" style='vertical-align: 6px;'>
-                <%= profile_groups.publisher.articles.count %>
-                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
-              </div>
+
             </td>
             <td>
               <span class="tag" style='vertical-align: -3px;'>
-                <span class="tag-avatar avatar" style="background-image: url('<%= profile_groups.user.profile.avatar(:tiny)%>')"></span>
-                <%= truncate(profile_groups.user.profile.fullname, length: 35)%>
+                <span class="tag-avatar avatar" style="background-image: url('<%= profile_group.user.profile.avatar(:tiny)%>')"></span>
+                <%= truncate(profile_group.user.profile.fullname, length: 35)%>
               </span>
             </td>
             <td>

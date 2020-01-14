@@ -25,7 +25,7 @@ class ProfileGroupsController < ApplicationController
   # POST /profile_groups.json
   def create
     @profile_group = ProfileGroup.new(profile_group_params)
-
+    @profile_group.user_id = current_user.id
     respond_to do |format|
       if @profile_group.save
         format.html { redirect_to @profile_group, notice: 'Profile group was successfully created.' }
@@ -41,6 +41,7 @@ class ProfileGroupsController < ApplicationController
   # PATCH/PUT /profile_groups/1.json
   def update
     respond_to do |format|
+        @profile_group.user_id = current_user.id
       if @profile_group.update(profile_group_params)
         format.html { redirect_to @profile_group, notice: 'Profile group was successfully updated.' }
         format.json { render :show, status: :ok, location: @profile_group }

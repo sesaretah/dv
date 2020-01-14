@@ -18,4 +18,5 @@ class User < ActiveRecord::Base
   has_many :access_groups
   has_many :word_templates
   has_many :sections
+  has_many :profile_groups
 end

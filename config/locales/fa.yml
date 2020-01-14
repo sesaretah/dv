@@ -339,6 +339,9 @@ fa:
             title: 'عنوان'
             description: 'شرح'
             publisher_id: 'سازمان'
+        profile_group:
+            title: 'عنوان'
+            description: 'شرح'
         publication:
             publisher_id: 'ناشر'
             publish_source_id: 'منبع'
@@ -680,6 +683,7 @@ fa:
   all: 'همه'
   none: 'هیچ کدام'
   profile_groups: 'گروه افراد'
+  profile_group_form: 'ورود اطلاعات'
 
   devise:
     confirmations:

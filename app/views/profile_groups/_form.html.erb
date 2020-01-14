@@ -1,13 +1,13 @@
-<%= form_for(@profile_groups, html: {class: 'card'}) do |f| %>
+<%= form_for(@profile_group, html: {class: 'card'}) do |f| %>
 <div class="card-header">
-  <h3 class="card-title"><%=t :profile_groups_form %></h3>
+  <h3 class="card-title"><%=t :profile_group_form %></h3>
 </div>
-<% if @profile_groups.errors.any? %>
+<% if @profile_group.errors.any? %>
 <div id="error_explanation">
-  <h2><%= pluralize(@profile_groups.errors.count, "error") %> prohibited this profile_groups from being saved:</h2>
+  <h2><%= pluralize(@profile_group.errors.count, "error") %> prohibited this profile_group from being saved:</h2>
 
   <ul>
-    <% @profile_groups.errors.full_messages.each do |message| %>
+    <% @profile_group.errors.full_messages.each do |message| %>
     <li><%= message %></li>
     <% end %>
   </ul>
