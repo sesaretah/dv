@@ -63,6 +63,7 @@ class RolesController < ApplicationController
       head(403)
     end
     @role.user_id = current_user.id
+    @role.start_point = false if !params[:role][:start_point]
     respond_to do |format|
       if @role.update(role_params)
         format.html { redirect_to @role, notice: 'Role was successfully updated.' }
@@ -95,6 +96,6 @@ class RolesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
-      params.require(:role).permit(:title, :description, :abr)
+      params.require(:role).permit(:title, :description, :abr, :start_point)
     end
 end

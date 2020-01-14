@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   resources :sections
   resources :publications
   #devise_for :users
-  devise_for :users, :controllers => { :passwords => "passwords" }
+  devise_for :users, :controllers => { :passwords => "passwords", sessions: "sessions" }
 
   resources :article_areas
   resources :section_items

@@ -107,6 +107,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def assign_start_role(user)
+    if user.roles.blank?
+      @start_point_roles = Role.where(start_point: true)
+      for start_point_role in @start_point_roles
+        @start_point_assignment = Assignment.where(user_id: user.id, role_id: start_point_role.id)
+        if @start_point_assignment.blank?
+          @start_point_assignment = Assignment.create(user_id: user.id, role_id: start_point_role.id)
+        end
+      end
+    end
+    if !user.roles.blank?
+        user.current_role_id = user.roles.first.id if user.current_role_id.blank?
+        user.save
+    end
+  end
+
   def article_inspect(articles)
     @article_inspect_result = []
     for article in articles

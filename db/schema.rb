@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191224075849) do
+ActiveRecord::Schema.define(version: 20200112075128) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -424,6 +424,7 @@ ActiveRecord::Schema.define(version: 20191224075849) do
     t.datetime "updated_at",                null: false
     t.string   "abr",         limit: 255
     t.integer  "user_id",     limit: 4
+    t.boolean  "start_point"
   end
 
   create_table "section_items", force: :cascade do |t|
