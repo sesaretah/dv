@@ -367,6 +367,7 @@ fa:
             alter_locations: 'تغییر جدول مکان ها'
             alter_publish_sources: 'تغییر جدول منابع'
             alter_access_groups: 'تغییر گروههای دسترسی'
+            alter_profile_groups: 'تغییر گروههای افراد'
             user_id: 'توسط'
   will_paginate:
     page_gap: "&hellip;"
@@ -678,6 +679,7 @@ fa:
   metadata: 'فراداده'
   all: 'همه'
   none: 'هیچ کدام'
+  profile_groups: 'گروه افراد'
 
   devise:
     confirmations:

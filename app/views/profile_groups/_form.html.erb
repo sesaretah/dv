@@ -1,0 +1,38 @@
+<%= form_for(@profile_groups, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :profile_groups_form %></h3>
+</div>
+<% if @profile_groups.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@profile_groups.errors.count, "error") %> prohibited this profile_groups from being saved:</h2>
+
+  <ul>
+    <% @profile_groups.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="card-body">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :title, class: "form-label" %>
+        <%= f.text_field :title , class: "form-control" %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :description, class: "form-label" %>
+        <%= f.text_area :description , class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+  </div>
+  <% end %>

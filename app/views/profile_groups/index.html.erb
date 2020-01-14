@@ -1,0 +1,82 @@
+<div class="row row-cards">
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-6 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-center">
+              <% if grant_access("alter_profile_groups", current_user)%>
+                <%= link_to  new_profile_group_url, class: "btn btn-lime  btn-sm" do%>
+                  <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
+                <%end%>
+              <%end%>
+            </div>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="card">
+      <div class="card-header">
+        <%=t :profile_groups%>
+      </div>
+      <div class='table-responsive'>
+        <table class="table table-hover table-outline table-vcenter text-nowrap">
+        <thead>
+          <tr>
+            <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
+            <th><%=t :title%></th>
+            <th><%=t :articles %></th>
+            <th><%=t :last_editor %></th>
+            <th><%=t :last_edit %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @profile_groups.each do |profile_group| %>
+          <tr>
+            <td class="text-center">
+              <div class="item-action dropdown">
+                <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a href="/profile_groups/<%= profile_group.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
+                  <% if grant_access("alter_profile_groups", current_user)%>
+                    <a href="/profile_groups/<%= profile_group.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
+                    <%= link_to profile_group, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
+                      <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
+                    <%end%>
+                  <%end%>
+                </div>
+              </div>
+            </td>
+            <td><%= truncate(profile_groups.title, length: 50) %></td>
+            <td>
+              <div class="tag tag-dark" style='vertical-align: 6px;'>
+                <%= profile_groups.publisher.articles.count %>
+                <span class="tag-addon tag-success"><i class="fe fe-book-open" style="vertical-align: -3px;"></i></span>
+              </div>
+            </td>
+            <td>
+              <span class="tag" style='vertical-align: -3px;'>
+                <span class="tag-avatar avatar" style="background-image: url('<%= profile_groups.user.profile.avatar(:tiny)%>')"></span>
+                <%= truncate(profile_groups.user.profile.fullname, length: 35)%>
+              </span>
+            </td>
+            <td>
+              <small class="text-muted">
+                <span>
+                  <% @jalali = JalaliDate.to_jalali(profile_groups.updated_at)%>
+                  <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
+                </span>
+              </small>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>
+</div>
