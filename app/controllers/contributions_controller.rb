@@ -23,7 +23,19 @@ class ContributionsController < ApplicationController
 
   # POST /contributions
   # POST /contributions.json
-  def create
+  def create 
+    if !params[:profile_group_id].blank?
+      @profile_group = ProfileGroup.find_by_id(params[:profile_group_id])
+      if  @profile_group
+        for profile in @profile_group.profiles
+          @contribution = Contribution.create(article_id: params[:contribution][:article_id], profile_id: profile.id, role_id: params[:contribution][:role_id], duty_id: params[:contribution][:duty_id])
+        end
+        @article = @contribution.article
+        respond_to do |format|
+          format.js
+        end
+      end
+    else
     @contribution = Contribution.new(contribution_params)
     @article = @contribution.article
     respond_to do |format|
@@ -37,6 +49,7 @@ class ContributionsController < ApplicationController
         format.js
       end
     end
+  end
   end
 
   # PATCH/PUT /contributions/1

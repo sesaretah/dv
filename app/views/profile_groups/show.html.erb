@@ -6,6 +6,7 @@
           <a href="#" class="list-group-item list-group-item-action d-flex align-items-center active" style="color: #464a4e;font-size:smaller; background-color: #e7e8ea;border-color: #dddfe2;">
             <%=t :profile_groups%>
           </a>
+          
           <a href="#" class="list-group-item list-group-item-action d-flex align-items-center active mt-1" style="font-size:smaller;">
             <%= @profile_group.title%>
           </a>
@@ -20,12 +21,44 @@
     <div class="card">
       <div class="card-header">
         <div class="card-options">
-          <%= link_to "/profile_groups", class: "btn btn-secondary btn-sm ml-1" do %>
-            <i class="fe fe-arrow-left" style="vertical-align: -3px;"></i> <%=t :back%>
-          <%end%>
+        <%= link_to "/profile_groupings/new?profile_group_id=#{@profile_group.id}", class: "btn btn-secondary btn-sm ml-1" do %>
+          <i class="fe fe-plus" style="vertical-align: -3px;"></i> <%=t :add_profile%>
+        <%end%>
+        <%= link_to "/profile_groups", class: "btn btn-secondary btn-sm ml-1" do %>
+          <i class="fe fe-arrow-left" style="vertical-align: -3px;"></i> <%=t :back%>
+        <%end%>
+
+
+
         </div>
       </div>
+      <div class="card-body">
+      <div class='table-responsive'>
+      <table class="table table-hover table-outline table-vcenter text-nowrap"  id='article-list'>
+        <thead>
+          <tr>
+            <th><%=t :fullname%></th>
+            <th><i class="fe fe-package"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for profile in @profile_group.profiles%>
+          <tr>
 
+            <td>
+            <%= profile.fullname%>
+            </td>
+            <td>
+            <a href='/profile_groupings/delete/1?profile_id=<%= profile.id%>&profile_group_id=<%= @profile_group.id%>'>
+            <i class="fe fe-trash"></i>
+            </a>
+            </td>
+            </tr>
+            <% end %>
+            </tbody>
+            </table>
+      </div>
+      </div>
     </div>
   </div>
 </div>

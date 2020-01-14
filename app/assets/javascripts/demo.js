@@ -258,6 +258,41 @@ function fireAutoCompleteEvent(event) {
     }
   });
 
+  $('#profile_grouping').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'title',
+    searchField:  'title',
+    maxItems: 1,
+    preload:      true,
+    onItemAdd: function (value, item) {
+      $('#profile_id').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/profiles/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
   $('#megre_profile_1').selectize({
     create:       false,
     labelField:   'title',

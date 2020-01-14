@@ -29,7 +29,6 @@
           <tr>
             <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
             <th><%=t :title%></th>
-            <th><%=t :articles %></th>
             <th><%=t :last_editor %></th>
             <th><%=t :last_edit %></th>
           </tr>
@@ -53,9 +52,6 @@
             </td>
             <td><%= truncate(profile_group.title, length: 50) %></td>
             <td>
-
-            </td>
-            <td>
               <span class="tag" style='vertical-align: -3px;'>
                 <span class="tag-avatar avatar" style="background-image: url('<%= profile_group.user.profile.avatar(:tiny)%>')"></span>
                 <%= truncate(profile_group.user.profile.fullname, length: 35)%>
@@ -64,7 +60,7 @@
             <td>
               <small class="text-muted">
                 <span>
-                  <% @jalali = JalaliDate.to_jalali(profile_groups.updated_at)%>
+                  <% @jalali = JalaliDate.to_jalali(profile_group.updated_at)%>
                   <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
                 </span>
               </small>

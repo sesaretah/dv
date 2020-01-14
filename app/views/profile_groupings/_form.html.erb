@@ -1,0 +1,44 @@
+
+<%= form_for(@profile_grouping, html: {class: 'card'}) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :new_assignment %></h3>
+</div>
+
+<div class="card-body">
+  <% if @profile_grouping.errors.any? %>
+  <div class="alert alert-danger" role="alert">
+    <h4><%= @profile_grouping.errors.count%> <%=t :error%> <%=t :prohibited_this_assignment_from_being_saved%></h4>
+
+    <ul>
+      <% @profile_grouping.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+      <%=t :profile_group%>: <%= ProfileGroup.find(params[:profile_group_id]).title rescue nil%>
+      <%= hidden_field_tag :profile_group_id, params[:profile_group_id]%>
+    </div>
+  </div>
+</div>
+
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :profile_id, class: "form-label" %>
+        <%= text_field_tag :profile_grouping, nil , class: "form-control" %>
+        <%= hidden_field_tag :profile_id , value: '' %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+  </div>
+  </div>
+  <% end %>

@@ -60,6 +60,8 @@ Rails.application.routes.draw do
 
   resources :article_areas
   resources :section_items
+  resources :profile_groupings
+  
   root to: 'home#search'
   get ':slug' => 'home#index'
 
@@ -158,4 +160,7 @@ Rails.application.routes.draw do
   match "/messages/reply/:id" => "messages#reply", :via => :get
   match "/messages/reply_all/:id" => "messages#reply_all", :via => :get
 
+  match "/profile_groupings/delete/:id" => "profile_groupings#delete", :via => :get
+  
+  
 end

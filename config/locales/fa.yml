@@ -290,6 +290,7 @@ fa:
             profile: 'فرد پدیدآور'
             duty: 'سمت پدیدآور'
             role: 'نقش در سند'
+            profile_group_id: 'گروه افراد'
         kinship:
             article_relation_type_id: 'نوع ارتباط'
             kin_id: 'سند هدف'
@@ -342,6 +343,9 @@ fa:
         profile_group:
             title: 'عنوان'
             description: 'شرح'
+        profile_grouping:
+            user_id: 'کاربر'
+            profile_id: 'فرد'
         publication:
             publisher_id: 'ناشر'
             publish_source_id: 'منبع'
@@ -684,6 +688,8 @@ fa:
   none: 'هیچ کدام'
   profile_groups: 'گروه افراد'
   profile_group_form: 'ورود اطلاعات'
+  profile_group: 'گروه افراد'
+  add_profile: 'افزودن فرد'
 
   devise:
     confirmations:
