@@ -59,10 +59,12 @@
               </div>
             </td>
             <td>
+              <% if !article_area.user.blank?%>
               <span class="tag" style='vertical-align: -3px;'>
                 <span class="tag-avatar avatar" style="background-image: url('<%= article_area.user.profile.avatar(:tiny)%>')"></span>
                 <%= truncate(article_area.user.profile.fullname, length: 35)%>
               </span>
+              <%end%>
             </td>
             <td>
               <small class="text-muted">
