@@ -39,6 +39,17 @@
       </div>
     </div>
   </div>
+
+  <div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+        <%= f.label :profile_group_id, class: "form-label" %>
+        <%= select_tag :profile_group_id, options_for_select(ProfileGroup.all.collect { |p| [ p.title, p.id ] }), {include_blank: true,class: "form-control"} %>
+
+    </div>
+  </div>
+</div>
+
   <div class="card-footer text-right">
     <button type="submit" class="btn btn-primary"><%=t :submit%></button>
   </div>

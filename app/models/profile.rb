@@ -14,6 +14,9 @@ class Profile < ActiveRecord::Base
   has_many :articles, :through => :contributions
   has_many :contributions
 
+  has_many :profile_groups, :through => :profile_groupings
+  has_many :profile_groupings, dependent: :destroy
+
   def self.merge_profile(profile_1, profile_2)
     @contributions = profile_2.contributions
     for contribution in @contributions
