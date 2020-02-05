@@ -10,6 +10,18 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def upload_indexer
+    article = Article.find(params[:id])
+    article.document_contents = ''
+    for upload in article.uploads
+      text =  %x[java -jar #{Rails.root}/lib/tika-app-1.20.jar -h #{upload.attachment.path}]
+      if !text.blank?
+        article.document_contents =  article.document_contents + ' ' + text
+      end
+    end
+    article.save
+  end
+
   def csv_to_db
     require 'csv'
     xlsx = Roo::Spreadsheet.open("#{Rails.root}/data.xlsx")

@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   resources :article_areas
   resources :section_items
   resources :profile_groupings
-  
+
   root to: 'home#search'
   get ':slug' => 'home#index'
 
@@ -94,6 +94,7 @@ Rails.application.routes.draw do
   match "/articles/title_search/:id" => "articles#title_search", :via => :get
   match "/articles/fixer/:id" => "articles#fixer", :via => :get
   match "/articles/csv_to_db/:id" => "articles#csv_to_db", :via => :get
+  match "/articles/upload_indexer/:id" => "articles#upload_indexer", :via => :get
 
 
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
@@ -161,6 +162,6 @@ Rails.application.routes.draw do
   match "/messages/reply_all/:id" => "messages#reply_all", :via => :get
 
   match "/profile_groupings/delete/:id" => "profile_groupings#delete", :via => :get
-  
-  
+
+
 end
