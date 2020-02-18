@@ -4,6 +4,11 @@
   <meta charset="utf-8">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <title></title>
+  <style media="screen">
+    hr.new2 {
+    border-top: 1px dashed gray;
+  }
+  </style>
 </head>
 <body>
   <div class="page">
@@ -83,7 +88,7 @@
             <%= kin.abstract%><br />
             <%= raw kin.content%><br />
             <%end%>
-            <hr />
+            <hr class='new2'/>
             <%end%>
 
           </td>
