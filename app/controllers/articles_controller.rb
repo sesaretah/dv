@@ -97,7 +97,7 @@ class ArticlesController < ApplicationController
   end
 
   def raw_print
-
+    render layout:false
   end
 
   def print
