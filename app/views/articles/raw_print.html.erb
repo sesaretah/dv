@@ -42,13 +42,7 @@
       <%end%>
     <%end%>
     <%= kin.abstract%><br />
-    <% for dating in kin.datings %>
-    <%= dating.article_event.title%>:
-    <span>
-      <% @jalali = JalaliDate.to_jalali(dating.event_date)%>
-      <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
-    </span> <br />
-    <%end%>
+    <%= kin.content%><br />
     <br />
     <br />
     <br />
