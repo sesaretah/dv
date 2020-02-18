@@ -1,17 +1,42 @@
-<%= @article.title %><br />
-<% @article.titlings.group_by(&:title_type_id).each do |k,v| %>
-  <% for t in v%>
-   <%= t.content%><br />
+<table class="table ">
+  <tr>
+<td></td>
+<td><%= @article.title %></td>
+  </tr>
+  <tr>
+
+<td></td>
+<td>
+  <% @article.titlings.group_by(&:title_type_id).each do |k,v| %>
+    <% for t in v%>
+     <%= t.content%><br />
+    <%end%>
   <%end%>
-<%end%>
-<%= @article.abstract %><br />
-<% for dating in @article.datings %>
-<%= dating.article_event.title%>:
-<span>
-  <% @jalali = JalaliDate.to_jalali(dating.event_date)%>
-  <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
-</span> <br />
-<%end%>
+</td>
+  </tr>
+
+  <tr>
+<td></td>
+<td><%= @article.abstract %></td>
+  </tr>
+  <tr>
+
+    <tr>
+  <td></td>
+  <td>
+    <% for dating in @article.datings %>
+    <%= dating.article_event.title%>:
+    <span>
+      <% @jalali = JalaliDate.to_jalali(dating.event_date)%>
+      <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
+    </span> <br />
+    <%end%>
+  </td>
+    </tr>
+    <tr>
+
+<br />
+
 
 <% for contribution in @article.contributions %>
   <% if  !contribution.profile.blank? %>
@@ -49,3 +74,4 @@
 
   <%end%>
 <%end%>
+  </table>
