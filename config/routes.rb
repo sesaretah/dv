@@ -95,6 +95,7 @@ Rails.application.routes.draw do
   match "/articles/fixer/:id" => "articles#fixer", :via => :get
   match "/articles/csv_to_db/:id" => "articles#csv_to_db", :via => :get
   match "/articles/upload_indexer/:id" => "articles#upload_indexer", :via => :get
+  match "/articles/raw_print/:id" => "articles#raw_print", :via => :get
 
 
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
