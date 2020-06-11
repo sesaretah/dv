@@ -1,20 +1,28 @@
 <div class="row">
   <div class="col col-login mx-auto mt-4">
-
+    <% if flash[:alert] %>
+    <div class="alert alert-warning" role="alert">
+      <i class="fe fe-alert-triangle" style="vertical-align:-3px;"></i> <%= flash[:alert] %>
+    </div>
+    <% end %>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name),html:{ class: "card"} ) do |f| %>
+
     <div class="card-body p-6">
-      <div class="text-center mb-6">
+      <div class="d-flex mb-6 mr-auto ml-auto">
         <img src="/assets/logo.png" class="h-6" alt="">
+        <div class="ml-4" style="line-height: 18px;font-size: 1rem;font-weight: 600;color: #008000;display: inline;"><%=t :shoa%><br />
+          <span class="text-muted" style="font-size: 0.6rem;"><%=t :shoa_details%></span>
+        </div>
       </div>
       <div class="card-title"><%=t :login_to_your_account%></div>
       <div class="form-group">
-        <%= f.label :email, class: "form-label" %>
-        <%= f.text_field :email , class: "form-control", 'aria-describedby' => "emailHelp",  'placeholder' => "#{t(:enter_email)}"%>
+        <%= f.label :username, class: "form-label" %>
+        <%= f.text_field :username , autocomplete: 'off' ,class: "form-control", 'aria-describedby' => "emailHelp",  'placeholder' => "#{t(:enter_mobile)}"%>
       </div>
       <div class="form-group">
         <label class="form-label">
           <%=t :password%>
-          <%=link_to t(:i_forgot_password), '/users/password/new', class:"float-right small"%>
+          <%=link_to t(:i_forgot_password), '/users/password/new', class:"float-right small text-green"%>
         </label>
         <%= f.password_field :password, autocomplete: "current-password",  class:"form-control" %>
       </div>
@@ -25,12 +33,14 @@
         </label>
       </div>
       <div class="form-footer mb-3">
-        <button type="submit" class="btn btn-primary btn-block"><%=t :sign_in%></button>
+        <button type="submit" class="btn btn-blue btn-block"><%=t :sign_in%></button>
       </div>
-    </div>
     <%end%>
-    <div class="text-center text-muted">
-      <%=t :dont_have_account_yet%> <a href="/users/sign_up"><%=t :sign_up%></a>
+    <a href='/users/cas_login' class="btn btn-green btn-block"><%=t :cas_login%></a>
+      </div>
+
+    <div class="text-center text-muted ">
+      <%=t :dont_have_account_yet%> <a class="text-green" href="/users/cas_login"><%=t :sign_up%></a>
     </div>
   </div>
 </div>
