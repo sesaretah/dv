@@ -696,6 +696,7 @@ fa:
   email: 'ایمیل'
   name: 'نام'
   surename: 'نام خانوادگی'
+  cas_login: 'احراز هویت دانشگاه'
 
   devise:
     confirmations:
