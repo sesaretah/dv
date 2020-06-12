@@ -21,12 +21,12 @@ class RegistrationsController < Devise::RegistrationsController
           @password = params[:user][:password]
           @password_confirmation = params[:user][:password_confirmation]
         end
-        @user = User.new(username: @username, email: params[:user][:email], mobile: params[:user][:mobile], utid: @sso.utid, password: @password , password_confirmation: @password_confirmation)
+        @user = User.new(email: params[:user][:email], mobile: params[:user][:mobile], utid: @sso.utid, password: @password , password_confirmation: @password_confirmation)
       end
     end
     respond_to do |format|
       if @user.save
-        #@profile = Profile.create(name: params[:user][:fullname], user_id: @user.id, mobile: params[:user][:mobile])
+        @profile = Profile.create(name: params[:user][:name], surename: params[:user][:surename], user_id: @user.id)
         sign_in(@user)
         assign_start_role(@user)
         format.html { redirect_to after_sign_in_path_for(@user), notice: 'Welcome' }
