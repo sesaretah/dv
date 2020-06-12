@@ -3,6 +3,7 @@ development:
       min_word_len: 2
       min_infix_len: 2
       mem_limit: 1024M
+      max_allowed_packet: 128M
       sql_query_pre:
         - "SET CHARACTER_SET_RESULTS=utf8"
 test:
@@ -11,5 +12,7 @@ production:
       charset_table: 0..9, a..z, _, A..Z->a..z, U+621..U+63a, U+640..U+64a,U+66e..U+66f, U+671..U+6d3, U+6d5, U+6e5..U+6e6, U+6ee..U+6ef, U+6fa..U+6fc, U+6ff
       min_word_len: 1
       min_infix_len: 1
+      mem_limit: 1024M
+      max_allowed_packet: 128M
       sql_query_pre:
         - "SET CHARACTER_SET_RESULTS=utf8"
