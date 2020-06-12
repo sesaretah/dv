@@ -57,6 +57,10 @@ Rails.application.routes.draw do
   resources :publications
   #devise_for :users
   devise_for :users, :controllers => { :passwords => "passwords", sessions: "sessions" }
+  devise_scope :user do
+    get "/users/service", to: "registrations#service"
+    get "/users/cas_login", to: "sessions#cas_login"
+  end
 
   resources :article_areas
   resources :section_items
