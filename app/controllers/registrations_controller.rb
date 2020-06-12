@@ -10,7 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     #@username = params[:user][:mobile]
     if params[:sso].blank?
-      @user = User.new(email: params[:user][:email], mobile: params[:user][:mobile], password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
+      @user = User.new(email: params[:user][:email], password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
     else
       @sso = Sso.where(uuid: params[:sso]).first
       if !@sso.blank?
@@ -21,7 +21,7 @@ class RegistrationsController < Devise::RegistrationsController
           @password = params[:user][:password]
           @password_confirmation = params[:user][:password_confirmation]
         end
-        @user = User.new(email: params[:user][:email], mobile: params[:user][:mobile], utid: @sso.utid, password: @password , password_confirmation: @password_confirmation)
+        @user = User.new(email: params[:user][:email], utid: @sso.utid, password: @password , password_confirmation: @password_confirmation)
       end
     end
     respond_to do |format|
