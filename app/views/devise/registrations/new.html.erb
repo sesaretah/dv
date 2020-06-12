@@ -32,7 +32,7 @@
         <div class="form-group">
           <label class="form-label"><%=t :email%><span class="form-required">*</span></label>
           <% if !@sso.blank? && @sso.status == 'success'%>
-            <%= f.text_field :email, "#{@sso.utid}@ut.ac.ir", class:"form-control" %>
+            <%= f.text_field :email, value: "#{@sso.utid}@ut.ac.ir", class:"form-control" %>
           <%else%>
             <%= f.text_field :email, class:"form-control" %>
             <%end%>
