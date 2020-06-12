@@ -6,7 +6,7 @@ class SessionsController < Devise::SessionsController
   end
 
   def cas_login
-    redirect_to "https://auth4.ut.ac.ir:8443/cas/login?service=https%3A%2F%2Fdivan.ut.ac.ir%2Fusers%2Fservice"
+    redirect_to "https://auth.ut.ac.ir:8443/cas/login?service=https%3A%2F%2Fdivan.ut.ac.ir%2Fusers%2Fservice"
   end
 
 
