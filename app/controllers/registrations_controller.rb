@@ -8,9 +8,9 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    @username = params[:user][:mobile]
+    #@username = params[:user][:mobile]
     if params[:sso].blank?
-      @user = User.new(username: @username, email: params[:user][:email], mobile: params[:user][:mobile], password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
+      @user = User.new(email: params[:user][:email], mobile: params[:user][:mobile], password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
     else
       @sso = Sso.where(uuid: params[:sso]).first
       if !@sso.blank?
