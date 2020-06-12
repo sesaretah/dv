@@ -693,6 +693,9 @@ fa:
   set_password_if_you_want_to_use_mobile_app: 'برای سهولت ورود می توانید در دیوان رمز عبور ثبت کنید'
   you_are_authenticated_as: 'شما با کد کاربری زیر احراز شدید'
   please_fill_in_the_following_to_proceed: 'جهت ادامه اطلاعات زیر را کامل کنید'
+  email: 'ایمیل'
+  name: 'نام'
+  surename: 'نام خانوادگی'
 
   devise:
     confirmations:
