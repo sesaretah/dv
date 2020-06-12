@@ -49,6 +49,7 @@ class RegistrationsController < Devise::RegistrationsController
     @result = Hash.from_xml(response.gsub("\n", ""))
     if !@result['serviceResponse']['authenticationSuccess'].blank?
       @utid = @result['serviceResponse']['authenticationSuccess']['user']
+      Rails.logger.info @result['serviceResponse']
       @sso = Sso.where(utid: @utid).first
       if @sso.blank?
         @sso = Sso.create(utid: @utid, uuid: SecureRandom.uuid)
