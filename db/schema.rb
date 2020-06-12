@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200612081144) do
+ActiveRecord::Schema.define(version: 20200612142303) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -599,6 +599,8 @@ ActiveRecord::Schema.define(version: 20200612081144) do
     t.datetime "updated_at",                                      null: false
     t.integer  "current_role_id",        limit: 4
     t.string   "utid",                   limit: 255
+    t.string   "name",                   limit: 255
+    t.string   "surename",               limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
