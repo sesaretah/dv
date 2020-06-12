@@ -3,7 +3,7 @@ development:
       min_word_len: 2
       min_infix_len: 2
       mem_limit: 1024M
-      max_allowed_packet: 128M
+      max_packet_size: 128M
       sql_query_pre:
         - "SET CHARACTER_SET_RESULTS=utf8"
 test:
@@ -13,6 +13,6 @@ production:
       min_word_len: 1
       min_infix_len: 1
       mem_limit: 1024M
-      max_allowed_packet: 128M
+      max_packet_size: 128M
       sql_query_pre:
         - "SET CHARACTER_SET_RESULTS=utf8"
