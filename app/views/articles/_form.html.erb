@@ -52,7 +52,7 @@
     <div class="col-md-10">
       <div class="form-group">
         <%= f.label :title, class: "form-label" %>
-        <%= f.text_field :title , class: "form-control",  required: '',  oninvalid: "this.setCustomValidity(this.willValidate ? '' :'#{t(:please_enter_data_in_this_field)}')" %>
+        <%= f.text_field :title, maxlength: 150, class: "form-control",  required: '',  oninvalid: "this.setCustomValidity(this.willValidate ? '' :'#{t(:please_enter_data_in_this_field)}')" %>
       </div>
     </div>
   </div>
@@ -93,7 +93,7 @@
     <div class="col-md-10">
       <div class="form-group">
         <%= f.label :description, class: "form-label" %>
-        <%= f.text_field :description , class: "form-control"%>
+        <%= f.text_field :description, maxlength: 150 , class: "form-control"%>
       </div>
     </div>
   </div>
