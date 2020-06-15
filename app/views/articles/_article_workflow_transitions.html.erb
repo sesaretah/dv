@@ -8,14 +8,15 @@
       <b><%=t :transition%> </b>
       <% if workflow_transition.transition_type == 1%>
         <div class="tag tag-gray">
+        <%= @from%><i class="fe fe-arrow-left" style="vertical-align:12px;margin-top: 6px;"></i><%= @to%>
           <span class="tag-addon tag-success"><i class="fe fe-trending-up" style="vertical-align: -3px;"></i></span>
-          <%= @from%><i class="fe fe-arrow-left" style="vertical-align:12px;margin-top: 6px;"></i><%= @to%>
+          
         </div>
         <span class="tag tag-dark" style="font-family: sans-serif !important;direction: ltr; vertical-align:-2px;">#<%= workflow_transition.revision_number%></span>
       <%else%>
       <div class="tag tag-gray">
+       <%= @from%> <i class="fe fe-arrow-left" style="vertical-align:12px;margin-top: 6px;"></i> <%= @to%>
         <span class="tag-addon tag-danger"><i class="fe fe-trending-down" style="vertical-align: -3px;"></i></span>
-        <%= @from%> <i class="fe fe-arrow-left" style="vertical-align:12px;margin-top: 6px;"></i> <%= @to%>
       </div>
       <span class="tag tag-dark" style="font-family: sans-serif !important;direction: ltr; vertical-align:-2px;">#<%= workflow_transition.revision_number%></span>
       <%end%>
