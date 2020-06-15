@@ -23,8 +23,9 @@
       <p>
         <b><%=t :by%> </b>
         <div class="tag tag-dark" style="vertical-align: 6px;">
-            <span class="tag-addon tag-blue"><i class="fe fe-user" style="vertical-align: -3px;"></i></span>
             <%= truncate(workflow_transition.user.profile.fullname, length: 15)%>
+            <span class="tag-addon tag-blue"><i class="fe fe-user" style="vertical-align: -3px;"></i></span>
+            
         </div>
       </p>
       <p><b><%=t :with_message%></b></br>
