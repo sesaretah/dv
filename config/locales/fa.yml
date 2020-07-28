@@ -237,6 +237,7 @@ fa:
             notes: 'یادداشت'
             dimensions: 'ابعاد و اندازه'
             retrieval_number: 'شماره بازیابی'
+            position: 'شماره'
         tag:
             title: 'عنوان'
             tag_type_id: 'نوع موضوع'
@@ -697,6 +698,8 @@ fa:
   name: 'نام'
   surename: 'نام خانوادگی'
   cas_login: 'احراز هویت دانشگاه'
+  per_page: 'تعداد در صفحه'
+  position: 'شماره'
 
   devise:
     confirmations:

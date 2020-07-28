@@ -3,10 +3,10 @@
     <thead>
       <tr>
         <th class="text-center w-1"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
-        <th><%=t :title%></th>
+        <th><%=link_to t(:position), '/home?pp='+params[:pp].to_s+'&sort=position'%></th>
+        <th><%=link_to t(:title), '/home?pp='+params[:pp].to_s+'&sort=title'%></th>
         <th><%=t :workflow_state %></th>
         <th><%=t :came_from %></th>
-        <th><i class="fe fe-package"></i></th>
       </tr>
     </thead>
     <tbody>
@@ -30,7 +30,10 @@
           </div>
         </td>
         <td>
-          <div class='small'><%= truncate(article.title, length: 45)%></div>
+            <%= article.position%>
+        </td>
+        <td>
+          <div class='small' data-toggle="tooltip" data-placement="top" title="<%= article.title%>"><%= truncate(article.title, length: 45)%></div>
           <div class="small text-muted">
             <% if !article.titlings.first.blank?%>
               <%= truncate(article.titlings.first.content, length: 45)%>
@@ -56,19 +59,6 @@
             <% if !@user.blank?%>
               <%= raw @user.profile.profile_tag%>
             <%end%>
-          <%end%>
-        </td>
-        <td style="direction:ltr;">
-          <% if article.workflow_state.votable != 2%>
-          <i class="fe fe-circle"></i>
-          <%else%>
-          <% @voting = Voting.where(votable_type: 'WorkflowState', votable_id: article.workflow_state.id).first%>
-          <% if !@voting.blank?%>
-          <% @votes = Vote.where(voting_id: @voting.id, article_id: article.id)%>
-          <%= @votes.count%>/<%= Assignment.where(role_id: article.workflow_state.role.id).count rescue nil%>
-          <%else%>
-          0/<%= Assignment.where(role_id: article.workflow_state.role.id).count rescue nil%>
-          <%end%>
           <%end%>
         </td>
 

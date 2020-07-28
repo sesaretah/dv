@@ -3,6 +3,40 @@
     <div class="card">
       <div class="card-header">
         <i class="fe fe-feather"></i>&nbsp&nbsp<%=t :dashboard%>
+ <div class="card-options">
+          <div class="dropdown" >
+            <button type="button" class="btn btn-secondary dropdown-toggle" style="font-size: 10px;" data-toggle="dropdown">
+              <%=t :per_page%>
+            </button>
+            <div class="dropdown-menu" style="right: 0px !important;">
+            <%  [5,10,20,100].each do |i|%>
+                <%= link_to '/home?pp='+i.to_s,  class: "dropdown-item" do%>
+                      <%= i%>
+                      <%if params[:pp] == i.to_s%>
+                        <i class="fe fe-check" style="vertical-align:-3px;"></i>
+                      <%end%>
+                <%end%>
+                <%end%>
+            </div>            
+            </div>
+            <div class="dropdown ml-2"  >
+            <button type="button" class="btn btn-secondary dropdown-toggle" style="font-size: 10px;" data-toggle="dropdown">
+              <%=t :workflow_state%>
+            </button>
+            <div class="dropdown-menu" style="right: 0px !important; font-size: 10px;">
+            <%  WorkflowState.where(role_id: current_user.current_role_id).each do |workflow_state|%>
+                <%= link_to '/home?workflow_state='+workflow_state.id.to_s,  class: "dropdown-item" do%>
+                      <%= truncate(workflow_state.title, length: 30)%>
+                      <%if params[:workflow_state] == workflow_state.id.to_s%>
+                        <i class="fe fe-check" style="vertical-align:-3px;"></i>
+                      <%end%>
+                <%end%>
+                <%end%>
+            </div>            
+            </div>
+            </div>
+
+
       </div>
       <% if @articles.blank?%>
       <div class='card-body' style="padding-bottom: 25px !important;">

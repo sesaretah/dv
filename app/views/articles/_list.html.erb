@@ -27,7 +27,7 @@
         </div>
       </td>
       <td>
-        <div><%= truncate(article.title, length: 40)%></div>
+        <div data-toggle="tooltip" data-placement="top" title="<%= article.title%>"><%= truncate(article.title, length: 40)%></div>
         <div class="small text-muted">
           <%= truncate(article.abstract, length: 30)%>
         </div>

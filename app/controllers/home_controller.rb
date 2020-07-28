@@ -47,8 +47,10 @@ class HomeController < ApplicationController
     else
       @role = Role.find_by_id(current_user.current_role_id)
       if !@role.blank?
-        @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
-        @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids).paginate(:page => params[:page], :per_page => 5)
+        !params[:pp].blank? ? per_page = params[:pp] : per_page = 5
+        !params[:sort].blank? ? sort = params[:sort] : sort = 'created_at'
+        !params[:workflow_state].blank? ? @workflow_state_ids =  [params[:workflow_state].to_i]: @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
+        @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids).order("#{sort} ASC").paginate(:page => params[:page], :per_page => per_page)
         @notifications = Notification.where(user_id: current_user.id).order('created_at desc').limit(10)
       end
     end
