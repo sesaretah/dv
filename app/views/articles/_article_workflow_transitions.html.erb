@@ -20,6 +20,9 @@
       </div>
       <span class="tag tag-dark" style="font-family: sans-serif !important;direction: ltr; vertical-align:-2px;">#<%= workflow_transition.revision_number%></span>
       <%end%>
+                  <% @jalali = JalaliDate.to_jalali(workflow_transition.created_at)%>
+            
+      <span class="tag tag-cyan" style="font-family: sans-serif !important; vertical-align:-2px;"><%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%></span>
       </p>
       <p>
         <b><%=t :by%> </b>
