@@ -2,6 +2,20 @@ class KeywordsController < ApplicationController
   before_action :set_keyword, only: [:show, :edit, :update, :destroy]
   before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
 
+  def uniqify
+    for keyword in Keyword.all
+      for other in Keyword.where('id <> ?', keyword.id)
+        if keyword.title == other.title
+          taggings = Tagging.where(taggable_type: 'Article', target_type: 'Keyword', target_id: other.id)
+          for tagging in taggings
+            tagging.target_id = keyword.id
+            tagging.save
+          end 
+          #other.destroy
+        end
+      end
+    end
+  end
   def search
     if !params[:q].blank?
       @keyword = Keyword.search params[:q], :star => true

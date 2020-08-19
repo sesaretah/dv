@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/keywords/uniqify' => 'keywords#uniqify'
+  
   resources :profile_groups
   resources :involvements
   resources :messages

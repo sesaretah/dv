@@ -24,51 +24,70 @@ class ArticlesController < ApplicationController
     end
   end
 
+
   def csv_to_db
     require 'csv'
     xlsx = Roo::Spreadsheet.open("#{Rails.root}/data.xlsx")
 
-    xlsx.each_row_streaming( offset: 1, max_rows: 2253) do |row|
+    xlsx.each_row_streaming( offset: 1, max_rows: 1000) do |row|
       article = Article.new
-      if !row[4].blank?
-        article.title = row[4].to_s.truncate(200)
+      if !row[0].blank?
+        article.title = row[0].to_s.truncate(200)
       end
-      article.abstract = row[8]
+      if !row[3].blank?
+        article.abstract = row[3].to_s.truncate(200)
+      end
+      if !row[4].blank? && !row[5].blank?
+        article.description = row[4].to_s.truncate(200) +' | '+ row[5].to_s.truncate(200)
+      end
+      if !row[6].blank?
+        article.content = row[6].to_s.truncate(200)
+      end
+
+      if !row[7].blank?
+        article.url = row[7].to_s.truncate(200)
+      end
       article.slug = SecureRandom.hex(4)
-      article.workflow_state_id = 51
+      article.workflow_state_id = 1
       article.save
-      area = ArticleArea.where(title: row[3]).first
-      if !row[3].blank? && area.blank?
-        area = ArticleArea.create(title: row[3])
-      end
-      if !area.blank?
-        Areaing.create(article_area_id:  area.id, article_id: article.id)
-      end
-
-      maghta = Keyword.where(title: row[5]).first
-      if !row[5].blank? && maghta.blank?
-        maghta = Keyword.create(title: row[5])
-      end
-      if !maghta.blank?
-        Tagging.create(taggable_type: 'Article', taggable_id: article.id, target_type: 'Keyword', target_id: maghta.id)
+      areas = row[17].to_s.split('،')
+      for area in areas
+        a = ArticleArea.where(title: area.squish).first
+        if a.blank?
+          a = ArticleArea.create(title: area.squish)
+        end
+        if !a.blank?
+          Areaing.create(article_area_id:  a.id, article_id: article.id)
+        end
       end
 
-      mozo = Keyword.where(title: row[6]).first
-      if !row[6].blank? && mozo.blank?
-        mozo = Keyword.create(title: row[6])
+
+      keyword_1 = Keyword.where(title: row[8].to_s.squish).first
+      if !row[8].blank? && keyword_1.blank?
+        keyword_1 = Keyword.create(title: row[8])
       end
-      if !mozo.blank?
-        Tagging.create(taggable_type: 'Article', taggable_id: article.id, target_type: 'Keyword', target_id: mozo.id)
+      if !keyword_1.blank?
+        Tagging.create(taggable_type: 'Article', taggable_id: article.id, target_type: 'Keyword', target_id: keyword_1.id)
       end
-      natije = Keyword.where(title: row[9]).first
-      if !row[9].blank? && natije.blank?
-        natije = Keyword.create(title: row[9])
+
+      keyword_2 = Keyword.where(title: row[9].to_s.squish).first
+      if !row[8].blank? && keyword_2.blank?
+        keyword_2 = Keyword.create(title: row[9])
       end
-      if !natije.blank?
-        Tagging.create(taggable_type: 'Article', taggable_id: article.id, target_type: 'Keyword', target_id: natije.id)
+      if !keyword_2.blank?
+        Tagging.create(taggable_type: 'Article', taggable_id: article.id, target_type: 'Keyword', target_id: keyword_2.id)
+      end
+      
+      Speaking.create(language_id: 1, article_id: article.id)
+      Contribution.create(article_id: article.id, profile_id: 492, role_id: 62, duty_id: 70)
+      if !row[1].blank?
+        Titling.create(article_id: article.id, title_type_id: 1, content: row[1].to_s.squish)
       end
       if !row[1].blank?
-        date = row[1].to_s.split('/')
+        Titling.create(article_id: article.id, title_type_id: 3, content: row[1].to_s.squish)
+      end
+      if !row[10].blank?
+        date = row[10].to_s.split('/')
         dating = Dating.new
         jdate = JalaliDate.to_gregorian(date[0],date[1],date[2]) rescue nil
         if jdate
