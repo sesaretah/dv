@@ -60,7 +60,7 @@
             </td>
             <td>
               <span class="tag" style='vertical-align: -3px;'>
-                <% if keyword.user%>
+                <% if keyword.user && !keyword.user.profile.blank?%>
                 <span class="tag-avatar avatar" style="background-image: url('<%= keyword.user.profile.avatar(:tiny)%>')"></span>
                 <%= truncate(keyword.user.profile.fullname, length: 15)%>
                 <%end%>
