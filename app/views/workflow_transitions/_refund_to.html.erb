@@ -6,7 +6,7 @@
     <%= select_tag  "workflow_state", options_for_select(prv.collect { |p| [ p.title, p.id ] }), {class: "form-control"} %>
   </div>
   <div class="form-group">
-    <label class="form-label" style='font-size:10px; font-style:italic;'><%=t :message_is_required%></label>
+    <label class="form-label" style='font-size:10px; font-style:italic;'>*<%=t :message_is_required%></label>
     <%= text_area_tag  "message", nil, class: "form-control" , placeholder: t(:message_content), :required => true %>
   </div>
   <div class="text-right">
