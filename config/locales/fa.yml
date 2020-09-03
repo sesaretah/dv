@@ -700,6 +700,7 @@ fa:
   cas_login: 'احراز هویت دانشگاه'
   per_page: 'تعداد در صفحه'
   position: 'شماره'
+  message_is_required: 'پیام اجباری است '
 
   devise:
     confirmations:
