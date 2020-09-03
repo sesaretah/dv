@@ -6,8 +6,8 @@
     <%= select_tag  "workflow_state", options_for_select(nxt.collect { |p| [ p.title, p.id ] }), {class: "form-control"} %>
   </div>
   <div class="form-group">
-    <label class="form-label"></label>
-    <%= text_area_tag  "message", nil, class: "form-control", placeholder: t(:message_content) %>
+    <label class="form-label">*</label>
+    <%= text_area_tag  "message", nil, class: "form-control", placeholder: t(:message_content), :required => true %>
   </div>
   <div class="text-right">
     <button type="submit" class="btn btn-lime btn-sm"><i class="fe fe-trending-up" style="vertical-align: -3px;"></i> <%=t :send%></button>
