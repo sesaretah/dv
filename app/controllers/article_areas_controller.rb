@@ -14,7 +14,7 @@ class ArticleAreasController < ApplicationController
   # GET /article_areas
   # GET /article_areas.json
   def index
-    @article_areas = ArticleArea.all.order("title asc")
+    @article_areas = ArticleArea.all.order("title asc").paginate(:page => params[:page], :per_page => 30)
   end
 
   # GET /article_areas/1
