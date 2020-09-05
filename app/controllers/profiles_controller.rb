@@ -59,7 +59,7 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all.order("surename asc")
+    @profiles = Profile.all.order("surename asc").paginate(:page => params[:page], :per_page => 30)
   end
 
   # GET /profiles/1
