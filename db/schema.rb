@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200728200931) do
+ActiveRecord::Schema.define(version: 20200905053646) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -43,12 +43,16 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.integer  "alter_profile_groups",         limit: 4
   end
 
+  add_index "access_controls", ["user_id"], name: "index_access_controls_on_user_id", using: :btree
+
   create_table "access_groups", force: :cascade do |t|
     t.string   "title",      limit: 255
     t.integer  "user_id",    limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "access_groups", ["user_id"], name: "index_access_groups_on_user_id", using: :btree
 
   create_table "areaing_histories", force: :cascade do |t|
     t.integer  "article_id",             limit: 4
@@ -68,6 +72,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                null: false
   end
 
+  add_index "areaings", ["article_id"], name: "index_areaings_on_article_id", using: :btree
+
   create_table "article_areas", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
@@ -75,6 +81,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                null: false
     t.integer  "user_id",     limit: 4
   end
+
+  add_index "article_areas", ["user_id"], name: "index_article_areas_on_user_id", using: :btree
 
   create_table "article_events", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -84,6 +92,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.integer  "user_id",     limit: 4
   end
 
+  add_index "article_events", ["user_id"], name: "index_article_events_on_user_id", using: :btree
+
   create_table "article_formats", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
@@ -91,6 +101,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                null: false
     t.integer  "user_id",     limit: 4
   end
+
+  add_index "article_formats", ["user_id"], name: "index_article_formats_on_user_id", using: :btree
 
   create_table "article_histories", force: :cascade do |t|
     t.string   "title",                  limit: 255
@@ -114,6 +126,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.integer  "user_id",     limit: 4
   end
 
+  add_index "article_relation_types", ["user_id"], name: "index_article_relation_types_on_user_id", using: :btree
+
   create_table "article_sources", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
@@ -122,6 +136,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.integer  "user_id",     limit: 4
   end
 
+  add_index "article_sources", ["user_id"], name: "index_article_sources_on_user_id", using: :btree
+
   create_table "article_types", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
@@ -129,6 +145,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                null: false
     t.integer  "user_id",     limit: 4
   end
+
+  add_index "article_types", ["user_id"], name: "index_article_types_on_user_id", using: :btree
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",               limit: 255
@@ -163,6 +181,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",            null: false
   end
 
+  add_index "assignments", ["user_id"], name: "index_assignments_on_user_id", using: :btree
+
   create_table "comments", force: :cascade do |t|
     t.string   "content",          limit: 191
     t.integer  "commentable_id",   limit: 4
@@ -179,6 +199,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
+
+  add_index "content_templates", ["user_id"], name: "index_content_templates_on_user_id", using: :btree
 
   create_table "contribution_histories", force: :cascade do |t|
     t.integer  "article_id",             limit: 4
@@ -202,6 +224,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.integer  "profile_id", limit: 4
   end
 
+  add_index "contributions", ["article_id"], name: "index_contributions_on_article_id", using: :btree
+
   create_table "dating_histories", force: :cascade do |t|
     t.integer  "article_id",             limit: 4
     t.integer  "article_event_id",       limit: 4
@@ -222,6 +246,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "datings", ["article_id"], name: "index_datings_on_article_id", using: :btree
+
   create_table "duties", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
@@ -229,6 +255,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                null: false
     t.integer  "user_id",     limit: 4
   end
+
+  add_index "duties", ["user_id"], name: "index_duties_on_user_id", using: :btree
 
   create_table "formating_histories", force: :cascade do |t|
     t.integer  "article_format_id",      limit: 4
@@ -248,6 +276,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
+
+  add_index "formatings", ["article_id"], name: "index_formatings_on_article_id", using: :btree
 
   create_table "interconnects", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -269,6 +299,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "involvements", ["article_id"], name: "index_involvements_on_article_id", using: :btree
+
   create_table "keywords", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
@@ -276,6 +308,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                null: false
     t.integer  "user_id",     limit: 4
   end
+
+  add_index "keywords", ["user_id"], name: "index_keywords_on_user_id", using: :btree
 
   create_table "kinship_histories", force: :cascade do |t|
     t.integer  "user_id",                  limit: 4
@@ -299,6 +333,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.integer  "rank",                     limit: 4, default: 0
   end
 
+  add_index "kinships", ["article_id"], name: "index_kinships_on_article_id", using: :btree
+
   create_table "languages", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
@@ -306,6 +342,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                null: false
     t.integer  "user_id",     limit: 4
   end
+
+  add_index "languages", ["user_id"], name: "index_languages_on_user_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -316,6 +354,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
+
+  add_index "locations", ["user_id"], name: "index_locations_on_user_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -348,6 +388,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.integer  "emmiter_id",        limit: 4
   end
 
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
+
   create_table "originating_histories", force: :cascade do |t|
     t.integer  "article_id",             limit: 4
     t.integer  "article_source_id",      limit: 4
@@ -366,6 +408,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                  null: false
   end
 
+  add_index "originatings", ["article_id"], name: "index_originatings_on_article_id", using: :btree
+
   create_table "profile_groupings", force: :cascade do |t|
     t.integer  "profile_id",       limit: 4
     t.integer  "profile_group_id", limit: 4
@@ -381,6 +425,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                null: false
     t.integer  "user_id",     limit: 4
   end
+
+  add_index "profile_groups", ["user_id"], name: "index_profile_groups_on_user_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -410,6 +456,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.integer  "publish_source_id", limit: 4
   end
 
+  add_index "publications", ["article_id"], name: "index_publications_on_article_id", using: :btree
+
   create_table "publish_sources", force: :cascade do |t|
     t.string   "title",        limit: 255
     t.text     "description",  limit: 65535
@@ -427,6 +475,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                    null: false
     t.integer  "organization_type", limit: 4
   end
+
+  add_index "publishers", ["user_id"], name: "index_publishers_on_user_id", using: :btree
 
   create_table "role_accesses", force: :cascade do |t|
     t.integer  "role_id",         limit: 4
@@ -456,6 +506,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.string   "klass_name",  limit: 255
   end
 
+  add_index "section_items", ["user_id"], name: "index_section_items_on_user_id", using: :btree
+
   create_table "sectionings", force: :cascade do |t|
     t.integer  "section_id",      limit: 4
     t.integer  "section_item_id", limit: 4
@@ -470,6 +522,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",              null: false
     t.string   "title",       limit: 255
   end
+
+  add_index "sections", ["user_id"], name: "index_sections_on_user_id", using: :btree
 
   create_table "speaking_histories", force: :cascade do |t|
     t.integer  "article_id",             limit: 4
@@ -488,6 +542,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end
+
+  add_index "speakings", ["article_id"], name: "index_speakings_on_article_id", using: :btree
 
   create_table "ssos", force: :cascade do |t|
     t.string   "utid",       limit: 255
@@ -530,6 +586,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.integer  "user_id",     limit: 4
   end
 
+  add_index "title_types", ["user_id"], name: "index_title_types_on_user_id", using: :btree
+
   create_table "titlings", force: :cascade do |t|
     t.integer  "title_type_id", limit: 4
     t.integer  "article_id",    limit: 4
@@ -538,6 +596,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                null: false
     t.string   "content",       limit: 255
   end
+
+  add_index "titlings", ["article_id"], name: "index_titlings_on_article_id", using: :btree
 
   create_table "typing_histories", force: :cascade do |t|
     t.integer  "article_type_id",        limit: 4
@@ -556,6 +616,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
+
+  add_index "typings", ["article_id"], name: "index_typings_on_article_id", using: :btree
 
   create_table "upload_histories", force: :cascade do |t|
     t.string   "uploadable_type",         limit: 255
@@ -616,6 +678,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.integer  "article_id", limit: 4
   end
 
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
+
   create_table "votings", force: :cascade do |t|
     t.integer  "votable_id",   limit: 4
     t.string   "votable_type", limit: 255
@@ -636,6 +700,8 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.integer  "document_file_size",    limit: 8
     t.datetime "document_updated_at"
   end
+
+  add_index "word_templates", ["user_id"], name: "index_word_templates_on_user_id", using: :btree
 
   create_table "workflow_states", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -667,6 +733,9 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.string   "revision_number", limit: 255
   end
 
+  add_index "workflow_transitions", ["article_id"], name: "index_workflow_transitions_on_article_id", using: :btree
+  add_index "workflow_transitions", ["user_id"], name: "index_workflow_transitions_on_user_id", using: :btree
+
   create_table "workflows", force: :cascade do |t|
     t.string   "title",         limit: 255
     t.text     "description",   limit: 65535
@@ -678,5 +747,7 @@ ActiveRecord::Schema.define(version: 20200728200931) do
     t.datetime "updated_at",                  null: false
     t.integer  "start_node_id", limit: 4
   end
+
+  add_index "workflows", ["user_id"], name: "index_workflows_on_user_id", using: :btree
 
 end
