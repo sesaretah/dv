@@ -68,7 +68,7 @@ class ArticlesController < ApplicationController
           t = ArticleType.create(title: type.squish)
         end
         if !t.blank?
-          Typing.create(article_area_id:  t.id, article_id: article.id)
+          Typing.create(article_type_id:  t.id, article_id: article.id)
         end
       end
 
