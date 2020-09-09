@@ -61,6 +61,18 @@ class ArticlesController < ApplicationController
         end
       end
 
+      types = row[12].to_s.split('،')
+      for type in types
+        t = ArticleType.where(title: type.squish).first
+        if t.blank?
+          t = ArticleType.create(title: type.squish)
+        end
+        if !t.blank?
+          Typing.create(article_area_id:  t.id, article_id: article.id)
+        end
+      end
+
+
 
       keyword_1 = Keyword.where(title: row[8].to_s.squish).first
       if !row[8].blank? && keyword_1.blank?
@@ -79,12 +91,13 @@ class ArticlesController < ApplicationController
       end
       
       Speaking.create(language_id: 1, article_id: article.id)
+      Formating.create(article_format_id: 1, article_id: article.id)
       Contribution.create(article_id: article.id, profile_id: 492, role_id: 62, duty_id: 70)
       if !row[1].blank?
         Titling.create(article_id: article.id, title_type_id: 1, content: row[1].to_s.squish)
       end
-      if !row[1].blank?
-        Titling.create(article_id: article.id, title_type_id: 3, content: row[1].to_s.squish)
+      if !row[2].blank?
+        Titling.create(article_id: article.id, title_type_id: 3, content: row[2].to_s.squish)
       end
       if !row[10].blank?
         date = row[10].to_s.split('/')
