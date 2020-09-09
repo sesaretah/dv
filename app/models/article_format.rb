@@ -1,4 +1,5 @@
 class ArticleFormat < ActiveRecord::Base
+  after_save ThinkingSphinx::RealTime.callback_for(:article_format)
   has_many :articles, :through => :formatings
   has_many :formatings, dependent: :destroy
   belongs_to :user

@@ -1,4 +1,5 @@
 class PublishSource < ActiveRecord::Base
+  after_save ThinkingSphinx::RealTime.callback_for(:publish_source)
   belongs_to :publisher
   belongs_to :user
   has_many :publications

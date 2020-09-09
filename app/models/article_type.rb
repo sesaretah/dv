@@ -1,4 +1,5 @@
 class ArticleType < ActiveRecord::Base
+  after_save ThinkingSphinx::RealTime.callback_for(:article_type)
   has_many :articles, :through => :typings
   has_many :typings, dependent: :destroy
   belongs_to :user

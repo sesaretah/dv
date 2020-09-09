@@ -1,4 +1,5 @@
 class ArticleEvent < ActiveRecord::Base
+  after_save ThinkingSphinx::RealTime.callback_for(:article_event)
   has_many :articles, :through => :datings
   has_many :datings, dependent: :destroy
   belongs_to :user

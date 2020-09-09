@@ -1,4 +1,5 @@
 class Language < ActiveRecord::Base
+  after_save ThinkingSphinx::RealTime.callback_for(:language)
   has_many :articles, :through => :speakings
   has_many :speakings, dependent: :destroy
   belongs_to :user
