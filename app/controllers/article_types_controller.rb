@@ -2,6 +2,27 @@ class ArticleTypesController < ApplicationController
   before_action :set_article_type, only: [:show, :edit, :update, :destroy]
   before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
 
+  def mergerer
+
+  end
+
+  def merge
+    @article_type_1 = ArticleType.find(params[:article_type_1])
+    @article_type_2 = ArticleType.find(params[:article_type_2])
+    ArticleType.merge_article_type(@article_type_1, @article_type_2)
+    redirect_to '/article_types'
+  end
+
+  def search
+    if !params[:q].blank?
+      @article_types = ArticleType.search params[:q], :star => true
+    end
+    resp = []
+    for r in @article_types
+      resp << {'title' => r.title , 'id' => r.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
   # GET /article_types
   # GET /article_types.json
   def index

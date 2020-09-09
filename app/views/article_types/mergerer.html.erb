@@ -1,0 +1,29 @@
+<%= form_tag '/article_types/merge/1', method: :get, class: 'card' do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%=t :merge_article_type %></h3>
+</div>
+<div class="card-body">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label  class="form-label"><%=t :article_type_1%></label>
+        <%= text_field_tag :megre_article_type_1, nil , class: "form-control" %>
+        <%= hidden_field_tag :article_type_1 , '' %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+      <label  class="form-label"><%=t :article_type_2%></label>
+        <%= text_field_tag :megre_article_type_2, nil , class: "form-control" %>
+          <%= hidden_field_tag :article_type_2 , '' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+  </div>
+  </div>
+  <% end %>

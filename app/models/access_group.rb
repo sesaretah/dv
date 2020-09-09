@@ -4,4 +4,13 @@ class AccessGroup < ActiveRecord::Base
 
   has_many :roles, :through => :role_accesses
   has_many :role_accesses, dependent: :destroy
+
+  def self.merge_access_group(access_group_1, access_group_2)
+    @role_accesses = access_group_2.role_accesses
+    for role_access in @role_accesses
+      role_access.access_group_id = access_group_1.id
+      role_access.save
+    end
+  end
+  
 end

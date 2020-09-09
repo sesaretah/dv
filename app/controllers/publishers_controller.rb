@@ -1,6 +1,18 @@
 class PublishersController < ApplicationController
   before_action :set_publisher, only: [:show, :edit, :update, :destroy, :publish_sources]
 
+
+  def mergerer
+
+  end
+
+  def merge
+    @publisher_1 = Publisher.find(params[:publisher_1])
+    @publisher_2 = Publisher.find(params[:publisher_2])
+    Publisher.merge_publisher(@publisher_1, @publisher_2)
+    redirect_to '/publishers'
+  end
+  
   def publish_sources
     @publish_sources = @publisher.publish_sources
     resp = []

@@ -164,6 +164,60 @@ Rails.application.routes.draw do
   match "/publishers/search/:id" => "publishers#search", :via => :get
   match "/publishers/publish_sources/:id" => "publishers#publish_sources", :via => :get
 
+
+  match "/keywords/mergerer/:id" => "keywords#mergerer", :via => :get
+  match "/keywords/merge/:id" => "keywords#merge", :via => :get
+
+  match "/article_areas/mergerer/:id" => "article_areas#mergerer", :via => :get
+  match "/article_areas/merge/:id" => "article_areas#merge", :via => :get
+
+  match "/article_events/mergerer/:id" => "article_events#mergerer", :via => :get
+  match "/article_events/merge/:id" => "article_events#merge", :via => :get
+  match "/article_events/search/:id" => "article_events#search", :via => :get
+
+  match "/article_formats/mergerer/:id" => "article_formats#mergerer", :via => :get
+  match "/article_formats/merge/:id" => "article_formats#merge", :via => :get
+  match "/article_formats/search/:id" => "article_formats#search", :via => :get
+
+  match "/article_relation_types/mergerer/:id" => "article_relation_types#mergerer", :via => :get
+  match "/article_relation_types/merge/:id" => "article_relation_types#merge", :via => :get
+
+  match "/article_sources/mergerer/:id" => "article_sources#mergerer", :via => :get
+  match "/article_sources/merge/:id" => "article_sources#merge", :via => :get
+
+  match "/article_types/mergerer/:id" => "article_types#mergerer", :via => :get
+  match "/article_types/merge/:id" => "article_types#merge", :via => :get
+  match "/article_types/search/:id" => "article_types#search", :via => :get
+
+  match "/languages/mergerer/:id" => "languages#mergerer", :via => :get
+  match "/languages/merge/:id" => "languages#merge", :via => :get
+  match "/languages/search/:id" => "languages#search", :via => :get
+
+  match "/duties/mergerer/:id" => "duties#mergerer", :via => :get
+  match "/duties/merge/:id" => "duties#merge", :via => :get
+  match "/duties/search/:id" => "duties#search", :via => :get
+
+  match "/roles/mergerer/:id" => "roles#mergerer", :via => :get
+  match "/roles/merge/:id" => "roles#merge", :via => :get
+  match "/roles/search/:id" => "roles#search", :via => :get
+
+  match "/title_types/mergerer/:id" => "title_types#mergerer", :via => :get
+  match "/title_types/merge/:id" => "title_types#merge", :via => :get
+  match "/title_types/search/:id" => "title_types#search", :via => :get
+
+  match "/access_groups/mergerer/:id" => "access_groups#mergerer", :via => :get
+  match "/access_groups/merge/:id" => "access_groups#merge", :via => :get
+  match "/access_groups/search/:id" => "access_groups#search", :via => :get
+
+
+  match "/publishers/mergerer/:id" => "publishers#mergerer", :via => :get
+  match "/publishers/merge/:id" => "publishers#merge", :via => :get
+  match "/publishers/search/:id" => "publishers#search", :via => :get
+
+  match "/publish_sources/mergerer/:id" => "publish_sources#mergerer", :via => :get
+  match "/publish_sources/merge/:id" => "publish_sources#merge", :via => :get
+  match "/publish_sources/search/:id" => "publish_sources#search", :via => :get
+
   match "/messages/delete/:id" => "messages#delete", :via => :get
   match "/messages/reply/:id" => "messages#reply", :via => :get
   match "/messages/reply_all/:id" => "messages#reply_all", :via => :get

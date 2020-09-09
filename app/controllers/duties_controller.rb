@@ -2,6 +2,17 @@ class DutiesController < ApplicationController
   before_action :set_duty, only: [:show, :edit, :update, :destroy]
 
 
+  def mergerer
+
+  end
+
+  def merge
+    @duty_1 = Duty.find(params[:duty_1])
+    @duty_2 = Duty.find(params[:duty_2])
+    Duty.merge_duty(@duty_1, @duty_2)
+    redirect_to '/duties'
+  end
+
   def search
     if !params[:q].blank?
       @duties = Duty.search params[:q], :star => true

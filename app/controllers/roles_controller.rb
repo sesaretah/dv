@@ -1,6 +1,18 @@
 class RolesController < ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
 
+
+  def mergerer
+
+  end
+
+  def merge
+    @role_1 = Role.find(params[:role_1])
+    @role_2 = Role.find(params[:role_2])
+    Role.merge_role(@role_1, @role_2)
+    redirect_to '/roles'
+  end
+
   def search
     if !params[:q].blank?
       @roles = Role.search params[:q], :star => true

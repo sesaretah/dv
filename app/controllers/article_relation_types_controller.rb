@@ -2,6 +2,18 @@ class ArticleRelationTypesController < ApplicationController
   before_action :set_article_relation_type, only: [:show, :edit, :update, :destroy]
   before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
 
+  def mergerer
+
+  end
+
+  def merge
+    @article_relation_type_1 = ArticleRelationType.find(params[:article_relation_type_1])
+    @article_relation_type_2 = ArticleRelationType.find(params[:article_relation_type_2])
+    ArticleRelationType.merge_article_relation_type(@article_relation_type_1, @article_relation_type_2)
+    redirect_to '/article_relation_types'
+  end
+
+  
   def search
     if !params[:q].blank?
       @article_relation_types = ArticleRelationType.search params[:q], :star => true

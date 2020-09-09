@@ -2,6 +2,18 @@ class ArticleSourcesController < ApplicationController
   before_action :set_article_source, only: [:show, :edit, :update, :destroy]
   before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
 
+
+  def mergerer
+
+  end
+
+  def merge
+    @article_source_1 = ArticleSource.find(params[:article_source_1])
+    @article_source_2 = ArticleSource.find(params[:article_source_2])
+    ArticleSource.merge_article_source(@article_source_1, @article_source_2)
+    redirect_to '/article_sources'
+  end
+  
   def search
     if !params[:q].blank?
       @article_sources = ArticleSource.search params[:q], :star => true

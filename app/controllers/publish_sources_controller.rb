@@ -1,6 +1,16 @@
 class PublishSourcesController < ApplicationController
   before_action :set_publish_source, only: [:show, :edit, :update, :destroy]
 
+  def mergerer
+
+  end
+
+  def merge
+    @publish_source_1 = PublishSource.find(params[:publish_source_1])
+    @publish_source_2 = PublishSource.find(params[:publish_source_2])
+    PublishSource.merge_publish_source(@publish_source_1, @publish_source_2)
+    redirect_to '/publish_sources'
+  end
   # GET /publish_sources
   # GET /publish_sources.json
   def index

@@ -1,9 +1,21 @@
 class ArticleAreasController < ApplicationController
   before_action :set_article_area, only: [:show, :edit, :update, :destroy]
   before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
+  
+  def mergerer
+
+  end
+
+  def merge
+    @article_area_1 = ArticleArea.find(params[:article_area_1])
+    @article_area_2 = ArticleArea.find(params[:article_area_2])
+    ArticleArea.merge_article_area(@article_area_1, @article_area_2)
+    redirect_to '/article_areas'
+  end
+
   def search
-    if !params[:q].blank?
-      @article_areas = ArticleArea.search params[:q], :star => true
+    if !params[:q].blank? 
+      @article_areas = ArticleArea.search params[:q], :star => true, :page =>1, :per_page => 100
     end
     resp = []
     for r in @article_areas

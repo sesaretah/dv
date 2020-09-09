@@ -3,6 +3,29 @@ class ArticleEventsController < ApplicationController
   before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
   # GET /article_events
   # GET /article_events.json
+
+  def mergerer
+
+  end
+
+  def merge
+    @article_event_1 = ArticleEvent.find(params[:article_event_1])
+    @article_event_2 = ArticleEvent.find(params[:article_event_2])
+    ArticleEvent.merge_article_event(@article_event_1, @article_event_2)
+    redirect_to '/article_events'
+  end
+
+  def search
+    if !params[:q].blank? 
+      @article_events = ArticleEvent.search params[:q], :star => true, :page =>1, :per_page => 100
+    end
+    resp = []
+    for r in @article_events
+      resp << {'title' => r.title , 'id' => r.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
+
   def index
     @article_events = ArticleEvent.all.order("title asc")
   end

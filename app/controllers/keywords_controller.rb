@@ -2,6 +2,17 @@ class KeywordsController < ApplicationController
   before_action :set_keyword, only: [:show, :edit, :update, :destroy]
   before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
 
+  def mergerer
+
+  end
+
+  def merge
+    @keyword_1 = Keyword.find(params[:keyword_1])
+    @keyword_2 = Keyword.find(params[:keyword_2])
+    Keyword.merge_keyword(@keyword_1, @keyword_2)
+    redirect_to '/keywords'
+  end
+
   def uniqify
     for keyword in Keyword.all
       for other in Keyword.where('id <> ?', keyword.id)

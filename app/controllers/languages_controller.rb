@@ -1,7 +1,28 @@
 class LanguagesController < ApplicationController
   before_action :set_language, only: [:show, :edit, :update, :destroy]
 
+  def mergerer
 
+  end
+
+  def merge
+    @language_1 = Language.find(params[:language_1])
+    @language_2 = Language.find(params[:language_2])
+    Language.merge_language(@language_1, @language_2)
+    redirect_to '/languages'
+  end
+
+  def search
+    if !params[:q].blank?
+      @languages = Language.search params[:q], :star => true
+    end
+    resp = []
+    for r in @languages
+      resp << {'title' => r.title , 'id' => r.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
+  
   # GET /languages
   # GET /languages.json
   def index

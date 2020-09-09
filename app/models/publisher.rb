@@ -5,4 +5,13 @@ class Publisher < ActiveRecord::Base
   has_many :publish_sources, dependent: :destroy
 
   belongs_to :user
+
+  def self.merge_publisher(publisher_1, publisher_2)
+    @publications = publisher_2.publications
+    for publication in @publications
+        publication.publisher_id = publisher_1.id
+        publication.save
+    end
+  end
+
 end

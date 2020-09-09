@@ -363,6 +363,794 @@ function fireAutoCompleteEvent(event) {
     }
   });
 
+  $('#megre_keyword_1').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems: 1,
+    preload:      true,
+    onItemAdd: function (value, item) {
+      $('#keyword_1').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/keywords/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+  $('#megre_keyword_2').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems: 1,
+    preload:      true,
+    onItemAdd: function (value, item) {
+      $('#keyword_2').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/keywords/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+  $('#megre_article_area_1').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems:  1,
+    maxOptions: 30,
+    onItemAdd: function (value, item) {
+      $('#article_area_1').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + item.title + '(' + item.id + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_areas/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          console.log(res.slice(0, 30))
+          callback(res.slice(0, 30));
+        }
+      });
+    }
+  });
+
+  $('#megre_article_area_2').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems: 1,
+    maxOptions: 30,
+   // preload:      true,
+    onItemAdd: function (value, item) {
+      $('#article_area_2').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '(' + escape(item.id) + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_areas/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+
+  $('#megre_article_event_1').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems:  1,
+    maxOptions: 30,
+    onItemAdd: function (value, item) {
+      $('#article_event_1').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + item.title + '(' + item.id + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_events/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          console.log(res.slice(0, 30))
+          callback(res.slice(0, 30));
+        }
+      });
+    }
+  });
+
+  $('#megre_article_event_2').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems: 1,
+    maxOptions: 30,
+   // preload:      true,
+    onItemAdd: function (value, item) {
+      $('#article_event_2').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '(' + escape(item.id) + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_events/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+
+  $('#megre_article_format_1').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems:  1,
+    maxOptions: 30,
+    onItemAdd: function (value, item) {
+      $('#article_format_1').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + item.title + '(' + item.id + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_formats/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          console.log(res.slice(0, 30))
+          callback(res.slice(0, 30));
+        }
+      });
+    }
+  });
+
+  $('#megre_article_format_2').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems: 1,
+    maxOptions: 30,
+   // preload:      true,
+    onItemAdd: function (value, item) {
+      $('#article_format_2').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '(' + escape(item.id) + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_formats/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+
+  $('#megre_article_relation_type_1').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems:  1,
+    maxOptions: 30,
+    onItemAdd: function (value, item) {
+      $('#article_relation_type_1').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + item.title + '(' + item.id + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_relation_types/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          console.log(res.slice(0, 30))
+          callback(res.slice(0, 30));
+        }
+      });
+    }
+  });
+
+  $('#megre_article_relation_type_2').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems: 1,
+    maxOptions: 30,
+   // preload:      true,
+    onItemAdd: function (value, item) {
+      $('#article_relation_type_2').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '(' + escape(item.id) + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_relation_types/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+
+  $('#megre_article_source_1').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems:  1,
+    maxOptions: 30,
+    onItemAdd: function (value, item) {
+      $('#article_source_1').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + item.title + '(' + item.id + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_sources/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          console.log(res.slice(0, 30))
+          callback(res.slice(0, 30));
+        }
+      });
+    }
+  });
+
+  $('#megre_article_source_2').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems: 1,
+    maxOptions: 30,
+   // preload:      true,
+    onItemAdd: function (value, item) {
+      $('#article_source_2').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '(' + escape(item.id) + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_sources/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+
+
+  $('#megre_article_type_1').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems:  1,
+    maxOptions: 30,
+    onItemAdd: function (value, item) {
+      $('#article_type_1').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + item.title + '(' + item.id + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_types/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          console.log(res.slice(0, 30))
+          callback(res.slice(0, 30));
+        }
+      });
+    }
+  });
+
+  $('#megre_article_type_2').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems: 1,
+    maxOptions: 30,
+   // preload:      true,
+    onItemAdd: function (value, item) {
+      $('#article_type_2').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '(' + escape(item.id) + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/article_types/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+  $('#megre_duty_1').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems:  1,
+    maxOptions: 30,
+    onItemAdd: function (value, item) {
+      $('#duty_1').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + item.title + '(' + item.id + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/duties/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          console.log(res.slice(0, 30))
+          callback(res.slice(0, 30));
+        }
+      });
+    }
+  });
+
+  $('#megre_duty_2').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems: 1,
+    maxOptions: 30,
+   // preload:      true,
+    onItemAdd: function (value, item) {
+      $('#duty_2').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '(' + escape(item.id) + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/duties/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+  $('#megre_language_1').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems:  1,
+    maxOptions: 30,
+    onItemAdd: function (value, item) {
+      $('#language_1').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + item.title + '(' + item.id + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/languages/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          console.log(res.slice(0, 30))
+          callback(res.slice(0, 30));
+        }
+      });
+    }
+  });
+
+  $('#megre_language_2').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems: 1,
+    maxOptions: 30,
+   // preload:      true,
+    onItemAdd: function (value, item) {
+      $('#language_2').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '(' + escape(item.id) + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/languages/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+
+  $('#megre_role_1').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems:  1,
+    maxOptions: 30,
+    onItemAdd: function (value, item) {
+      $('#role_1').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + item.title + '(' + item.id + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/roles/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          console.log(res.slice(0, 30))
+          callback(res.slice(0, 30));
+        }
+      });
+    }
+  });
+
+  $('#megre_role_2').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems: 1,
+    maxOptions: 30,
+   // preload:      true,
+    onItemAdd: function (value, item) {
+      $('#role_2').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '(' + escape(item.id) + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/roles/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+  $('#megre_publisher_1').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems:  1,
+    maxOptions: 30,
+    onItemAdd: function (value, item) {
+      $('#publisher_1').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + item.title + '(' + item.id + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/publishers/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          console.log(res.slice(0, 30))
+          callback(res.slice(0, 30));
+        }
+      });
+    }
+  });
+
+  $('#megre_publisher_2').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'id',
+    searchField:  'title',
+    maxItems: 1,
+    maxOptions: 30,
+   // preload:      true,
+    onItemAdd: function (value, item) {
+      $('#publisher_2').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        //console.log(item);
+        return '<div>' + escape(item.title) + '(' + escape(item.id) + ')'+ '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/publishers/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+
   $('#assignment_role').selectize({
     create:       false,
     labelField:   'title',

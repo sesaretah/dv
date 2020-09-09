@@ -3,6 +3,29 @@ class ArticleFormatsController < ApplicationController
   before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
   # GET /article_formats
   # GET /article_formats.json
+  def mergerer
+
+  end
+
+  def merge
+    @article_format_1 = ArticleFormat.find(params[:article_format_1])
+    @article_format_2 = ArticleFormat.find(params[:article_format_2])
+    ArticleFormat.merge_article_format(@article_format_1, @article_format_2)
+    redirect_to '/article_formats'
+  end
+
+  def search
+    if !params[:q].blank? 
+      @article_formats = ArticleFormat.search params[:q], :star => true, :page =>1, :per_page => 100
+    end
+    resp = []
+    for r in @article_formats
+      resp << {'title' => r.title , 'id' => r.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end
+
+  
   def index
     @article_formats = ArticleFormat.all.order("title asc")
   end
