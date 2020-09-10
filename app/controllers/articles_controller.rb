@@ -117,7 +117,7 @@ class ArticlesController < ApplicationController
     require 'csv'
     xlsx = Roo::Spreadsheet.open("#{Rails.root}/data#{params[:id]}.xlsx")
 
-    xlsx.each_row_streaming( offset: 1, max_rows: 2, pad_cells: true) do |row|
+    xlsx.each_row_streaming( offset: 1, max_rows: 500, pad_cells: true) do |row|
       article = Article.new
       if !row[1].blank?
         article.title = row[1].to_s.truncate(200)
