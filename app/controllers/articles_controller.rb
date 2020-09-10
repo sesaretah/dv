@@ -113,6 +113,95 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def csv_to_db_2
+    require 'csv'
+    xlsx = Roo::Spreadsheet.open("#{Rails.root}/data#{params[:id]}.xlsx")
+
+    xlsx.each_row_streaming( offset: 1, max_rows: 2, pad_cells: true) do |row|
+      article = Article.new
+      if !row[1].blank?
+        article.title = row[1].to_s.truncate(200)
+      end
+      if !row[2].blank?
+        article.abstract = row[3].to_s.truncate(200)
+      end
+      notes = ' '
+      if !row[3].blank? 
+        notes += row[3].to_s.truncate(200) +' | '
+      end
+
+      if !row[4].blank? 
+        notes += row[4].to_s.truncate(200) +' | '
+      end
+
+      if !row[5].blank? 
+        notes += row[5].to_s.truncate(200) +' | '
+      end
+
+      if !row[6].blank? 
+        notes += row[6].to_s.truncate(200) +' | '
+      end
+
+      article.notes = notes
+      if !row[7].blank?
+        article.content = row[7].to_s.truncate(200)
+      end
+
+      if !row[8].blank?
+        article.url = row[8].to_s.truncate(200)
+      end
+      article.slug = SecureRandom.hex(4)
+      article.workflow_state_id = 1
+      article.save
+
+      areas = row[18].to_s.split('،')
+      for area in areas
+        a = ArticleArea.where(title: area.squish).first
+        if a.blank?
+          a = ArticleArea.create(title: area.squish)
+        end
+        if !a.blank?
+          Areaing.create(article_area_id:  a.id, article_id: article.id)
+        end
+      end
+
+      types = row[11].to_s.split('،')
+      for type in types
+        t = ArticleType.where(title: type.squish).first
+        if t.blank?
+          t = ArticleType.create(title: type.squish)
+        end
+        if !t.blank?
+          Typing.create(article_type_id:  t.id, article_id: article.id)
+        end
+      end
+
+      keywords = row[9].to_s.split('؛')
+      for keyword in keywords
+        k = Keyword.where(title: keyword.squish).first
+        if k.blank?
+          k = Keyword.create(title: keyword.squish)
+        end
+          Tagging.create(taggable_type: 'Article', taggable_id: article.id, target_type: 'Keyword',  target_id:  k.id)
+      end
+
+      
+      Speaking.create(language_id: 1, article_id: article.id)
+      Formating.create(article_format_id: 1, article_id: article.id)
+      Contribution.create(article_id: article.id, profile_id: 492, role_id: 62, duty_id: 70)
+      if !row[10].blank?
+        dating = Dating.new
+        jdate = JalaliDate.to_gregorian(row[10].to_s,1,1) rescue nil
+        if jdate
+          dating.article_id = article.id
+          dating.article_event_id = ArticleEvent.last.id
+          dating.event_date = jdate
+          dating.save rescue nil
+        end
+      end
+    end
+  end
+
   def sectioned_form
     @section = Section.find(params[:section_id])
   end

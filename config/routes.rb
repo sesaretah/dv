@@ -100,6 +100,7 @@ Rails.application.routes.draw do
   match "/articles/title_search/:id" => "articles#title_search", :via => :get
   match "/articles/fixer/:id" => "articles#fixer", :via => :get
   match "/articles/csv_to_db/:id" => "articles#csv_to_db", :via => :get
+  match "/articles/csv_to_db_2/:id" => "articles#csv_to_db_2", :via => :get
   match "/articles/upload_indexer/:id" => "articles#upload_indexer", :via => :get
   match "/articles/raw_print/:id" => "articles#raw_print", :via => :get
 
