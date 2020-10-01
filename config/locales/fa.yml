@@ -734,6 +734,7 @@ fa:
   merge_role: 'ادغام'
   role_1: 'اصلی'
   role_2: 'فرعی'
+  edit_workflow: 'ویرایش گردشکار'
 
   devise:
     confirmations:

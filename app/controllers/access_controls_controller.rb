@@ -81,6 +81,6 @@ class AccessControlsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def access_control_params
-      params.require(:access_control).permit(:user_id, :role_id, :view_unrelated_articles, :view_article_logs, :view_workflow_transactions, :create_workflow, :alter_article_areas, :alter_article_events, :alter_article_formats, :alter_article_relation_types, :alter_article_sources, :alter_article_types, :alter_keywords, :alter_languages, :alter_profiles, :alter_roles, :alter_duties, :alter_title_types, :alter_content_templates, :alter_section_items, :alter_publishers, :alter_locations, :alter_publish_sources, :alter_access_groups, :alter_profile_groups)
+      params.require(:access_control).permit(:user_id, :role_id, :view_unrelated_articles, :view_article_logs, :view_workflow_transactions, :create_workflow, :alter_article_areas, :alter_article_events, :alter_article_formats, :alter_article_relation_types, :alter_article_sources, :alter_article_types, :alter_keywords, :alter_languages, :alter_profiles, :alter_roles, :alter_duties, :alter_title_types, :alter_content_templates, :alter_section_items, :alter_publishers, :alter_locations, :alter_publish_sources, :alter_access_groups, :alter_profile_groups, :edit_workflow)
     end
 end
