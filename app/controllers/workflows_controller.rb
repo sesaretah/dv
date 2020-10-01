@@ -76,7 +76,7 @@ class WorkflowsController < ApplicationController
   # PATCH/PUT /workflows/1
   # PATCH/PUT /workflows/1.json
   def update
-    if !owner(@workflow, current_user)
+    if !owner(@workflow, current_user) 
       head(403)
     end
     @workflow.user_id = current_user.id
