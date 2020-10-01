@@ -376,6 +376,7 @@ fa:
             alter_publish_sources: 'تغییر جدول منابع'
             alter_access_groups: 'تغییر گروههای دسترسی'
             alter_profile_groups: 'تغییر گروههای افراد'
+            edit_workflow: 'ویرایش گردشکار'
             user_id: 'توسط'
   will_paginate:
     page_gap: "&hellip;"

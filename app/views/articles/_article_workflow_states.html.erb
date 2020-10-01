@@ -2,7 +2,7 @@
   <% if !@workflows.blank?%>
   <%= render partial: 'articles/make_a_copy', locals: {article: @article, workflows: @workflows}%>
   <% end %>
-  <% if article.workflow_state.role_id == current_user.current_role_id%>
+  <% if article.workflow_state.role_id == current_user.current_role_id || grant_access('edit_workflow', current_user) %>
     <% if article.workflow_state.votable != 2 || article.workflow_state.workflow.user_id == current_user.id%>
       <% if !nxt.first.blank?%>
         <%= render partial: 'workflow_transitions/send_to', locals: {article: @article, nxt: nxt}%>
