@@ -118,7 +118,7 @@ module ApplicationHelper
     if article.workflow_state.blank?
       return true
     end
-    if article.workflow_state.user_id = user.id
+    if article.workflow_state.user_id == user.id
       return true
     end
     @role = Role.find_by_id(user.current_role_id)
