@@ -122,6 +122,9 @@ module ApplicationHelper
     if !@role.blank?
       if article.workflow_state.role_id != @role.id
         return false
+        
+      else
+        return true
       end
     end
     @items = article.workflow_state.editable.split(',')

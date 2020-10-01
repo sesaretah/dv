@@ -44,7 +44,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-
 gem 'devise'
 gem 'ckeditor'
 gem 'paperclip'
@@ -61,3 +60,4 @@ gem 'jwt'
 gem 'rack-cors', require: 'rack/cors'
 gem 'docx_replace'
 gem "roo", "~> 2.8.0"
+gem 'rqrcode'
