@@ -79,7 +79,7 @@ class WorkflowsController < ApplicationController
     if !owner(@workflow, current_user)  && !grant_access('edit_workflow', current_user)
       head(403)
     end
-    @workflow.user_id = current_user.id
+    #@workflow.user_id = current_user.id
     @nodes = JSON.parse params[:workflow][:nodes]
     @trimed_nodes = []
     for node in @nodes
