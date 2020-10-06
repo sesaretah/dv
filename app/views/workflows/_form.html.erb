@@ -767,7 +767,9 @@ d3.select('#subbtn').on('click', function() {
      var form = d3.select('#wform').node();
      form.submit();
    } else {
-     alert('<%=t :your_workflow_has_cycle%>');
+     var form = d3.select('#wform').node();
+     form.submit();
+     //alert('<%=t :your_workflow_has_cycle%>');
    }
   });
 
