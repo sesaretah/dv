@@ -76,7 +76,7 @@ class HomeController < ApplicationController
         #!params[:sort].blank? ? sort = params[:sort] : sort = 'created_at'
         #!params[:workflow_state].blank? ? @workflow_state_ids =  [params[:workflow_state].to_i]: @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
        # if  params[:sort] != 'position'
-         @home_setting.workflow_state != 0 ? @workflow_state_ids =  [@home_setting.workflow_state.to_i]: @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
+         @home_setting.workflow_state != -1 ? @workflow_state_ids =  [@home_setting.workflow_state.to_i]: @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
          @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids).order("#{@home_setting.sort}").paginate(:page => params[:page], :per_page => @home_setting.pp)
        # else
        #   @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids).order("-#{sort} DESC").paginate(:page => params[:page], :per_page => per_page)
@@ -179,7 +179,7 @@ class HomeController < ApplicationController
     if !params[:pp].blank? && home_setting.pp != pp
       home_setting.pp = pp
     end
-    home_setting.workflow_state.blank? && params[:workflow_state].blank? ? workflow_state = 0 : workflow_state = params[:workflow_state]
+    home_setting.workflow_state.blank? && params[:workflow_state].blank? ? workflow_state = -1 : workflow_state = params[:workflow_state]
     if !params[:workflow_state].blank? && home_setting.workflow_state != workflow_state
       home_setting.workflow_state = workflow_state
     end

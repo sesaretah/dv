@@ -26,8 +26,8 @@
               <%=t :workflow_state%>
             </button>
             <div class="dropdown-menu" style="right: 0px !important; font-size: 10px;">
-            <a class="dropdown-item" href="/home?workflow_state=0">    
-             <%if @home_setting.workflow_state == 0%>                  
+            <a class="dropdown-item" href="/home?workflow_state=-1">    
+             <%if @home_setting.workflow_state == -1%>                  
                         <i class="fe fe-check" style="vertical-align:-3px;"></i>
                       <%end%>
                         <%= t(:all)%>
