@@ -41,7 +41,7 @@
                   <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
                   <div class="dropdown-menu dropdown-menu-right">
                     <a href="/note_templates/<%= note_template.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
-                    <% if grant_access("alter_note_templates", current_user)%>
+                    <% if note_template.user_id == current_user.id%>
                     <a href="/note_templates/<%= note_template.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
                     <%= link_to note_template, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
                     <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
