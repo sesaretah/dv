@@ -173,7 +173,7 @@ class HomeController < ApplicationController
   def home_setting_builder
     home_setting = current_user.home_setting
     if home_setting.blank?
-      home_setting = HomeSetting.create(user_id: current_user.id)
+      home_setting = HomeSetting.create(user_id: current_user.id, pp: 5, workflow_state: -1,sort: "-position DESC" )
     end
     home_setting.pp.blank? && params[:pp].blank? ? pp = 5 : pp = params[:pp]
     if !params[:pp].blank? && home_setting.pp != pp
