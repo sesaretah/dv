@@ -67,7 +67,7 @@
         <i class="fa fa-arrow-up" aria-hidden="true"></i>
         <%end%>
         <% end%>
-            <%= article.position%>
+         <%= editable article, :position %>
         <% if !nex.blank? && !article.position.blank?%>
         <%=link_to "/home/swap?source=#{article.id}&target=#{nex}&move=down" do%>
         <i class="fa fa-arrow-down" aria-hidden="true"></i>
