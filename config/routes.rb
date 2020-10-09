@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :note_templates
   get '/keywords/uniqify' => 'keywords#uniqify'
   
   resources :profile_groups
@@ -103,8 +104,9 @@ Rails.application.routes.draw do
   match "/articles/csv_to_db_2/:id" => "articles#csv_to_db_2", :via => :get
   match "/articles/upload_indexer/:id" => "articles#upload_indexer", :via => :get
   match "/articles/raw_print/:id" => "articles#raw_print", :via => :get
-
-
+  match "/articles/content_form/:id" => "articles#content_form", :via => :get
+  match "/articles/set_note_template/:id" => "articles#set_note_template", :via => :get
+  
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
 
 

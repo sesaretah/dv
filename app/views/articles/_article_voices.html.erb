@@ -1,0 +1,26 @@
+    <div id='article-voices'>
+<% if article_owner(@article, current_user)%>
+    <% for voice in Upload.where(uploadable_id: @article.id, attachment_type: 'article_voices') %>
+           <span class='fs-10' style='margin-top: -12px;'>
+        <% if  !voice.user_id.blank?%>
+<%=t :via%> <%= Profile.where(user_id: voice.user_id).first.fullname rescue nil%>
+   <% end%>
+   <%= link_to t(:destroy), "/uploads/remoted/#{voice.id}"%>
+   </span>
+    <audio controls>
+  <source src="<%= voice.attachment.url%>" type="audio/mpeg">
+  </audio>
+
+
+    <%end%>
+    <audio id="gum" playsinline autoplay muted></audio>
+    <audio id="recorded" playsinline controls></audio>
+
+    <div class="mt-4 center">
+        <span id='article_id' style='display: none;'><%= @article.id%></span>
+        <button class="btn btn-secondary btn-sm " id="start">Record</button>
+        <button class="btn btn-secondary btn-sm" id="play" disabled>Play</button>
+        <button class="btn btn-secondary btn-sm " id="download" disabled>Upload</button>
+    </div>
+    <%end%>
+    </div>

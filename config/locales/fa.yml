@@ -314,6 +314,9 @@ fa:
         content_template:
             content: 'محتوا'
             title: 'عنوان'
+        note_template:
+            content: 'محتوا'
+            title: 'عنوان'
         workflow_state:
             title: 'عنوان'
             workflow_id: 'گردشکار'
@@ -736,6 +739,10 @@ fa:
   role_1: 'اصلی'
   role_2: 'فرعی'
   edit_workflow: 'ویرایش گردشکار'
+  via: 'توسط'
+  new_note_template: 'فرم یادداشت پیش فرض'
+  note_templates: 'یادداشت پیش فرض'
+  speedy_note: 'یادداشت سریع'
 
   devise:
     confirmations:

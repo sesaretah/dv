@@ -6,7 +6,12 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!, :except => [:after_sign_in_path_for,:after_inactive_sign_up_path_for,     :after_sign_up_path_for]
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :inspect_unicode
+  helper_method :xeditable?
 
+  def xeditable? object = nil
+    true # Or something like current_user.xeditable?
+  end
+  
   def inspect_unicode
     fix_unicode_values(nil, params)
   end

@@ -1,0 +1,19 @@
+<div id='article-note-template'>
+
+ <% if article_owner(@article, current_user)%>
+ <% noting =  Noting.where(article_id: @article.id).last%>
+          <div class="form-group">
+            <label class="form-label fs-10">
+              <%=t :speedy_note%>
+            </label>
+            <%= select_tag 'note_template', options_for_select(NoteTemplate.all.order(:title).collect{ |u| ["#{u.title}", u.id] }, selected:  noting.note_template_id) ,{include_blank: true, class:"form-control", id: "note-template"}%>
+          </div>
+          <%end%>
+<script>
+          $('#note-template').on('change', function() {
+$.get( "/articles/set_note_template/<%= @article.id%>?note_template_id="+this.value, function( data ) {
+
+});
+});
+</script>
+</div>

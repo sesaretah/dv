@@ -12,7 +12,13 @@
     </tr>
     <tr>
       <td style="text-align:left;width: 170px;"><%= label :article, :title , class: "form-label", style: 'color: #7795c1;'%></td>
-      <td><%= @article.title %><br />
+      <td>
+      <% if article_owner(@article, current_user)%>
+      <%= editable @article, :title %>
+      <%else%>
+        <%=  @article.title %>
+      <%end%>
+      <br />
       <% @article.titlings.group_by(&:title_type_id).each do |k,v| %>
         <% for t in v%>
         | <%= t.content%>
@@ -23,7 +29,13 @@
     </tr>
     <tr>
       <td style="text-align:left;"><%= label :article, :abstract , class: "form-label", style: 'color: #7795c1;'%></td>
-      <td><%= @article.abstract %></td>
+      <td>
+      <% if article_owner(@article, current_user)%>
+        <%= editable @article, :abstract %>
+      <%else%>
+        <%=  @article.abstract %>
+      <%end%>
+      </td>
     </tr>
     <tr>
       <td style="text-align:left;">
@@ -131,8 +143,14 @@
         <%end%>
         <% if viewable_level?(@article, 'all')%>
         <tr>
-          <td style='color: #7795c1;text-align:left;'><%=t :full_text%></td>
-          <td>
+          <td style='color: #7795c1;text-align:left;'><%=t :full_text%>
+          <% if article_owner(@article, current_user)%>
+          <%= link_to "/articles/content_form/#{@article.id}", remote:true do%>
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          <%end%>
+          <% end%>
+          </td>
+          <td id='content-form'>
             <%= raw @article.content%>
           </td>
         </tr>
@@ -143,7 +161,7 @@
 
 
           <td>
-            <% Upload.where(uploadable_type: 'Article', uploadable_id: @article.id).group_by(&:attachment_type).each do |k,v| %>
+            <% Upload.where('uploadable_type = ? and uploadable_id = ? and attachment_type <> ?', 'Article', @article.id, 'article_voices').group_by(&:attachment_type).each do |k,v| %>
             <%=t k%>
             <ul>
               <% for u in v%>
@@ -163,4 +181,5 @@
         <%end%>
 
       </tbody>
+
     </table>

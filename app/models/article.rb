@@ -57,6 +57,9 @@ class Article < ActiveRecord::Base
   has_many :publishers, :through => :publications
   has_many :publications, dependent: :destroy
 
+  has_many :note_templates, :through => :noting
+  has_many :noting, dependent: :destroy
+
   def start_section
     if !self.workflow_state.blank? && !self.workflow_state.workflow.blank? && !self.workflow_state.workflow.sections.blank?
       @section = self.workflow_state.workflow.sections.first.id.to_s

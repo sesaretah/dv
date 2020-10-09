@@ -5,7 +5,7 @@ class Upload < ActiveRecord::Base
     "application/msword",
     "application/vnd.openxmlformats-officedocument.presentationml.presentation",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    "text/plain"]
+    "text/plain", "audio/webm", "video/webm"]
   before_post_process :rename_avatar
   before_post_process :resize_images
   belongs_to :uploadable, :polymorphic => true

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200905054543) do
+ActiveRecord::Schema.define(version: 20201009100629) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20200905054543) do
     t.integer  "alter_publish_sources",        limit: 4
     t.integer  "alter_access_groups",          limit: 4
     t.integer  "alter_profile_groups",         limit: 4
+    t.integer  "edit_workflow",                limit: 4
   end
 
   add_index "access_controls", ["user_id"], name: "index_access_controls_on_user_id", using: :btree
@@ -377,6 +378,13 @@ ActiveRecord::Schema.define(version: 20200905054543) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "note_templates", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.string   "title",             limit: 255
     t.text     "content",           limit: 65535
@@ -390,6 +398,14 @@ ActiveRecord::Schema.define(version: 20200905054543) do
   end
 
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
+
+  create_table "notings", force: :cascade do |t|
+    t.integer  "note_template_id", limit: 4
+    t.integer  "article_id",       limit: 4
+    t.integer  "user_id",          limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "originating_histories", force: :cascade do |t|
     t.integer  "article_id",             limit: 4
@@ -651,6 +667,7 @@ ActiveRecord::Schema.define(version: 20200905054543) do
     t.string   "attachment_type",         limit: 255
     t.string   "title",                   limit: 255
     t.text     "detail",                  limit: 65535
+    t.integer  "user_id",                 limit: 4
   end
 
   create_table "users", force: :cascade do |t|

@@ -19,4 +19,5 @@ class User < ActiveRecord::Base
   has_many :word_templates
   has_many :sections
   has_many :profile_groups
+  has_many :note_templates
 end

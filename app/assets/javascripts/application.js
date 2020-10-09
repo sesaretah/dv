@@ -13,6 +13,7 @@
 //= require ckeditor/init
 //= require 'jquery-3.3.1.min'
 //= require 'jquery-ui.min.js'
+
 //= require 'persian-date.min'
 //= require 'rails.min.js'
 //= require 'popper.min.js'
@@ -23,5 +24,8 @@
 //= require 'selectize.min.js'
 //= require 'async.min.js'
 //= require 'c3.min.js'
+//= require 'jquery.poshytip.min.js'
+//= require 'editable/jquery-editable-poshytip'
+//= require 'editable/rails'
 // require turbolinks
 //= require_tree .

@@ -1,12 +1,17 @@
 class UploadsController < ApplicationController
   before_action :set_upload, only: [:show, :edit, :update, :destroy]
   before_action :check_grant, only: [:new, :edit, :create,:update, :destroy]
-
+  skip_before_action :verify_authenticity_token, only: [:create]
   def remoted
     @upload = Upload.find(params[:id])
+    if @upload.uploadable_type == 'Article'
+      @article = Article.find_by_id( @upload.uploadable_id)
+    end
     @upload.destroy
     respond_to do |format|
       format.json { head :no_content }
+      format.js
+      format.html { redirect_to @article}
     end
   end
   # GET /uploads
@@ -18,7 +23,11 @@ class UploadsController < ApplicationController
   # GET /uploads/1
   # GET /uploads/1.json
   def show
+    if @upload.uploadable_type == 'Article'
+      @article = Article.find_by_id( @upload.uploadable_id)
+    end
   end
+
 
   # GET /uploads/new
   def new
@@ -34,10 +43,15 @@ class UploadsController < ApplicationController
   def create
     @upload = Upload.new(upload_params)
         @upload.attachment = params[:file]
+        @upload.user_id = current_user.id
+        if @upload.uploadable_type == 'Article'
+          @article = Article.find_by_id( @upload.uploadable_id)
+        end
     respond_to do |format|
       if @upload.save
         format.html { redirect_to @upload, notice: 'Upload was successfully created.' }
         format.json { render :show, status: :created, location: @upload }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @upload.errors, status: :unprocessable_entity }

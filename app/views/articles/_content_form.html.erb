@@ -1,0 +1,47 @@
+
+<td id='content-form'>
+        <%= link_to "/articles/article_detail/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+        <%=t :submit%>
+        <%end%>
+<%= form_for @article, html: {id: 'discriptors'}  do |f| %>
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.cktext_area :content, id: 'sometext' %>
+      </div>
+    </div>
+
+  <%end%>
+  <script>
+    CKEDITOR.replace('sometext')
+  </script>
+
+        <script>
+$('.form-control').bind('change keyup input', function() {
+    $('#discriptors').delay(200).submit();
+});
+CKEDITOR.config.skin = 'flat';
+
+CKEDITOR.instances.sometext.on('change', function(e) {
+    var self = this;
+    setTimeout(function() {
+         CKEDITOR.instances.sometext.updateElement();
+     $('#discriptors').submit();
+  //      console.log(self.getData());
+    }, 200);
+});
+
+$("#discriptors").submit(function (event) {
+    event.preventDefault();
+    $.ajax({
+        type: "post",
+        dataType: "html",
+        url: '/articles/<%= @article.id%>',
+        data: $("#discriptors").serialize(),
+        success: function (response) {
+            //write here any code needed for handling success         }
+    }
+  });
+});
+</script>
+
+</td>

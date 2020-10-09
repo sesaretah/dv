@@ -55,3 +55,11 @@
 .hidden {
      display:none;
 }
+
+audio {
+  width: 220px;
+}
+
+.fs-10 {
+  font-size: 10px !important;
+}

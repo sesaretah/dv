@@ -61,3 +61,4 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'docx_replace'
 gem "roo", "~> 2.8.0"
 gem 'rqrcode'
+gem 'x-editable-rails'

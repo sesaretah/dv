@@ -39,7 +39,9 @@
         <%= render partial: 'layouts/footer'%>
   </div>
 </body>
-
+<script>
+$('.editable').editable()
+</script>
 <% if flash[:notice]%>
 <script>
 new Noty({
