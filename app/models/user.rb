@@ -20,4 +20,6 @@ class User < ActiveRecord::Base
   has_many :sections
   has_many :profile_groups
   has_many :note_templates
+
+  has_one :home_setting
 end

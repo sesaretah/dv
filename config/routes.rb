@@ -143,6 +143,7 @@ Rails.application.routes.draw do
   match "/workflow_states/show_by_node/:id" => "workflow_states#show_by_node", :via => :get
 
   match "/home/reports" => "home#reports", :via => :get
+  match "/home/swap" => "home#swap", :via => :get
   match "/kinships/change_rank/:id" => "kinships#change_rank", :via => :get
   match "/articles/print/:id" => "articles#print", :via => :get
 

@@ -1,6 +1,29 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!, :except => [:email_sent, :search, :advanced_search]
   before_action :fix_query, :only => [:advanced_search]
+
+  def swap
+    source_article = Article.find(params[:source])
+    target_article = Article.find(params[:target])
+    if !source_article.position.blank? && !target_article.position.blank?
+      temp = target_article.position
+      target_article.position = source_article.position
+      source_article.position = temp
+      target_article.save
+      source_article.save
+    end
+
+    if source_article.position.blank? && !target_article.position.blank?
+      temp = target_article.position
+      target_article.position = target_article.position + 1
+      source_article.position = temp
+      target_article.save
+      source_article.save
+    end
+
+    redirect_to '/home'
+  end
+
   def reports
     if !params[:start_yyyy].blank?
       @start_date = JalaliDate.to_gregorian(params[:start_yyyy],params[:start_mm],params[:start_dd])
@@ -39,6 +62,8 @@ class HomeController < ApplicationController
   def index
     @articles = []
     @notifications = []
+    @home_setting = home_setting_builder
+
     if params[:slug] != 'home' && !params[:slug].blank?
       @article = Article.find_by_slug(params[:slug])
       if !@article.blank?
@@ -47,10 +72,15 @@ class HomeController < ApplicationController
     else
       @role = Role.find_by_id(current_user.current_role_id)
       if !@role.blank?
-        !params[:pp].blank? ? per_page = params[:pp] : per_page = 5
-        !params[:sort].blank? ? sort = params[:sort] : sort = 'created_at'
-        !params[:workflow_state].blank? ? @workflow_state_ids =  [params[:workflow_state].to_i]: @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
-        @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids).order("#{sort} ASC").paginate(:page => params[:page], :per_page => per_page)
+       # !params[:pp].blank? ? per_page = params[:pp] : per_page = 5
+        #!params[:sort].blank? ? sort = params[:sort] : sort = 'created_at'
+        #!params[:workflow_state].blank? ? @workflow_state_ids =  [params[:workflow_state].to_i]: @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
+       # if  params[:sort] != 'position'
+         @home_setting.workflow_state != 0 ? @workflow_state_ids =  [@home_setting.workflow_state.to_i]: @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
+         @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids).order("#{@home_setting.sort}").paginate(:page => params[:page], :per_page => @home_setting.pp)
+       # else
+       #   @articles = Article.where("workflow_state_id IN (?)", @workflow_state_ids).order("-#{sort} DESC").paginate(:page => params[:page], :per_page => per_page)
+      #  end
         @notifications = Notification.where(user_id: current_user.id).order('created_at desc').limit(10)
       end
     end
@@ -138,6 +168,27 @@ class HomeController < ApplicationController
   private
   def grouper(model, query, group_by, with_hash)
     return model.search query, with: with_hash, :group_by => group_by,  :order_group_by => 'count(*) desc'
+  end
+
+  def home_setting_builder
+    home_setting = current_user.home_setting
+    if home_setting.blank?
+      home_setting = HomeSetting.create(user_id: current_user.id)
+    end
+    home_setting.pp.blank? && params[:pp].blank? ? pp = 5 : pp = params[:pp]
+    if !params[:pp].blank? && home_setting.pp != pp
+      home_setting.pp = pp
+    end
+    home_setting.workflow_state.blank? && params[:workflow_state].blank? ? workflow_state = 0 : workflow_state = params[:workflow_state]
+    if !params[:workflow_state].blank? && home_setting.workflow_state != workflow_state
+      home_setting.workflow_state = workflow_state
+    end
+    home_setting.sort.blank? && params[:sort].blank? ? sort = "-position DESC" : sort = params[:sort]
+    if !params[:sort].blank? && home_setting.sort != sort
+      home_setting.sort = sort
+    end
+    home_setting.save
+    return home_setting
   end
 
   def fix_query

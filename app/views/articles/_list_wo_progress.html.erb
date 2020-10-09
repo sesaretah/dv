@@ -1,16 +1,38 @@
 <div class='table-responsive'>
   <table class="table table-hover table-outline table-vcenter text-nowrap"  id='article-list'>
     <thead>
-      <tr>
+      <tr class='fs-10'>
         <th class="text-center w-1"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
-        <th><%=link_to t(:position), '/home?pp='+params[:pp].to_s+'&sort=position'%></th>
-        <th><%=link_to t(:title), '/home?pp='+params[:pp].to_s+'&sort=title'%></th>
+        <th>
+        <%=link_to '/home?pp='+params[:pp].to_s+'&sort=-position DESC' do%>
+        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        <%end%>
+        <%=t :position%>
+        <%=link_to '/home?pp='+params[:pp].to_s+'&sort=position DESC' do%>
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        <%end%>
+        </th>
+        <th>
+        <%=link_to '/home?pp='+params[:pp].to_s+'&sort=title ASC' do%>
+        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        <%end%>
+        <%=t :title%>
+        <%=link_to '/home?pp='+params[:pp].to_s+'&sort=title DESC' do%>
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        <%end%>
+        </th>
         <th><%=t :workflow_state %></th>
         <th><%=t :came_from %></th>
       </tr>
     </thead>
     <tbody>
+    <% arr = []%>
+    <% for article in articles%>
+     <% arr << article.id%>
+    <%end%>
       <% for article in articles%>
+      
+
       <tr>
         <td class="text-center">
           <div class="item-action dropdown">
@@ -30,7 +52,27 @@
           </div>
         </td>
         <td>
+
+
+        </th>
+        <% index = arr.index(article.id)%>
+        <% if index > 0 %>
+        <%previous = arr[index - 1] %>
+        <%end%>
+        <% if index != (arr.length - 1)%>
+        <% nex = arr[index + 1] %>
+        <%end%>
+        <% if !previous.blank?%>
+        <%=link_to "/home/swap?source=#{article.id}&target=#{previous}&move=up" do%>
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        <%end%>
+        <% end%>
             <%= article.position%>
+        <% if !nex.blank? && !article.position.blank?%>
+        <%=link_to "/home/swap?source=#{article.id}&target=#{nex}&move=down" do%>
+        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        <%end%>
+        <%end%>
         </td>
         <td>
           <div class='small' data-toggle="tooltip" data-placement="top" title="<%= article.title%>"><%= link_to truncate(article.title, length: 40), article%></div>
@@ -63,6 +105,7 @@
         </td>
 
       </tr>
+     
       <%end%>
     </tbody>
   </table>
