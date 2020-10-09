@@ -6,7 +6,12 @@
       <%else%>
       <span class='mr-2'></span>
       <%end%>
-      <%= truncate(role.title, length: 20)%>
+      <% if !role.abr.blank? %>
+      <span data-toggle="tooltip" data-placement="top" title="<%= role.title%>">
+      <%= role.abr%>
+      <%else%>
+<%= truncate(role.title, length: 20)%>
+      <%end%>
     <%end%>
   <%end%>
 </div>
