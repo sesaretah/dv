@@ -6,7 +6,11 @@
             <label class="form-label fs-10">
               <%=t :speedy_note%>
             </label>
-            <%= select_tag 'note_template', options_for_select(NoteTemplate.all.order(:title).collect{ |u| ["#{u.title}", u.id] }, selected:  noting.note_template_id) ,{include_blank: true, class:"form-control", id: "note-template"}%>
+            <% if !noting.blank?%>
+                <%= select_tag 'note_template', options_for_select(NoteTemplate.all.order(:title).collect{ |u| ["#{u.title}", u.id] }, selected:  noting.note_template_id) ,{include_blank: true, class:"form-control", id: "note-template"}%>
+            <%else%>
+                <%= select_tag 'note_template', options_for_select(NoteTemplate.all.order(:title).collect{ |u| ["#{u.title}", u.id] }) ,{include_blank: true, class:"form-control", id: "note-template"}%>
+            <%end%>
           </div>
           <%end%>
 <script>
