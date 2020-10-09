@@ -1238,8 +1238,9 @@ function fireAutoCompleteEvent(event) {
     },
     load: function(query, callback) {
       if (!query.length) return callback();
+      var article_id = $('#article_id').text()
       $.ajax({
-        url: '/articles/search/1',
+        url: '/articles/search/1?domain=workflow&article_id='+article_id,
         type: 'GET',
         dataType: 'json',
         data: {

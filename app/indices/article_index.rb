@@ -15,4 +15,5 @@ ThinkingSphinx::Index.define :article, :with => :real_time do
   has language_ids, type: :integer, :multi => true
   has profile_ids, type: :integer, :multi => true
   has tagging_ids, type: :integer, :multi => true
+  has workflow_state_id, type: :integer
 end

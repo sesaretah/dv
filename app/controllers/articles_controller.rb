@@ -270,6 +270,11 @@ class ArticlesController < ApplicationController
     if !params[:q].blank?
       @articles = Article.search params[:q], :star => true
     end
+    if params[:domain] == 'workflow'
+      article = Article.find(params[:article_id])
+      @workflow_state_ids = article.workflow_state.workflow.workflow_states.pluck(:id)
+      @articles = Article.search params[:q], :star => true, with: {:workflow_state_id => @workflow_state_ids}
+    end
     resp = []
     for k in @articles
       resp << {'title' => k.title, 'id' => k.id}
