@@ -87,7 +87,7 @@ class HomeController < ApplicationController
   end
 
   def advanced_search
-    @model_results = Article.search @query, with: restrict_articles
+    @model_results = Article.search @query, per_page: 1000, with: restrict_articles
     @model_results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
     @group_results = group_articles(restrict_articles)
     if @query != ''
