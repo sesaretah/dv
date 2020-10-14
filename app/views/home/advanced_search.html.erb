@@ -121,8 +121,9 @@
               <% articles << result %>
             <%end%>
           <%end%>
+          <%= articles%>
           <%
-          @articles = WillPaginate::Collection.create(1, 1000, articles.length) do |pager|
+          @articles = WillPaginate::Collection.create(2, 1000, articles.length) do |pager|
   pager.replace articles
 end
           %>
