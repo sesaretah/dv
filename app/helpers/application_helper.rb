@@ -4,14 +4,9 @@ module ApplicationHelper
     @role = Role.find_by_id(user.current_role_id)
     if !@role.blank?
       @workflow_state_ids = WorkflowState.where(role_id: @role.id).pluck(:id)
-      p @workflow_state_ids
-      p article.title
-      p article.workflow_state_id
       if @workflow_state_ids.include? article.workflow_state_id
         flag = true
       end
-      p flag
-  
     end
     return flag
   end

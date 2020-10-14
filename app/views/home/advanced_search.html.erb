@@ -122,9 +122,6 @@
               <% articles << result %>
             <%end%>
           <%end%>
-          <%= articles.length%>
-          <br />
-          <%= @model_results.length%>
           <%
           articles = WillPaginate::Collection.create(2, 1000, articles.length) do |pager|
   pager.replace articles
