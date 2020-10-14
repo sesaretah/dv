@@ -6,9 +6,6 @@ module ApplicationHelper
 
     if !role_ids.blank?
       @workflow_state_ids = WorkflowState.where('role_id in (?)', role_ids).pluck(:id)
-      p role_ids
-      p @workflow_state_ids
-      p article.workflow_state_id
       if @workflow_state_ids.include? article.workflow_state_id
         flag = true
       end
