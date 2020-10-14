@@ -1,9 +1,10 @@
 module ApplicationHelper
   def user_accessible?(article, user)
     flag = false
-    @role = Role.find_by_id(user.current_role_id)
+    #@role = Role.find_by_id(user.current_role_id)
+    role_ids = user.roles.pluck(:id)
     if !@role.blank?
-      @workflow_state_ids = WorkflowState.where(role_id: @role.id).pluck(:id)
+      @workflow_state_ids = WorkflowState.where('role_id in (?)', role_ids).pluck(:id)
       if @workflow_state_ids.include? article.workflow_state_id
         flag = true
       end
