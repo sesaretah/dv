@@ -115,7 +115,18 @@
         </div>
         <div>
           <%white_list_sanitizer = Rails::Html::WhiteListSanitizer.new%>
+          <% articles = []%>
           <% for result in @model_results%>
+            <% if  user_accessible?(result, current_user) || viewable_level?(result, 'all') || viewable_level?(result, 'metadata') %>
+              <% articles << result %>
+            <%end%>
+          <%end%>
+          <%
+          @articles = WillPaginate::Collection.create(1, 15, articles.length) do |pager|
+  pager.replace articles
+end
+          %>
+          <% for result in articles%>
           <% if  user_accessible?(result, current_user) || viewable_level?(result, 'all') || viewable_level?(result, 'metadata') %>
           <div class="pr-2 pl-2 pt-2" >
             <div class="form-control-plaintext" style= 'color: #7795c1;'><%= link_to result do%><%= raw result.excerpts.title%><%end%></div>
@@ -161,9 +172,9 @@
           <%end%>
           <%end%>
         </div>
-        <% if defined?(@model_results.total_pages)%>
+        <% if defined?(articles.total_pages)%>
         <div class="digg_pagination  mb-2 mt-2 mr-auto ml-auto">
-          <%= will_paginate @model_results %>
+          <%= will_paginate articles %>
         </div>
         <%end%>
 
