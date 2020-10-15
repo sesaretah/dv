@@ -11,17 +11,12 @@ module ApplicationHelper
         if workflow_role_accesses.blank?
           flag = true
         else
-          p article.user_id
-          p '8888888'
           if article.user_id == user.id
-            p '{{{{}}}}'
             for workflow_role_access in workflow_role_accesses
-              p workflow_role_access.own_article_traceable
-              p '(()))'
               flag = flag || workflow_role_access.own_article_traceable
             end
             if flag == false # to handle cases when user has access to article in current state
-              #flag = true if role_ids.include? article.workflow_state.role_id
+              flag = true if role_ids.include? article.workflow_state.role_id
             end
           else
             for workflow_role_access in workflow_role_accesses
@@ -31,7 +26,6 @@ module ApplicationHelper
         end
       #end
     end
-    p flag
     return flag
   end
   def viewable?(article)
