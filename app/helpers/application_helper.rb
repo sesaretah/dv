@@ -6,7 +6,7 @@ module ApplicationHelper
 
     if !role_ids.blank?
       @workflow_state_ids = WorkflowState.where('role_id in (?)', role_ids).pluck(:id)
-     # if @workflow_state_ids.include? article.workflow_state_id
+      if !article.workflow_state.blank?
         workflow_role_accesses = article.workflow_state.workflow.workflow_role_accesses.where('role_id in (?)', role_ids)
         if workflow_role_accesses.blank?
           flag = true
@@ -24,7 +24,7 @@ module ApplicationHelper
             end
           end
         end
-      #end
+      end
     end
     return flag
   end
