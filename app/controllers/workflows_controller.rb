@@ -1,5 +1,25 @@
 class WorkflowsController < ApplicationController
-  before_action :set_workflow, only: [:show, :edit, :update, :destroy,:related_articles]
+  before_action :set_workflow, only: [:show, :edit, :update, :destroy,:related_articles, :role_accesses, :change_role_access]
+
+  def change_role_access
+    workflow_role_access = WorkflowRoleAccess.where(workflow_id: @workflow.id, role_id: params[:role_id]).first
+    if workflow_role_access.blank?
+      workflow_role_access = WorkflowRoleAccess.create(workflow_id: @workflow.id, role_id: params[:role_id])
+    end
+    if params[:access] == 'own_article_traceable'
+      workflow_role_access.own_article_traceable = params[:value]
+    end
+
+    if params[:access] == 'other_articles_traceable'
+      workflow_role_access.other_articles_traceable = params[:value]
+    end
+
+    workflow_role_access.save
+  end
+
+  def role_accesses
+    
+  end
 
   def related_articles
     @workflow_state = WorkflowState.where(workflow_id: @workflow.id, node_id: params[:node_id]).first

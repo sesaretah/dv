@@ -6,10 +6,32 @@ module ApplicationHelper
 
     if !role_ids.blank?
       @workflow_state_ids = WorkflowState.where('role_id in (?)', role_ids).pluck(:id)
-      if @workflow_state_ids.include? article.workflow_state_id
-        flag = true
-      end
+     # if @workflow_state_ids.include? article.workflow_state_id
+        workflow_role_accesses = article.workflow_state.workflow.workflow_role_accesses.where('role_id in (?)', role_ids)
+        if workflow_role_accesses.blank?
+          flag = true
+        else
+          p article.user_id
+          p '8888888'
+          if article.user_id == user.id
+            p '{{{{}}}}'
+            for workflow_role_access in workflow_role_accesses
+              p workflow_role_access.own_article_traceable
+              p '(()))'
+              flag = flag || workflow_role_access.own_article_traceable
+            end
+            if flag == false # to handle cases when user has access to article in current state
+              #flag = true if role_ids.include? article.workflow_state.role_id
+            end
+          else
+            for workflow_role_access in workflow_role_accesses
+              flag = flag || workflow_role_access.other_articles_traceable
+            end
+          end
+        end
+      #end
     end
+    p flag
     return flag
   end
   def viewable?(article)
@@ -37,12 +59,12 @@ module ApplicationHelper
     flag = false
     @role = Role.find_by_id(current_user.current_role_id)
     if !@role.blank?
-      if article.workflow_state
-        @workflow_ids = WorkflowState.where(role_id: @role.id).collect(&:workflow_id).uniq
-        if @workflow_ids.include? article.workflow_state.workflow_id
-          flag = true
-        end
-      end
+      #if article.workflow_state
+       # @workflow_ids = WorkflowState.where(role_id: @role.id).collect(&:workflow_id).uniq
+       # if @workflow_ids.include? article.workflow_state.workflow_id
+        #  flag = true
+       # end
+     # end
       if article.access_for_others == level
         flag = true
       end

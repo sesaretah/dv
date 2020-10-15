@@ -1,0 +1,114 @@
+<div class='card'>
+<div class="card-header">
+  <h3 class="card-title"><%=t :role_accesses %></h3>
+</div>
+
+<div class="card-body">
+
+  <% for role in @workflow.roles%>
+  <%@workflow_role_access = WorkflowRoleAccess.where(workflow_id: @workflow.id, role_id: role.id).first%>
+   <div class="row">
+   <div class='col'>
+    <%= role.title%>
+    </div>
+     <div class='col'>
+      <label class="custom-control custom-checkbox custom-control-inline">
+        <input type="checkbox" class="custom-control-input" id="own_article_traceable_<%= role.id%>" 
+        <% if !@workflow_role_access.blank? && @workflow_role_access.own_article_traceable%>checked<%end%> value="option3">
+        <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :own_article_traceable%></span>
+      </label>
+     </div>
+     <div class='col'>
+           <label class="custom-control custom-checkbox custom-control-inline">
+        <input type="checkbox" class="custom-control-input" id="other_articles_traceable_<%= role.id%>" 
+         <% if !@workflow_role_access.blank? && @workflow_role_access.other_articles_traceable%>checked<%end%> value="option3">
+        <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%=t :other_articles_traceable%></span>
+      </label>
+     </div>
+    </div>
+        <script>
+    $('#own_article_traceable_<%= role.id%>').change(function() {
+      if($(this).is(":checked")) {
+        $.ajax({
+          url: '/workflows/change_role_access/<%= @workflow.id%>',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            role_id: <%= role.id%>,
+            access: 'own_article_traceable',
+            value: true
+          },
+          error: function() {
+            $(this).attr("checked", false);
+          },
+          success: function(res) {
+            $(this).attr("checked", true);
+          }
+        });
+      } else {
+        $.ajax({
+          url: '/workflows/change_role_access/<%= @workflow.id%>',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            role_id: <%= role.id%>,
+            access: 'own_article_traceable',
+            value: false
+          },
+          error: function() {
+            $(this).attr("checked", true);
+          },
+          success: function(res) {
+            $(this).attr("checked", false);
+          }
+        });
+      }
+    });
+    </script>
+
+            <script>
+    $('#other_articles_traceable_<%= role.id%>').change(function() {
+      if($(this).is(":checked")) {
+        $.ajax({
+          url: '/workflows/change_role_access/<%= @workflow.id%>',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            role_id: <%= role.id%>,
+            access: 'other_articles_traceable',
+            value: true
+          },
+          error: function() {
+            $(this).attr("checked", false);
+          },
+          success: function(res) {
+            $(this).attr("checked", true);
+          }
+        });
+      } else {
+        $.ajax({
+          url: '/workflows/change_role_access/<%= @workflow.id%>',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            role_id: <%= role.id%>,
+            access: 'other_articles_traceable',
+            value: false
+          },
+          error: function() {
+            $(this).attr("checked", true);
+          },
+          success: function(res) {
+            $(this).attr("checked", false);
+          }
+        });
+      }
+    });
+    </script>
+  <%end%>
+
+
+
+
+</div>
+</div>

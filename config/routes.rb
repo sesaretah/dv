@@ -108,7 +108,8 @@ Rails.application.routes.draw do
   match "/articles/set_note_template/:id" => "articles#set_note_template", :via => :get
   
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
-
+  match "/workflows/role_accesses/:id" => "workflows#role_accesses", :via => :get
+  match "/workflows/change_role_access/:id" => "workflows#change_role_access", :via => :get
 
   match "/typings/remotec/:id" => "typings#remotec", :via => :get
   match "/typings/remoted/:id" => "typings#remoted", :via => :get

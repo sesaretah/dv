@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201009144905) do
+ActiveRecord::Schema.define(version: 20201015084219) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -170,9 +170,11 @@ ActiveRecord::Schema.define(version: 20201009144905) do
     t.text     "publish_details",     limit: 65535
     t.string   "access_for_others",   limit: 255
     t.integer  "position",            limit: 4
+    t.integer  "user_id",             limit: 4
   end
 
   add_index "articles", ["slug"], name: "slug", using: :btree
+  add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -729,6 +731,18 @@ ActiveRecord::Schema.define(version: 20201009144905) do
   end
 
   add_index "word_templates", ["user_id"], name: "index_word_templates_on_user_id", using: :btree
+
+  create_table "workflow_role_accesses", force: :cascade do |t|
+    t.integer  "workflow_id",              limit: 4
+    t.integer  "role_id",                  limit: 4
+    t.boolean  "own_article_traceable"
+    t.boolean  "other_articles_traceable"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "workflow_role_accesses", ["role_id"], name: "index_workflow_role_accesses_on_role_id", using: :btree
+  add_index "workflow_role_accesses", ["workflow_id"], name: "index_workflow_role_accesses_on_workflow_id", using: :btree
 
   create_table "workflow_states", force: :cascade do |t|
     t.string   "title",       limit: 255

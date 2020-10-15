@@ -396,12 +396,16 @@ class ArticlesController < ApplicationController
     extract_nxt_prv(@article)
     if !@this_role.blank?
       for user in @this_role.users
-        generate_notfication user_id: user.id , notifiable_type: 'WorkflowTransition', notifiable_id: @workflow_transition.id, notification_type: 'article_sent', emmiter_id: current_user.id
+        if !user.blank? && !@workflow_transition.blank?
+          generate_notfication user_id: user.id , notifiable_type: 'WorkflowTransition', notifiable_id: @workflow_transition.id, notification_type: 'article_sent', emmiter_id: current_user.id
+        end
       end
     end
     if !@next_role.blank?
       for user in @next_role.users
-        generate_notfication user_id: user.id , notifiable_type: 'WorkflowTransition', notifiable_id: @workflow_transition.id, notification_type: 'article_received', emmiter_id: current_user.id
+        if !user.blank? && !@workflow_transition.blank?
+          generate_notfication user_id: user.id , notifiable_type: 'WorkflowTransition', notifiable_id: @workflow_transition.id, notification_type: 'article_received', emmiter_id: current_user.id
+        end
       end
     end
     #send_mail user_id: @role.users.pluck(:id).join(','), article_ids: @article.id, mail_type: 'article_sent'
@@ -492,6 +496,7 @@ class ArticlesController < ApplicationController
         @article.workflow_state_id = @workflow_state.id
       end
     end
+    @article.user_id = current_user.id
     @article.save
     extract_other_titles
     respond_to do |format|

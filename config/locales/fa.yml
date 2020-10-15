@@ -743,6 +743,9 @@ fa:
   new_note_template: 'فرم یادداشت پیش فرض'
   note_templates: 'یادداشت پیش فرض'
   speedy_note: 'یادداشت سریع'
+  own_article_traceable: 'پیگیری اسناد خود'
+  other_articles_traceable: 'پیگیری اسناد دیگران'
+  role_accesses: 'دسترسی نقش ها'
 
   devise:
     confirmations:

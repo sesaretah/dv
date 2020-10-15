@@ -5,6 +5,7 @@ class Workflow < ActiveRecord::Base
   belongs_to :user
   has_many :word_templates
   has_many :sections
+  has_many :workflow_role_accesses
 
   def next_nodes(current_node_id)
     @nodes = JSON.parse self.nodes
@@ -110,6 +111,17 @@ class Workflow < ActiveRecord::Base
         return nodes.index(node)
       end
     end
+  end
+
+  def roles
+    roles = []
+    for role_id in self.workflow_states.pluck(:role_id).uniq
+      role = Role.find_by_id(role_id)
+      if !role.blank?
+        roles << role
+      end
+    end
+    return roles
   end
 
   def users

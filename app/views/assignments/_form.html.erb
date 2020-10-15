@@ -1,3 +1,4 @@
+<% if grant_access("alter_roles", current_user)%>
 <%= form_for(@assignment, html: {class: 'card'}) do |f| %>
 <div class="card-header">
   <h3 class="card-title"><%=t :new_assignment %></h3>
@@ -39,3 +40,4 @@
   </div>
   </div>
   <% end %>
+<%end%>
