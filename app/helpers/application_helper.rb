@@ -8,7 +8,7 @@ module ApplicationHelper
       @workflow_state_ids = WorkflowState.where('role_id in (?)', role_ids).pluck(:id)
       if !article.workflow_state.blank?
         workflow_role_accesses = article.workflow_state.workflow.workflow_role_accesses.where('role_id in (?)', role_ids)
-        if workflow_role_accesses.blank?
+        if @workflow_state_ids.include? article.workflow_state_id && workflow_role_accesses.blank?
           flag = true
         else
           if article.user_id == user.id
@@ -28,6 +28,7 @@ module ApplicationHelper
     end
     return flag
   end
+
   def viewable?(article)
     flag = false
     @role = Role.find_by_id(current_user.current_role_id)
