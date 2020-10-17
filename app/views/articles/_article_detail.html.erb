@@ -141,7 +141,7 @@
           </td>
         </tr>
         <%end%>
-        <% if viewable_level?(@article, 'all')%>
+        <% if  user_accessible?(@article, current_user) || viewable_level?(@article, 'all')%>
         <tr>
           <td style='color: #7795c1;text-align:left;'><%=t :full_text%>
           <% if article_owner(@article, current_user)%>
