@@ -1,6 +1,7 @@
 class WorkflowStatesController < ApplicationController
   before_action :set_workflow_state, only: [:show, :edit, :update, :destroy, :view_remote, :workflow_state_articles]
 
+
   def show_by_node
     @workflow_state = WorkflowState.where(node_id: params[:node_id], workflow_id: params[:workflow_id]).first
     if !@workflow_state.blank?

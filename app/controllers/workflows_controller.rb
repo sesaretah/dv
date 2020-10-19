@@ -1,5 +1,16 @@
 class WorkflowsController < ApplicationController
-  before_action :set_workflow, only: [:show, :edit, :update, :destroy,:related_articles, :role_accesses, :change_role_access]
+  before_action :set_workflow, only: [:show, :edit, :update, :destroy,:related_articles, :role_accesses, :change_role_access, :start_workflow_states]
+
+  skip_before_action :verify_authenticity_token, only: [:start_workflow_states]
+  
+  def start_workflow_states
+    start_workflow_states = @workflow.start_workflow_states
+    resp = []
+    for k in start_workflow_states
+      resp << {'title' => k.title, 'id' => k.id}
+    end
+    render :json => resp.to_json, :callback => params['callback']
+  end 
 
   def change_role_access
     workflow_role_access = WorkflowRoleAccess.where(workflow_id: @workflow.id, role_id: params[:role_id]).first

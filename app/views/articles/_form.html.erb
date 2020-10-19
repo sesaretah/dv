@@ -38,11 +38,26 @@
         <% if @article.workflow_state%>
         <%= text_field_tag :workflow_state_id, @article.workflow_state.title , class: "form-control", disabled: true%>
         <%else%>
-
+        <%= select_tag :workflow_state_id, options_for_select(@workflows.first.start_workflow_states.collect { |p| [ p.title, p.id ] }), {class: "form-control"} %>
         <%end%>
       </div>
     </div>
   </div>
+  <script>
+  $( "#workflow" ).change(function() {
+    var workflow_id = this.value
+    console.log('YAYY')
+  $.get( "/workflows/start_workflow_states/"+workflow_id, function( data ) {
+var $el = $("#workflow_state_id");
+$el.empty();
+$.each(data, function(index,item) {
+
+  $el.append($("<option></option>")
+     .attr("value", item.id).text(item.title));
+});
+});
+});
+  </script>
   </div>
 
   <% if permit_by_workflow(@article, current_user,'title')%>
