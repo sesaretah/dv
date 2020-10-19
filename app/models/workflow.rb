@@ -109,7 +109,7 @@ class Workflow < ActiveRecord::Base
     role_ids = user.roles.pluck(:id)
     workflow_state_ids = WorkflowState.where('role_id in (?)', role_ids).pluck(:id)
     @result = []
-    for workflow_state in self.workflow_states
+    for workflow_state in self.workflow_states.order(:title)
       if workflow_state.start_point == 2 
         if workflow_state_ids.include? workflow_state.id
           @result << workflow_state
