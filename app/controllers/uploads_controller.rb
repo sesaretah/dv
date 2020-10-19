@@ -85,7 +85,7 @@ class UploadsController < ApplicationController
 
   def check_grant
     if !grant_access("alter_keywords", current_user)
-      head(403)
+     # head(403)
     end
   end
 
