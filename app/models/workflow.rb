@@ -105,6 +105,21 @@ class Workflow < ActiveRecord::Base
     return @result
   end
 
+  def user_start_workflow_states(user)
+    role_ids = user.roles.pluck(:id)
+    workflow_state_ids = WorkflowState.where('role_id in (?)', role_ids).pluck(:id)
+    @result = []
+    for workflow_state in self.workflow_states
+      if workflow_state.start_point == 2 && workflow_state_ids.include?(workflow_state.id)
+        @result << workflow_state
+      end
+    end
+    return @result
+  end
+
+
+
+
   def not_end_states
     @result = []
     for workflow_state in self.workflow_states

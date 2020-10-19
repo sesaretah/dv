@@ -4,7 +4,8 @@ class WorkflowsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:start_workflow_states]
   
   def start_workflow_states
-    start_workflow_states = @workflow.start_workflow_states
+
+    start_workflow_states = @workflow.user_start_workflow_states(current_user)
     resp = []
     for k in start_workflow_states
       resp << {'title' => k.title, 'id' => k.id}

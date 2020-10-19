@@ -46,7 +46,6 @@
   <script>
   $( "#workflow" ).change(function() {
     var workflow_id = this.value
-    console.log('YAYY')
   $.get( "/workflows/start_workflow_states/"+workflow_id, function( data ) {
 var $el = $("#workflow_state_id");
 $el.empty();
