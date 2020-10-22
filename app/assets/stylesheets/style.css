@@ -63,3 +63,7 @@ audio {
 .fs-10 {
   font-size: 10px !important;
 }
+
+.pd-compact {
+  padding: 0.15rem 0.3rem;
+}
