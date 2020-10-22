@@ -746,6 +746,7 @@ fa:
   own_article_traceable: 'پیگیری اسناد خود'
   other_articles_traceable: 'پیگیری اسناد دیگران'
   role_accesses: 'دسترسی نقش ها'
+  new_article: 'سند جدید'
 
   devise:
     confirmations:
