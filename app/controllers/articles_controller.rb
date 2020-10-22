@@ -463,10 +463,9 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   def new
     @article = Article.new
-    @workflow_states = WorkflowState.where(role_id: current_user.current_role_id, start_point: 2).group_by(&:workflow_id).keys
-    if !@workflow_states.blank?
-      @workflows = Workflow.where('id in (?)', @workflow_states )
-    else
+    #@workflow_states = WorkflowState.where(role_id: current_user.current_role_id, start_point: 2).group_by(&:workflow_id).keys
+    @workflows = Workflow.user_available_start_workflows(current_user)
+    if @workflows.blank?
       redirect_to '/articles', notice: :you_have_not_the_right_permission_to_create_article
     end
   end

@@ -95,6 +95,13 @@ class Workflow < ActiveRecord::Base
     return @result.first
   end
 
+  def self.user_available_start_workflows(user)
+    role_ids = user.roles.pluck(:id)
+    workflow_ids = WorkflowState.where('role_id in (?) and start_point = 2', role_ids).pluck(:workflow_id).uniq
+    workflows = Workflow.where('id in (?)', workflow_ids )
+    return workflows
+  end
+
   def start_workflow_states
     @result = []
     for workflow_state in self.workflow_states
