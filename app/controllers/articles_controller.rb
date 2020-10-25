@@ -489,12 +489,13 @@ class ArticlesController < ApplicationController
     if @article.slug.blank?
       @article.slug = SecureRandom.hex(4)
     end
-    if !params[:workflow].blank?
-      @workflow_state = WorkflowState.where(workflow_id: params[:workflow].to_i, start_point: 2, role_id: current_user.current_role_id).first
-      if !@workflow_state.blank?
-        @article.workflow_state_id = @workflow_state.id
-      end
-    end
+   # if !params[:workflow].blank?
+    #  @workflow_state = WorkflowState.where(workflow_id: params[:workflow].to_i, start_point: 2, role_id: current_user.current_role_id).first
+    #  if !@workflow_state.blank?
+    #    @article.workflow_state_id = @workflow_state.id
+    #  end
+   # end
+    @article.workflow_state_id = params[:workflow_state_id] if !params[:workflow_state_id].blank?
     @article.user_id = current_user.id
     @article.save
     extract_other_titles
@@ -524,6 +525,7 @@ class ArticlesController < ApplicationController
     if !params[:article].blank? && !params[:article][:content].blank?
       @article.content_wo_tags = ActionView::Base.full_sanitizer.sanitize(params[:article][:content])
     end
+    @article.workflow_state_id = params[:workflow_state_id] if !params[:workflow_state_id].blank?
     respond_to do |format|
       if @article.update(article_params)
         if !params[:keyword].blank? || params[:keyword] == ''
