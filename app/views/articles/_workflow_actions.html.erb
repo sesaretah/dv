@@ -1,4 +1,5 @@
 <div id='article_workflow_action'>
+<% if !article.workflow_state.blank?%>
 <button class="btn btn-facebook mb-2" style='min-width:180px;'><small><%=t :workflow%>: <%= truncate(article.workflow_state.workflow.title, length: 20)%></small></button>
 <button class="btn btn-vk mb-2" style='min-width:180px;'><small><%=t :workflow_state%>: <%= truncate(article.workflow_state.title, length: 15)%></small></button>
 <% if article.workflow_state.role_id == current_user.current_role_id%>
@@ -36,6 +37,7 @@
   </div>
   <%end%>
 </fieldset>
+<%end%>
 <%end%>
 <%end%>
 <%end%>
