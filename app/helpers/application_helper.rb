@@ -26,6 +26,7 @@ module ApplicationHelper
         end
       end
     end
+    flag = true if article.workflow_state.blank?
     return flag
   end
 
