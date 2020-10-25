@@ -65,6 +65,7 @@ class ApplicationController < ActionController::Base
 
   def extract_nxt_prv(article)
     @workflow_state = article.workflow_state
+    if !@workflow_state.blank?
     @workflow = article.workflow_state.workflow
     @next_workflow_states = []
     @previous_workflow_states = []
@@ -73,6 +74,7 @@ class ApplicationController < ActionController::Base
       @previous_workflow_states =  @workflow.previous_nodes(@workflow_state.node_id)
     end
     return @next_workflow_states, @previous_workflow_states
+  end
   end
 
   def generate_notfication(**args)
