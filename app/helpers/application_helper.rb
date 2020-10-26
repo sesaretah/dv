@@ -181,7 +181,7 @@ module ApplicationHelper
       return false
     else
       @ac = AccessControl.where(role_id: user.current_role_id).first
-      @flag = @ac["#{ward}"].to_i
+      @flag = @ac["#{ward}"].to_i if !@ac.blank?
     end
     if @flag == 0
       return false
