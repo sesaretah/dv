@@ -1,0 +1,8 @@
+---
+:concurrency: 1
+:queues:
+  - default
+  - mailers
+
+  - tavan_default
+  - tavan_mailers

@@ -14,4 +14,5 @@ class WorkflowState < ActiveRecord::Base
       end
     end
   end
+  
 end

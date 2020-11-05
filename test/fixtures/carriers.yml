@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  source_workflow_state_id: 1
+  target_workflow_state_id: 1
+  rules: MyString
+  user_id: 1
+  done: false
+
+two:
+  source_workflow_state_id: 1
+  target_workflow_state_id: 1
+  rules: MyString
+  user_id: 1
+  done: false

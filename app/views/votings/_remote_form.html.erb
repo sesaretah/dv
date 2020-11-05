@@ -7,6 +7,15 @@
       <i class="fe fe-check" style="vertical-align: -3px;"></i>&nbsp&nbsp<%=t :agree%> (<%= @votes%> <%=t :votes%>)
       <% if !@vote.blank?%><%if @vote.outcome == 1%><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%=t :your_choice%><%end%><%end%>
       <%end%>
+       <% @votes = Vote.where(voting_id: voting.id, outcome: 1, article_id: article.id)%>
+       <% for vote in @votes%>
+       <% if !vote.user.blank? && !vote.user.profile.blank?%>
+          <span class="tag" style='vertical-align: -3px;'>
+              <span class="tag-avatar avatar" style="background-image: url('<%= article_source.user.profile.avatar(:tiny)%>')"></span>
+              <%= truncate(vote.user.profile.fullname, length: 35)%>
+          </span>
+          <%end%>
+       <%end%>
     </div>
 
     <div class="col-md-4 text-center small">

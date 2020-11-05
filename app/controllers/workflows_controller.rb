@@ -1,8 +1,13 @@
 class WorkflowsController < ApplicationController
-  before_action :set_workflow, only: [:show, :edit, :update, :destroy,:related_articles, :role_accesses, :change_role_access, :start_workflow_states]
+  before_action :set_workflow, only: [:show, :edit, :update, :destroy,:related_articles, :role_accesses, :change_role_access, :start_workflow_states, :carriers]
 
   skip_before_action :verify_authenticity_token, only: [:start_workflow_states]
   
+  def carriers
+    @carriers = Carrier.where('source_workflow_state_id in (?)', @workflow.workflow_states.pluck(:id).uniq)
+  end 
+
+
   def start_workflow_states
 
     start_workflow_states = @workflow.user_start_workflow_states(current_user)

@@ -62,3 +62,6 @@ gem 'docx_replace'
 gem "roo", "~> 2.8.0"
 gem 'rqrcode'
 gem 'x-editable-rails'
+gem 'sidekiq'
+gem 'redis', '4.1.3'
+gem 'hiredis'
