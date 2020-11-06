@@ -1,4 +1,7 @@
 <div class="card-body" id='article-show'>
+  <div class='text-center mb-4'>
+    <%= @article.title%> 
+  </div>
   <% if !@workflows.blank?%>
   <%= render partial: 'articles/make_a_copy', locals: {article: @article, workflows: @workflows}%>
   <% end %>

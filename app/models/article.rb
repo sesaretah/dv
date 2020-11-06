@@ -96,6 +96,16 @@ class Article < ActiveRecord::Base
     return {keywords: @keywords, keyword_ids: @keyword_ids}
   end
 
+  def self.in_dashboard(user, home_setting)
+    home_setting.sort.blank? ?  order = 'created_at' : order = "#{home_setting.sort}"
+    home_setting.workflow_state == -1 ?  workflow_state_sql = '' : workflow_state_sql = "and id = #{home_setting.workflow_state}"
+    home_setting.workflow == -1 ?  workflow_sql = '' : workflow_sql = "and workflow_id = #{home_setting.workflow}"
+    role_ids = user.roles.pluck(:id)
+    workflow_state_ids = WorkflowState.where("role_id in (?) #{workflow_state_sql} #{workflow_sql}", role_ids).pluck(:id)
+    articles = self.where('workflow_state_id in (?)', workflow_state_ids).order(order)
+    return articles
+  end
+
   def other_title
 
   end

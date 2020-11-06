@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201105064001) do
+ActiveRecord::Schema.define(version: 20201106075020) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -290,6 +290,7 @@ ActiveRecord::Schema.define(version: 20201105064001) do
     t.integer  "workflow_state", limit: 4
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "workflow",       limit: 4
   end
 
   create_table "interconnects", force: :cascade do |t|

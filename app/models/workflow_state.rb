@@ -14,5 +14,14 @@ class WorkflowState < ActiveRecord::Base
       end
     end
   end
+
+  def is_votable
+    if self.votable.blank? || self.votable == 01
+      return false
+    end
+    if self.votable == 2
+      return true
+    end
+  end
   
 end

@@ -64,6 +64,14 @@ audio {
   font-size: 10px !important;
 }
 
+.fs-12 {
+  font-size: 12px !important;
+}
+
+.fs-11 {
+  font-size: 11px !important;
+}
+
 .pd-compact {
   padding: 0.15rem 0.3rem;
 }
