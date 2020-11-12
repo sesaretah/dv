@@ -129,6 +129,20 @@ module ApplicationHelper
     return @options
   end
 
+  def carrier
+    @options = [
+      [t(:none), 0],
+      [t(:majority), 1],
+      [t(:consensus) , 2]
+    ]
+    return @options
+  end
+
+  def rcarrier(s)
+    @options = ['none','majority', 'consensus']
+    return @options[s-1]
+  end
+
   def rability(s)
     @options = ['has','has_not']
     return @options[s-1]

@@ -748,6 +748,14 @@ fa:
   role_accesses: 'دسترسی نقش ها'
   new_article: 'سند جدید'
   carriers: 'حامل ها'
+  source_workflow_state: 'گردشکار مبدا'
+  target_workflow_state: 'گردشکار مقصد'
+  majority: 'اکثریت'
+  consensus: 'اجماع'
+  timer: 'زمانبندی (ساعت)'
+  condition_if_voting: 'شروط انتقال (در صورت وجود رای گیری)'
+  voting_condition: 'شرط انتقال'
+  trials: 'دفعات تکرار بررسی'
 
   devise:
     confirmations:

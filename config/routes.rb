@@ -58,6 +58,8 @@ Rails.application.routes.draw do
   resources :section_items
   resources :sections
   resources :publications
+  resources :carriers
+
   #devise_for :users
   devise_for :users, :controllers => {:registrations => "registrations", sessions: "sessions"}
   devise_scope :user do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201106075020) do
+ActiveRecord::Schema.define(version: 20201112081711) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -186,6 +186,19 @@ ActiveRecord::Schema.define(version: 20201106075020) do
 
   add_index "assignments", ["role_id"], name: "index_assignments_on_role_id", using: :btree
   add_index "assignments", ["user_id"], name: "index_assignments_on_user_id", using: :btree
+
+  create_table "carriers", force: :cascade do |t|
+    t.integer  "source_workflow_state_id", limit: 4
+    t.integer  "target_workflow_state_id", limit: 4
+    t.string   "rules",                    limit: 255
+    t.integer  "user_id",                  limit: 4
+    t.boolean  "done"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "timer",                    limit: 4
+    t.integer  "voting_condition",         limit: 4
+    t.integer  "trials",                   limit: 4
+  end
 
   create_table "comments", force: :cascade do |t|
     t.string   "content",          limit: 191

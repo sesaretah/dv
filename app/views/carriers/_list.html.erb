@@ -1,0 +1,43 @@
+  <table class="table  table-vcenter" id='carrier-list'>
+  <thead>
+    <tr>
+      <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
+      <th><%=t :source_workflow_state%></th>
+      <th><%=t :target_workflow_state %></th>
+      <th><%=t :timer %></th>
+      <th><%=t :voting_condition %></th>
+      <th><%=t :trials %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% carriers.each do |carrier| %>
+    <tr>
+      <td class="text-center">
+        <div class="item-action dropdown">
+          <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+          <div class="dropdown-menu dropdown-menu-right">
+                <%= link_to carrier, method: :delete, remote: true, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
+                <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
+                <%end%>
+          </div>
+        </div>
+      </td>
+    <td>
+        <%= carrier.source_state.title rescue nil%>
+    </td>
+    <td>
+        <%= carrier.target_state.title rescue nil%>
+    </td>
+    <td>
+        <%= carrier.timer%>
+    </td>
+    <td>
+        <%=t rcarrier(carrier.voting_condition)%>
+    </td>
+    <td>
+        <%= carrier.trials%>
+    </td>
+      
+      </tr>
+    <%end%>
+</table>
