@@ -1,15 +1,37 @@
 class Carrier < ActiveRecord::Base
     
-    def timer_rule
-        rule = self.extract_rules
+    def carry_articles
         for article in self.source_state.articles
-            if (Time.now > article.workflow_transitions.last.created_at + rule['hours'].hours)
+            self.timer.blank? ? timer = 0 : timer = self.timer
+            if !article.workflow_transitions.blank? 
+                transition = article.workflow_transitions.last.created_at
+            else
+                transition = article.created_at
+            end
+            if self.source_state.is_votable
+                case self.voting_condition
+                when 0
+                    vote_flag = true
+                when 1
+                    self.source_state.majority ? vote_flag = true : vote_flag=false
+                when 2
+                    self.source_state.consensus ? vote_flag = true : vote_flag=false
+                end
+            end
+            if (Time.now > transition + timer.minutes && vote_flag)
                 article.workflow_state_id = self.target_state.id
                 article.save
                 self.done = true
                 self.save
             end
         end
+    end
+
+    def reduce_trial
+        if self.trials > 0
+            self.trials -= 1
+        end
+        self.save
     end
 
     def choose_rule
@@ -23,6 +45,12 @@ class Carrier < ActiveRecord::Base
             result = JSON.parse(self.rules)
         end
         return result
+    end
+
+    def self.carry
+        for carrier in self.all
+            carrier.carry_articles
+        end
     end
 
     def source_state

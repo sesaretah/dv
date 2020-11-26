@@ -23,5 +23,36 @@ class WorkflowState < ActiveRecord::Base
       return true
     end
   end
+
+  def yay_votes
+    voting = self.votes
+    Vote.where('voting_id = ? and outcome in (?)', voting.id, [0,1] ).count if voting
+  end
+
+  def nay_votes
+    voting = self.votes
+    Vote.where(voting_id: voting.id, outcome: -1).count if voting
+  end
+
+  def votes
+    Voting.where(votable_type: 'WorkflowState', votable_id: self.id).first
+  end
+
+  def majority
+    return true if !self.is_votable
+    if self.yay_votes > self.nay_votes
+      return true
+    else
+      return false
+    end
+  end
+
+  def consensus
+    if self.nay_votes >= 1
+      return false
+    else
+      return true
+    end
+  end
   
 end
