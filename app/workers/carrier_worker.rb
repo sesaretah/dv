@@ -2,7 +2,7 @@ class CarrierWorker
     include Sidekiq::Worker
     sidekiq_options retry: false
     
-    def perform()
+    def perform(id)
        Carrier.carry
     end
   end

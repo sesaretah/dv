@@ -11,7 +11,8 @@ class CarriersController < ApplicationController
 
 
     def carry
-        CarrierWorker.perform_async()
+        p '%%%%%%%%%%%%'
+        CarrierWorker.perform_async(params[:id])
     end
     
     def show
