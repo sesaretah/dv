@@ -773,7 +773,8 @@ fa:
   company_details: 'دانشگاه تهران'
   unsbscribe_notice: 'جهت عدم دریافت این آگاهسازی'
   unsbscribe: 'کلیک کنید'
-
+  carry: 'حمل'
+  
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

@@ -8,6 +8,11 @@ class CarriersController < ApplicationController
         end
        
     end
+
+
+    def carry
+        CarrierWorker.perform_async()
+    end
     
     def show
         @carrier = Carrier.find(params[:id])

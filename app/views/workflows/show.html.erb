@@ -3,6 +3,7 @@
         <h4 class="card-title"><%=t :workflow_detail%></h4>
         <div class="card-options">
         <%if owner(@workflow, current_user) || grant_access('edit_workflow', current_user)%>
+         <a href="/carriers/carry/1" class="btn btn-secondary btn-sm ml-2"><%=t :carry%></a>
         <a href="/workflows/carriers/<%= @workflow.id%>" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-truck"></i> <%=t :carriers%></a>
         <a href="/workflows/role_accesses/<%= @workflow.id%>" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-lock"></i> <%=t :role_accesses%></a>
           <a href="/workflows/<%= @workflow.id%>/edit" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-edit-2"></i> <%=t :edit%></a>
