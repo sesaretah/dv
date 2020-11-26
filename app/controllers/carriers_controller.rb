@@ -12,6 +12,7 @@ class CarriersController < ApplicationController
 
     def carry
         p '%%%%%%%%%%%%'
+        @carrier = Carrier.first
         CarrierWorker.perform_async(params[:id])
     end
     
