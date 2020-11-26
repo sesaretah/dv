@@ -3,6 +3,6 @@ class CarrierWorker
     sidekiq_options retry: false
     
     def perform(id)
-       Carrier.carry
+       Carrier.carry(id)
     end
   end

@@ -48,7 +48,7 @@ class Carrier < ActiveRecord::Base
         return result
     end
 
-    def self.carry
+    def self.carry(r)
         for carrier in self.all
             carrier.carry_articles
         end
