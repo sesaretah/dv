@@ -140,7 +140,7 @@ module ApplicationHelper
 
   def rcarrier(s)
     @options = ['none','majority', 'consensus']
-    return @options[s-1]
+    return @options[s]
   end
 
   def rability(s)
