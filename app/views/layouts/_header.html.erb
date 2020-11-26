@@ -117,6 +117,7 @@
             <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-settings"></i><%=t :settings%></a>
             <div class="dropdown-menu dropdown-menu-arrow">
               <a href="/workflows" class="dropdown-item "><%=t :workflows%></a>
+              <a href="/notification_settings" class="dropdown-item "><%=t :notification_settings%></a>
               <% if grant_access("alter_roles", current_user)%>
               <a href="/assignments" class="dropdown-item "><%=t :assignments%></a>
               <%end%>

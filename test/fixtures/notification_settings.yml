@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  article_sent: false
+  article_received: false
+  article_refunded: false
+  article_refunded_received: false
+  article_comment: false
+  article_vote: false
+
+two:
+  user_id: 1
+  article_sent: false
+  article_received: false
+  article_refunded: false
+  article_refunded_received: false
+  article_comment: false
+  article_vote: false

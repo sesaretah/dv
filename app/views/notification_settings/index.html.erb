@@ -1,0 +1,73 @@
+<div class='row'>
+  <div class="col-lg-12 order-lg-1">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-options">
+          <%= link_to "/article_types", class: "btn btn-secondary btn-sm ml-1" do %>
+            <i class="fe fe-arrow-left" style="vertical-align: -3px;"></i> <%=t :back%>
+          <%end%>
+        </div>
+      </div>
+      <div class="card-body">
+      <div class="form-label"><%=t :notification_settings%></div>
+      <label class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id='article_sent' <% if  @notification_setting.article_sent%>checked<%end%>>
+           <span class="form-check-label"><%=t :article_sent%></span>
+       </label>
+
+        <label class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id='article_received' <% if  @notification_setting.article_received%>checked<%end%>>
+           <span class="form-check-label"><%=t :article_received%></span>
+       </label>
+
+        <label class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id='article_refunded' <% if  @notification_setting.article_refunded%>checked<%end%>>
+           <span class="form-check-label"><%=t :article_refunded%></span>
+       </label>
+
+        <label class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id='article_refunded_received' <% if  @notification_setting.article_refunded_received%>checked<%end%>>
+           <span class="form-check-label"><%=t :article_refunded_received%></span>
+       </label>
+      </div>
+
+      <script>
+        $('.form-check-input').change(function() {
+        var type = $(this).attr('id')
+        //console.log($(this))
+      if($(this).is(":checked")) {
+        $.ajax({
+          url: '/notification_settings/remotec/1',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            type: type,
+          },
+          error: function() {
+            $(this).attr("checked", false);
+          },
+          success: function(res) {
+            $(this).attr("checked", true);
+          }
+        });
+      } else {
+        $.ajax({
+          url: '/notification_settings/remoted/1',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            type: type,
+          },
+          error: function() {
+            $(this).attr("checked", true);
+          },
+          success: function(res) {
+            $(this).attr("checked", false);
+          }
+        });
+      }
+    });
+    </script>
+    </div>
+  </div>
+</div>

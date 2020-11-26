@@ -1,6 +1,17 @@
 class Notification < ActiveRecord::Base
+ after_create :notify_by_mail
  include ActionView::Helpers::TextHelper
  belongs_to :user
+
+  def notify_by_mail
+    #for target_user_id in self.target_user_ids.uniq
+      if NotificationSetting.check(self.user_id, self.notification_type)
+          item = self.notifiable_type.classify.constantize.find_by_id(self.notifiable_id)
+          MailerWorker.perform_async(self.user_id, self.notification_type, self.user.profile.fullname, item.article.title, self.custom_text)
+      end
+    #end
+  end
+
   def icon
     case self.notification_type
     when 'article_sent'

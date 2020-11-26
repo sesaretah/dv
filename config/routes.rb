@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   resources :sections
   resources :publications
   resources :carriers
-
+  resources :notification_settings
   #devise_for :users
   devise_for :users, :controllers => {:registrations => "registrations", sessions: "sessions"}
   devise_scope :user do
@@ -233,5 +233,6 @@ Rails.application.routes.draw do
 
   match "/profile_groupings/delete/:id" => "profile_groupings#delete", :via => :get
 
-
+  match "/notification_settings/remotec/:id" => "notification_settings#remotec", :via => :get
+  match "/notification_settings/remoted/:id" => "notification_settings#remoted", :via => :get
 end

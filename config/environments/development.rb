@@ -38,6 +38,15 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
 
-  # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'mail.ut.ac.ir',
+    port: 587,
+    domain: 'mail.ut.ac.ir',
+    user_name: 'tavan',
+    password: 'Tvn&&2010',
+    authentication: 'plain',
+    enable_starttls_auto: true
+}
+config.action_mailer.perform_deliveries = true
 end

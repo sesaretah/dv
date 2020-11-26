@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201112081711) do
+ActiveRecord::Schema.define(version: 20201126120719) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -410,6 +410,20 @@ ActiveRecord::Schema.define(version: 20201112081711) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "notification_settings", force: :cascade do |t|
+    t.integer  "user_id",                   limit: 4
+    t.boolean  "article_sent"
+    t.boolean  "article_received"
+    t.boolean  "article_refunded"
+    t.boolean  "article_refunded_received"
+    t.boolean  "article_comment"
+    t.boolean  "article_vote"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "notification_settings", ["user_id"], name: "index_notification_settings_on_user_id", using: :btree
+
   create_table "notifications", force: :cascade do |t|
     t.string   "title",             limit: 255
     t.text     "content",           limit: 65535
@@ -420,6 +434,7 @@ ActiveRecord::Schema.define(version: 20201112081711) do
     t.integer  "user_id",           limit: 4
     t.string   "notification_type", limit: 255
     t.integer  "emmiter_id",        limit: 4
+    t.text     "custom_text",       limit: 65535
   end
 
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
