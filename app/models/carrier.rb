@@ -8,6 +8,7 @@ class Carrier < ActiveRecord::Base
             else
                 transition = article.created_at
             end
+            vote_flag = true
             if self.source_state.is_votable
                 case self.voting_condition
                 when 0
