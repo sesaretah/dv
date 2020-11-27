@@ -371,7 +371,7 @@ class ArticlesController < ApplicationController
       dh: history(model: 'Dating', params: params),
       tyh: history(model: 'Typing', params: params),
       fh: history(model: 'Formating', params: params),
-      ch: history(model: 'Contribution', params: params),
+      #ch: history(model: 'Contribution', params: params),
       kh: history(model: 'Kinship', params: params),
       oh: history(model: 'Originating', params: params),
       ah: history(model: 'Areaing', params: params),
