@@ -193,15 +193,15 @@
         <% for contribution in result[:ch][:remainder]%>
         <span class='tag'>
           <%=t :fullname%>: <%= contribution.profile.fullname%>,
-          <%=t :role%>: <%= contribution.role.title%>,
-          <%=t :duty%>: <%= contribution.duty.title%>
+          <%=t :role%>: <%= contribution.role.title rescue nil%>,
+          <%=t :duty%>: <%= contribution.duty.title rescue nil%>
         </span>
         <%end%>
         <% for contribution in result[:ch][:new]%>
         <span class='tag  tag-light-green tag-square'>
           <%=t :fullname%>: <%= contribution.profile.fullname%>,
-          <%=t :role%>: <%= contribution.role.title%>,
-          <%=t :duty%>: <%= contribution.duty.title%>
+          <%=t :role%>: <%= contribution.role.title rescue nil%>,
+          <%=t :duty%>: <%= contribution.duty.title rescue nil%>
         </span>
         <%end%>
       </div>
