@@ -2,16 +2,16 @@
   <div class="col-lg-3">
     <div class="card">
       <div class='card-body' style='padding: 1rem;'>
-        <% render partial: 'articles/workflow_actions', locals: {article: @article, nxt: @next_workflow_states, prv: @previous_workflow_states}%>
+        <% render partial: "articles/workflow_actions", locals: { article: @article, nxt: @next_workflow_states, prv: @previous_workflow_states } %>
         <div class="list-group list-group-transparent mb-0">
-        <% if !@article.workflow_state.blank?%>
+        <% if !@article.workflow_state.blank? %>
           <a href="#" class="list-group-item list-group-item-action d-flex align-items-center active" style="font-size:smaller;">
-            <i class="fe fe-repeat ml-2" style="vertical-align: -3px;"></i> <%= @article.workflow_state.workflow.title%>
+            <i class="fe fe-repeat ml-2" style="vertical-align: -3px;"></i> <%= @article.workflow_state.workflow.title %>
           </a>
           <a href="#" class="list-group-item list-group-item-action d-flex align-items-center" style="font-size:smaller;">
-            <i class="fe fe-shuffle ml-2" style="vertical-align: -3px;"></i> <%= @article.workflow_state.title%>
+            <i class="fe fe-shuffle ml-2" style="vertical-align: -3px;"></i> <%= @article.workflow_state.title %>
           </a>
-          <%end%>
+          <% end %>
         </div>
         
       </div>
@@ -19,8 +19,17 @@
 
       </div>
     </div>
-    <%= render partial: 'articles/article_note_template', locals: {article: @article}%>
-<%= render partial: 'articles/article_voices', locals: {article: @article}%>
+      <div class="example mt-4">
+    <span class="text-muted small"><%= t :download_word_file %></span>
+    <%= select_tag :word_template, options_for_select(@article.workflow_state.workflow.word_templates.all.collect { |p| [p.title, p.id] }), { include_blank: true, class: "form-control" } %>
+    <script>
+    $( "#word_template" ).change(function() {
+      window.location.href='/articles/print/<%= @article.id %>.docx?word_template=' + $(this).val();
+    });
+    </script>
+  </div>
+    <%= render partial: "articles/article_note_template", locals: { article: @article } %>
+<%= render partial: "articles/article_voices", locals: { article: @article } %>
 
 </div>
 <div class="col-lg-9 order-lg-1">
@@ -29,35 +38,35 @@
       <div class="card-options">
         <% if !@article.workflow_state.blank? && @article.workflow_state.publishable == 2 %>
         <%= link_to "/articles/article_publishable/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-        <i class="fe fe-book-open" style="vertical-align: -3px;"></i> <%=t :publish%>
-        <%end%>
-        <%end%>
+        <i class="fe fe-book-open" style="vertical-align: -3px;"></i> <%= t :publish %>
+        <% end %>
+        <% end %>
         <%= link_to "/articles/article_comments/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-        <i class="fe fe-message-square" style="vertical-align: -3px;"></i> <%=t :comments%>
-        <%end%>
+        <i class="fe fe-message-square" style="vertical-align: -3px;"></i> <%= t :comments %>
+        <% end %>
         <%= link_to "/articles/article_states/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-        <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%=t :workflow%>
-        <%end%>
-        <% if grant_access("view_article_logs", current_user)%>
+        <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%= t :workflow %>
+        <% end %>
+        <% if grant_access("view_article_logs", current_user) %>
         <%= link_to "/articles/article_logs/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-        <i class="fe fe-activity" style="vertical-align: -3px;"></i> <%=t :compare%>
-        <%end%>
-        <%end%>
-        <% if grant_access("view_workflow_transactions", current_user)%>
+        <i class="fe fe-activity" style="vertical-align: -3px;"></i> <%= t :compare %>
+        <% end %>
+        <% end %>
+        <% if grant_access("view_workflow_transactions", current_user) %>
         <%= link_to "/articles/workflow_transitions/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-        <i class="fe fe-layers" style="vertical-align: -3px;"></i> <%=t :workflow_transitions%>
-        <%end%>
-        <%end%>
+        <i class="fe fe-layers" style="vertical-align: -3px;"></i> <%= t :workflow_transitions %>
+        <% end %>
+        <% end %>
         <%= link_to "/articles/article_detail/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-        <i class="fe fe-play" style="vertical-align: -3px;"></i> <%=t :article_detail%>
-        <%end%>
-        <% if article_owner(@article, current_user)%>
-          <a href="/articles/<%= @article.id%>/edit" class="btn btn-secondary btn-sm ml-1"><i class="fe fe-edit-2" style="vertical-align: -3px;"></i> <%=t :edit%></a>
-        <%end%>
+        <i class="fe fe-play" style="vertical-align: -3px;"></i> <%= t :article_detail %>
+        <% end %>
+        <% if article_owner(@article, current_user) %>
+          <a href="/articles/<%= @article.id %>/edit" class="btn btn-secondary btn-sm ml-1"><i class="fe fe-edit-2" style="vertical-align: -3px;"></i> <%= t :edit %></a>
+        <% end %>
       </div>
     </div>
     <div id='article-show'>
-      <%= render partial: 'articles/article_detail', locals: {article: @article}%>
+      <%= render partial: "articles/article_detail", locals: { article: @article } %>
     </div>
     <div class="card-footer">
     </div>
