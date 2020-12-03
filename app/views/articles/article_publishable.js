@@ -1,1 +1,2 @@
-$("#article-show").replaceWith("<%= escape_javascript(render(:partial => 'articles/article_publishable', locals: {article: @article})) %>");
+$("#article-show").replaceWith("<%= escape_javascript(render(:partial => 'articles/article_publishable', locals: {article: @article,  access_groupings:  @access_groupings})) %>");
+fireAutoCompleteEvent();

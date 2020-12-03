@@ -774,6 +774,10 @@ fa:
   unsbscribe_notice: 'جهت عدم دریافت این آگاهسازی'
   unsbscribe: 'کلیک کنید'
   carry: 'حمل'
+  publish_related_articles: 'انتشار اسناد مرتبط'
+  notification: 'اطلاع رسانی'
+  new_article_published: "انتشار سند"
+  article_published_notification: "منتشر شد"
   
   devise:
     confirmations:

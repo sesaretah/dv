@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :note_templates
-  get '/keywords/uniqify' => 'keywords#uniqify'
-  
+  get "/keywords/uniqify" => "keywords#uniqify"
+
   resources :profile_groups
   resources :involvements
   resources :messages
@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   resources :carriers
   resources :notification_settings
   #devise_for :users
-  devise_for :users, :controllers => {:registrations => "registrations", sessions: "sessions"}
+  devise_for :users, :controllers => { :registrations => "registrations", sessions: "sessions" }
   devise_scope :user do
     get "/users/service", to: "registrations#service"
     get "/users/cas_login", to: "sessions#cas_login"
@@ -71,8 +71,8 @@ Rails.application.routes.draw do
   resources :section_items
   resources :profile_groupings
 
-  root to: 'home#search'
-  get ':slug' => 'home#index'
+  root to: "home#search"
+  get ":slug" => "home#index"
 
   match "/home/advanced_search" => "home#advanced_search", :via => :get
   match "/home/change_current_role" => "home#change_current_role", :via => :get
@@ -108,7 +108,9 @@ Rails.application.routes.draw do
   match "/articles/raw_print/:id" => "articles#raw_print", :via => :get
   match "/articles/content_form/:id" => "articles#content_form", :via => :get
   match "/articles/set_note_template/:id" => "articles#set_note_template", :via => :get
-  
+  match "/articles/add_access_group/:id" => "articles#add_access_group", :via => :get
+  match "/articles/remove_access_group/:id" => "articles#remove_access_group", :via => :get
+
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
   match "/workflows/role_accesses/:id" => "workflows#role_accesses", :via => :get
   match "/workflows/change_role_access/:id" => "workflows#change_role_access", :via => :get
@@ -140,7 +142,6 @@ Rails.application.routes.draw do
   match "/profiles/cropper/:id" => "profiles#cropper", :via => :get
   match "/profiles/search_in_users/:id" => "profiles#search_in_users", :via => :get
 
-
   match "/votes/remotec/:id" => "votes#remotec", :via => :get
 
   match "/workflow_states/view_remote/:id" => "workflow_states#view_remote", :via => :get
@@ -154,14 +155,14 @@ Rails.application.routes.draw do
 
   match "/apis/comments" => "apis#comments_api", :via => :post
 
-  post '/role_accesses', to:'role_accesses#create'
-  get '/role_accesses/destroy', to: 'role_accesses#destroy'
+  post "/role_accesses", to: "role_accesses#create"
+  get "/role_accesses/destroy", to: "role_accesses#destroy"
 
-  get '/api/login', to: 'api#login'
-  get '/api/dashboard', to: 'api#dashboard'
-  get '/api/roles', to: 'api#roles'
-  get '/api/change_role', to: 'api#change_role'
-  get '/api/article/:id', to: 'api#article'
+  get "/api/login", to: "api#login"
+  get "/api/dashboard", to: "api#dashboard"
+  get "/api/roles", to: "api#roles"
+  get "/api/change_role", to: "api#change_role"
+  get "/api/article/:id", to: "api#article"
 
   match "/sectionings/remotec/:id" => "sectionings#remotec", :via => :get
   match "/sectionings/remoted/:id" => "sectionings#remoted", :via => :get
@@ -172,7 +173,6 @@ Rails.application.routes.draw do
 
   match "/publishers/search/:id" => "publishers#search", :via => :get
   match "/publishers/publish_sources/:id" => "publishers#publish_sources", :via => :get
-
 
   match "/keywords/mergerer/:id" => "keywords#mergerer", :via => :get
   match "/keywords/merge/:id" => "keywords#merge", :via => :get
@@ -218,7 +218,6 @@ Rails.application.routes.draw do
   match "/access_groups/merge/:id" => "access_groups#merge", :via => :get
   match "/access_groups/search/:id" => "access_groups#search", :via => :get
 
-
   match "/publishers/mergerer/:id" => "publishers#mergerer", :via => :get
   match "/publishers/merge/:id" => "publishers#merge", :via => :get
   match "/publishers/search/:id" => "publishers#search", :via => :get
@@ -237,4 +236,6 @@ Rails.application.routes.draw do
   match "/notification_settings/remoted/:id" => "notification_settings#remoted", :via => :get
 
   match "/carriers/carry/:id" => "carriers#carry", :via => :get
+
+  match "/access_groups/search/:id" => "access_groups#search", :via => :get
 end

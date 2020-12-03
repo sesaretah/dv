@@ -1221,6 +1221,40 @@ function fireAutoCompleteEvent(event) {
     }
   });
 
+  $('#article_access_group').selectize({
+    create:       false,
+    labelField:   'title',
+    valueField:   'title',
+    searchField:  'title',
+    maxItems: 1,
+    preload:      true,
+    onItemAdd: function (value, item) {
+      $('#access_group_id').val(this.options[value]['id']);
+    },
+    render: {
+      option: function (item, escape) {
+        return '<div>' + escape(item.title) + '</div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/access_groups/search/1',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          q: query,
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
   $('#article_kin').selectize({
     create:       false,
     labelField:   'title',

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201126120719) do
+ActiveRecord::Schema.define(version: 20201203081057) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -45,6 +45,18 @@ ActiveRecord::Schema.define(version: 20201126120719) do
   end
 
   add_index "access_controls", ["user_id"], name: "index_access_controls_on_user_id", using: :btree
+
+  create_table "access_groupings", force: :cascade do |t|
+    t.integer  "access_group_id", limit: 4
+    t.integer  "article_id",      limit: 4
+    t.integer  "user_id",         limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.boolean  "nofity"
+    t.boolean  "notify"
+  end
+
+  add_index "access_groupings", ["access_group_id"], name: "index_access_groupings_on_access_group_id", using: :btree
 
   create_table "access_groups", force: :cascade do |t|
     t.string   "title",      limit: 255

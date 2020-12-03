@@ -5,9 +5,9 @@ module ApplicationHelper
     role_ids = user.roles.pluck(:id)
 
     if !role_ids.blank?
-      @workflow_state_ids = WorkflowState.where('role_id in (?)', role_ids).pluck(:id)
+      @workflow_state_ids = WorkflowState.where("role_id in (?)", role_ids).pluck(:id)
       if !article.workflow_state.blank?
-        workflow_role_accesses = article.workflow_state.workflow.workflow_role_accesses.where('role_id in (?)', role_ids)
+        workflow_role_accesses = article.workflow_state.workflow.workflow_role_accesses.where("role_id in (?)", role_ids)
         if @workflow_state_ids.include? article.workflow_state_id || workflow_role_accesses.blank?
           flag = true
         else
@@ -40,7 +40,7 @@ module ApplicationHelper
           flag = true
         end
       end
-      if article.access_for_others == 'none' || article.access_for_others.blank?
+      if article.access_for_others == "none" || article.access_for_others.blank?
         flag = false
       end
       for access_group in @role.access_groups
@@ -51,63 +51,65 @@ module ApplicationHelper
     end
     return flag
   end
+
   def viewable_level?(article, level)
     flag = false
-    @role = Role.find_by_id(current_user.current_role_id)
-    if !@role.blank?
-      #if article.workflow_state
-       # @workflow_ids = WorkflowState.where(role_id: @role.id).collect(&:workflow_id).uniq
-       # if @workflow_ids.include? article.workflow_state.workflow_id
-        #  flag = true
-       # end
-     # end
+    role_ids = current_user.roles.pluck(:id)
+    if !role_ids.blank?
       if article.access_for_others == level
         flag = true
       end
-      for access_group in @role.access_groups
-        if article.access_group_id == access_group.id
+      access_group_ids = RoleAccess.where("role_id in (?)", role_ids).pluck(:access_group_id)
+      access_groups = AccessGroup.where("id in (?)", access_group_ids)
+      for access_group in access_groups
+        p access_group.access_groupings
+        p "&&&&&&&&&&"
+        if !access_group.access_groupings.where(article_id: article.id).first.blank?
           flag = true
         end
       end
     end
     return flag
   end
+
   def organization_types
     @options = [
       [t(:temporal), 1],
-      [t(:permanent) , 0]
+      [t(:permanent), 0],
     ]
     return @options
   end
 
   def item_names
     @options = [
-      [t(:article_attachment), 'article_attachment'],
-      [t(:article_citation), 'article_citation'],
-      [t(:article_documents), 'article_documents']
+      [t(:article_attachment), "article_attachment"],
+      [t(:article_citation), "article_citation"],
+      [t(:article_documents), "article_documents"],
     ]
     return @options
   end
+
   def attachment_types
     @options = [
-      [t(:article_attachment), 'article_attachment'],
-      [t(:article_citation), 'article_citation'],
-      [t(:article_documents), 'article_documents']
+      [t(:article_attachment), "article_attachment"],
+      [t(:article_citation), "article_citation"],
+      [t(:article_documents), "article_documents"],
     ]
     return @options
   end
+
   def controls
     @options = [
       [t(:allow), 1],
-      [t(:deny) , 0]
+      [t(:deny), 0],
     ]
     return @options
   end
 
   def rcontrols(s)
     if !s.blank?
-      @options = [t(:allow),t(:deny)]
-      return @options[s-1]
+      @options = [t(:allow), t(:deny)]
+      return @options[s - 1]
     else
       return t(:deny)
     end
@@ -116,7 +118,7 @@ module ApplicationHelper
   def ability
     @options = [
       [t(:has), 1],
-      [t(:has_not) , 2]
+      [t(:has_not), 2],
     ]
     return @options
   end
@@ -124,7 +126,7 @@ module ApplicationHelper
   def existence
     @options = [
       [t(:is_not), 1],
-      [t(:is) , 2]
+      [t(:is), 2],
     ]
     return @options
   end
@@ -133,22 +135,22 @@ module ApplicationHelper
     @options = [
       [t(:none), 0],
       [t(:majority), 1],
-      [t(:consensus) , 2]
+      [t(:consensus), 2],
     ]
     return @options
   end
 
   def rcarrier(s)
-    @options = ['none','majority', 'consensus']
+    @options = ["none", "majority", "consensus"]
     return @options[s]
   end
 
   def rability(s)
-    @options = ['has','has_not']
-    return @options[s-1]
+    @options = ["has", "has_not"]
+    return @options[s - 1]
   end
 
-  def permit_by_workflow(article,user,caller)
+  def permit_by_workflow(article, user, caller)
     if article.workflow_state.blank?
       return true
     end
@@ -161,11 +163,11 @@ module ApplicationHelper
         return false
       end
     end
-    @items = article.workflow_state.editable.split(',')
+    @items = article.workflow_state.editable.split(",")
     @flag = false
     for item in @items
       if !item.blank?
-        if item == caller+'_'+'checkbox'
+        if item == caller + "_" + "checkbox"
           @flag = true
         end
       end
@@ -184,7 +186,6 @@ module ApplicationHelper
       return false
     end
   end
-
 
   def grant_access(ward, user)
     @flag = 0
@@ -213,5 +214,4 @@ module ApplicationHelper
       return false
     end
   end
-
 end

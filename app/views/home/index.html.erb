@@ -2,22 +2,22 @@
   <div class="col-lg-9">
     <div class="card">
       <div class="card-header">
-        <i class="fe fe-feather"></i>&nbsp&nbsp<%=t :dashboard%>
+        <i class="fe fe-feather"></i>&nbsp&nbsp<%= t :dashboard %>
  <div class="card-options">
           <div class="dropdown ml-2" >
             <button type="button" class="btn btn-secondary dropdown-toggle" style="font-size: 10px;" data-toggle="dropdown">
-              <%=t :per_page%>
+              <%= t :per_page %>
             </button>
             <div class="dropdown-menu" style="right: 0px !important;">
-            <%  [5,10,20,100].each do |i|%>
-                <%= link_to '/home?pp='+i.to_s, id: 'pp', class: "dropdown-item pd-compact" do%>
-                                      <%if @home_setting.pp == i%>
+            <% [5, 10, 20, 100].each do |i| %>
+                <%= link_to "/home?pp=" + i.to_s, id: "pp", class: "dropdown-item pd-compact" do %>
+                                      <% if @home_setting.pp == i %>
                         <i class="fe fe-check" style="vertical-align:-3px;"></i>
-                      <%end%>
-                      <span id='pp-value'><%= i%></span>
+                      <% end %>
+                      <span id='pp-value'><%= i %></span>
 
-                <%end%>
-                <%end%>
+                <% end %>
+                <% end %>
 
             </div>            
             </div>
@@ -25,83 +25,83 @@
 
     <div class="dropdown ml-2 "  >
             <button type="button" class="btn btn-secondary dropdown-toggle" style="font-size: 10px;" data-toggle="dropdown">
-              <%=t :workflow%>
+              <%= t :workflow %>
             </button>
             <div class="dropdown-menu" style="right: 0px !important; font-size: 10px;">
             <a class="dropdown-item pd-compact" href="/home?workflow=-1">    
-             <%if @home_setting.workflow == -1%>                  
+             <% if @home_setting.workflow == -1 %>                  
                 <i class="fe fe-check" style="vertical-align:-3px;"></i>
-             <%end%>
-              <%= t(:all)%>
+             <% end %>
+              <%= t(:all) %>
             </a>
-            <% Workflow.user_available_workflows(current_user).each do |workflow|%>
-                <%= link_to '/home?workflow='+workflow.id.to_s,  class: "dropdown-item pd-compact" do%>
-                      <%if @home_setting.workflow == workflow.id%>
+            <% Workflow.user_available_workflows(current_user).each do |workflow| %>
+                <%= link_to "/home?workflow=" + workflow.id.to_s, class: "dropdown-item pd-compact" do %>
+                      <% if @home_setting.workflow == workflow.id %>
                         <i class="fe fe-check" style="vertical-align:-3px;"></i>
-                      <%end%>
-                    <%= truncate(workflow.title, length: 30)%>            
-                <%end%>
-            <%end%>
+                      <% end %>
+                    <%= truncate(workflow.title, length: 30) %>            
+                <% end %>
+            <% end %>
           </div>            
     </div>
-  <%if @home_setting.workflow != -1%>   
+  <% if @home_setting.workflow != -1 %>   
             <div class="dropdown ml-2"  >
             <button type="button" class="btn btn-secondary dropdown-toggle" style="font-size: 10px;" data-toggle="dropdown">
-              <%=t :workflow_state%>
+              <%= t :workflow_state %>
             </button>
             <div class="dropdown-menu" style="right: 0px !important; font-size: 10px;">
             <a class="dropdown-item pd-compact" href="/home?workflow_state=-1">    
-             <%if @home_setting.workflow_state == -1%>                  
+             <% if @home_setting.workflow_state == -1 %>                  
                 <i class="fe fe-check" style="vertical-align:-3px;"></i>
-             <%end%>
-              <%= t(:all)%>
+             <% end %>
+              <%= t(:all) %>
             </a>
-            <% role_ids = current_user.roles.pluck(:id)%>
-            <% WorkflowState.where('role_id in (?) and workflow_id = ?', role_ids, @home_setting.workflow).each do |workflow_state|%>
-                <%= link_to '/home?workflow_state='+workflow_state.id.to_s,  class: "dropdown-item pd-compact" do%>
-                      <%if @home_setting.workflow_state == workflow_state.id%>
+            <% role_ids = current_user.roles.pluck(:id) %>
+            <% WorkflowState.where("role_id in (?) and workflow_id = ?", role_ids, @home_setting.workflow).each do |workflow_state| %>
+                <%= link_to "/home?workflow_state=" + workflow_state.id.to_s, class: "dropdown-item pd-compact" do %>
+                      <% if @home_setting.workflow_state == workflow_state.id %>
                         <i class="fe fe-check" style="vertical-align:-3px;"></i>
-                      <%end%>
-                    <%= truncate(workflow_state.title, length: 30)%>            
-                <%end%>
-            <%end%>
+                      <% end %>
+                    <%= truncate(workflow_state.title, length: 30) %>            
+                <% end %>
+            <% end %>
           </div>             
     </div>
-    <%end%>     
+    <% end %>     
   </div>
 
 
       </div>
-      <% if @articles.blank?%>
+      <% if @articles.blank? %>
       <div class='card-body' style="padding-bottom: 25px !important;">
         <div class="alert alert-info" role="alert">
-          <%=t :no_new_article_in_your_dashboard%>
+          <%= t :no_new_article_in_your_dashboard %>
         </div>
       </div>
-      <%else%>
-      <%= render partial: 'articles/list_wo_progress', locals: {articles: @articles}%>
-      <%end%>
+      <% else %>
+      <%= render partial: "articles/list_wo_progress", locals: { articles: @articles } %>
+      <% end %>
 
     </div>
 
     <div class="card">
       <div class="card-header">
-        <i class="fe fe-repeat"></i>&nbsp&nbsp<%=t :your_workflows%>
+        <i class="fe fe-repeat"></i>&nbsp&nbsp<%= t :your_workflows %>
       </div>
-        <%= render partial: 'workflows/list', locals: {workflows: current_user.workflows}%>
+        <%= render partial: "workflows/list", locals: { workflows: current_user.workflows } %>
     </div>
 
   </div>
   <div class="col-lg-3">
 
       <div class="card p-3">
-      <a href='/atricles/new'>
+      <a href='/articles/new'>
       <div class="d-flex align-items-center">
         <span class="stamp stamp-md bg-green mr-3">
           <i class="fe fe-plus" style='vertical-align:-3px'></i>
         </span>
         <div class="mt-1">
-          <h4 class="m-0 fs-12"><%=t :new_article%></h4>
+          <h4 class="m-0 fs-12"><%= t :new_article %></h4>
           <small class="text-muted"></small>
         </div>
       </div>
@@ -114,29 +114,29 @@
           <i class="fe fe-feather" style='vertical-align:-3px'></i>
         </span>
         <div class="mt-1">
-          <h4 class="m-0 fs-12"><%=t :articles%></h4>
-          <small class="text-muted"><% if !@articles.blank?%><%= @articles.count%><%else%>0<%end%></small>
+          <h4 class="m-0 fs-12"><%= t :articles %></h4>
+          <small class="text-muted"><% if !@articles.blank? %><%= @articles.count %><% else %>0<% end %></small>
         </div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <i class="fe fe-bell"></i>&nbsp&nbsp<%=t :notifications%>
+        <i class="fe fe-bell"></i>&nbsp&nbsp<%= t :notifications %>
       </div>
       <table class="table  card-table  table-vcenter">
           <tbody>
-            <% if !@notifications.blank?%>
-            <% for notification in @notifications%>
-            <% if notification.valid && !notification.blank?%>
+            <% if !@notifications.blank? %>
+            <% for notification in @notifications %>
+            <% if notification.valid && !notification.blank? %>
             <tr>
-              <td style="padding-right:10px; padding-left:0px;"><%= raw notification.icon%></td>
-              <td style="padding-right:10px; padding-left:0px; font-size:12px;"><%= raw notification.title%></td>
-              <td style="padding-right:10px; padding-left:0px;"><span style='font-size:9px;'><%=t notification.notification_type%></span></td>
+              <td style="padding-right:10px; padding-left:0px;"><%= raw notification.icon %></td>
+              <td style="padding-right:10px; padding-left:0px; font-size:12px;"><%= raw notification.title %></td>
+              <td style="padding-right:10px; padding-left:0px;"><span style='font-size:9px;'><%= t notification.notification_type %></span></td>
             </tr>
-            <%end%>
-            <%end%>
-            <%end%>
+            <% end %>
+            <% end %>
+            <% end %>
           </tbody>
       </table>
     </div>
