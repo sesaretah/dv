@@ -1,7 +1,6 @@
 class Article < ActiveRecord::Base
   after_save ThinkingSphinx::RealTime.callback_for(:article)
 
-
   has_many :datings
 
   has_many :article_events, :through => :datings
@@ -35,6 +34,8 @@ class Article < ActiveRecord::Base
   has_many :article_relation_types, :through => :kinships
   has_many :kinships, dependent: :destroy
 
+  has_many :access_groupings, dependent: :destroy
+
   has_many :article_sources, :through => :originatings
   has_many :originatings, dependent: :destroy
 
@@ -64,7 +65,7 @@ class Article < ActiveRecord::Base
     if !self.workflow_state.blank? && !self.workflow_state.workflow.blank? && !self.workflow_state.workflow.sections.blank?
       @section = self.workflow_state.workflow.sections.first.id.to_s
     else
-      @section = ''
+      @section = ""
     end
   end
 
@@ -77,36 +78,35 @@ class Article < ActiveRecord::Base
   end
 
   def keywords
-    @taggings = Tagging.where(taggable_id: self.id, taggable_type: 'Article', target_type: 'Keyword')
+    @taggings = Tagging.where(taggable_id: self.id, taggable_type: "Article", target_type: "Keyword")
     @keywords = []
     @keyword_ids = []
     for tagging in @taggings
       @keyword = Keyword.find_by_id(tagging.target_id)
       if !@keyword.blank?
         @keyword_ids << @keyword.id
-        @keywords << { 'title' => @keyword.title, 'id' => @keyword.id}
+        @keywords << { "title" => @keyword.title, "id" => @keyword.id }
       end
     end
     if @keywords.blank?
-      @keywords = ''
+      @keywords = ""
     end
     if @keyword_ids.blank?
-      @keyword_ids = ''
+      @keyword_ids = ""
     end
-    return {keywords: @keywords, keyword_ids: @keyword_ids}
+    return { keywords: @keywords, keyword_ids: @keyword_ids }
   end
 
   def self.in_dashboard(user, home_setting)
-    home_setting.sort.blank? ?  order = 'created_at' : order = "#{home_setting.sort}"
-    home_setting.workflow_state == -1 ?  workflow_state_sql = '' : workflow_state_sql = "and id = #{home_setting.workflow_state}"
-    home_setting.workflow == -1 ?  workflow_sql = '' : workflow_sql = "and workflow_id = #{home_setting.workflow}"
+    home_setting.sort.blank? ? order = "created_at" : order = "#{home_setting.sort}"
+    home_setting.workflow_state == -1 ? workflow_state_sql = "" : workflow_state_sql = "and id = #{home_setting.workflow_state}"
+    home_setting.workflow == -1 ? workflow_sql = "" : workflow_sql = "and workflow_id = #{home_setting.workflow}"
     role_ids = user.roles.pluck(:id)
     workflow_state_ids = WorkflowState.where("role_id in (?) #{workflow_state_sql} #{workflow_sql}", role_ids).pluck(:id)
-    articles = self.where('workflow_state_id in (?)', workflow_state_ids).order(order)
+    articles = self.where("workflow_state_id in (?)", workflow_state_ids).order(order)
     return articles
   end
 
   def other_title
-
   end
 end

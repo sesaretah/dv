@@ -290,12 +290,12 @@ class ArticlesController < ApplicationController
 
   def search
     if !params[:q].blank?
-      @articles = Article.search params[:q], :star => true
+      @articles = Article.search UnicodeFixer.fix(params[:q]), :star => true
     end
     if params[:domain] == 'workflow'
       article = Article.find(params[:article_id])
       @workflow_state_ids = article.workflow_state.workflow.workflow_states.pluck(:id)
-      @articles = Article.search params[:q], :star => true, with: {:workflow_state_id => @workflow_state_ids}
+      @articles = Article.search UnicodeFixer.fix(params[:q]), :star => true, with: {:workflow_state_id => @workflow_state_ids}
     end
     resp = []
     for k in @articles
@@ -308,6 +308,19 @@ class ArticlesController < ApplicationController
     @article.access_group_id = params[:access_group_id]
     @article.publish_details = params[:publish_details]
     @article.access_for_others = params[:access_for_others]
+    if params[:publish_related]
+      for kinship in @article.kinships
+        kinship.kin.publish_details = params[:publish_details]
+        kinship.kin.access_for_others = params[:access_for_others]
+        for access_grouping in @article.access_groupings
+          kin_grouping = AccessGrouping.where(article_id: kinship.kin.id, access_group_id: access_grouping.access_group_id).first
+          if kin_grouping.blank?
+            AccessGrouping.create(article_id: kinship.kin.id, access_group_id: access_grouping.access_group_id, notify: access_grouping.notify)
+          end
+        end
+        kinship.kin.save
+      end
+    end
     @article.save
   end
 
