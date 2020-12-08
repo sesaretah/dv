@@ -1,4 +1,6 @@
 class AccessGroup < ActiveRecord::Base
+
+  after_save ThinkingSphinx::RealTime.callback_for(:access_group)
   has_many :articles
   belongs_to :user
 
