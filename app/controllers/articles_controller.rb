@@ -312,7 +312,8 @@ class ArticlesController < ApplicationController
     @article.access_group_id = params[:access_group_id]
     @article.publish_details = params[:publish_details]
     @article.access_for_others = params[:access_for_others]
-    PdfWorker.perform_async(@article.id, SecureRandom.hex(10))
+    @article.publish_uuid = SecureRandom.hex(10)
+    PdfWorker.perform_async(@article.id, @article.published_uuid)
     if params[:publish_related]
       for kinship in @article.kinships
         kinship.kin.publish_details = params[:publish_details]
@@ -325,8 +326,9 @@ class ArticlesController < ApplicationController
         end
         kinship.kin.published_via = @article.id
         kinship.kin.published_on =  DateTime.now
+        kinship.kin.publish_uuid =  SecureRandom.hex(10)
         kinship.kin.save
-        PdfWorker.perform_async(kinship.kin.id, SecureRandom.hex(10))
+        PdfWorker.perform_async(kinship.kin.id, kinship.kin.published_uuid)
       end
     end
     @article.published_on =  DateTime.now
