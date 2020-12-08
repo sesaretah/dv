@@ -341,7 +341,6 @@ class ArticlesController < ApplicationController
 
 
   def article_descriptors
-
   end
 
   def article_related_dates
