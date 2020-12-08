@@ -1,32 +1,29 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy, :contributions, :profile_details, :cropper, :detach_profile]
-  skip_before_action :verify_authenticity_toke, only: [:create, :update] 
+  skip_before_action :verify_authenticity_toke, only: [:create, :update]
+
   def detach_profile
     @profile.user_id = nil
     @profile.save
   end
 
   def mergerer
-
   end
 
   def merge
     @profile_1 = Profile.find(params[:profile_1])
     @profile_2 = Profile.find(params[:profile_2])
     Profile.merge_profile(@profile_1, @profile_2)
-    redirect_to '/profiles'
+    redirect_to "/profiles"
   end
 
   def cropper
-
   end
 
   def profile_details
-
   end
 
   def contributions
-
   end
 
   def search
@@ -36,12 +33,12 @@ class ProfilesController < ApplicationController
     resp = []
     for r in @profiles
       if !r.user.blank?
-        resp << {'title' => r.fullname + " (#{r.id})" , 'id' => r.id, 'user_id' => r.user.id}
+        resp << { "title" => r.fullname + " (#{r.id})", "id" => r.id, "user_id" => r.user.id }
       else
-        resp << {'title' => r.fullname + " (#{r.id})" , 'id' => r.id}
+        resp << { "title" => r.fullname + " (#{r.id})", "id" => r.id }
       end
     end
-    render :json => resp.to_json, :callback => params['callback']
+    render :json => resp.to_json, :callback => params["callback"]
   end
 
   def search_in_users
@@ -51,11 +48,12 @@ class ProfilesController < ApplicationController
     resp = []
     for r in @profiles
       if !r.user.blank?
-        resp << {'title' => r.fullname + " (#{r.id})" , 'id' => r.id, 'user_id' => r.user.id}
+        resp << { "title" => r.fullname + " (#{r.id})", "id" => r.id, "user_id" => r.user.id }
       end
     end
-    render :json => resp.to_json, :callback => params['callback']
+    render :json => resp.to_json, :callback => params["callback"]
   end
+
   # GET /profiles
   # GET /profiles.json
   def index
@@ -70,7 +68,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/new
   def new
     @profile = Profile.new
-    render layout: 'layouts/devise'
+    render layout: "layouts/devise"
   end
 
   # GET /profiles/1/edit
@@ -87,9 +85,9 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.save
         if params[:profile][:avatar].blank?
-          format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+          format.html { redirect_to @profile, notice: "Profile was successfully updated." }
         else
-          format.html { redirect_to "/profiles/cropper/#{@profile.id}", notice: 'Profile was successfully updated.' }
+          format.html { redirect_to "/profiles/cropper/#{@profile.id}", notice: "Profile was successfully updated." }
         end
         format.json { render :show, status: :created, location: @profile }
       else
@@ -108,9 +106,9 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.update(profile_params)
         if params[:profile][:avatar].blank?
-          format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+          format.html { redirect_to @profile, notice: "Profile was successfully updated." }
         else
-          format.html { redirect_to "/profiles/cropper/#{@profile.id}", notice: 'Profile was successfully updated.' }
+          format.html { redirect_to "/profiles/cropper/#{@profile.id}", notice: "Profile was successfully updated." }
         end
         format.json { render :show, status: :ok, location: @profile }
       else
@@ -125,19 +123,20 @@ class ProfilesController < ApplicationController
   def destroy
     @profile.destroy
     respond_to do |format|
-      format.html { redirect_to profiles_url, notice: 'Profile was successfully destroyed.' }
+      format.html { redirect_to profiles_url, notice: "Profile was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_profile
-      @profile = Profile.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def profile_params
-      params.require(:profile).permit(:email, :name, :surename, :user_id, :phone_number, :cellphone_number, :avatar, :crop_x, :crop_y, :crop_w, :crop_h)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_profile
+    @profile = Profile.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def profile_params
+    params.require(:profile).permit(:email, :name, :surename, :user_id, :phone_number, :cellphone_number, :avatar, :crop_x, :crop_y, :crop_w, :crop_h, :signature)
+  end
 end

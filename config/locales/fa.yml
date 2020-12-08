@@ -778,6 +778,7 @@ fa:
   notification: 'اطلاع رسانی'
   new_article_published: "انتشار سند"
   article_published_notification: "منتشر شد"
+  choose_a_file_for_signature: 'انتخاب فایل امضا'
   
   devise:
     confirmations:

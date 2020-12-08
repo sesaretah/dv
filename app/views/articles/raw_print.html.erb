@@ -1,22 +1,28 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <title></title>
   <style media="screen">
+    body {
+      background-color: #fff;
+    }
     hr.new2 {
-    border-top: 1px dashed gray;
-  }
+      border-top: 0px dashed gray;
+    }
   </style>
 </head>
 <body>
   <div class="page">
     <div class="container">
-      <table class="table ">
+      <table class=" ">
         <tr>
-          <td></td>
-          <td><%= @article.title %></td>
+          <td><img src='/assets/ut.png' width='400px'></td>
+          <td style='text-align: center; font-weight: 600;'>
+            <%= @article.title %>
+            <br />
+          </td>
         </tr>
 
         <tr>
@@ -24,7 +30,7 @@
           <td>
             <% @article.titlings.group_by(&:title_type_id).each do |k, v| %>
             <% for t in v %>
-            <%= t.content %><br />
+            <% t.content %>
             <% end %>
             <% end %>
           </td>
@@ -32,7 +38,11 @@
 
         <tr>
           <td></td>
-          <td><%= @article.abstract %></td>
+          <td>
+            <%= @article.abstract %>
+            <br />
+
+          </td>
         </tr>
 
 
@@ -46,24 +56,7 @@
               <%= @jalali.year %>/<%= @jalali.month %>/<%= @jalali.day %>
             </span> <br />
             <% end %>
-          </td>
-        </tr>
-
-
-        <tr>
-          <td></td>
-          <td>
-            <% for contribution in @article.contributions %>
-            <% if !contribution.profile.blank? %>
-            <%= contribution.profile.fullname %>,
-            <% end %>
-            <% if !contribution.duty.blank? %>
-            <%= contribution.duty.title %>,
-            <% end %>
-            <% if !contribution.role.blank? %>
-            <%= contribution.role.title %>
-            <% end %> <br />
-            <% end %>
+            <br />
           </td>
         </tr>
 
@@ -79,7 +72,7 @@
             <% @kins << kinship.kin %>
             <% end %>
             <% for kin in @kins %>
-            <%= kin.title %><br />
+            <% kin.title %><br />
             <% kin.titlings.group_by(&:title_type_id).each do |k, v| %>
             <% for t in v %>
             <%= t.content %><br />
@@ -93,10 +86,27 @@
 
           </td>
         </tr>
-
-
-      </table>
-    </div>
-  </div>
-</body>
-</html>
+        <% i = 1 %>
+        <tr>
+          <td></td>
+          <td style="text-align:center;">
+            <table style="margin: auto;">
+              <tr>
+                <% for contribution in @article.contributions %>
+                <% if !contribution.profile.signature.blank? %>
+                <td><%= image_tag contribution.profile.signature(:medium) %></td>
+                <% if i % 4 == 0 %>
+              </tr>
+              <tr>
+                <% end %>
+                <% i += 1 %>
+                <% end %>
+                <% end %>
+              </table>
+              <td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </body>
+      </html>

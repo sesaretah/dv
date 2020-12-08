@@ -1,6 +1,6 @@
-<%= form_for(@profile, html: {class: 'card'}) do |f| %>
+<%= form_for(@profile, html: { class: "card" }) do |f| %>
 <div class="card-header">
-  <h3 class="card-title"><%=t :new_profile %></h3>
+  <h3 class="card-title"><%= t :new_profile %></h3>
 </div>
 <% if @profile.errors.any? %>
 <div id="error_explanation">
@@ -18,16 +18,16 @@
   <div class="row">
     <div class="col-md-5">
       <div class="form-group">
-        <%= f.label :name, class: "form-label", style:'display: inline-block;' %><span class="form-required">*</span>
-        <%= f.text_field :name , class: "form-control" ,  required: '',  oninvalid: "this.setCustomValidity(this.willValidate ? '' :'#{t(:please_enter_data_in_this_field)}')"%>
+        <%= f.label :name, class: "form-label", style: "display: inline-block;" %><span class="form-required">*</span>
+        <%= f.text_field :name, class: "form-control", required: "", oninvalid: "this.setCustomValidity(this.willValidate ? '' :'#{t(:please_enter_data_in_this_field)}')" %>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-5">
       <div class="form-group">
-        <%= f.label :surename, class: "form-label", style:'display: inline-block;'  %><span class="form-required">*</span>
-        <%= f.text_field :surename , class: "form-control",  required: '',  oninvalid: "this.setCustomValidity(this.willValidate ? '' :'#{t(:please_enter_data_in_this_field)}')" %>
+        <%= f.label :surename, class: "form-label", style: "display: inline-block;" %><span class="form-required">*</span>
+        <%= f.text_field :surename, class: "form-control", required: "", oninvalid: "this.setCustomValidity(this.willValidate ? '' :'#{t(:please_enter_data_in_this_field)}')" %>
       </div>
     </div>
   </div>
@@ -37,7 +37,7 @@
     <div class="col-md-5">
       <div class="form-group">
         <%= f.label :email, class: "form-label" %>
-        <%= f.text_field :email , value: current_user.email, class: "form-control" %>
+        <%= f.text_field :email, value: current_user.email, class: "form-control" %>
       </div>
     </div>
   </div>
@@ -46,7 +46,7 @@
     <div class="col-md-5">
       <div class="form-group">
         <%= f.label :phone_number, class: "form-label" %>
-        <%= f.text_field :phone_number , class: "form-control" %>
+        <%= f.text_field :phone_number, class: "form-control" %>
       </div>
     </div>
   </div>
@@ -54,36 +54,55 @@
     <div class="col-md-5">
       <div class="form-group">
         <%= f.label :cellphone_number, class: "form-label" %>
-        <%= f.text_field :cellphone_number , class: "form-control" %>
+        <%= f.text_field :cellphone_number, class: "form-control" %>
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="form-group col-xs-4">
-      <%if !@profile.avatar.blank?%>
-      <%= image_tag @profile.avatar(:medium), id: 'avatar',:class => "messages-item-avatar bordered border-primary"%>
-      <%else%>
+      <% if !@profile.avatar.blank? %>
+      <%= image_tag @profile.avatar(:medium), id: "avatar", :class => "messages-item-avatar bordered border-primary" %>
+      <% else %>
       <img id='avatar'></img>
-      <%end%>
+      <% end %>
       <div class="fileUpload btn btn-gray">
-        <%if @profile.avatar.blank?%>
-        <span><i class="fa fa-camera" style='vertical-align:-3px;'></i> <%=t :choose_a_file_for_avatar%>...</span>
-        <%else%>
-        <span><i class="fa fa-camera" style='vertical-align:-3px;'></i> <%=t :change_photo%>...</span>
-        <%end%>
+        <% if @profile.avatar.blank? %>
+        <span><i class="fa fa-camera" style='vertical-align:-3px;'></i> <%= t :choose_a_file_for_avatar %>...</span>
+        <% else %>
+        <span><i class="fa fa-camera" style='vertical-align:-3px;'></i> <%= t :change_photo %>...</span>
+        <% end %>
         <%= f.file_field :avatar, class: "upload", onchange: "readURL(this);" %>
+      </div>
+    </div>
+  </div>
+
+    <div class="row">
+    <div class="form-group col-xs-4">
+      <% if !@profile.signature.blank? %>
+      <%= image_tag @profile.signature(:medium), id: "signature", :class => "messages-item-avatar bordered border-primary" %>
+      <% else %>
+      <img id='signature'></img>
+      <% end %>
+      <div class="fileUpload btn btn-gray">
+        <% if @profile.signature.blank? %>
+        <span><i class="fa fa-camera" style='vertical-align:-3px;'></i> <%= t :choose_a_file_for_signature %>...</span>
+        <% else %>
+        <span><i class="fa fa-camera" style='vertical-align:-3px;'></i> <%= t :change_photo %>...</span>
+        <% end %>
+        <%= f.file_field :signature, class: "upload", onchange: "readURL(this);" %>
       </div>
     </div>
   </div>
 
   <script>
   function readURL(input) {
+    //var id = $()
     if (input.files && input.files[0]) {
       var reader = new FileReader();
-
+      console.log($(input).attr('id').split('_')[1])
       reader.onload = function (e) {
-        $('#avatar')
+      $('#' + $(input).attr('id').split('_')[1])
         .attr('src', e.target.result)
         .width(120);
       };
@@ -94,6 +113,6 @@
   </script>
 
   <div class="card-footer text-right">
-    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+    <button type="submit" class="btn btn-primary"><%= t :submit %></button>
   </div>
   <% end %>

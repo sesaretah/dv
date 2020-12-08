@@ -1,8 +1,13 @@
 class Profile < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   after_save ThinkingSphinx::RealTime.callback_for(:profile)
-  has_attached_file :avatar, :styles => { :medium => "140x140>", :tiny => "20x20>" ,:thumb => "35x35>", :large => "500x500>"  }, :default_url => "/assets/noimage-35-:style.jpg",  :processors => [:cropper]
+
+  has_attached_file :avatar, :styles => { :medium => "140x140>", :tiny => "20x20>", :thumb => "35x35>", :large => "500x500>" }, :default_url => "/assets/noimage-35-:style.jpg", :processors => [:cropper]
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+
+  has_attached_file :signature, :styles => { :medium => "140x140>", :tiny => "20x20>", :thumb => "35x35>", :large => "500x500>" }, :default_url => "/assets/noimage-35-:style.jpg", :processors => [:cropper]
+  validates_attachment_content_type :signature, :content_type => /\Aimage\/.*\Z/
+
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :ratio, :caller
   after_update :reprocess_avatar, :if => :cropping?
 
@@ -39,6 +44,7 @@ class Profile < ActiveRecord::Base
   def title
     "#{self.name} #{self.surename}"
   end
+
   belongs_to :user
 
   def cropping?
@@ -53,7 +59,6 @@ class Profile < ActiveRecord::Base
   def profile_tag
     return "<span class='tag' data-toggle='tooltip' data-placement='top' title='#{self.fullname}'><span class='tag-avatar avatar' style='background-image: url(#{self.avatar(:tiny)})'></span>#{truncate(self.fullname, length: 15)}</span>"
   end
-
 
   private
 
