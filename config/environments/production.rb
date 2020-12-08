@@ -76,6 +76,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  Rails.application.routes.default_url_options[:host] = 'https://divan.ut.ac.ir'
 
   config.active_job.queue_name_prefix = "divan"
   config.active_job.queue_name_delimiter = "_"

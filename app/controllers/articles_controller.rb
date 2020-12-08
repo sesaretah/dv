@@ -249,7 +249,11 @@ class ArticlesController < ApplicationController
   end
 
   def raw_print
-    render layout:false
+    render layout: false
+  end
+
+  def pdf_generate
+    PdfWorker.perform_async(params[:id])
   end
 
   def print
@@ -308,6 +312,7 @@ class ArticlesController < ApplicationController
     @article.access_group_id = params[:access_group_id]
     @article.publish_details = params[:publish_details]
     @article.access_for_others = params[:access_for_others]
+    PdfWorker.perform_async(@article.id)
     if params[:publish_related]
       for kinship in @article.kinships
         kinship.kin.publish_details = params[:publish_details]
@@ -319,6 +324,7 @@ class ArticlesController < ApplicationController
           end
         end
         kinship.kin.save
+        PdfWorker.perform_async(kinship.kin.id)
       end
     end
     @article.save

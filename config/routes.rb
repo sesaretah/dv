@@ -110,6 +110,8 @@ Rails.application.routes.draw do
   match "/articles/set_note_template/:id" => "articles#set_note_template", :via => :get
   match "/articles/add_access_group/:id" => "articles#add_access_group", :via => :get
   match "/articles/remove_access_group/:id" => "articles#remove_access_group", :via => :get
+  match "/articles/pdf_generate/:id" => "articles#pdf_generate", :via => :get
+
 
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
   match "/workflows/role_accesses/:id" => "workflows#role_accesses", :via => :get

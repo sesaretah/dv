@@ -37,6 +37,7 @@ Rails.application.configure do
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
+  Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

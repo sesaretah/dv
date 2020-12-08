@@ -5,7 +5,7 @@ class Profile < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :medium => "140x140>", :tiny => "20x20>", :thumb => "35x35>", :large => "500x500>" }, :default_url => "/assets/noimage-35-:style.jpg", :processors => [:cropper]
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
-  has_attached_file :signature, :styles => { :medium => "140x140>", :tiny => "20x20>", :thumb => "35x35>", :large => "500x500>" }, :default_url => "/assets/noimage-35-:style.jpg", :processors => [:cropper]
+  has_attached_file :signature, :styles => { :medium => "200x200>", :tiny => "20x20>", :thumb => "35x35>", :large => "500x500>" }, :default_url => "/assets/noimage-35-:style.jpg", :processors => [:cropper]
   validates_attachment_content_type :signature, :content_type => /\Aimage\/.*\Z/
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :ratio, :caller
