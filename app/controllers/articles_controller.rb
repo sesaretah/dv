@@ -312,7 +312,7 @@ class ArticlesController < ApplicationController
     @article.access_group_id = params[:access_group_id]
     @article.publish_details = params[:publish_details]
     @article.access_for_others = params[:access_for_others]
-    PdfWorker.perform_async(@article.id)
+    PdfWorker.perform_async(@article.id, SecureRandom.hex(10))
     if params[:publish_related]
       for kinship in @article.kinships
         kinship.kin.publish_details = params[:publish_details]
@@ -323,10 +323,13 @@ class ArticlesController < ApplicationController
             AccessGrouping.create(article_id: kinship.kin.id, access_group_id: access_grouping.access_group_id, notify: access_grouping.notify)
           end
         end
+        kinship.kin.published_via = @article.id
+        kinship.kin.published_on =  DateTime.now
         kinship.kin.save
-        PdfWorker.perform_async(kinship.kin.id)
+        PdfWorker.perform_async(kinship.kin.id, SecureRandom.hex(10))
       end
     end
+    @article.published_on =  DateTime.now
     @article.save
   end
 

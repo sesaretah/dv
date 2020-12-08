@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201207182042) do
+ActiveRecord::Schema.define(version: 20201208162213) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -183,6 +183,8 @@ ActiveRecord::Schema.define(version: 20201207182042) do
     t.string   "access_for_others",   limit: 255
     t.integer  "position",            limit: 4
     t.integer  "user_id",             limit: 4
+    t.datetime "published_on"
+    t.integer  "published_via",       limit: 4
   end
 
   add_index "articles", ["slug"], name: "slug", using: :btree

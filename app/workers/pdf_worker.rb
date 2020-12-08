@@ -2,7 +2,7 @@ class PdfWorker
     include Sidekiq::Worker
     sidekiq_options retry: false
 
-    def perform(id)
+    def perform(id, rnd)
        article = Article.find_by_id(id)
        if !article.blank?
          system("mkdir #{Rails.root}/public/pdfs/#{id}")
