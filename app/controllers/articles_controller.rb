@@ -1,11 +1,11 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print, :change_workflow, :make_a_copy, :article_publishable, :change_access_group, :sectioned_form, :raw_print, :content_form , :set_note_template, :add_access_group, :remove_access_group]
-  
+
   def add_access_group
     if !params[:access_group_id].blank?
       p params[:notify]
       p '######'
-       @access_grouping = AccessGrouping.where(article_id: @article.id, access_group_id: params[:access_group_id]).first
+      @access_grouping = AccessGrouping.where(article_id: @article.id, access_group_id: params[:access_group_id]).first
       if @access_grouping.blank?
         @access_grouping = AccessGrouping.create(article_id: @article.id, access_group_id: params[:access_group_id], notify: params[:notify])
       end
@@ -15,14 +15,14 @@ class ArticlesController < ApplicationController
 
   def remove_access_group
     if !params[:access_grouping_id].blank?
-       @access_grouping = AccessGrouping.find_by_id(params[:access_grouping_id])
+      @access_grouping = AccessGrouping.find_by_id(params[:access_grouping_id])
       if !@access_grouping.blank?
         @access_grouping.destroy
       end
       @access_groupings = AccessGrouping.where(article_id: @article.id)
     end
   end
-  
+
   def set_note_template
     Noting.create(article_id: @article.id, note_template_id: params[:note_template_id])
   end
@@ -30,7 +30,7 @@ class ArticlesController < ApplicationController
   def content_form
 
   end
-  
+
   def fixer
     for article in Article.all
       article.abstract = UnicodeFixer.fix(article.abstract)
@@ -120,7 +120,7 @@ class ArticlesController < ApplicationController
       if !keyword_2.blank?
         Tagging.create(taggable_type: 'Article', taggable_id: article.id, target_type: 'Keyword', target_id: keyword_2.id)
       end
-      
+
       Speaking.create(language_id: 1, article_id: article.id)
       Formating.create(article_format_id: 1, article_id: article.id)
       Contribution.create(article_id: article.id, profile_id: 492, role_id: 62, duty_id: 70)
@@ -157,19 +157,19 @@ class ArticlesController < ApplicationController
         article.abstract = row[3].to_s.truncate(200)
       end
       notes = ' '
-      if !row[3].blank? 
+      if !row[3].blank?
         notes += row[3].to_s.truncate(200) +' | '
       end
 
-      if !row[4].blank? 
+      if !row[4].blank?
         notes += row[4].to_s.truncate(200) +' | '
       end
 
-      if !row[5].blank? 
+      if !row[5].blank?
         notes += row[5].to_s.truncate(200) +' | '
       end
 
-      if !row[6].blank? 
+      if !row[6].blank?
         notes += row[6].to_s.truncate(200) +' | '
       end
 
@@ -213,10 +213,10 @@ class ArticlesController < ApplicationController
         if k.blank?
           k = Keyword.create(title: keyword.squish)
         end
-          Tagging.create(taggable_type: 'Article', taggable_id: article.id, target_type: 'Keyword',  target_id:  k.id)
+        Tagging.create(taggable_type: 'Article', taggable_id: article.id, target_type: 'Keyword',  target_id:  k.id)
       end
 
-      
+
       Speaking.create(language_id: 1, article_id: article.id)
       Formating.create(article_format_id: 1, article_id: article.id)
       Contribution.create(article_id: article.id, profile_id: 492, role_id: 62, duty_id: 70)
@@ -524,12 +524,12 @@ class ArticlesController < ApplicationController
     if @article.slug.blank?
       @article.slug = SecureRandom.hex(4)
     end
-   # if !params[:workflow].blank?
+    # if !params[:workflow].blank?
     #  @workflow_state = WorkflowState.where(workflow_id: params[:workflow].to_i, start_point: 2, role_id: current_user.current_role_id).first
     #  if !@workflow_state.blank?
     #    @article.workflow_state_id = @workflow_state.id
     #  end
-   # end
+    # end
     @article.workflow_state_id = params[:workflow_state_id] if !params[:workflow_state_id].blank?
     @article.user_id = current_user.id
     @article.save
