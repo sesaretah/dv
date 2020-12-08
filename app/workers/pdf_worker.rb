@@ -4,6 +4,8 @@ class PdfWorker
 
     def perform(id, uuid)
        article = Article.find_by_id(id)
+       article.pdf_generated = false
+       article.save
        if !article.blank?
          system("mkdir #{Rails.root}/public/pdfs/#{id}")
          system("wkhtmltopdf #{Rails.application.routes.default_url_options[:host]}/articles/raw_print/#{id} #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf")
@@ -12,6 +14,8 @@ class PdfWorker
              system("convert -density 150 #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf #{upload.attachment.path} #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf")
            end
          end
+         article.pdf_generated = true
+         article.save
        end
     end
   end
