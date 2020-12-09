@@ -70,7 +70,7 @@
         <tr>
           <td>
             <div style='min-width:100px; min-height:140px;'>
-              <% qrcode = RQRCode::QRCode.new(Rails.application.routes.default_url_options[:host]+kin.slug) %>
+              <% qrcode = RQRCode::QRCode.new(Rails.application.routes.default_url_options[:host]+'/'+kin.slug) %>
             <% svg = svg = qrcode.as_svg(
             offset: 0,
             color: '000',
