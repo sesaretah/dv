@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+  <title></title>
+  <style media="screen">
+    body {
+      background-color: #fff;
+      font-size: 16px;
+    }
+
+    p {
+      text-align: justify;
+    }
+
+    hr.new2 {
+      border-top: 0px dashed gray;
+    }
+    @media print
+    {
+      table {page-break-inside:avoid}
+    }
+  </style>
+</head>
+<body>
+  <div class="page" style='justify-content: start;'>
+    <div class="container">
+      <table class=" ">
+        <tr style='border-bottom: 1px solid #444;'>
+          <td style='width: 50px; padding: 20px;'><img src='/assets/ut.png' width='70px;'></td>
+          <td style='text-align: center; font-weight: 600;'>
+            <%= @article.title %>
+            <br />
+            <% @article.titlings.group_by(&:title_type_id).each do |k, v| %>
+            <% for t in v %>
+            <%= sanitize t.content %>
+            <% end %>
+            <% end %>
+          </td>
+        </tr>
+
+        <tr >
+          <td></td>
+          <td>
+
+          </td>
+        </tr>
+
+        <tr style='border: 1px solid #444'>
+          <td style='border: 1px solid #444; padding: 5px; height: 40px;'><%= t :abstract%></td>
+          <td style='border: 1px solid #444; padding: 10px; '>
+            <%= sanitize @article.abstract %>            <br />
+
+          </td>
+        </tr>
+
+        <tr style='border: 1px solid #444'>
+          <td style='border: 1px solid #444; padding: 10px;'><%= t :content%></td>
+          <td style='border: 1px solid #444; padding: 10px;'>
+            <%= sanitize @article.content %>
+            <br />
+
+          </td>
+        </tr>
+
+
+        <% i = 1 %>
+        <tr style='padding: 20px;'>
+          <td  style='padding: 20px;'>
+            <div style='min-width:100px; min-height:140px;'>
+              <% qrcode = RQRCode::QRCode.new(Rails.application.routes.default_url_options[:host]+'/'+@article.slug) %>
+            <% svg = svg = qrcode.as_svg(
+            offset: 0,
+            color: '000',
+            shape_rendering: 'crispEdges',
+            module_size: 2,
+            standalone: true
+            )%>
+              <%= svg.html_safe %><br />
+              <a href='/<%= @article.slug%>' style='font-family: tahoma;'><%= @article.slug%></a>
+            </div>
+          </td>
+          <td style="text-align:center;">
+            <table style="margin: auto;">
+              <tr>
+                <% for contribution in @article.contributions %>
+                <% if !contribution.profile.signature.blank? %>
+                <td><%= image_tag contribution.profile.signature(:medium) %></td>
+                <% if i % 4 == 0 %>
+              </tr>
+              <tr>
+                <% end %>
+                <% i += 1 %>
+                <% end %>
+                <% end %>
+              </table>
+              <td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </body>
+      </html>
