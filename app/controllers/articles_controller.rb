@@ -328,7 +328,7 @@ class ArticlesController < ApplicationController
         kinship.kin.published_on =  DateTime.now
         kinship.kin.publish_uuid =  SecureRandom.hex(10)
         kinship.kin.save
-        PdfWorker.perform_async(kinship.kin.id, kinship.kin.publish_uuid)
+        #PdfWorker.perform_async(kinship.kin.id, kinship.kin.publish_uuid)
       end
     end
     @article.published_on =  DateTime.now

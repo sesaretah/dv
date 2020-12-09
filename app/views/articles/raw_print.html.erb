@@ -17,6 +17,10 @@
     hr.new2 {
       border-top: 0px dashed gray;
     }
+    @media print
+{
+table {page-break-inside:avoid}
+}
   </style>
 </head>
 <body>
@@ -24,8 +28,8 @@
     <div class="container">
       <table class=" ">
         <tr>
-          <td><img src='/assets/ut.png' width='350px'></td>
-          <td style='text-align: center; font-weight: 600;'>
+          <td style='width: 100px;'><img src='/assets/ut.png'></td>
+          <td style='text-align: center; font-weight: 600;width: 960px;'>
             <%= @article.title %>
             <br />
           </td>
@@ -36,7 +40,7 @@
           <td>
             <% @article.titlings.group_by(&:title_type_id).each do |k, v| %>
             <% for t in v %>
-            <% t.content %>
+            <%= t.content %>
             <% end %>
             <% end %>
           </td>
