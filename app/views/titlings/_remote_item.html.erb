@@ -1,17 +1,17 @@
 <div class="row">
   <div class="col-md-10">
     <div class="form-group">
-      <% if !defined?(titling)%>
-      <% @r = SecureRandom.hex(8)%>
-      <%= select_tag "#{@r}_title_type", options_for_select(TitleType.all.collect { |p| [ p.title, p.id ] }) , { :class => "comapct-form  form-control col-md-4"}%>
-      <%= text_field_tag "#{@r}_other_title", nil , class: "form-control" %>
-        <%= hidden_field_tag "other_title", true%>
-      <%else%>
-      <% @r = SecureRandom.hex(8)%>
-      <%= select_tag "#{@r}_title_type", options_for_select(TitleType.all.collect { |p| [ p.title, p.id ] }, titling.title_type.id) , { :class => "comapct-form  form-control col-md-4"}%>
-      <%= text_field_tag "#{@r}_other_title", titling.content , class: "form-control" %>
-      <%= hidden_field_tag "other_title", true%>
-      <%end%>
+      <% if !defined?(titling) && !titling.title_type.blank? %>
+      <% @r = SecureRandom.hex(8) %>
+      <%= select_tag "#{@r}_title_type", options_for_select(TitleType.all.collect { |p| [p.title, p.id] }), { :class => "comapct-form  form-control col-md-4" } %>
+      <%= text_field_tag "#{@r}_other_title", nil, class: "form-control" %>
+        <%= hidden_field_tag "other_title", true %>
+      <% else %>
+      <% @r = SecureRandom.hex(8) %>
+      <%= select_tag "#{@r}_title_type", options_for_select(TitleType.all.collect { |p| [p.title, p.id] }, titling.title_type.id), { :class => "comapct-form  form-control col-md-4" } %>
+      <%= text_field_tag "#{@r}_other_title", titling.content, class: "form-control" %>
+      <%= hidden_field_tag "other_title", true %>
+      <% end %>
     </div>
   </div>
 </div>
