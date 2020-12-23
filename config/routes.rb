@@ -67,11 +67,12 @@ Rails.application.routes.draw do
     get "/users/cas_login", to: "sessions#cas_login"
   end
 
+  get "/r/*path", to: "foobar#default"
+
   resources :article_areas
   resources :section_items
   resources :profile_groupings
 
-  get "", to: "blogs#show", constraints: lambda { |r| r.subdomain.present? && r.subdomain != "www" && r.subdomain != "divan.ut" }
   root to: "home#search"
   get ":slug" => "home#index"
 
