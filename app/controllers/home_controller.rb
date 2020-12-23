@@ -83,7 +83,7 @@ class HomeController < ApplicationController
 
   def advanced_search
     if @query != ""
-      @model_results = Article.search @query, per_page: 1000, star: true, with: restrict_articles
+      @model_results = Article.search ThinkingSphinx::Query.escape(@query), per_page: 1000, star: true, with: restrict_articles
       @model_results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
       @group_results = group_articles(restrict_articles)
     else
@@ -91,7 +91,7 @@ class HomeController < ApplicationController
       @group_results = []
     end
     if @query != ""
-      @all_results = ThinkingSphinx.search @query, :classes => [Keyword, Profile]
+      @all_results = ThinkingSphinx.search ThinkingSphinx::Query.escape(@query), :classes => [Keyword, Profile]
     end
   end
 
@@ -171,7 +171,7 @@ class HomeController < ApplicationController
   private
 
   def grouper(model, query, group_by, with_hash)
-    return model.search query, with: with_hash, :group_by => group_by, :order_group_by => "count(*) desc"
+    return model.search ThinkingSphinx::Query.escape(query), with: with_hash, :group_by => group_by, :order_group_by => "count(*) desc"
   end
 
   def home_setting_builder
@@ -209,7 +209,7 @@ class HomeController < ApplicationController
     if params[:q].blank?
       @query = ""
     else
-      @query = params[:q].gsub!("/", " ")
+      @query = params[:q] #.gsub!("/", "\\/")
     end
   end
 end
