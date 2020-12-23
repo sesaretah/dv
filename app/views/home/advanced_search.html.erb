@@ -2,85 +2,85 @@
   <div class="col-lg-3 ">
     <div class="row">
       <div class="col-md-6 col-lg-12">
-        <%= form_tag '/home/advanced_search', id: 'advanced_search', method: :get do -%>
-        <% for result in @group_results%>
-        <% if !result[1].blank?%>
+        <%= form_tag "/home/advanced_search", id: "advanced_search", method: :get do -%>
+        <% for result in @group_results %>
+        <% if !result[1].blank? %>
         <div class="card">
-          <div class="card-header" style='padding: 8px; min-height: 10px;'><%=t result[0].underscore.pluralize%></div>
+          <div class="card-header" style='padding: 8px; min-height: 10px;'><%= t result[0].underscore.pluralize %></div>
           <div class="card-body" style='padding: 10px; min-height: 10px;'>
             <div class="form-group small">
-              <% @i = 1%>
+              <% @i = 1 %>
               <% result[1].each_with_group_and_count do |r, group, count| %>
-              <% if @i == 5%><span id='<%= result[0].underscore.pluralize%>' class="hidden"><%end%>
-                <% @i += 1%>
-                <% if !result[0].classify.constantize.find_by_id(group).blank?%>
+              <% if @i == 5 %><span id='<%= result[0].underscore.pluralize %>' class="hidden"><% end %>
+                <% @i += 1 %>
+                <% if !result[0].classify.constantize.find_by_id(group).blank? %>
                 <div class="custom-controls-stacked">
                   <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="<%= result[0]%>_<%= group%>" value="<%= group%>" <% if params["#{result[0]}_#{group}"]%> checked<%end%>>
+                    <input type="checkbox" class="custom-control-input" name="<%= result[0] %>_<%= group %>" value="<%= group %>" <% if params["#{result[0]}_#{group}"] %> checked<% end %>>
                     <span class="custom-control-label pr-0" style='padding-top: 4px;padding-right: 22px;'>
-                      <%= truncate(result[0].classify.constantize.find_by_id(group).title, length: 20)%> (<%= count%>)
+                      <%= truncate(result[0].classify.constantize.find_by_id(group).title, length: 30) %> (<%= count %>)
                     </span>
                   </label>
                 </div>
-                <%end%>
-                <% if @i == 5%><span id='<%= result[0].underscore.pluralize%>-more' class="mr-auto ml-auto" style='color: #467fcf;' onclick="toggler('<%= result[0].underscore.pluralize%>');"><%=t :more%></span><%end%>
-                <%end%>
-                <% if @i > 5 && result[1].length == @i%></span><%end%>
+                <% end %>
+                <% if @i == 5 %><span id='<%= result[0].underscore.pluralize %>-more' class="mr-auto ml-auto" style='color: #467fcf;' onclick="toggler('<%= result[0].underscore.pluralize %>');"><%= t :more %></span><% end %>
+                <% end %>
+                <% if @i > 5 && result[1].length == @i %></span><% end %>
               </div>
             </div>
           </div>
-          <%end%>
-          <%end%>
+          <% end %>
+          <% end %>
           <div class="card">
-            <div class="card-header" style='padding: 8px; min-height: 10px;'><%=t :datings%></div>
+            <div class="card-header" style='padding: 8px; min-height: 10px;'><%= t :datings %></div>
             <div class="card-body" style='padding: 10px; min-height: 10px;'>
               <div class="form-group small">
-                <label class="form-label"><%=t :start_date%></label>
-                <% if !defined?(@start_date) || @start_date.blank?%>
-                <% @start_date_now = JalaliDate.to_jalali(30.years.ago)%>
-                <%else%>
-                <% @start_date_now = JalaliDate.to_jalali(@start_date)%>
-                <%end%>
+                <label class="form-label"><%= t :start_date %></label>
+                <% if !defined?(@start_date) || @start_date.blank? %>
+                <% @start_date_now = JalaliDate.to_jalali(30.years.ago) %>
+                <% else %>
+                <% @start_date_now = JalaliDate.to_jalali(@start_date) %>
+                <% end %>
                 <div class="row gutters-xs">
                   <div class='col-4'>
-                    <%= select_tag  "start_date_dd", options_for_select(1..31, @start_date_now.day), {class: "form-control"} %>
+                    <%= select_tag "start_date_dd", options_for_select(1..31, @start_date_now.day), { class: "form-control" } %>
                   </div>
                   <div class='col-4'>
-                    <%= select_tag "start_date_mm", options_for_select(1..12, @start_date_now.month), {class: "form-control"} %>
+                    <%= select_tag "start_date_mm", options_for_select(1..12, @start_date_now.month), { class: "form-control" } %>
                   </div>
                   <div class='col-4'>
-                    <%= select_year(@start_date_now.year, {:start_year => 1360, :end_year => 1400}, {class: "form-control", :name =>"start_date_yyyy"}) %>
+                    <%= select_year(@start_date_now.year, { :start_year => 1360, :end_year => 1400 }, { class: "form-control", :name => "start_date_yyyy" }) %>
                   </div>
                 </div>
               </div>
 
               <div class="form-group small">
-                <label class="form-label"><%=t :end_date%></label>
-                <% if !defined?(@end_date) || @end_date.blank?%>
-                <% @end_date_now = JalaliDate.to_jalali(Time.now)%>
-                <%else%>
-                <% @end_date_now = JalaliDate.to_jalali(@end_date)%>
-                <%end%>
+                <label class="form-label"><%= t :end_date %></label>
+                <% if !defined?(@end_date) || @end_date.blank? %>
+                <% @end_date_now = JalaliDate.to_jalali(Time.now) %>
+                <% else %>
+                <% @end_date_now = JalaliDate.to_jalali(@end_date) %>
+                <% end %>
                 <div class="row gutters-xs">
                   <div class='col-4'>
-                    <%= select_tag  "end_date_dd", options_for_select(1..31, @end_date_now.day), {class: "form-control"} %>
+                    <%= select_tag "end_date_dd", options_for_select(1..31, @end_date_now.day), { class: "form-control" } %>
                   </div>
                   <div class='col-4'>
-                    <%= select_tag "end_date_mm", options_for_select(1..12, @end_date_now.month), {class: "form-control"} %>
+                    <%= select_tag "end_date_mm", options_for_select(1..12, @end_date_now.month), { class: "form-control" } %>
                   </div>
                   <div class='col-4'>
-                    <%= select_year(@end_date_now.year, {:start_year => 1360, :end_year => 1400}, {class: "form-control", :name =>"end_date_yyyy"}) %>
+                    <%= select_year(@end_date_now.year, { :start_year => 1360, :end_year => 1400 }, { class: "form-control", :name => "end_date_yyyy" }) %>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <%= hidden_field_tag :q, params[:q]%>
+        <%= hidden_field_tag :q, params[:q] %>
         <div class="card-footer">
           <div class="text-center">
-            <button type="button" id='clear' class="btn btn-gray btn-sm"><i class="fe fe-delete" style="vertical-align:-3px;"></i> <%=t :clear%> </button>
-            <button type="button" id='submit-btn' class="btn btn-lime btn-sm"><i class="fe fe-filter" style="vertical-align:-3px;"></i> <%=t :filter%> </button>
+            <button type="button" id='clear' class="btn btn-gray btn-sm"><i class="fe fe-delete" style="vertical-align:-3px;"></i> <%= t :clear %> </button>
+            <button type="button" id='submit-btn' class="btn btn-lime btn-sm"><i class="fe fe-filter" style="vertical-align:-3px;"></i> <%= t :filter %> </button>
           </div>
         </div>
         <script>
@@ -96,105 +96,103 @@
           $("#advanced_search").submit();
         });
         </script>
-        <%end%>
+        <% end %>
       </div>
     </div>
     <div class="col-lg-9">
       <div class="card">
         <div class="card-header">
-          <%= form_tag '/home/advanced_search', method: :get , class:"col-lg-12" do -%>
+          <%= form_tag "/home/advanced_search", method: :get, class: "col-lg-12" do -%>
           <div class="input-group">
-            <input type="text" name='q' class="form-control" placeholder="<%=t :search%>" value='<%= params[:q]%>'>
+            <input type="text" name='q' class="form-control" placeholder="<%= t :search %>" value='<%= params[:q] %>'>
             <div class="input-group-append">
               <button type="submit" class="btn btn-secondary">
                 <i class="fe fe-search"></i>
               </button>
             </div>
           </div>
-          <%end%>
+          <% end %>
         </div>
         <div>
-          <%white_list_sanitizer = Rails::Html::WhiteListSanitizer.new%>
-          <% articles = []%>
-          <% for result in @model_results%>
-            <% if  user_accessible?(result, current_user) || viewable_level?(result, 'all') || viewable_level?(result, 'metadata') %>
+          <% white_list_sanitizer = Rails::Html::WhiteListSanitizer.new %>
+          <% articles = [] %>
+          <% for result in @model_results %>
+            <% if user_accessible?(result, current_user) || viewable_level?(result, "all") || viewable_level?(result, "metadata") %>
               <% articles << result %>
-            <%end%>
-          <%end%>
+            <% end %>
+          <% end %>
 
-          <%
-          articles = WillPaginate::Collection.create(2, 1000, articles.length) do |pager|
-  pager.replace articles
-end
-          %>
-          <% for result in articles%>
+          <% articles = WillPaginate::Collection.create(2, 1000, articles.length) do |pager|
+               pager.replace articles
+             end %>
+          <% for result in articles %>
           <div class="pr-2 pl-2 pt-2" >
-            <div class="form-control-plaintext" style= 'color: #7795c1;'><%= link_to result do%><%= raw result.excerpts.title%><%end%></div>
-            <div class="form-control-plaintext" style="font-size: smaller;"><%=raw result.excerpts.abstract %></div>
-            <div class="form-control-plaintext" style="font-size: smaller;"><%=raw white_list_sanitizer.sanitize(result.excerpts.content_wo_tags, tags: %w(span), attributes: %w(id class style)) %></div>
+            <div class="form-control-plaintext" style= 'color: #7795c1;'><%= link_to result do %><%= raw result.excerpts.title %><% end %></div>
+            <div class="form-control-plaintext" style="font-size: smaller;"><%= raw result.excerpts.abstract %></div>
+            <div class="form-control-plaintext" style="font-size: smaller;"><%= raw white_list_sanitizer.sanitize(result.excerpts.content_wo_tags, tags: %w(span), attributes: %w(id class style)) %></div>
           </div>
           <div class='p-2 text-muted' style="border-bottom: 1px solid #dfe0e0; background-color: #e6e8ec69">
             <table style="border-left:2px solid #dfe0e0; ">
               <tr style="">
                 <td style="padding-right: 2px; border-left:2px solid #dfe0e0; ">
-                  <span style="font-weight: bold; font-size: 10px"><%=t :article_type%>:</span>
+                  <span style="font-weight: bold; font-size: 10px"><%= t :article_type %>:</span>
                   <span style="font-size: 10px">
                     <% for typing in result.typings %>
-                    <%= typing.article_type.title%>,
-                    <%end%>
+                    <%= typing.article_type.title %>,
+                    <% end %>
                   </span>
                 </td>
                 <td style=" padding-right: 2px; border-left:2px solid #dfe0e0; ">
-                  <span style="font-weight: bold; font-size: 10px"><%=t :language%>:</span>
+                  <span style="font-weight: bold; font-size: 10px"><%= t :language %>:</span>
                   <span style="font-size: 10px">
                     <% for speaking in result.speakings %>
-                    <%= speaking.language.title%>,
-                    <%end%>
+                    <%= speaking.language.title %>,
+                    <% end %>
                   </span>
                 </td>
                 <td style="padding-right: 2px; border-left:2px solid #dfe0e0; ">
-                  <span style="font-weight: bold; font-size: 10px"><%=t :attachment%>:</span>
+                  <span style="font-weight: bold; font-size: 10px"><%= t :attachment %>:</span>
                   <span style="font-size: 10px">
-                    <% if Upload.where(uploadable_type: 'Article', uploadable_id: result.id).count > 0%>
-                    <%=t :has%>
-                    <%else%>
-                    <%=t :has_not%>
-                    <%end%>
+                    <% if Upload.where(uploadable_type: "Article", uploadable_id: result.id).count > 0 %>
+                    <%= t :has %>
+                    <% else %>
+                    <%= t :has_not %>
+                    <% end %>
                   </span>
                 </td>
                 <td>
-                  <span style="font-weight: bold; font-size: 10px"><%=t :wokflow%>:</span>
-                  <span style="font-size: 10px"><%= result.workflow_state.workflow.title rescue nil%> > <%= result.workflow_state.title rescue nil%></span>
+                  <span style="font-weight: bold; font-size: 10px"><%= t :wokflow %>:</span>
+                  <span style="font-size: 10px"><%= result.workflow_state.workflow.title rescue nil %> > <%= result.workflow_state.title rescue nil %></span>
                 </td>
               </tr>
             </table>
           </div>
-          <%end%>
+          <% end %>
         </div>
-        <% if defined?(articles.total_pages)%>
+        <% if defined?(articles.total_pages) %>
         <div class="digg_pagination  mb-2 mt-2 mr-auto ml-auto">
           <%= will_paginate articles %>
         </div>
-        <%end%>
+        <% end %>
 
       </div>
-      <% if  @all_results%>
+      <% if @all_results %>
       <div class='card'>
-        <div class="card-header"><%=t :search_in_other_tables%></div>
+        <div class="card-header"><%= t :search_in_other_tables %></div>
         <div class="card-body">
-          <% @all_results.group_by(&:class).each do |c,i|%>
+          <% @all_results.group_by(&:class).each do |c, i| %>
           <ul>
-            <li><%=t c%>:
+            <li><%= t c %>:
               <ul>
-                <% for item in i%>
-                <li><%= link_to item.title, item%></li>
-                <% end%>
+                <% for item in i %>
+                <li><%= link_to item.title, item %></li>
+                <% end %>
               </ul>
             </li>
           </ul>
-          <%end%>
+          <% end %>
         </div>
       </div>
-      <%end%>
+      <% end %>
     </div>
   </div>

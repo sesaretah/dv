@@ -92,7 +92,7 @@ class HomeController < ApplicationController
 
   def restrict_articles
     @h = {
-      "tagging_ids" => [],
+      "workflow_id" => [],
       "profile_ids" => [],
       "language_ids" => [],
       "article_type_ids" => [],
@@ -100,6 +100,8 @@ class HomeController < ApplicationController
       "article_area_ids" => [],
       "dating_ids" => date_filter,
       "article_source_ids" => [],
+      "tagging_ids" => [],
+
     }
     params.each do |name, value|
       @model = name.split("_")[0]
@@ -118,6 +120,8 @@ class HomeController < ApplicationController
         @h["article_source_ids"] << value.to_i
       when "Tagging"
         @h["tagging_ids"] << value.to_i
+      when "Workflow"
+        @h["workflow_id"] << value.to_i
       end
     end
     return @h
@@ -145,6 +149,7 @@ class HomeController < ApplicationController
 
   def group_articles(with_hash)
     @result = {
+      "Workflow" => grouper(Article, @query, "workflow_id", with_hash),
       "Tagging" => grouper(Article, @query, "tagging_ids", with_hash),
       "Profile" => grouper(Article, @query, "profile_ids", with_hash),
       "Language" => grouper(Article, @query, "language_ids", with_hash),

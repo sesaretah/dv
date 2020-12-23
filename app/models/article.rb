@@ -61,9 +61,10 @@ class Article < ActiveRecord::Base
   has_many :note_templates, :through => :noting
   has_many :noting, dependent: :destroy
 
-  def workflow
-    self.workflow_state.workflow if !self.workflow_state.blank?
-  end
+  delegate :workflow, :to => :workflow_state, :allow_nil => true
+  # def workflow
+  #   self.workflow_state.workflow if !self.workflow_state.blank?
+  # end
 
   def start_section
     if !self.workflow_state.blank? && !self.workflow_state.workflow.blank? && !self.workflow_state.workflow.sections.blank?
