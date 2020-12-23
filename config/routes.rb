@@ -71,7 +71,7 @@ Rails.application.routes.draw do
   resources :section_items
   resources :profile_groupings
 
-  match "", to: "blogs#show", constraints: lambda { |r| r.subdomain.present? && r.subdomain != "www" }
+  get "", to: "blogs#show", constraints: lambda { |r| r.subdomain.present? && r.subdomain != "www" }
   root to: "home#search"
   get ":slug" => "home#index"
 
