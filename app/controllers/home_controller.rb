@@ -201,6 +201,6 @@ class HomeController < ApplicationController
     #  else
     #    @query = ''
     #  end
-    @query = params[:q]
+    @query = params[:q].gsub!("/", " ")
   end
 end
