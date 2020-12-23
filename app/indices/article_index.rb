@@ -6,7 +6,6 @@ ThinkingSphinx::Index.define :article, :with => :real_time do
   indexes content_wo_tags
   indexes notes
   indexes slug
-  
 
   has article_source_ids, :type => :integer, :multi => true
   has titling_ids, :type => :integer, :multi => true
@@ -18,4 +17,5 @@ ThinkingSphinx::Index.define :article, :with => :real_time do
   has profile_ids, type: :integer, :multi => true
   has tagging_ids, type: :integer, :multi => true
   has workflow_state_id, type: :integer
+  has workflow_id, type: :integer
 end
