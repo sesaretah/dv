@@ -21,28 +21,28 @@ class HomeController < ApplicationController
       source_article.save
     end
 
-    redirect_to '/home'
+    redirect_to "/home"
   end
 
   def reports
     if !params[:start_yyyy].blank?
-      @start_date = JalaliDate.to_gregorian(params[:start_yyyy],params[:start_mm],params[:start_dd])
+      @start_date = JalaliDate.to_gregorian(params[:start_yyyy], params[:start_mm], params[:start_dd])
     end
     if !params[:end_yyyy].blank?
-      @end_date = JalaliDate.to_gregorian(params[:end_yyyy],params[:end_mm],params[:end_dd])
+      @end_date = JalaliDate.to_gregorian(params[:end_yyyy], params[:end_mm], params[:end_dd])
     end
     if !@start_date.blank? && !@end_date.blank?
-      @dating_ids = Dating.where('event_date <= ? AND event_date >= ?', @end_date, @start_date).pluck(:article_id)
-      @article_ids = Article.where('id IN (?)', @dating_ids).pluck(:id)
+      @dating_ids = Dating.where("event_date <= ? AND event_date >= ?", @end_date, @start_date).pluck(:article_id)
+      @article_ids = Article.where("id IN (?)", @dating_ids).pluck(:id)
     else
       @article_ids = Article.all.pluck(:id)
     end
   end
 
   def email_sent
-    render layout: 'layouts/devise'
+    render layout: "layouts/devise"
   end
-  
+
   def change_current_role
     @role = Role.find(params[:role_id])
     @assignment = Assignment.where(role_id: @role.id, user_id: current_user.id)
@@ -53,12 +53,12 @@ class HomeController < ApplicationController
   end
 
   def search
-      if user_signed_in?
-        redirect_to '/home'
-      else
-        redirect_to '/users/sign_in'
-    #render layout: false
-      end
+    if user_signed_in?
+      redirect_to "/home"
+    else
+      redirect_to "/users/sign_in"
+      #render layout: false
+    end
   end
 
   def index
@@ -66,7 +66,7 @@ class HomeController < ApplicationController
     @notifications = []
     @home_setting = home_setting_builder
 
-    if params[:slug] != 'home' && !params[:slug].blank?
+    if params[:slug] != "home" && !params[:slug].blank?
       @article = Article.find_by_slug(params[:slug])
       if !@article.blank?
         redirect_to @article
@@ -76,50 +76,49 @@ class HomeController < ApplicationController
       if !@role.blank?
         #@home_setting.workflow_state != -1 ? @workflow_state_ids =  [@home_setting.workflow_state.to_i]: @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
         @articles = Article.in_dashboard(current_user, @home_setting).paginate(:page => params[:page], :per_page => @home_setting.pp)
-        @notifications = Notification.where(user_id: current_user.id).order('created_at desc').limit(10)
+        @notifications = Notification.where(user_id: current_user.id).order("created_at desc").limit(10)
       end
     end
   end
 
   def advanced_search
-    @model_results = Article.search @query, per_page: 1000, with: restrict_articles
+    @model_results = Article.search @query, per_page: 1000, star: true, with: restrict_articles
     @model_results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
     @group_results = group_articles(restrict_articles)
-    if @query != ''
+    if @query != ""
       @all_results = ThinkingSphinx.search @query, :classes => [Keyword, Profile]
     end
   end
 
   def restrict_articles
     @h = {
-      'tagging_ids' => [],
-      'profile_ids'        => [],
-      'language_ids'       => [],
-      'article_type_ids'   => [],
-      'article_format_ids' => [],
-      'article_area_ids'   => [],
-      'dating_ids' =>  date_filter,
-      'article_source_ids' => []
+      "tagging_ids" => [],
+      "profile_ids" => [],
+      "language_ids" => [],
+      "article_type_ids" => [],
+      "article_format_ids" => [],
+      "article_area_ids" => [],
+      "dating_ids" => date_filter,
+      "article_source_ids" => [],
     }
     params.each do |name, value|
-      @model = name.split('_')[0]
+      @model = name.split("_")[0]
       case @model
-      when 'Profile'
-        @h['profile_ids']       << value.to_i
-      when 'Language'
-        @h['language_ids']      << value.to_i
-      when 'ArticleType'
-        @h['article_type_ids']   << value.to_i
-      when 'ArticleFormat'
-        @h['article_format_ids'] << value.to_i
-      when 'ArticleArea'
-        @h['article_area_ids']   << value.to_i
-      when 'ArticleSource'
-        @h['article_source_ids'] << value.to_i
-      when 'Tagging'
-        @h['tagging_ids'] << value.to_i
+      when "Profile"
+        @h["profile_ids"] << value.to_i
+      when "Language"
+        @h["language_ids"] << value.to_i
+      when "ArticleType"
+        @h["article_type_ids"] << value.to_i
+      when "ArticleFormat"
+        @h["article_format_ids"] << value.to_i
+      when "ArticleArea"
+        @h["article_area_ids"] << value.to_i
+      when "ArticleSource"
+        @h["article_source_ids"] << value.to_i
+      when "Tagging"
+        @h["tagging_ids"] << value.to_i
       end
-
     end
     return @h
   end
@@ -129,10 +128,10 @@ class HomeController < ApplicationController
     if params[:start_date_yyyy].blank?
       return []
     else
-      @start_date = JalaliDate.to_gregorian(params[:start_date_yyyy],params[:start_date_mm],params[:start_date_dd])
-      @end_date = JalaliDate.to_gregorian(params[:end_date_yyyy],params[:end_date_mm],params[:end_date_dd])
+      @start_date = JalaliDate.to_gregorian(params[:start_date_yyyy], params[:start_date_mm], params[:start_date_dd])
+      @end_date = JalaliDate.to_gregorian(params[:end_date_yyyy], params[:end_date_mm], params[:end_date_dd])
       for dating in Dating.all
-        if(@start_date.to_date < dating.event_date &&  dating.event_date < @end_date.to_date)
+        if (@start_date.to_date < dating.event_date && dating.event_date < @end_date.to_date)
           @filtered_datings << dating.id
         end
       end
@@ -144,31 +143,31 @@ class HomeController < ApplicationController
     end
   end
 
-
   def group_articles(with_hash)
-    @result  = {
-      'Tagging' => grouper(Article, @query, 'tagging_ids', with_hash),
-      'Profile'       => grouper(Article, @query, 'profile_ids',  with_hash),
-      'Language'      => grouper(Article, @query, 'language_ids', with_hash) ,
-      'ArticleType'   => grouper(Article, @query, 'article_type_ids', with_hash),
-      'ArticleFormat' => grouper(Article, @query, 'article_format_ids', with_hash),
-      'ArticleArea'   => grouper(Article, @query, 'article_area_ids', with_hash) ,
+    @result = {
+      "Tagging" => grouper(Article, @query, "tagging_ids", with_hash),
+      "Profile" => grouper(Article, @query, "profile_ids", with_hash),
+      "Language" => grouper(Article, @query, "language_ids", with_hash),
+      "ArticleType" => grouper(Article, @query, "article_type_ids", with_hash),
+      "ArticleFormat" => grouper(Article, @query, "article_format_ids", with_hash),
+      "ArticleArea" => grouper(Article, @query, "article_area_ids", with_hash),
       #    'ArticleEvent' => grouper(Article, @query, 'article_event_ids', with_hash),
-      'ArticleSource' => grouper(Article, @query, 'article_source_ids', with_hash)
+      "ArticleSource" => grouper(Article, @query, "article_source_ids", with_hash),
 
     }
     return @result
   end
 
   private
+
   def grouper(model, query, group_by, with_hash)
-    return model.search query, with: with_hash, :group_by => group_by,  :order_group_by => 'count(*) desc'
+    return model.search query, with: with_hash, :group_by => group_by, :order_group_by => "count(*) desc"
   end
 
   def home_setting_builder
     home_setting = current_user.home_setting
-    if home_setting.blank? 
-      home_setting = HomeSetting.create(user_id: current_user.id, pp: 5, workflow_state: -1,sort: "-position DESC", workflow: -1 )
+    if home_setting.blank?
+      home_setting = HomeSetting.create(user_id: current_user.id, pp: 5, workflow_state: -1, sort: "-position DESC", workflow: -1)
     end
     home_setting.pp.blank? && params[:pp].blank? ? pp = 5 : pp = params[:pp]
     if !params[:pp].blank? && home_setting.pp != pp
@@ -192,11 +191,11 @@ class HomeController < ApplicationController
   end
 
   def fix_query
-  #  if !params[:q].blank?
-  #    @query = params[:q] + '|' + params[:q].gsub('ی','ي').gsub('ک', 'ك') + '|' + params[:q].gsub('ي','ی').gsub('ك', 'ک')
-  #  else
-  #    @query = ''
-  #  end
-  @query = params[:q]
+    #  if !params[:q].blank?
+    #    @query = params[:q] + '|' + params[:q].gsub('ی','ي').gsub('ک', 'ك') + '|' + params[:q].gsub('ي','ی').gsub('ك', 'ک')
+    #  else
+    #    @query = ''
+    #  end
+    @query = params[:q]
   end
 end
