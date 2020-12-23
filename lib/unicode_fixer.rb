@@ -1,6 +1,7 @@
 module UnicodeFixer
   extend self
   def fix(str)
+    str.gsub!('/', '-')
     # الف
     str.gsub!('ﺎ', 'ا')
     str.gsub!('ﺍ', 'ا')
