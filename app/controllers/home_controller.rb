@@ -82,9 +82,14 @@ class HomeController < ApplicationController
   end
 
   def advanced_search
-    @model_results = Article.search @query, per_page: 1000, star: true, with: restrict_articles
-    @model_results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
-    @group_results = group_articles(restrict_articles)
+    if @query != ""
+      @model_results = Article.search @query, per_page: 1000, star: true, with: restrict_articles
+      @model_results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
+      @group_results = group_articles(restrict_articles)
+    else
+      @model_results = []
+      @group_results = []
+    end
     if @query != ""
       @all_results = ThinkingSphinx.search @query, :classes => [Keyword, Profile]
     end
@@ -201,6 +206,10 @@ class HomeController < ApplicationController
     #  else
     #    @query = ''
     #  end
-    @query = params[:q].gsub!("/", " ")
+    if params[:q].blank?
+      @query = ""
+    else
+      @query = params[:q].gsub!("/", " ")
+    end
   end
 end
