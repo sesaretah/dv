@@ -171,7 +171,7 @@ class HomeController < ApplicationController
   private
 
   def grouper(model, query, group_by, with_hash)
-    return model.search ThinkingSphinx::Query.escape(query), with: with_hash, :group_by => group_by, :order_group_by => "count(*) desc"
+    return model.search ThinkingSphinx::Query.escape(query), with: with_hash, :group_by => group_by, :order_group_by => "count(*) desc", per_page: 1000
   end
 
   def home_setting_builder
