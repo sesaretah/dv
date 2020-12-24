@@ -20,6 +20,7 @@
     @media print
     {
       table {page-break-inside:avoid}
+      tr    { page-break-inside:avoid; page-break-after:avoid }
     }
   </style>
 </head>
@@ -70,16 +71,16 @@
         <tr>
           <td>
             <div style='min-width:100px; min-height:140px;'>
-              <% qrcode = RQRCode::QRCode.new(Rails.application.routes.default_url_options[:host]+'/'+kin.slug) %>
+              <% qrcode = RQRCode::QRCode.new(Rails.application.routes.default_url_options[:host] + "/" + kin.slug) %>
             <% svg = svg = qrcode.as_svg(
-            offset: 0,
-            color: '000',
-            shape_rendering: 'crispEdges',
-            module_size: 2,
-            standalone: true
-            )%>
+                 offset: 0,
+                 color: "000",
+                 shape_rendering: "crispEdges",
+                 module_size: 2,
+                 standalone: true,
+               ) %>
               <%= svg.html_safe %>
-              <a href='/<%= kin.slug%>' style='font-family: tahoma;'><%= kin.slug%></a>
+              <a href='/<%= kin.slug %>' style='font-family: tahoma;'><%= kin.slug %></a>
             </div>
           </td>
           <td>
