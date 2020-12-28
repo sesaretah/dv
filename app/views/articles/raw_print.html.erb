@@ -29,21 +29,23 @@
 </head>
 <body>
   <div class="page">
+    <div class="page-main">
     <div class="container" style='padding: 1px;'>
-      <div class="row mb-8 text-center mt-4">
-        <div class="col-1 text-center">
-          <img src='/assets/ut.png' width='100px;'>
-        </div>
-        <div class="col-11">
-          <span style='text-align: center; font-weight: 600;width: 960px;'>
+      <div class="row mb-4 mt-4">
+          <div class="col-12 col-md-12 col-sm-12" style='min-height: 110px;'>
+              <span style='float: right;margin-left: 15px;'>
+              <img src='/assets/ut.png' width='80px;'>
+              </span>
+          <div style='width:100%; text-align: center; font-weight: 600;width: 960px; padding-left:50px;'>
             <%= @article.title %><br />
-          </span>
+            <% @article.titlings.group_by(&:title_type_id).each do |k, v| %>
+            <% for t in v %>
+            <span><%= sanitize t.content %></span><br />
+            <% end %>
+            <% end %>
+          </div>
 
-          <% @article.titlings.group_by(&:title_type_id).each do |k, v| %>
-          <% for t in v %>
-          <span><%= sanitize t.content %></span><br />
-          <% end %>
-          <% end %>
+
 
         </div>
       </div>
@@ -58,9 +60,10 @@
       <% @kins << kinship.kin %>
       <% end %>
       <% for kin in @kins %>
-      <div class="row text-center mb-3">
-        <div class="col-1 col-md-1 col-sm-1 text-center">
+      <div class="row text-center mb-2">
+        <div class="col-11 col-md-11 col-sm-11" style='min-height: 120px;'>
           <% qrcode = RQRCode::QRCode.new(Rails.application.routes.default_url_options[:host] + "/" + kin.slug) %>
+          <span style='float: right;margin-left: 15px;'>
           <% svg = svg = qrcode.as_svg(
           offset: 0,
           color: "000",
@@ -68,11 +71,12 @@
           module_size: 2,
           standalone: true,
           ) %>
-          <%= svg.html_safe %>
+          <%= svg.html_safe %><br />
           <a href='/<%= kin.slug %>' style='font-family: tahoma;'><%= kin.slug %></a>
-        </div>
-        <div class="col-11 col-md-11 col-sm-11">
+          </span>
+          <div style='padding-right: 80px;'>
           <%= raw kin.content %>
+          </div>
         </div>
       </div>
       <% end %>
