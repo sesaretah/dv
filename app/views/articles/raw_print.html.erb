@@ -26,93 +26,73 @@
 </head>
 <body>
   <div class="page">
-    <div class="container">
-      <table class=" ">
-        <tr>
-          <td style='width: 50px;'><img src='/assets/ut.png' width='70px;'></td>
-          <td style='text-align: center; font-weight: 600;width: 960px;'>
-            <%= @article.title %>
-            <br />
-          </td>
-        </tr>
+    <div class="container" style='padding: 30px;'>
+      <div class="row mb-8 text-center mt-8">
+        <div class="col-1 text-center">
+          <img src='/assets/ut.png' width='70px;'>
+        </div>
+        <div class="col-11 pt-4">
+          <span style='text-align: center; font-weight: 600;width: 960px;'>
+            <%= @article.title %><br />
+          </span>
 
-        <tr>
-          <td></td>
-          <td>
-            <% @article.titlings.group_by(&:title_type_id).each do |k, v| %>
-            <% for t in v %>
-            <%= sanitize t.content %>
+          <% @article.titlings.group_by(&:title_type_id).each do |k, v| %>
+          <% for t in v %>
+          <span><%= sanitize t.content %></span><br />
+          <% end %>
+          <% end %>
+
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-12">
+          <%= sanitize @article.content %>
+        </div>
+      </div>
+      <% @article.kinships.group_by(&:article_relation_type_id).each do |k, v| %>
+      <% @kins = [] %>
+      <% for kinship in v.sort_by!(&:rank) %>
+      <% @kins << kinship.kin %>
+      <% end %>
+      <% for kin in @kins %>
+      <div class="row text-center mb-3">
+        <div class="col-1 text-center">
+          <% qrcode = RQRCode::QRCode.new(Rails.application.routes.default_url_options[:host] + "/" + kin.slug) %>
+          <% svg = svg = qrcode.as_svg(
+          offset: 0,
+          color: "000",
+          shape_rendering: "crispEdges",
+          module_size: 2,
+          standalone: true,
+          ) %>
+          <%= svg.html_safe %>
+          <a href='/<%= kin.slug %>' style='font-family: tahoma;'><%= kin.slug %></a>
+        </div>
+        <div class="col-11">
+          <%= raw kin.content %>
+        </div>
+      </div>
+      <% end %>
+      <% end %>
+
+      <% i = 1 %>
+      <div class="row text-center">
+        <div class="col-12">
+          <% for contribution in @article.contributions %>
+          <% if !contribution.profile.signature.blank? %>
+          <%= image_tag contribution.profile.signature(:medium) %>
+          <% if i % 4 == 0 %>
+        </div></div>
+        <div class="row text-center">
+          <div class="col-12">
+            <% end %>
+            <% i += 1 %>
             <% end %>
             <% end %>
-          </td>
-        </tr>
-
-        <tr>
-          <td></td>
-          <td>
-            <%= sanitize @article.content %>
-            <br />
-
-          </td>
-        </tr>
-
-        <% @article.kinships.group_by(&:article_relation_type_id).each do |k, v| %>
-        <tr>
-          <td></td>
-          <td>
-            <%= ArticleRelationType.find(k).title %>
-          </td>
-        </tr>
-        <% @kins = [] %>
-        <% for kinship in v.sort_by!(&:rank) %>
-        <% @kins << kinship.kin %>
-        <% end %>
-        <% for kin in @kins %>
-        <tr>
-          <td>
-            <div style='min-width:100px; min-height:140px;'>
-              <% qrcode = RQRCode::QRCode.new(Rails.application.routes.default_url_options[:host] + "/" + kin.slug) %>
-            <% svg = svg = qrcode.as_svg(
-                 offset: 0,
-                 color: "000",
-                 shape_rendering: "crispEdges",
-                 module_size: 2,
-                 standalone: true,
-               ) %>
-              <%= svg.html_safe %>
-              <a href='/<%= kin.slug %>' style='font-family: tahoma;'><%= kin.slug %></a>
-            </div>
-          </td>
-          <td>
-            <div style='min-width:100px; min-height:160px;'>
-              <%= sanitize kin.content %>
-              </div>
-            </td>
-        </tr>
-        <% end %>
-        <% end %>
-
-        <% i = 1 %>
-        <tr>
-          <td></td>
-          <td style="text-align:center;">
-            <table style="margin: auto;">
-              <tr>
-                <% for contribution in @article.contributions %>
-                <% if !contribution.profile.signature.blank? %>
-                <td><%= image_tag contribution.profile.signature(:medium) %></td>
-                <% if i % 4 == 0 %>
-              </tr>
-              <tr>
-                <% end %>
-                <% i += 1 %>
-                <% end %>
-                <% end %>
-              </table>
-              <td>
-              </tr>
-            </table>
           </div>
         </div>
-      </body>
-      </html>
+
+      </div>
+    </div>
+  </body>
+</html>
