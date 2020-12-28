@@ -32,7 +32,7 @@
     <div class="container" style='padding: 1px;'>
       <div class="row mb-8 text-center mt-4">
         <div class="col-1 text-center">
-          <img src='/assets/ut.png' >
+          <img src='/assets/ut.png' width='100px;'>
         </div>
         <div class="col-11">
           <span style='text-align: center; font-weight: 600;width: 960px;'>
@@ -59,7 +59,7 @@
       <% end %>
       <% for kin in @kins %>
       <div class="row text-center mb-3">
-        <div class="col-sm-1 text-center">
+        <div class="col-1 col-md-1 col-sm-1 text-center">
           <% qrcode = RQRCode::QRCode.new(Rails.application.routes.default_url_options[:host] + "/" + kin.slug) %>
           <% svg = svg = qrcode.as_svg(
           offset: 0,
@@ -71,7 +71,7 @@
           <%= svg.html_safe %>
           <a href='/<%= kin.slug %>' style='font-family: tahoma;'><%= kin.slug %></a>
         </div>
-        <div class="col-sm-11">
+        <div class="col-11 col-md-11 col-sm-11">
           <%= raw kin.content %>
         </div>
       </div>
