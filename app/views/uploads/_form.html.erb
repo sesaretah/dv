@@ -15,24 +15,61 @@
 <% end %>
 
 <div class="card-body">
-<div class="row">
-  <div class="col-md-5">
-    <div class="form-group">
-          <%= f.label :title, class: "form-label" %>
-      <%= f.text_field :title , class: "form-control" %>
-          </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+          <label class="form-label"><%=t :attachment_title%></label>
+        <%= f.text_field :title , class: "form-control" %>
+      </div>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-5">
-    <div class="form-group">
-          <%= f.label :detail, class: "form-label" %>
-      <%= f.text_field :detail , class: "form-control" %>
-          </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+          <label class="form-label"><%=t :attachment_content%></label>
+        <%= f.text_field :detail , class: "form-control" %>
+      </div>
+    </div>
   </div>
-</div>
 
-<div class="card-footer text-right">
-  <button type="submit" class="btn btn-primary"><%=t :submit%></button>
-</div>
-<% end %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="form-label"></label>
+        <label class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" name="upload[summable]" class="custom-control-input" id="upload_summable" <% if @upload.summable%> checked<%end%> >
+          <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= t :summable%></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="form-label"></label>
+        <label class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" name="upload[printable]" class="custom-control-input" id="upload_printable" <% if @upload.printable%> checked<%end%> >
+          <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= t :printable%></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="form-label"></label>
+        <label class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" name="upload[only_index]" class="custom-control-input" id="upload_only_index" <% if @upload.only_index%> checked<%end%>>
+          <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= t :only_index%></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+  </div>
+  <% end %>
+  </div>

@@ -14,10 +14,48 @@
             </div>
           </div>
         </div>
+
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
               <label class="form-label"></label>
+              <label class="custom-control custom-checkbox custom-control-inline">
+                <input type="checkbox" name="upload[summable]" class="custom-control-input" id="upload_summable">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= t :summable%></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label"></label>
+              <label class="custom-control custom-checkbox custom-control-inline">
+                <input type="checkbox" name="upload[printable]" class="custom-control-input" id="upload_printable">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= t :printable%></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label"></label>
+              <label class="custom-control custom-checkbox custom-control-inline">
+                <input type="checkbox" name="upload[only_index]" class="custom-control-input" id="upload_only_index">
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= t :only_index%></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="form-label"><%=t :attachment_title%></label>
               <%= text_field_tag :attachment_title , nil,class: "form-control" %>
             </div>
           </div>
@@ -25,12 +63,14 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label class="form-label"></label>
+              <label class="form-label"><%=t :attachment_content%></label>
               <%= text_area_tag :attachment_content , nil,class: "form-control" %>
             </div>
           </div>
         </div>
       </div>
+
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" onclick="send()"><%=t :submit%></button>
       </div>
@@ -43,7 +83,15 @@ function send(){
     type: "PATCH",
     dataType: 'JSON',
     url: '/uploads/'+ $('#target').attr('for'),
-    data: {authenticity_token: window._token, 'upload[attachment_type]': $('#attachment_type').val(), 'upload[title]': $('#attachment_title').val(), 'upload[detail]': $('#attachment_content').val()},
+    data: {
+      authenticity_token: window._token,
+      'upload[attachment_type]': $('#attachment_type').val(),
+      'upload[title]': $('#attachment_title').val(),
+      'upload[detail]': $('#attachment_content').val(),
+      'upload[summable]': $('#upload_summable').val(),
+      'upload[printable]': $('#upload_printable').val(),
+      'upload[only_index]': $('#upload_only_index').val(),
+    },
     success: function(){
       $('#target').attr('src', '');
       $('#myModal').modal('toggle');

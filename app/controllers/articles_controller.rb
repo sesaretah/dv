@@ -317,7 +317,7 @@ class ArticlesController < ApplicationController
     @article.publish_details = params[:publish_details]
     @article.access_for_others = params[:access_for_others]
     @article.publish_uuid = SecureRandom.hex(10)
-    PdfWorker.perform_async(@article.id, @article.publish_uuid, 'raw_print')
+    PdfsWorker.perform_async(@article.id, @article.publish_uuid, 'raw_print')
     if params[:publish_related]
       for kinship in @article.kinships
         kinship.kin.publish_details = params[:publish_details]

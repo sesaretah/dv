@@ -752,7 +752,7 @@ fa:
   target_workflow_state: 'گردشکار مقصد'
   majority: 'اکثریت'
   all_vote: 'همه موافق'
-  
+
   consensus: 'اجماع (بدون مخالف)'
   timer: 'زمانبندی (ساعت)'
   condition_if_voting: 'شروط انتقال (در صورت وجود رای گیری)'
@@ -779,7 +779,14 @@ fa:
   new_article_published: "انتشار سند"
   article_published_notification: "منتشر شد"
   choose_a_file_for_signature: 'انتخاب فایل امضا'
-  
+  summable: 'پرینت در اسناد بالا دستی'
+  printable: 'در پرینت باشد'
+  only_index: 'فقط برای نمایه سازی'
+  attachment_title: 'عنوان'
+  attachment_content: 'شرح'
+  new_upload: 'فرم آپلود'
+  is_published: 'منتشر شد'
+  new_article_published: 'اطلاع رسانی ابلاغ'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

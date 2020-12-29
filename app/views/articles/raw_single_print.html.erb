@@ -5,6 +5,9 @@
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <title></title>
   <style media="screen">
+    * {
+      font-size: 14px  !important;
+    }
     body {
       background-color: #fff;
       font-size: 16px;
@@ -20,85 +23,84 @@
     @media print
     {
       table {page-break-inside:avoid}
+      tr    { page-break-inside:avoid; page-break-after:avoid }
     }
   </style>
 </head>
 <body>
-  <div class="page" style='justify-content: start;'>
-    <div class="container">
-      <table class=" ">
-        <tr style='border-bottom: 1px solid #444;'>
-          <td style='width: 50px; padding: 20px;'><img src='/assets/ut.png' width='70px;'></td>
-          <td style='text-align: center; font-weight: 600;'>
-            <%= @article.title %>
-            <br />
-            <% @article.titlings.group_by(&:title_type_id).each do |k, v| %>
-            <% for t in v %>
-            <%= sanitize t.content %>
-            <% end %>
-            <% end %>
-          </td>
-        </tr>
+  <div class="page">
+    <div class="page-main">
+      <div class="container" style='padding: 1px;'>
+        <div class="row mb-4 mt-4">
+          <div class="col-12 col-md-12 col-sm-12" style='min-height: 110px;'>
+            <span style='float: right;margin-left: 15px;'>
+              <img src='/assets/ut.png' width='80px;'>
+            </span>
+            <div style='width:100%; text-align: center; font-weight: 600;width: 960px; padding-left:50px;'>
+              <%= @article.title %><br />
+              <% @article.titlings.group_by(&:title_type_id).each do |k, v| %>
+              <% for t in v %>
+              <span><%= sanitize t.content %></span><br />
+              <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
 
-        <tr >
-          <td></td>
-          <td>
+        <% if !@article.abstract.blank?%>
+        <div class="row mt-4">
+          <div class="col-1 col-md-1 col-sm-1" style='min-height: 20px;'>
+            <%= t :abstract%>
+          </div>
+          <div class="col-11 col-md-11 col-sm-11" style='min-height: 20px;'>
+            <%= sanitize @article.abstract %>
+          </div>
+        </div>
+        <%end%>
 
-          </td>
-        </tr>
+        <% if !@article.content.blank?%>
 
-        <tr style='border: 1px solid #444'>
-          <td style='border: 1px solid #444; padding: 5px; height: 40px;'><%= t :abstract%></td>
-          <td style='border: 1px solid #444; padding: 10px; '>
-            <%= sanitize @article.abstract %>            <br />
-
-          </td>
-        </tr>
-
-        <tr style='border: 1px solid #444'>
-          <td style='border: 1px solid #444; padding: 10px;'><%= t :content%></td>
-          <td style='border: 1px solid #444; padding: 10px;'>
-            <%= sanitize @article.content %>
-            <br />
-
-          </td>
-        </tr>
+        <div class="row mt-4">
+          <div class="col-1 col-md-1 col-sm-1" style='min-height: 20px;'>
+            <%= t :content%>
+          </div>
+          <div class="col-11 col-md-11 col-sm-11" style='min-height: 20px;'>
+            <%= raw @article.content %>
+          </div>
+        </div>
+        <%end%>
 
 
-        <% i = 1 %>
-        <tr style='padding: 20px;'>
-          <td  style='padding: 20px;'>
-            <div style='min-width:100px; min-height:140px;'>
+          <% i = 1 %>
+          <div class="row text-center">
+            <div class='col-1'>
               <% qrcode = RQRCode::QRCode.new(Rails.application.routes.default_url_options[:host]+'/'+@article.slug) %>
-            <% svg = svg = qrcode.as_svg(
-            offset: 0,
-            color: '000',
-            shape_rendering: 'crispEdges',
-            module_size: 2,
-            standalone: true
-            )%>
+              <% svg = svg = qrcode.as_svg(
+              offset: 0,
+              color: '000',
+              shape_rendering: 'crispEdges',
+              module_size: 2,
+              standalone: true
+              )%>
               <%= svg.html_safe %><br />
               <a href='/<%= @article.slug%>' style='font-family: tahoma;'><%= @article.slug%></a>
             </div>
-          </td>
-          <td style="text-align:center;">
-            <table style="margin: auto;">
-              <tr>
-                <% for contribution in @article.contributions %>
-                <% if !contribution.profile.signature.blank? %>
-                <td><%= image_tag contribution.profile.signature(:medium) %></td>
-                <% if i % 4 == 0 %>
-              </tr>
-              <tr>
+            <div class="col-11">
+              <% for contribution in @article.contributions %>
+              <% if !contribution.profile.signature.blank? %>
+              <%= image_tag contribution.profile.signature(:medium) %>
+              <% if i % 4 == 0 %>
+            </div></div>
+            <div class="row text-center">
+              <div class="col-12">
                 <% end %>
                 <% i += 1 %>
                 <% end %>
                 <% end %>
-              </table>
-              <td>
-              </tr>
-            </table>
+              </div>
+            </div>
+
           </div>
         </div>
-      </body>
-      </html>
+        </body>
+        </html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <title></title>
-  <style media="screen">
+  <style>
     * {
       font-size: 14px  !important;
     }
@@ -20,8 +20,13 @@
     hr.new2 {
       border-top: 0px dashed gray;
     }
+
+    .row {
+      page-break-inside:avoid
+    }
     @media print
     {
+      div {page-break-inside:avoid}
       table {page-break-inside:avoid}
       tr    { page-break-inside:avoid; page-break-after:avoid }
     }
@@ -44,11 +49,9 @@
             <% end %>
             <% end %>
           </div>
-
-
-
         </div>
       </div>
+
       <div class="row mb-4">
         <div class="col-12">
           <%= sanitize @article.content %>

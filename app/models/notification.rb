@@ -7,7 +7,12 @@ class Notification < ActiveRecord::Base
     #for target_user_id in self.target_user_ids.uniq
       if NotificationSetting.check(self.user_id, self.notification_type)
           item = self.notifiable_type.classify.constantize.find_by_id(self.notifiable_id)
-          MailerWorker.perform_async(self.user_id, self.notification_type, self.user.profile.fullname, item.article.title, self.custom_text)
+          if item.article_id && !item.article_id.blank?
+            article_id = item.article_id
+          else
+            article_id = nil
+          end
+          MailerWorker.perform_async(self.user_id, self.notification_type, self.user.profile.fullname, item.article.title, self.custom_text, '', article_id)
       end
     #end
   end

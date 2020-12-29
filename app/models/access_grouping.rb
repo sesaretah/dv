@@ -1,6 +1,7 @@
 class AccessGrouping < ActiveRecord::Base
   belongs_to :access_group
   after_create :generate_notification
+  belongs_to :article
 
   def generate_notification
     if self.notify
@@ -12,8 +13,9 @@ class AccessGrouping < ActiveRecord::Base
         end
       end
       users.uniq
-      p "#########"
-      p users
+      for user in users
+        Notification.create(user_id: user, notifiable_type: "AccessGrouping", notifiable_id: self.id, notification_type: "access_grouping", emmiter_id: self.user_id)
+      end
     end
   end
 end
