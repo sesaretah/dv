@@ -26,6 +26,9 @@ class PdfsWorker
          end
          article.pdf_generated = true
          article.save
+         for kinship in article.kinships
+
+         end
        end
     end
   end
