@@ -209,7 +209,8 @@ class HomeController < ApplicationController
     if params[:q].blank?
       @query = ""
     else
-      @query = params[:q] #.gsub!(" و ", " ")
+      p params[:q]
+      @query = params[:q].gsub(" و ", " ")
     end
   end
 end
