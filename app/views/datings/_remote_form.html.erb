@@ -1,4 +1,4 @@
-<%= form_for(dating, remote: true,  html:{id: 'artcile_datings_form'}) do |f| %>
+<%= form_for(dating, remote: true, html: { id: "artcile_datings_form" }) do |f| %>
   <% if dating.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(dating.errors.count, "error") %> prohibited this dating from being saved:</h2>
@@ -15,30 +15,30 @@
      <div class="col-md-6">
        <div class="form-group">
          <%= f.label :article_event_id, class: "form-label" %>
-         <%= f.select :article_event_id, ArticleEvent.all.collect { |p| [ p.title, p.id ] } , {} ,{ :class => "form-control"}%>
+         <%= f.select :article_event_id, ArticleEvent.all.collect { |p| [p.title, p.id] }, {}, { :class => "form-control" } %>
        </div>
      </div>
    </div>
 
-  <%= f.hidden_field :article_id, value: article.id%>
+  <%= f.hidden_field :article_id, value: article.id %>
   <div class="row">
     <div class="col-md-8">
       <div class="form-group">
         <%= f.label :event_date, class: "form-label" %>
-        <% if dating.id == nil%>
-        <% @now = JalaliDate.to_jalali(Time.now)%>
-        <%else%>
-        <% @now = JalaliDate.to_jalali(dating.event_date)%>
-        <%end%>
+        <% if dating.id == nil %>
+        <% @now = JalaliDate.to_jalali(Time.now) %>
+        <% else %>
+        <% @now = JalaliDate.to_jalali(dating.event_date) %>
+        <% end %>
         <div class="row gutters-xs">
         <div class='col-4'>
-          <%= select_tag  "event_date_dd", options_for_select(1..31, @now.day), {class: "form-control"} %>
+          <%= select_tag "event_date_dd", options_for_select(1..31, @now.day), { class: "form-control" } %>
         </div>
         <div class='col-4'>
-          <%= select_tag "event_date_mm", options_for_select(1..12, @now.month), {class: "form-control"} %>
+          <%= select_tag "event_date_mm", options_for_select(1..12, @now.month), { class: "form-control" } %>
         </div>
         <div class='col-4'>
-          <%= select_year(@now.year, {:start_year => 1360, :end_year => 1400}, {class: "form-control", :name =>"event_date_yyyy"}) %>
+          <%= select_year(@now.year, { :start_year => 1330, :end_year => 1410 }, { class: "form-control", :name => "event_date_yyyy" }) %>
         </div>
       </div>
       </div>
@@ -46,6 +46,6 @@
   </div>
 
   <div class="card-footer text-right">
-    <button type="submit" class="btn btn-primary"><%=t :submit%></button>
+    <button type="submit" class="btn btn-primary"><%= t :submit %></button>
   </div>
   <% end %>
