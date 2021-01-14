@@ -350,6 +350,21 @@ fa:
         profile_grouping:
             user_id: 'کاربر'
             profile_id: 'فرد'
+        state_page:
+            item_title: 'عنوان'
+            item_titlings: 'سایر عناوین'
+            item_abstract: 'جکیده'
+            item_url: 'url'
+            item_keywords: 'کلمات کلیدی'
+            item_datings: 'تاریخ ها'
+            item_typings: 'انواع سند'
+            item_speakings: 'زبان ها'
+            item_formatings: 'قالب ها'
+            item_contributions: 'افراد'
+            item_originatings: 'منابع مرجع'
+            item_kinships: 'اسناد مرتبط'
+            item_content: 'محتوا'
+            item_upload: 'پیوست ها'
         publication:
             publisher_id: 'ناشر'
             publish_source_id: 'منبع'
@@ -787,6 +802,8 @@ fa:
   new_upload: 'فرم آپلود'
   is_published: 'منتشر شد'
   new_article_published: 'اطلاع رسانی ابلاغ'
+  state_pages: 'کاربرگه ها'
+  state_page: 'کاربرگه'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

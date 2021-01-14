@@ -1,0 +1,46 @@
+  <table class="table  table-vcenter" id='state_page-list'>
+  <thead>
+    <tr>
+      <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
+      <th><%= t :workflow_state %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% state_pages.each do |state_page| %>
+    <tr>
+      <td class="text-center">
+        <div class="item-action dropdown">
+          <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+          <div class="dropdown-menu dropdown-menu-right">
+                <%= link_to "/p/#{state_page.uuid}", class: "dropdown-item" do %>
+                <i class="dropdown-icon fe fe-play"></i> <%= t :show %>
+                <% end %>
+                <%= link_to state_page, method: :delete, remote: true, class: "dropdown-item", data: { confirm: "Are you sure?" } do %>
+                <i class="dropdown-icon fe fe-trash"></i> <%= t :destroy %>
+                <% end %>
+          </div>
+        </div>
+      </td>
+    <td>
+        <%= state_page.workflow_state.title rescue nil %>
+    </td>
+    <td>
+        
+    </td>
+    <td>
+        
+    </td>
+    <td>
+       
+    </td>
+    <td>
+        
+    </td>
+      
+      </tr>
+    <% end %>
+</table>

@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   resources :publications
   resources :carriers
   resources :notification_settings
+  resources :state_pages
   #devise_for :users
   devise_for :users, :controllers => { :registrations => "registrations", sessions: "sessions" }
   devise_scope :user do
@@ -242,4 +243,7 @@ Rails.application.routes.draw do
   match "/carriers/carry/:id" => "carriers#carry", :via => :get
 
   match "/access_groups/search/:id" => "access_groups#search", :via => :get
+
+  get "/state_pages/workflow/:id", to: "state_pages#index"
+  get "/p/:uuid", to: "state_pages#show"
 end

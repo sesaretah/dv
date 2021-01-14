@@ -1,0 +1,17 @@
+<%= form_for(Article.new, html: { class: "card" }) do |f| %>
+<div class="card-header">
+  <h3 class="card-title"><%= t :article %></h3>
+</div>
+<div class='card-body'>
+<% if @state_page.item_title %>
+  <div class="row">
+    <div class="col-md-10">
+      <div class="form-group">
+        <%= f.label :title, class: "form-label" %>
+        <%= f.text_field :title, maxlength: 150, class: "form-control", required: "", oninvalid: "this.setCustomValidity(this.willValidate ? '' :'#{t(:please_enter_data_in_this_field)}')" %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  </div>
+<% end %>

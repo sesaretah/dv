@@ -1,0 +1,15 @@
+<div class='card'>
+    <div class="card-header">
+        <h3 class="card-title"><%= t :state_pages %></h3>
+        <div class="card-options">
+       <%= link_to "/state_pages/new?workflow_id=#{@workflow.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+        <i class="fe fe-plus" style="vertical-align: -3px;"></i> <%= t :new %>
+        <% end %>
+        </div>
+    </div>
+
+    <div class="card-body">
+    <%= render partial: "state_pages/list", locals: { state_pages: @state_pages, workflow: @workflow } %>
+    </div>
+</div>
+

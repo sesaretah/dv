@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201229131146) do
+ActiveRecord::Schema.define(version: 20210114085644) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -187,10 +187,12 @@ ActiveRecord::Schema.define(version: 20201229131146) do
     t.integer  "published_via",       limit: 4
     t.string   "publish_uuid",        limit: 255
     t.boolean  "pdf_generated"
+    t.string   "trial_uuid",          limit: 255
   end
 
   add_index "articles", ["publish_uuid"], name: "index_articles_on_publish_uuid", using: :btree
   add_index "articles", ["slug"], name: "slug", using: :btree
+  add_index "articles", ["trial_uuid"], name: "index_articles_on_trial_uuid", using: :btree
   add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
 
   create_table "assignments", force: :cascade do |t|
@@ -633,6 +635,29 @@ ActiveRecord::Schema.define(version: 20201229131146) do
   end
 
   add_index "ssos", ["uuid"], name: "index_ssos_on_uuid", using: :btree
+
+  create_table "state_pages", force: :cascade do |t|
+    t.integer  "workflow_state_id",  limit: 4
+    t.boolean  "item_title"
+    t.boolean  "item_titlings"
+    t.boolean  "item_abstract"
+    t.boolean  "item_url"
+    t.boolean  "item_keywords"
+    t.boolean  "item_datings"
+    t.boolean  "item_typings"
+    t.boolean  "item_speakings"
+    t.boolean  "item_formatings"
+    t.boolean  "item_contributions"
+    t.boolean  "item_kinships"
+    t.boolean  "item_originatings"
+    t.boolean  "item_content"
+    t.boolean  "item_upload"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "uuid",               limit: 255
+  end
+
+  add_index "state_pages", ["uuid"], name: "index_state_pages_on_uuid", using: :btree
 
   create_table "tagging_histories", force: :cascade do |t|
     t.integer  "taggable_id",            limit: 4

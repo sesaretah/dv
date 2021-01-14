@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  workflow_state_id: 1
+  item_title: false
+  item_titlings: false
+  item_abstract: false
+  item_url: false
+  item_keywords: false
+  item_datings: false
+  item_typings: false
+  item_speakings: false
+  item_formatings: false
+  item_contributions: false
+  item_kinships: false
+  item_originatings: false
+  item_content: false
+  item_upload: false
+
+two:
+  workflow_state_id: 1
+  item_title: false
+  item_titlings: false
+  item_abstract: false
+  item_url: false
+  item_keywords: false
+  item_datings: false
+  item_typings: false
+  item_speakings: false
+  item_formatings: false
+  item_contributions: false
+  item_kinships: false
+  item_originatings: false
+  item_content: false
+  item_upload: false

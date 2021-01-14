@@ -1,0 +1,84 @@
+<div id='state_page-form'>
+    <%= form_for StatePage.new, remote: true do |f| %>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="form-label"><%= t :workflow_state %></label>
+                     <%= f.select "workflow_state_id", options_for_select(@workflow.workflow_states.collect { |p| [p.title, p.id] }), {}, { class: "form-control" } %>
+                </div>
+            </div>
+        </div>
+
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_title, class: "form-check-input" %>
+           <%= f.label :item_title, class: "form-check-label" %>
+       </label>
+
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_titlings, class: "form-check-input" %>
+           <%= f.label :item_titlings, class: "form-check-label" %>
+        </label>
+        
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_abstract, class: "form-check-input" %>
+           <%= f.label :item_abstract, class: "form-check-label" %>
+        </label>
+        
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_url, class: "form-check-input" %>
+           <%= f.label :item_url, class: "form-check-label" %>
+        </label>
+        
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_keywords, class: "form-check-input" %>
+           <%= f.label :item_keywords, class: "form-check-label" %>
+        </label>
+        
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_datings, class: "form-check-input" %>
+           <%= f.label :item_datings, class: "form-check-label" %>
+       </label>
+        
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_typings, class: "form-check-input" %>
+           <%= f.label :item_typings, class: "form-check-label" %>
+        </label>
+        
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_speakings, class: "form-check-input" %>
+           <%= f.label :item_speakings, class: "form-check-label" %>
+        </label>
+        
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_formatings, class: "form-check-input" %>
+           <%= f.label :item_formatings, class: "form-check-label" %>
+        </label>
+
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_contributions, class: "form-check-input" %>
+           <%= f.label :item_contributions, class: "form-check-label" %>
+        </label>
+
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_kinships, class: "form-check-input" %>
+           <%= f.label :item_kinships, class: "form-check-label" %>
+        </label>
+
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_originatings, class: "form-check-input" %>
+           <%= f.label :item_originatings, class: "form-check-label" %>
+        </label>
+
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_content, class: "form-check-input" %>
+           <%= f.label :item_content, class: "form-check-label" %>
+        </label>
+
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_upload, class: "form-check-input" %>
+           <%= f.label :item_upload, class: "form-check-label" %>
+        </label>
+
+         <button type="submit" class="btn btn-primary"><%= t :submit %></button>
+    <% end %>
+</div>
