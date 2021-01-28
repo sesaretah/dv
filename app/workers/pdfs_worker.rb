@@ -26,11 +26,11 @@ class PdfsWorker
       end
       article.pdf_generated = true
       article.save
-      for kinship in article.kinships
-        if !Rails.root.blank? && !id.blank? && !kinship.kin.id.blank?
-          system("rm #{Rails.root}/public/pdfs/#{id}/#{kinship.kin.id}.pdf")
-        end
-      end
+      #for kinship in article.kinships
+      #  if !Rails.root.blank? && !id.blank? && !kinship.kin.id.blank?
+      #    system("rm #{Rails.root}/public/pdfs/#{id}/#{kinship.kin.id}.pdf")
+      # end
+      #end
     end
   end
 end
