@@ -88,7 +88,8 @@
       <% i = 1 %>
       <div class="row text-center">
         <div class="col-12">
-          <% for contribution in @article.contributions %>
+        
+          <% for contribution in @article.contributions.drop(1).reverse %>
           <% if !contribution.profile.signature.blank? %>
           <%= image_tag contribution.profile.signature(:medium) %>
           <% if i % 4 == 0 %>
@@ -99,6 +100,20 @@
             <% i += 1 %>
             <% end %>
             <% end %>
+          </div>
+        </div>
+        <div class="row text-center">
+         <div class="col-12">
+          <%= @article.publish_details %>
+          </div>
+        </div>
+
+        <div class="row text-center">
+         <div class="col-12">
+          <% c = @article.contributions.first %>
+          <% if !c.profile.signature.blank? %>
+            <%= image_tag c.profile.signature(:medium) %>
+          <% end %>
           </div>
         </div>
 
