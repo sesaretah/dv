@@ -21,7 +21,9 @@ class PdfsWorker
           system("convert -density 150 #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf #{Rails.root}/public/pdfs/#{id}/#{kinship.kin.id}.pdf #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf")
         end
         for kin_upload in uploads
-          system("convert -density 150 #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf #{kin_upload.attachment.path} #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf")
+          if upload.attachment_content_type == "application/pdf"
+            system("convert -density 150 #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf #{kin_upload.attachment.path} #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf")
+          end
         end
       end
       article.pdf_generated = true
