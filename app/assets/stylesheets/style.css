@@ -75,3 +75,6 @@ audio {
 .pd-compact {
   padding: 0.15rem 0.3rem;
 }
+
+
+.tooltip { pointer-events: none; }
