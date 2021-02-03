@@ -92,7 +92,7 @@
           <% for contribution in @article.contributions.drop(1) %>
           <% if !contribution.profile.signature.blank? %>
           <%= image_tag contribution.profile.signature(:medium) %>
-          <% if i % 5 == 0 %>
+          <% if i % 3 == 0 %>
         </div></div>
         <div class="row text-center">
           <div class="col-12">
