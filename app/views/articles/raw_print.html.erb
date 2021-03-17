@@ -57,6 +57,7 @@
           <%= raw @article.content %>
         </div>
       </div>
+      <% @article_count = @article.kinships.count %>
       <% @article.kinships.group_by(&:article_relation_type_id).each do |k, v| %>
       <% @kins = [] %>
       <% for kinship in v.sort_by!(&:rank) %>
@@ -88,10 +89,14 @@
       <% i = 1 %>
       <div class="row text-center">
         <div class="col-12">
-        
+          <% if @article_count < 6 %>
+            <% @sign_width = "120px" %>
+          <% else %>
+            <% @sign_width = "155px" %>
+          <% end %>
           <% for contribution in @article.contributions.drop(1) %>
           <% if !contribution.profile.signature.blank? %>
-          <%= image_tag contribution.profile.signature(:medium), width: "155px" %>
+          <%= image_tag contribution.profile.signature(:medium), width: @sign_width %>
           <% if i % 5 == 0 %>
         </div></div>
         <div class="row text-center">
@@ -112,7 +117,7 @@
          <div class="col-12">
           <% c = @article.contributions.first %>
           <% if !c.profile.signature.blank? %>
-            <%= image_tag c.profile.signature(:medium), width: "155px" %>
+            <%= image_tag c.profile.signature(:medium), width: @sign_width %>
           <% end %>
           </div>
         </div>
