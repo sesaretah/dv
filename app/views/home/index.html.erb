@@ -1,5 +1,5 @@
 <div class="row row-cards">
-  <div class="col-lg-9">
+  <div class="col-lg-10">
     <div class="card">
       <div class="card-header">
         <i class="fe fe-feather"></i>&nbsp&nbsp<%= t :dashboard %>
@@ -18,6 +18,34 @@
 
                 <% end %>
                 <% end %>
+
+            </div>            
+            </div>
+
+            <div class="dropdown ml-2" >
+            <button type="button" class="btn btn-secondary dropdown-toggle" style="font-size: 10px;" data-toggle="dropdown">
+              <%= t :view %>
+            </button>
+            <div class="dropdown-menu" style="right: 0px !important;">
+                <%= link_to "/home?archived=0", id: "all", class: "dropdown-item pd-compact" do %>
+                  <% if @home_setting.archived == 0 %>
+                    <i class="fe fe-check" style="vertical-align:-3px;"></i>
+                  <% end %>
+                  <span id='pp-value'><%= t :all %></span>
+                <% end %>
+                <%= link_to "/home?archived=1", id: "archived", class: "dropdown-item pd-compact" do %>
+                  <% if @home_setting.archived == 1 %>
+                    <i class="fe fe-check" style="vertical-align:-3px;"></i>
+                  <% end %>
+                  <span id='pp-value'><%= t :archived %></span>
+                <% end %>
+                <%= link_to "/home?archived=-1", id: "unarchived", class: "dropdown-item pd-compact" do %>
+                  <% if @home_setting.archived == -1 %>
+                    <i class="fe fe-check" style="vertical-align:-3px;"></i>
+                  <% end %>
+                  <span id='pp-value'><%= t :unarchived %></span>
+                <% end %>
+
 
             </div>            
             </div>
@@ -92,9 +120,9 @@
     </div>
 
   </div>
-  <div class="col-lg-3">
+  <div class="col-lg-2">
 
-      <div class="card p-3">
+      <div class="card p-3 pr-2">
       <a href='/articles/new'>
       <div class="d-flex align-items-center">
         <span class="stamp stamp-md bg-green mr-3">
@@ -108,7 +136,7 @@
       </a>
     </div>
 
-    <div class="card p-3">
+    <div class="card p-3 pr-2">
       <div class="d-flex align-items-center">
         <span class="stamp stamp-md bg-blue mr-3">
           <i class="fe fe-feather" style='vertical-align:-3px'></i>
@@ -119,7 +147,7 @@
         </div>
       </div>
     </div>
-
+<!--
     <div class="card">
       <div class="card-header">
         <i class="fe fe-bell"></i>&nbsp&nbsp<%= t :notifications %>
@@ -140,6 +168,6 @@
           </tbody>
       </table>
     </div>
-
+-->
   </div>
 </div>

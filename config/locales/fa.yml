@@ -473,7 +473,7 @@ fa:
   agree: 'موافق'
   abstention: 'ممتنع'
   oppose: 'مخالف'
-  article_attachment: 'ضمائم نامشخص'
+  article_attachment: 'نامشخص'
   article_citation: 'مستندات'
   article_documents: 'پیوست ها'
   start_date: 'تاریخ شروع'
@@ -804,6 +804,10 @@ fa:
   new_article_published: 'اطلاع رسانی ابلاغ'
   state_pages: 'کاربرگه ها'
   state_page: 'کاربرگه'
+  archive: 'بایگانی شود'
+  unarchive: 'از بایگانی خارج شود'
+  unarchived: 'بایگانی نشده'
+  archived: 'بایگانی شده'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

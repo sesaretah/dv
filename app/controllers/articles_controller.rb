@@ -1,10 +1,22 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print, :change_workflow, :make_a_copy, :article_publishable, :change_access_group, :sectioned_form, :raw_print, :content_form , :set_note_template, :add_access_group, :remove_access_group, :raw_single_print]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :article_descriptors, :article_related_dates, :article_other_details, :article_contributions, :article_relations, :send_to, :refund_to, :workflow_transitions, :article_detail, :article_logs, :compare, :article_states, :article_comments, :print, :change_workflow, :make_a_copy, :article_publishable, :change_access_group, 
+    :sectioned_form, :raw_print, :content_form , :set_note_template, :add_access_group, :remove_access_group, :raw_single_print,
+    :archive, :unarchive
+  ]
+
+  def archive
+    @article.archived = true
+    @article.save
+  end 
+
+  def unarchive
+    @article.archived = false
+    @article.save
+  end 
+
 
   def add_access_group
     if !params[:access_group_id].blank?
-      p params[:notify]
-      p '######'
       @access_grouping = AccessGrouping.where(article_id: @article.id, access_group_id: params[:access_group_id]).first
       if @access_grouping.blank?
         @access_grouping = AccessGrouping.create(article_id: @article.id, access_group_id: params[:access_group_id], notify: params[:notify])

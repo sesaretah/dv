@@ -177,11 +177,15 @@ class HomeController < ApplicationController
   def home_setting_builder
     home_setting = current_user.home_setting
     if home_setting.blank?
-      home_setting = HomeSetting.create(user_id: current_user.id, pp: 5, workflow_state: -1, sort: "-position DESC", workflow: -1)
+      home_setting = HomeSetting.create(user_id: current_user.id, pp: 5, workflow_state: -1, sort: "-position DESC", workflow: -1, archived: 0)
     end
     home_setting.pp.blank? && params[:pp].blank? ? pp = 5 : pp = params[:pp]
     if !params[:pp].blank? && home_setting.pp != pp
       home_setting.pp = pp
+    end
+    home_setting.archived.blank? && params[:archived].blank? ? archived = 0 : archived = params[:archived]
+    if !params[:archived].blank? && home_setting.archived != archived
+      home_setting.archived = archived
     end
     home_setting.workflow_state.blank? && params[:workflow_state].blank? ? workflow_state = -1 : workflow_state = params[:workflow_state]
     if !params[:workflow_state].blank? && home_setting.workflow_state != workflow_state

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210114085644) do
+ActiveRecord::Schema.define(version: 20210326075640) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -188,6 +188,7 @@ ActiveRecord::Schema.define(version: 20210114085644) do
     t.string   "publish_uuid",        limit: 255
     t.boolean  "pdf_generated"
     t.string   "trial_uuid",          limit: 255
+    t.boolean  "archived"
   end
 
   add_index "articles", ["publish_uuid"], name: "index_articles_on_publish_uuid", using: :btree
@@ -323,6 +324,7 @@ ActiveRecord::Schema.define(version: 20210114085644) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "workflow",       limit: 4
+    t.integer  "archived",       limit: 4
   end
 
   create_table "interconnects", force: :cascade do |t|

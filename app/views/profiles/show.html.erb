@@ -3,14 +3,16 @@
     <div class="card card-profile">
       <div class="card-header" style="background-color: #3e668a;"></div>
       <div class="card-body text-center">
-        <img class="card-profile-img" src="<%= @profile.avatar(:medium)%>">
-        <h3 class="mb-3"><%= @profile.fullname%></h3>
+        <img class="card-profile-img" src="<%= @profile.avatar(:medium) %>">
+        <h3 class="mb-3"><%= @profile.fullname %></h3>
         <p class="mb-4">
 
         </p>
-        <button class="btn btn-outline-primary btn-sm">
-
-        </button>
+        <% if @profile.id == current_user.profile.id || grant_access("alter_profiles", current_user) %>
+        <a href='/profiles/<%= @profile.id %>/edit' class="btn btn-outline-primary btn-sm">
+        <%= t :edit %>
+        </a>
+        <% end %>
       </div>
     </div>
   </div>
@@ -19,16 +21,16 @@
       <div class="card-header">
         <div class="card-options">
           <%= link_to "/profiles/contributions/#{@profile.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-          <i class="fe fe-book-open" style="vertical-align: -3px;"></i> <%=t :contributed_articles%>
-          <%end%>
+          <i class="fe fe-book-open" style="vertical-align: -3px;"></i> <%= t :contributed_articles %>
+          <% end %>
     
             <%= link_to "/profiles/profile_details/#{@profile.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-              <i class="fe fe-play" style="vertical-align: -3px;"></i> <%=t :profile_details%>
-            <%end%>
+              <i class="fe fe-play" style="vertical-align: -3px;"></i> <%= t :profile_details %>
+            <% end %>
         </div>
       </div>
       <div id='profile-show'>
-        <%= render partial: 'profiles/profile_details', locals: {profile: @profile}%>
+        <%= render partial: "profiles/profile_details", locals: { profile: @profile } %>
       </div>
     </div>
   </div>

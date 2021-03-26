@@ -1,0 +1,11 @@
+<div id='archive' class="alert alert-warning" role="alert">
+<% if !article.archived %>
+    <%= link_to "/articles/archive/#{article.id}", remote: true, class: "alert-warning fs-12" do %>
+        <i class="fa fa-archive" style="vertical-align: -1px;"></i> <%= t :archive %>
+    <% end %>
+<% else %>
+    <%= link_to "/articles/unarchive/#{article.id}", remote: true, class: "alert-warning fs-12" do %>
+        <i class="fa fa-archive" style="vertical-align: -1px;"></i> <%= t :unarchive %>
+    <% end %>
+<% end %>
+</div>

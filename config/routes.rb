@@ -115,6 +115,8 @@ Rails.application.routes.draw do
   match "/articles/remove_access_group/:id" => "articles#remove_access_group", :via => :get
   match "/articles/pdf_generate/:id" => "articles#pdf_generate", :via => :get
   match "/articles/raw_single_print/:id" => "articles#raw_single_print", :via => :get
+  match "/articles/archive/:id" => "articles#archive", :via => :get
+  match "/articles/unarchive/:id" => "articles#unarchive", :via => :get
 
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
   match "/workflows/role_accesses/:id" => "workflows#role_accesses", :via => :get

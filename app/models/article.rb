@@ -104,11 +104,22 @@ class Article < ActiveRecord::Base
 
   def self.in_dashboard(user, home_setting)
     home_setting.sort.blank? ? order = "created_at" : order = "#{home_setting.sort}"
+
+    archived = "archived is NULL or archived = 1 or archived = 0" if home_setting.archived.blank? || home_setting.archived == 0
+    archived = "archived is NULL or archived = 0" if home_setting.archived == -1
+    archived = "archived = 1" if home_setting.archived == 1
+
     home_setting.workflow_state == -1 ? workflow_state_sql = "" : workflow_state_sql = "and id = #{home_setting.workflow_state}"
     home_setting.workflow == -1 ? workflow_sql = "" : workflow_sql = "and workflow_id = #{home_setting.workflow}"
     role_ids = user.roles.pluck(:id)
     workflow_state_ids = WorkflowState.where("role_id in (?) #{workflow_state_sql} #{workflow_sql}", role_ids).pluck(:id)
-    articles = self.where("workflow_state_id in (?)", workflow_state_ids).order(order)
+
+    if order == "coming ASC" || order == "coming DESC"
+      articles = self.where("workflow_state_id in (?) and #{archived}", workflow_state_ids).sort_by { |obj| obj.workflow_transitions.last.created_at rescue Time.now } if order == "coming ASC"
+      articles = self.where("workflow_state_id in (?)  and #{archived}", workflow_state_ids).sort_by { |obj| -obj.workflow_transitions.last.created_at rescue Time.now } if order == "coming DESC"
+    else
+      articles = self.where("workflow_state_id in (?)  and #{archived}", workflow_state_ids).order(order)
+    end
     return articles
   end
 

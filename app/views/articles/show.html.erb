@@ -19,6 +19,11 @@
 
       </div>
     </div>
+
+    <% if article_owner(@article, current_user) %>
+       <%= render partial: "articles/article_archive", locals: { article: @article } %>
+    <% end %>
+
       <div class="example mt-4">
     <span class="text-muted small"><%= t :download_word_file %></span>
     <%= select_tag :word_template, options_for_select(@article.workflow_state.workflow.word_templates.all.collect { |p| [p.title, p.id] }), { include_blank: true, class: "form-control" } %>
@@ -36,7 +41,7 @@
   <div class="card">
     <div class="card-header">
       <div class="card-options">
-        <% if (!@article.workflow_state.blank? && @article.workflow_state.publishable == 2) || !@article.publish_uuid.blank?%>
+        <% if (!@article.workflow_state.blank? && @article.workflow_state.publishable == 2) || !@article.publish_uuid.blank? %>
         <%= link_to "/articles/article_publishable/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
         <i class="fe fe-book-open" style="vertical-align: -3px;"></i> <%= t :publish %>
         <% end %>

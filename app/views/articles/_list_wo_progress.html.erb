@@ -2,126 +2,135 @@
   <table class="table table-hover table-outline table-vcenter text-nowrap"  id='article-list'>
     <thead>
       <tr class='fs-10'>
-        <th class="text-center w-1"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
-        <th>
-        <%=link_to '/home?pp='+params[:pp].to_s+'&sort=-position DESC' do%>
+        <th class="text-center w-1">
+        <%= link_to "/home?pp=" + params[:pp].to_s + "&sort=coming ASC" do %>
         <i class="fa fa-arrow-down" aria-hidden="true"></i>
-        <%end%>
-        <%=t :position%>
-        <%=link_to '/home?pp='+params[:pp].to_s+'&sort=position DESC' do%>
+        <% end %>
+        <i class="fe fe-command" style="vertical-align: -4px;"></i>
+        <%= link_to "/home?pp=" + params[:pp].to_s + "&sort=coming DESC" do %>
         <i class="fa fa-arrow-up" aria-hidden="true"></i>
-        <%end%>
+        <% end %>
         </th>
+
         <th>
-        <%=link_to '/home?pp='+params[:pp].to_s+'&sort=title ASC' do%>
+        <%= link_to "/home?pp=" + params[:pp].to_s + "&sort=title ASC" do %>
         <i class="fa fa-arrow-down" aria-hidden="true"></i>
-        <%end%>
-        <%=t :title%>
-        <%=link_to '/home?pp='+params[:pp].to_s+'&sort=title DESC' do%>
+        <% end %>
+        <%= t :title %>
+        <%= link_to "/home?pp=" + params[:pp].to_s + "&sort=title DESC" do %>
         <i class="fa fa-arrow-up" aria-hidden="true"></i>
-        <%end%>
+        <% end %>
         </th>
         <th><i class="fa fa-inbox" aria-hidden="true"></i></th>
-        <th><%=t :workflow_state %></th>
-        <th><%=t :came_from %></th>
+        <th><%= t :workflow_state %></th>
+        <th><%= t :came_from %></th>
+                <th>
+        <%= link_to "/home?pp=" + params[:pp].to_s + "&sort=-position DESC" do %>
+        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        <% end %>
+        <%= t :position %>
+        <%= link_to "/home?pp=" + params[:pp].to_s + "&sort=position DESC" do %>
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        <% end %>
+        </th>
       </tr>
     </thead>
     <tbody>
-    <% arr = []%>
-    <% for article in articles%>
-     <% arr << article.id%>
-    <%end%>
-      <% for article in articles%>
-      
+    <% arr = [] %>
+    <% for article in articles %>
+     <% arr << article.id %>
+    <% end %>
+      <% for article in articles %>
+      <% access_groupings = AccessGrouping.where(article_id: article.id) %>
 
-      <tr>
-        <td class="text-center">
+      <tr <% if access_groupings.length > 0 %> class='bg-grass'<% end %> >
+        <td class="text-center <% if article.archived %> bg-beige <% end %>" >
           <div class="item-action dropdown">
             <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="/articles/<%= article.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
-              <% if article_owner(article, current_user)%>
-              <a href="/articles/<%= article.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
-              <% if article.start_section != ''%><a href="/articles/sectioned_form/<%= article.id%>?section_id=<%= article.start_section%>" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :sectioned_form%> </a><%end%>
-              <%= link_to article, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
-              <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
-              <%end%>
-              <%end%>
+              <a href="/articles/<%= article.id %>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%= t :show %> </a>
+              <% if article_owner(article, current_user) %>
+              <a href="/articles/<%= article.id %>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%= t :edit %> </a>
+              <% if article.start_section != "" %><a href="/articles/sectioned_form/<%= article.id %>?section_id=<%= article.start_section %>" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%= t :sectioned_form %> </a><% end %>
+              <%= link_to article, method: :delete, class: "dropdown-item", data: { confirm: "Are you sure?" } do %>
+              <i class="dropdown-icon fe fe-trash"></i> <%= t :destroy %>
+              <% end %>
+              <% end %>
               <div class="dropdown-divider"></div>
-              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> <%=t :copy_aoi%></a>
+              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> <%= t :copy_aoi %></a>
             </div>
           </div>
         </td>
-        <td>
 
 
-        </th>
-        <% index = arr.index(article.id)%>
-        <% if index > 0 %>
-        <%previous = arr[index - 1] %>
-        <%end%>
-        <% if index != (arr.length - 1)%>
-        <% nex = arr[index + 1] %>
-        <%end%>
-        <% if !previous.blank?%>
-        <%=link_to "/home/swap?source=#{article.id}&target=#{previous}&move=up" do%>
-        <i class="fa fa-arrow-up" aria-hidden="true"></i>
-        <%end%>
-        <% end%>
-         <%= editable article, :position %>
-        <% if !nex.blank? && !article.position.blank?%>
-        <%=link_to "/home/swap?source=#{article.id}&target=#{nex}&move=down" do%>
-        <i class="fa fa-arrow-down" aria-hidden="true"></i>
-        <%end%>
-        <%end%>
-        </td>
         <td>
-          <div class='small' data-toggle="tooltip" data-placement="top" title="<%= article.title%>"><%= link_to truncate(article.title, length: 40), article%></div>
+          <div class='small fw-800' data-toggle="tooltip" data-placement="top" title="<%= article.title %>"><%= link_to truncate(article.title, length: 60), article %></div>
           <div class="small text-muted">
-            <% if !article.titlings.first.blank?%>
-              <%= truncate(article.titlings.first.content, length: 45)%>
-            <%end%>
+            <% if !article.titlings.first.blank? %>
+              <%= truncate(article.titlings.first.content, length: 45) %>
+            <% end %>
           </div>
         </td>
         <td>
         <% if article.workflow_state.is_votable %>
-        <% vote = Vote.is_voted(current_user, article)%>
-        <% if !vote.blank?%>
-        <%=raw vote.icon %>
-        <%end%>
-        <%end%>
+        <% vote = Vote.is_voted(current_user, article) %>
+        <% if !vote.blank? %>
+        <%= raw vote.icon %>
+        <% end %>
+        <% end %>
         </td>
         <td>
-          <% if article.workflow_state%>
+          <% if article.workflow_state %>
           <div class="small text-muted">
-            <%= truncate(article.workflow_state.workflow.title, length: 30)%>
+            <%= truncate(article.workflow_state.workflow.title, length: 30) %>
           </div>
           <div style="font-size:smaller;">
-            <%= truncate(article.workflow_state.title, length: 30)%>
+            <%= truncate(article.workflow_state.title, length: 30) %>
           </div>
-          <%else%>
-          <div class="small text-muted"><i class="fe fe-alert-triangle" style="vertical-align:-3px;"></i> <%=t :without_workflow%></div>
-          <%end%>
+          <% else %>
+          <div class="small text-muted"><i class="fe fe-alert-triangle" style="vertical-align:-3px;"></i> <%= t :without_workflow %></div>
+          <% end %>
         </td>
         <td>
-          <% @previous_workflow_transition = WorkflowTransition.where(workflow_id: article.workflow_state.workflow.id, to_state_id: article.workflow_state_id, article_id: article.id).last%>
-          <% if !@previous_workflow_transition.blank?%>
-            <%@user = User.find_by_id(@previous_workflow_transition.user_id)%>
-            <% if !@user.blank?%>
-              <%= raw @user.profile.profile_tag%>
-            <%end%>
-          <%end%>
+          <% @previous_workflow_transition = WorkflowTransition.where(workflow_id: article.workflow_state.workflow.id, to_state_id: article.workflow_state_id, article_id: article.id).last %>
+          <% if !@previous_workflow_transition.blank? %>
+            <% @user = User.find_by_id(@previous_workflow_transition.user_id) %>
+            <% if !@user.blank? %>
+              <%= raw @user.profile.profile_tag %>
+            <% end %>
+          <% end %>
+        </td>
+
+                <td>
+        <% index = arr.index(article.id) %>
+        <% if index > 0 %>
+        <% previous = arr[index - 1] %>
+        <% end %>
+        <% if index != (arr.length - 1) %>
+        <% nex = arr[index + 1] %>
+        <% end %>
+        <% if !previous.blank? %>
+        <%= link_to "/home/swap?source=#{article.id}&target=#{previous}&move=up" do %>
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        <% end %>
+        <% end %>
+         <%= editable article, :position %>
+        <% if !nex.blank? && !article.position.blank? %>
+        <%= link_to "/home/swap?source=#{article.id}&target=#{nex}&move=down" do %>
+        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        <% end %>
+        <% end %>
         </td>
 
       </tr>
      
-      <%end%>
+      <% end %>
     </tbody>
   </table>
 </div>
-<% if defined?(articles.total_pages)%>
+<% if defined?(articles.total_pages) %>
 <hr class="mb-0 mt-2"/>
 <div class="digg_pagination  mb-2 mt-2 mr-auto ml-auto">
   <%= will_paginate articles, :container => false %>
 </div>
-<%end%>
+<% end %>

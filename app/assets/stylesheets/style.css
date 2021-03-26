@@ -78,3 +78,23 @@ audio {
 
 
 .tooltip { pointer-events: none; }
+
+.pr-5 {
+  padding-right: 5px  !important;
+}
+
+.pr-2 {
+  padding-right: 2px  !important;
+}
+
+.fw-800 {
+  font-weight: 800 !important;
+}
+
+.bg-beige {
+  background-color: beige;
+}
+
+.bg-grass {
+  background-color: #e3fbec;
+}
