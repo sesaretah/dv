@@ -119,11 +119,6 @@ class Article < ActiveRecord::Base
       articles = self.find_by_sql("SELECT * FROM `articles` INNER JOIN `workflow_transitions` ON `workflow_transitions`.`article_id` = `articles`.`id` WHERE (workflow_state_id in (#{workflow_state_ids.join(",")}) and #{archived}) GROUP BY articles.id ORDER BY workflow_transitions.created_at asc", workflow_state_ids) if order == "coming ASC"
       #articles = self.where("workflow_state_id in (?) and #{archived}", workflow_state_ids).sort { |obj| obj.workflow_transitions.last.created_at rescue Time.now } if order == "coming ASC"
       #articles = self.where("workflow_state_id in (?)  and #{archived}", workflow_state_ids).sort { |obj| -obj.workflow_transitions.last.created_at rescue Time.now } if order == "coming DESC"
-
-      p "@@@@&&@@@"
-      p order
-      p workflow_state_ids
-      p articles.first.id
     else
       articles = self.where("workflow_state_id in (?)  and #{archived}", workflow_state_ids).order(order)
     end
