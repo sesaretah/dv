@@ -115,10 +115,12 @@ class Article < ActiveRecord::Base
     workflow_state_ids = WorkflowState.where("role_id in (?) #{workflow_state_sql} #{workflow_sql}", role_ids).pluck(:id)
 
     if order == "coming ASC" || order == "coming DESC"
-      articles = self.where("workflow_state_id in (?) and #{archived}", workflow_state_ids).sort_by { |obj| obj.workflow_transitions.last.created_at rescue Time.now } if order == "coming ASC"
-      articles = self.where("workflow_state_id in (?)  and #{archived}", workflow_state_ids).sort_by { |obj| -obj.workflow_transitions.last.created_at rescue Time.now } if order == "coming DESC"
+      articles = self.find_by_sql("SELECT  * FROM `articles` INNER JOIN `workflow_transitions` ON `workflow_transitions`.`article_id` = `articles`.`id` WHERE (workflow_state_id in (#{workflow_state_ids.join(",")}) and #{archived}) GROUP BY articles.id ORDER BY workflow_transitions.created_at desc") if order == "coming DESC"
+      articles = self.find_by_sql("SELECT * FROM `articles` INNER JOIN `workflow_transitions` ON `workflow_transitions`.`article_id` = `articles`.`id` WHERE (workflow_state_id in (#{workflow_state_ids.join(",")}) and #{archived}) GROUP BY articles.id ORDER BY workflow_transitions.created_at asc", workflow_state_ids) if order == "coming ASC"
+      #articles = self.where("workflow_state_id in (?) and #{archived}", workflow_state_ids).sort { |obj| obj.workflow_transitions.last.created_at rescue Time.now } if order == "coming ASC"
+      #articles = self.where("workflow_state_id in (?)  and #{archived}", workflow_state_ids).sort { |obj| -obj.workflow_transitions.last.created_at rescue Time.now } if order == "coming DESC"
 
-      p "@@@@@@@"
+      p "@@@@&&@@@"
       p order
       p workflow_state_ids
       p articles.first.id
