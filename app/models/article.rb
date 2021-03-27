@@ -115,10 +115,34 @@ class Article < ActiveRecord::Base
     workflow_state_ids = WorkflowState.where("role_id in (?) #{workflow_state_sql} #{workflow_sql}", role_ids).pluck(:id)
 
     if order == "coming ASC" || order == "coming DESC"
-      articles = self.find_by_sql("SELECT  * FROM `articles` INNER JOIN `workflow_transitions` ON `workflow_transitions`.`article_id` = `articles`.`id` WHERE (workflow_state_id in (#{workflow_state_ids.join(",")}) and #{archived}) GROUP BY articles.id ORDER BY workflow_transitions.created_at desc") if order == "coming DESC"
-      articles = self.find_by_sql("SELECT * FROM `articles` INNER JOIN `workflow_transitions` ON `workflow_transitions`.`article_id` = `articles`.`id` WHERE (workflow_state_id in (#{workflow_state_ids.join(",")}) and #{archived}) GROUP BY articles.id ORDER BY workflow_transitions.created_at asc", workflow_state_ids) if order == "coming ASC"
-      #articles = self.where("workflow_state_id in (?) and #{archived}", workflow_state_ids).sort { |obj| obj.workflow_transitions.last.created_at rescue Time.now } if order == "coming ASC"
-      #articles = self.where("workflow_state_id in (?)  and #{archived}", workflow_state_ids).sort { |obj| -obj.workflow_transitions.last.created_at rescue Time.now } if order == "coming DESC"
+      #articles = self.find_by_sql("SELECT  * FROM `articles` INNER JOIN `workflow_transitions` ON `workflow_transitions`.`article_id` = `articles`.`id` WHERE (workflow_state_id in (#{workflow_state_ids.join(",")}) and #{archived}) GROUP BY articles.id ORDER BY workflow_transitions.created_at desc") if order == "coming DESC"
+      #articles = self.find_by_sql("SELECT * FROM `articles` INNER JOIN `workflow_transitions` ON `workflow_transitions`.`article_id` = `articles`.`id` WHERE (workflow_state_id in (#{workflow_state_ids.join(",")}) and #{archived}) GROUP BY articles.id ORDER BY workflow_transitions.created_at asc", workflow_state_ids) if order == "coming ASC"
+      articles = self.where("workflow_state_id in (?) and #{archived}", workflow_state_ids) #if order == "coming ASC"
+      #articles = self.where("workflow_state_id in (?)  and #{archived}", workflow_state_ids) if order == "coming DESC"
+      last_transitions = []
+      for article in articles
+        if !article.workflow_transitions.last.blank?
+          last_transitions << { id: article.id, transition_id: article.workflow_transitions.last.id, time: article.workflow_transitions.last.created_at }
+        else
+          last_transitions << { id: article.id, transition_id: nil, time: Time.now }
+        end
+      end
+      if order == "coming ASC"
+        last_transitions = last_transitions.sort_by { |hsh| hsh[:time] }
+      else
+        last_transitions = last_transitions.sort_by { |hsh| hsh[:time] }.reverse
+      end
+      articles = []
+      for last_transition in last_transitions
+        p "&&&&&"
+        p last_transition
+        if !last_transition[:transition_id].blank?
+          transition = WorkflowTransition.find(last_transition[:transition_id])
+          articles << transition.article
+        else
+          articles << Article.find(last_transition[:id])
+        end
+      end
     else
       articles = self.where("workflow_state_id in (?)  and #{archived}", workflow_state_ids).order(order)
     end
