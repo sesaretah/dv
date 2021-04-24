@@ -5,16 +5,16 @@
         <div class="card">
           <div class="card-body">
             <div class="text-center">
-              <% if grant_access("alter_publishers", current_user)%>
-                <%= link_to  new_publisher_url, class: "btn btn-lime  btn-sm" do%>
-                  <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
-                <%end%>
-              <%end%>
+              <% if grant_access("alter_publishers", current_user) %>
+                <%= link_to new_publisher_url, class: "btn btn-lime  btn-sm" do %>
+                  <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%= t :new %>
+                <% end %>
+              <% end %>
 
                           <div class="text-center mt-2">
-              <%= link_to  '/publishers/mergerer/1', class: "btn btn-orange  btn-sm" do%>
-              <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :merge%>
-              <%end%>
+              <%= link_to "/publishers/mergerer/1", class: "btn btn-orange  btn-sm" do %>
+              <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%= t :merge %>
+              <% end %>
             </div>
             </div>
           </div>
@@ -27,17 +27,17 @@
   <div class="col-lg-9">
     <div class="card">
       <div class="card-header">
-        <%=t :publishers%>
+        <%= t :publishers %>
       </div>
       <div class='table-responsive'>
         <table class="table table-hover table-outline table-vcenter text-nowrap">
         <thead>
           <tr>
             <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
-            <th><%=t :title%></th>
-            <th><%=t :articles %></th>
-            <th><%=t :last_editor %></th>
-            <th><%=t :last_edit %></th>
+            <th><%= t :title %></th>
+            <th><%= t :articles %></th>
+            <th><%= t :last_editor %></th>
+            <th><%= t :last_edit %></th>
           </tr>
         </thead>
         <tbody>
@@ -47,13 +47,13 @@
               <div class="item-action dropdown">
                 <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a href="/publishers/<%= publisher.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
-                  <% if grant_access("alter_publishers", current_user)%>
-                    <a href="/publishers/<%= publisher.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
-                    <%= link_to publisher, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
-                      <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
-                    <%end%>
-                  <%end%>
+                  <a href="/publishers/<%= publisher.id %>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%= t :show %> </a>
+                  <% if grant_access("alter_publishers", current_user) %>
+                    <a href="/publishers/<%= publisher.id %>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%= t :edit %> </a>
+                    <%= link_to publisher, method: :delete, class: "dropdown-item", data: { confirm: "Are you sure?" } do %>
+                      <i class="dropdown-icon fe fe-trash"></i> <%= t :destroy %>
+                    <% end %>
+                  <% end %>
                 </div>
               </div>
             </td>
@@ -65,16 +65,18 @@
               </div>
             </td>
             <td>
+            <% if !publisher.user.blank? && !publisher.user.profile.blank? %>
               <span class="tag" style='vertical-align: -3px;'>
-                <span class="tag-avatar avatar" style="background-image: url('<%= publisher.user.profile.avatar(:tiny)%>')"></span>
-                <%= truncate(publisher.user.profile.fullname, length: 35)%>
+                <span class="tag-avatar avatar" style="background-image: url('<%= publisher.user.profile.avatar(:tiny) %>')"></span>
+                <%= truncate(publisher.user.profile.fullname, length: 35) %>
               </span>
+              <% end %>
             </td>
             <td>
               <small class="text-muted">
                 <span>
-                  <% @jalali = JalaliDate.to_jalali(publisher.updated_at)%>
-                  <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
+                  <% @jalali = JalaliDate.to_jalali(publisher.updated_at) %>
+                  <%= @jalali.year %>/<%= @jalali.month %>/<%= @jalali.day %>
                 </span>
               </small>
             </td>

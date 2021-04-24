@@ -3,26 +3,26 @@
     <table class="table card-table table-striped table-vcenter">
       <thead>
         <tr>
-          <th><%=t :title%></th>
-          <th><%=t :source%></th>
-          <th><%=t :location%></th>
+          <th><%= t :title %></th>
+          <th><%= t :source %></th>
+          <th><%= t :location %></th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <% for publication in article.publications%>
+        <% for publication in article.publications %>
         <tr>
-        <td><%= publication.publisher.title%></td>
-        <td><%= publication.publish_source.title rescue nil%></td>
-        <td><%= publication.location.title%></td>
-        <td><%= publication.pp%></td>
+        <td><%= publication.publisher.title %></td>
+        <td><%= publication.publish_source.title rescue nil %></td>
+        <td><%= publication.location.title rescue nil %></td>
+        <td><%= publication.pp %></td>
           <td class="">
-            <%= link_to publication, method: :delete, remote: true, data: { confirm: "#{t(:are_you_sure_?)}" } do%>
+            <%= link_to publication, method: :delete, remote: true, data: { confirm: "#{t(:are_you_sure_?)}" } do %>
               <i class="fe fe-trash"></i>
-            <%end%>
+            <% end %>
           </td>
         </tr>
-        <%end%>
+        <% end %>
       </tbody>
     </table>
   </div>

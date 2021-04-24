@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210326075640) do
+ActiveRecord::Schema.define(version: 20210424151608) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -189,6 +189,7 @@ ActiveRecord::Schema.define(version: 20210326075640) do
     t.boolean  "pdf_generated"
     t.string   "trial_uuid",          limit: 255
     t.boolean  "archived"
+    t.integer  "external_id",         limit: 4
   end
 
   add_index "articles", ["publish_uuid"], name: "index_articles_on_publish_uuid", using: :btree
@@ -525,6 +526,7 @@ ActiveRecord::Schema.define(version: 20210326075640) do
     t.string   "signature_content_type", limit: 255
     t.integer  "signature_file_size",    limit: 8
     t.datetime "signature_updated_at"
+    t.integer  "personnel_code",         limit: 4
   end
 
   create_table "publications", force: :cascade do |t|

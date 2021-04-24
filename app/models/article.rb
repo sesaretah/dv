@@ -151,4 +151,85 @@ class Article < ActiveRecord::Base
 
   def other_title
   end
+
+  def self.get_from_rtis(personnel_code, workflow_state_id)
+    query = {
+      "type" => "article",
+    }
+    headers = {
+      "Authorization" => "Token 4a9b1de1dafb75406eed1ac19d3d74ed740c7a5c",
+    }
+
+    result = HTTParty.get(
+      "http://rtis2.ut.ac.ir/api/faculty/25818/export?",
+      :query => query,
+      :headers => headers,
+    )
+    #Article.where(workflow_state_id: 152).destroy_all
+
+    results = result.parsed_response
+    for result in results
+      # title
+      if !result["paper_title_fa"].blank?
+        title =  UnicodeFixer.fix(result["paper_title_fa"])
+        other_title =  UnicodeFixer.fix(result["paper_title_en"])
+      else
+        other_title =  UnicodeFixer.fix(result["paper_title_fa"])
+        title =  UnicodeFixer.fix(result["paper_title_en"])
+      end
+      if !result["paper_web_address"].blank? && result["paper_web_address"].length < 250
+        url = result["paper_web_address"]
+      else
+        url = ""
+      end
+
+      article = Article.create(title: title, url: url, workflow_state_id: workflow_state_id, slug: SecureRandom.hex(4), external_id:result["id"] )
+      if !other_title.blank?
+        Titling.create(title_type_id: TitleType.first.id, article_id: article.id, content: other_title)
+      end
+
+      Dating.create(article_id: article.id, article_event_id: 5, event_date: Date.parse(result["publication_date"]))
+      language = 1
+      language = 2 if result["language_type"] == "انگلیسی"
+      Speaking.create(article_id: article.id, language_id: language)
+      
+      # Publication
+      publisher = Publisher.where(title:  UnicodeFixer.fix(result["journal_name"]["title_en"])).first
+      if publisher.blank?
+        publisher = Publisher.create(title:  UnicodeFixer.fix(result["journal_name"]["title_en"]))
+      end
+      if !result["publication_country"].blank? && !result["publication_country"]["name_fa"].blank?
+        location = Location.where(title:  UnicodeFixer.fix(result["publication_country"]["name_fa"])).first
+        if location.blank?
+          location = Location.create(title:  UnicodeFixer.fix(result["publication_country"]["name_fa"]))
+        end
+      end
+
+      if location.blank?
+        Publication.create(article_id: article.id, publisher_id: publisher.id, pp: "vol " + result["period_volume"] + "no. " + result["journal_number"] + "pp. " + result["page_number"])
+      else
+        Publication.create(article_id: article.id, publisher_id: publisher.id, location_id: location.id, pp: "vol " + result["period_volume"] + "no. " + result["journal_number"] + "pp. " + result["page_number"])
+      end
+
+      # Contributors
+      role = Role.where(title: 'پدیدآور').first
+      if role.blank?
+        role = Role.create(title: 'پدیدآور')
+      end
+
+      if !result["contributors"].blank?
+        p result["contributors"]
+        for item in result["contributors"]
+          p item 
+          if !item["profile"]["personnel_code"].blank?
+            profile = Profile.where(personnel_code: item["profile"]["personnel_code"]).first
+            if profile.blank?
+              profile = Profile.create(name: UnicodeFixer.fix(item["profile"]["first_name_fa"]), surename: UnicodeFixer.fix(item["profile"]["last_name_fa"]), personnel_code: item["profile"]["personnel_code"])
+            end
+            Contribution.create(profile_id: profile.id, article_id: article.id, role_id: role.id)
+          end          
+        end
+      end
+    end
+  end
 end
