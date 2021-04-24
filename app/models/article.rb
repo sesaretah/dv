@@ -161,7 +161,7 @@ class Article < ActiveRecord::Base
     }
 
     result = HTTParty.get(
-      "http://rtis2.ut.ac.ir/api/faculty/25818/export?",
+      "http://rtis2.ut.ac.ir/api/faculty/#{personnel_code}/export?",
       :query => query,
       :headers => headers,
     )
