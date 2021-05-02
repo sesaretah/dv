@@ -116,7 +116,7 @@
         <div class="row text-center">
          <div class="col-12">
           <% c = @article.contributions.first %>
-          <% if !c.profile.signature.blank? %>
+          <% if !c.blank? && !c.profile.blank? && !c.profile.signature.blank? %>
             <%= image_tag c.profile.signature(:medium), width: @sign_width %>
           <% end %>
           </div>
