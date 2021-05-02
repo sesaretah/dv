@@ -2,10 +2,11 @@ class PdfWorker
     include Sidekiq::Worker
     sidekiq_options retry: false
 
-    def perform(id, uuid, type='raw_print')
+    def perform(id, , type='raw_print')
        article = Article.find_by_id(id)
        article.pdf_generated = false
        article.save
+       uuid =  article.publish_uuid
        if !article.blank?
          system("mkdir #{Rails.root}/public/pdfs/#{id}")
          system("wkhtmltopdf --page-size Letter --viewport-size 1280x1024  --margin-bottom 25mm #{Rails.application.routes.default_url_options[:host]}/articles/#{type}/#{id} #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf")
