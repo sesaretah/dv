@@ -1,5 +1,5 @@
 <% if permit_by_workflow(article, current_user, "keywords") %>
-<% if state_page.blank? || (!state_page.blank? && state_page.item_keywords) %>
+<% if !defined?(state_page) || (!state_page.blank? && state_page.item_keywords) %>
 <%= form_for article, html: { id: "keywords" } do |f| %>
 <div class="form-group">
   <label class="form-label"><%= t :keywords %></label>

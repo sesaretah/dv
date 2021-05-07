@@ -14,7 +14,7 @@
 
 <div class="card-body">
   <% if permit_by_workflow(article, current_user, "abstract") %>
-  <% if state_page.blank? || (!state_page.blank? && state_page.item_abstract) %>
+  <% if !defined?(state_page) || (!state_page.blank? && state_page.item_abstract) %>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
@@ -26,7 +26,7 @@
   <% end %>
   <% end %>
 
- <% if state_page.blank? || (!state_page.blank? && state_page.item_notes) %>
+ <% if !defined?(state_page) || (!state_page.blank? && state_page.item_notes) %>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
@@ -39,7 +39,7 @@
 
 
   <% if permit_by_workflow(article, current_user, "content") %>
-    <% if state_page.blank? || (!state_page.blank? && state_page.item_content) %>
+    <% if !defined?(state_page) || (!state_page.blank? && state_page.item_content) %>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
@@ -64,7 +64,7 @@
 
 
   <% if permit_by_workflow(article, current_user, "url") %>
-  <% if state_page.blank? || (!state_page.blank? && state_page.item_url) %>
+  <% if !defined?(state_page) || (!state_page.blank? && state_page.item_url) %>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
@@ -76,7 +76,7 @@
   <% end %>
   <% end %>
 
- <% if state_page.blank? || (!state_page.blank? && state_page.item_dimensions) %>
+ <% if !defined?(state_page) || (!state_page.blank? && state_page.item_dimensions) %>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
@@ -87,7 +87,7 @@
   </div>
   <% end %>
 
- <% if state_page.blank? || (!state_page.blank? && state_page.item_retrieval_number) %>
+ <% if !defined?(state_page) || (!state_page.blank? && state_page.item_retrieval_number) %>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
@@ -98,7 +98,7 @@
   </div>
   <% end %>
 
- <% if state_page.blank? || (!state_page.blank? && state_page.item_position) %>
+ <% if !defined?(state_page) || (!state_page.blank? && state_page.item_position) %>
     <div class="row">
     <div class="col-md-12">
       <div class="form-group">
