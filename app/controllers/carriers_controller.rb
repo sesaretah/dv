@@ -1,5 +1,6 @@
 class CarriersController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_filter :authenticate_user!, :except => [:carry]
 
   def new
     @workflow = Workflow.find(params[:workflow_id])
