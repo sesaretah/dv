@@ -1,6 +1,7 @@
+<div id='vote-comments'>
 <ul class='list-group card-list-group'>
   <% for comment in comments %>
-  <li class="list-group-item py-5">
+  <li class="list-group-item py-2">
     <div class="media">
       <div class="media-object avatar avatar-md mr-4" style="background-image: url(<%= comment.user.profile.avatar(:thumb) %>)"></div>
       <div class="media-body">
@@ -38,3 +39,4 @@
   </li>
   <% end %>
 </ul>
+</div>

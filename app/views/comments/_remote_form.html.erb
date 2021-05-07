@@ -11,24 +11,19 @@
   </div>
   <% end %>
 
-  <div class="card-body">
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <%= f.text_area :content, class: "form-control" %>
+          <%= f.text_area :content, rows: 2, class: "form-control", placeholder: t(:leave_comment) %>
         </div>
       </div>
-    </div>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $("#comment_content").emojioneArea();
-      });
-    </script>
+      </div>
+
     <%= f.hidden_field :commentable_id, value: commentable_id %>
     <%= f.hidden_field :commentable_type, value: commentable_type %>
     <%= f.hidden_field :comment_type, value: comment_type %>
 
-    <div class="text-right mt-0">
+    <div class="text-right mt-0 mb-1">
       <button type="submit" class="btn btn-sm btn-primary"><%= t :submit %></button>
     </div>
 <% end %>

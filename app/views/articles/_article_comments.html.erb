@@ -1,6 +1,7 @@
 <div class="card-body" id='article-show'>
   <div class='row'>
     <div class='col-md-12 col-lg-12'>
+    
       <%= render partial: "comments/remote_form", locals: { commentable_type: "Article", commentable_id: article.id, comment: Comment.new, comment_type: "main" } %>
       <%= render partial: "comments/list",
                  locals: {

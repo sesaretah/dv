@@ -24,14 +24,13 @@
       <%= render partial: "votings/remote_form", locals: { article: @article, voting: @voting, nxt: nxt, prv: prv } %>
       <% end %>
 
-    <div class="alert alert-secondry" role="alert">
+    <div class="alert alert-secondary p-1" role="alert">
       <%= render partial: "comments/remote_form", locals: { commentable_type: "Article", commentable_id: article.id, comment: Comment.new, comment_type: "vote" } %>
       <%= render partial: "comments/list",
                  locals: {
                    comments: Comment.where("commentable_type = ? and commentable_id = ? and (comment_type is NULL or comment_type = ?)", "Article", article.id, "vote").order("created_at DESC"),
                  } %>
     </div>
-     </div>
     <% end %>
     <div class='text-center'>
     <span id='node-id' style="display:none;"><%= @article.workflow_state.node_id %></span>
