@@ -12,6 +12,7 @@ class StatePagesController < ApplicationController
   end
 
   def new
+    @state_page = StatePage.new
     @workflow = Workflow.find(params[:workflow_id])
   end
 
