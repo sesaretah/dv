@@ -12,8 +12,8 @@ class Workflow < ActiveRecord::Base
     @edges = JSON.parse self.edges
     @nexts = []
     for edge in @edges
-      if edge['source']['id'] == current_node_id
-        @nexts << edge['target']['id']
+      if edge["source"]["id"] == current_node_id
+        @nexts << edge["target"]["id"]
       end
     end
     return WorkflowState.where(workflow_id: self.id, node_id: @nexts)
@@ -24,8 +24,8 @@ class Workflow < ActiveRecord::Base
     @edges = JSON.parse self.edges
     @previouses = []
     for edge in @edges
-      if edge['target']['id'] == current_node_id
-        @previouses << edge['source']['id']
+      if edge["target"]["id"] == current_node_id
+        @previouses << edge["source"]["id"]
       end
     end
     return WorkflowState.where(workflow_id: self.id, node_id: @previouses)
@@ -36,8 +36,8 @@ class Workflow < ActiveRecord::Base
     @edges = JSON.parse self.edges
     @nexts = []
     for edge in @edges
-      if edge['source']['id'] == current_node_id
-        @nexts << edge['target']['id']
+      if edge["source"]["id"] == current_node_id
+        @nexts << edge["target"]["id"]
       end
     end
     if @nexts.include?(next_node_id)
@@ -52,8 +52,8 @@ class Workflow < ActiveRecord::Base
     @edges = JSON.parse self.edges
     @nexts = []
     for edge in @edges
-      if edge['target']['id'] == current_node_id
-        @nexts << edge['source']['id']
+      if edge["target"]["id"] == current_node_id
+        @nexts << edge["source"]["id"]
       end
     end
     if @nexts.include?(previous_node_id)
@@ -68,9 +68,9 @@ class Workflow < ActiveRecord::Base
     @edges = JSON.parse self.edges
     @result = []
     for edge in @edges
-      @source =  find_node_index(@nodes, edge['source']['id'])
-      @target =  find_node_index(@nodes, edge['target']['id'])
-      @result <<  { 'source' => "nodes[#{@source}]", 'target' => "nodes[#{@target}]"}
+      @source = find_node_index(@nodes, edge["source"]["id"])
+      @target = find_node_index(@nodes, edge["target"]["id"])
+      @result << { "source" => "nodes[#{@source}]", "target" => "nodes[#{@target}]" }
     end
     return @result
   end
@@ -97,15 +97,15 @@ class Workflow < ActiveRecord::Base
 
   def self.user_available_start_workflows(user)
     role_ids = user.roles.pluck(:id)
-    workflow_ids = WorkflowState.where('role_id in (?) and start_point = 2', role_ids).pluck(:workflow_id).uniq
-    workflows = Workflow.where('id in (?)', workflow_ids )
+    workflow_ids = WorkflowState.where("role_id in (?) and start_point = 2", role_ids).pluck(:workflow_id).uniq
+    workflows = Workflow.where("id in (?)", workflow_ids)
     return workflows
   end
 
   def self.user_available_workflows(user)
     role_ids = user.roles.pluck(:id)
-    workflow_ids = WorkflowState.where('role_id in (?)', role_ids).pluck(:workflow_id).uniq
-    workflows = Workflow.where('id in (?)', workflow_ids )
+    workflow_ids = WorkflowState.where("role_id in (?)", role_ids).pluck(:workflow_id).uniq
+    workflows = Workflow.where("id in (?)", workflow_ids)
     return workflows
   end
 
@@ -121,10 +121,10 @@ class Workflow < ActiveRecord::Base
 
   def user_start_workflow_states(user)
     role_ids = user.roles.pluck(:id)
-    workflow_state_ids = WorkflowState.where('role_id in (?)', role_ids).pluck(:id)
+    workflow_state_ids = WorkflowState.where("role_id in (?)", role_ids).pluck(:id)
     @result = []
     for workflow_state in self.workflow_states.order(:title)
-      if workflow_state.start_point == 2 
+      if workflow_state.start_point == 2
         if workflow_state_ids.include? workflow_state.id
           @result << workflow_state
         end
@@ -132,9 +132,6 @@ class Workflow < ActiveRecord::Base
     end
     return @result
   end
-
-
-
 
   def not_end_states
     @result = []
@@ -148,13 +145,11 @@ class Workflow < ActiveRecord::Base
 
   def find_node_index(nodes, node_id)
     for node in nodes
-      if node['id'] == node_id
+      if node["id"] == node_id
         return nodes.index(node)
       end
     end
   end
-
-
 
   def roles
     roles = []
@@ -173,9 +168,8 @@ class Workflow < ActiveRecord::Base
     for workflow_state in @workflow_states
       @role_ids << workflow_state.role_id
     end
-    @user_ids = Assignment.where('role_id IN (?)', @role_ids).pluck(:user_id)
-    @users = User.where('id IN (?)', @user_ids)
+    @user_ids = Assignment.where("role_id IN (?)", @role_ids).pluck(:user_id)
+    @users = User.where("id IN (?)", @user_ids)
     return @users
   end
-
 end

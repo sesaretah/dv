@@ -6,6 +6,12 @@ class WorkflowState < ActiveRecord::Base
 
   has_many :votings, :as => :votable, :dependent => :destroy
 
+  def self.user_start_workflow_states(user)
+    role_ids = user.roles.pluck(:id)
+    workflow_states = WorkflowState.where("role_id in (?) and start_point = 2", role_ids).order(:title)
+    return workflow_states
+  end
+
   def set_voting
     if self.votable == 2
       @voting = Voting.where(votable_type: "WorkflowState", votable_id: self.id)

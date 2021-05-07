@@ -5,10 +5,32 @@
         <div class="card">
           <div class="card-body">
             <div class="text-center">
-              <%= link_to  new_article_url, class: "btn btn-lime  btn-sm" do%>
-                <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
-              <%end%>
+              <%= link_to new_article_url, class: "btn btn-lime  btn-sm" do %>
+                <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%= t :new %>
+              <% end %>
             </div>
+            <div class="text-center mt-2">
+            <div class="dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+              <i class="fe fe-plus mr-2"></i><%= t :new_state_page %>
+            </button>
+            <div class="dropdown-menu" style="  right: 0px !important;">
+            <div id='current_role'>
+              <% for workflow_state in WorkflowState.user_start_workflow_states(current_user) %>
+                <% @state_page = StatePage.where(workflow_state_id: workflow_state.id).first %>
+                <% if !@state_page.blank? %>
+                <% @state_page.uuid %>
+                  <%= link_to "/p/#{@state_page.uuid}", class: "dropdown-item pd-compact" do %>
+                    <span data-toggle="tooltip" data-placement="top" title="<%= workflow_state.workflow.title %> > <%= workflow_state.title %>">
+                      <%= truncate(workflow_state.title, length: 20) %>
+                    </span>
+                  <% end %>
+               <% end %>
+              <% end %>
+            </div>
+            </div>
+            </div>
+          </div>
           </div>
           <div class="card-footer">
           </div>
@@ -18,7 +40,7 @@
   </div>
   <div class="col-lg-9">
     <div class="card">
-      <%= render partial: 'articles/list', locals: {articles: @articles}%>
+      <%= render partial: "articles/list", locals: { articles: @articles } %>
     </div>
   </div>
 </div>

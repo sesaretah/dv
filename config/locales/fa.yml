@@ -814,7 +814,7 @@ fa:
   unarchive: 'از بایگانی خارج شود'
   unarchived: 'بایگانی نشده'
   archived: 'بایگانی شده'
-
+  new_state_page: 'کاربرگه ها'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.
