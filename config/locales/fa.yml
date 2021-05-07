@@ -353,7 +353,7 @@ fa:
         state_page:
             item_title: 'عنوان'
             item_titlings: 'سایر عناوین'
-            item_abstract: 'جکیده'
+            item_abstract: 'چکیده'
             item_url: 'url'
             item_keywords: 'کلمات کلیدی'
             item_datings: 'تاریخ ها'
@@ -365,6 +365,12 @@ fa:
             item_kinships: 'اسناد مرتبط'
             item_content: 'محتوا'
             item_upload: 'پیوست ها'
+            item_publications: 'نشر'
+            item_areaings: 'حوزه های سازمانی'
+            item_notes: 'یادداشت'
+            item_retrieval_number: 'شماره بازیابی'
+            item_dimensions: 'ابعاد و اندازه'
+            item_position: 'شماره'
         publication:
             publisher_id: 'ناشر'
             publish_source_id: 'منبع'
@@ -808,6 +814,7 @@ fa:
   unarchive: 'از بایگانی خارج شود'
   unarchived: 'بایگانی نشده'
   archived: 'بایگانی شده'
+
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

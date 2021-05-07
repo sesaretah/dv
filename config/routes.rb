@@ -248,4 +248,6 @@ Rails.application.routes.draw do
 
   get "/state_pages/workflow/:id", to: "state_pages#index"
   get "/p/:uuid", to: "state_pages#show"
+
+  post "/state_pages/new_article/:uuid", to: "state_pages#new_article"
 end

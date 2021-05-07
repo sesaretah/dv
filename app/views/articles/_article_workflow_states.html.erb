@@ -1,31 +1,31 @@
 <div class="card-body" id='article-show'>
   <div class='text-center mb-4'>
-    <%= @article.title%> 
+    <%= @article.title %> 
   </div>
-  <% if !@workflows.blank?%>
-  <%= render partial: 'articles/make_a_copy', locals: {article: @article, workflows: @workflows}%>
+  <% if !@workflows.blank? %>
+  <%= render partial: "articles/make_a_copy", locals: { article: @article, workflows: @workflows } %>
   <% end %>
-  <% if article.workflow_state.role_id == current_user.current_role_id || grant_access('edit_workflow', current_user) %>
-    <% if article.workflow_state.votable != 2 || article.workflow_state.workflow.user_id == current_user.id%>
-      <% if !nxt.first.blank?%>
-        <%= render partial: 'workflow_transitions/send_to', locals: {article: @article, nxt: nxt}%>
-      <%end%>
-      <% if article.workflow_state.refundable == 1%>
-        <% if !prv.first.blank?%>
-          <%= render partial: 'workflow_transitions/refund_to', locals: {article: @article, prv: prv}%>
-        <%end%>
-      <%end%>
-    <%end%>
+  <% if User.user_has_role(current_user, article.workflow_state.role_id) || grant_access("edit_workflow", current_user) %>
+    <% if article.workflow_state.votable != 2 || article.workflow_state.workflow.user_id == current_user.id %>
+      <% if !nxt.first.blank? %>
+        <%= render partial: "workflow_transitions/send_to", locals: { article: @article, nxt: nxt } %>
+      <% end %>
+      <% if article.workflow_state.refundable == 1 %>
+        <% if !prv.first.blank? %>
+          <%= render partial: "workflow_transitions/refund_to", locals: { article: @article, prv: prv } %>
+        <% end %>
+      <% end %>
+    <% end %>
     <% if article.workflow_state.votable == 2 %>
       <div class="alert alert-info" role="alert">
-        <%=t :this_transition_must_be_done_by_voting%>
+        <%= t :this_transition_must_be_done_by_voting %>
       </div>
-      <% @voting = Voting.where(votable_type: 'WorkflowState', votable_id: article.workflow_state.id).first%>
-      <%= render partial: 'votings/remote_form', locals: {article: @article, voting: @voting, nxt: nxt, prv: prv}%>
-      <%end%>
-    <%end%>
+      <% @voting = Voting.where(votable_type: "WorkflowState", votable_id: article.workflow_state.id).first %>
+      <%= render partial: "votings/remote_form", locals: { article: @article, voting: @voting, nxt: nxt, prv: prv } %>
+      <% end %>
+    <% end %>
     <div class='text-center'>
-    <span id='node-id' style="display:none;"><%= @article.workflow_state.node_id%></span>
+    <span id='node-id' style="display:none;"><%= @article.workflow_state.node_id %></span>
     <div id='graphDiv'style="border: 1px dotted #999;"></div>
   </div>
 </div>
@@ -315,7 +315,7 @@ document.onload = (function(d3, saveAs, Blob, undefined){
           var prevNode = state.selectedNode;
 
           if (!prevNode || prevNode.id !== d.id){
-            d3.json('/workflows/related_articles/<%= article.workflow_state.workflow.id%>?node_id='+d.id, function(error, response) {
+            d3.json('/workflows/related_articles/<%= article.workflow_state.workflow.id %>?node_id='+d.id, function(error, response) {
               console.log(response);
             });
             //d3.select("#current-node").text(d.title);
@@ -589,16 +589,16 @@ var xLoc = width/2 - 200,
 yLoc = 100;
 // initial node data
 
-<% if article.workflow_state.workflow.nodes.blank?%>
+<% if article.workflow_state.workflow.nodes.blank? %>
 var nodes = [{title: "", id: 0, x: xLoc, y: yLoc, role: '', editable: '', refundable: '', commentable: '', start_point: '', end_point: ''}];
 <% else %>
-var nodes = <%=raw  article.workflow_state.workflow.nodes%>;
-<%end%>
-<% if article.workflow_state.workflow.edges.blank?%>
+var nodes = <%= raw article.workflow_state.workflow.nodes %>;
+<% end %>
+<% if article.workflow_state.workflow.edges.blank? %>
 var edges = [];
 <% else %>
-var edges = <%=raw  article.workflow_state.workflow.edges%>;
-<%end%>
+var edges = <%= raw article.workflow_state.workflow.edges %>;
+<% end %>
 
 
 /** MAIN SVG **/

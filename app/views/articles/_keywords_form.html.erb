@@ -1,14 +1,16 @@
-<% if permit_by_workflow(article, current_user,'keywords')%>
-<%= form_for article, html: {id: 'keywords'}  do |f| %>
+<% if permit_by_workflow(article, current_user, "keywords") %>
+<% if state_page.blank? || (!state_page.blank? && state_page.item_keywords) %>
+<%= form_for article, html: { id: "keywords" } do |f| %>
 <div class="form-group">
-  <label class="form-label"><%=t :keywords%></label>
+  <label class="form-label"><%= t :keywords %></label>
 <%= f.hidden_field :id, value: article.id %>
-  <input type="text" class="form-control input-tags" id="<%= article.id%>" value="" data-data='<%= raw article.keywords[:keywords].to_json%>'>
+  <input type="text" class="form-control input-tags" id="<%= article.id %>" value="" data-data='<%= raw article.keywords[:keywords].to_json %>'>
 </div>
-<% if !article.keywords[:keyword_ids].blank?%>
-  <%= hidden_field_tag :keyword, ','+article.keywords[:keyword_ids].map(&:inspect).join(',') %>
-<%else%>
-    <%= hidden_field_tag :keyword, '' %>
-<%end%>
-<%end%>
-<%end%>
+<% if !article.keywords[:keyword_ids].blank? %>
+  <%= hidden_field_tag :keyword, "," + article.keywords[:keyword_ids].map(&:inspect).join(",") %>
+<% else %>
+    <%= hidden_field_tag :keyword, "" %>
+<% end %>
+<% end %>
+<% end %>
+<% end %>

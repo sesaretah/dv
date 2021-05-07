@@ -8,9 +8,9 @@ class WorkflowState < ActiveRecord::Base
 
   def set_voting
     if self.votable == 2
-      @voting = Voting.where(votable_type: 'WorkflowState', votable_id: self.id)
+      @voting = Voting.where(votable_type: "WorkflowState", votable_id: self.id)
       if @voting.blank?
-        Voting.create(votable_type: 'WorkflowState', votable_id: self.id)
+        Voting.create(votable_type: "WorkflowState", votable_id: self.id)
       end
     end
   end
@@ -26,7 +26,7 @@ class WorkflowState < ActiveRecord::Base
 
   def yay_votes
     voting = self.votes
-    Vote.where('voting_id = ? and outcome in (?)', voting.id, [0,1] ).count if voting
+    Vote.where("voting_id = ? and outcome in (?)", voting.id, [0, 1]).count if voting
   end
 
   def nay_votes
@@ -35,7 +35,7 @@ class WorkflowState < ActiveRecord::Base
   end
 
   def votes
-    Voting.where(votable_type: 'WorkflowState', votable_id: self.id).first
+    Voting.where(votable_type: "WorkflowState", votable_id: self.id).first
   end
 
   def majority
@@ -54,5 +54,4 @@ class WorkflowState < ActiveRecord::Base
       return true
     end
   end
-  
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210424151608) do
+ActiveRecord::Schema.define(version: 20210507064253) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -641,7 +641,7 @@ ActiveRecord::Schema.define(version: 20210424151608) do
   add_index "ssos", ["uuid"], name: "index_ssos_on_uuid", using: :btree
 
   create_table "state_pages", force: :cascade do |t|
-    t.integer  "workflow_state_id",  limit: 4
+    t.integer  "workflow_state_id",     limit: 4
     t.boolean  "item_title"
     t.boolean  "item_titlings"
     t.boolean  "item_abstract"
@@ -656,9 +656,15 @@ ActiveRecord::Schema.define(version: 20210424151608) do
     t.boolean  "item_originatings"
     t.boolean  "item_content"
     t.boolean  "item_upload"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "uuid",               limit: 255
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "uuid",                  limit: 255
+    t.boolean  "item_areaings"
+    t.boolean  "item_publications"
+    t.boolean  "item_notes"
+    t.boolean  "item_dimensions"
+    t.boolean  "item_retrieval_number"
+    t.boolean  "item_position"
   end
 
   add_index "state_pages", ["uuid"], name: "index_state_pages_on_uuid", using: :btree

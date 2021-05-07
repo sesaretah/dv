@@ -1,5 +1,5 @@
 <div id='state_page-form'>
-    <%= form_for StatePage.new, remote: true do |f| %>
+    <%= form_for @state_page, remote: true do |f| %>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -23,15 +23,48 @@
            <%= f.check_box :item_abstract, class: "form-check-input" %>
            <%= f.label :item_abstract, class: "form-check-label" %>
         </label>
+
+         <label class="form-check form-switch">   
+           <%= f.check_box :item_content, class: "form-check-input" %>
+           <%= f.label :item_content, class: "form-check-label" %>
+        </label>
+
+
         
         <label class="form-check form-switch">   
            <%= f.check_box :item_url, class: "form-check-input" %>
            <%= f.label :item_url, class: "form-check-label" %>
         </label>
+
+
+         <label class="form-check form-switch">   
+           <%= f.check_box :item_notes, class: "form-check-input" %>
+           <%= f.label :item_notes, class: "form-check-label" %>
+         </label>
+
+         <label class="form-check form-switch">   
+           <%= f.check_box :item_dimensions, class: "form-check-input" %>
+           <%= f.label :item_dimensions, class: "form-check-label" %>
+         </label>
+
+         <label class="form-check form-switch">   
+           <%= f.check_box :item_retrieval_number, class: "form-check-input" %>
+           <%= f.label :item_retrieval_number, class: "form-check-label" %>
+         </label>
+
+         <label class="form-check form-switch">   
+           <%= f.check_box :item_position, class: "form-check-input" %>
+           <%= f.label :item_position, class: "form-check-label" %>
+         </label>
         
         <label class="form-check form-switch">   
            <%= f.check_box :item_keywords, class: "form-check-input" %>
            <%= f.label :item_keywords, class: "form-check-label" %>
+        </label>
+
+        <label class="form-check form-switch">   
+           <%= f.check_box :item_upload, class: "form-check-input" %>
+           <%= f.label :item_upload, class: "form-check-label" %>
         </label>
         
         <label class="form-check form-switch">   
@@ -69,15 +102,18 @@
            <%= f.label :item_originatings, class: "form-check-label" %>
         </label>
 
-        <label class="form-check form-switch">   
-           <%= f.check_box :item_content, class: "form-check-input" %>
-           <%= f.label :item_content, class: "form-check-label" %>
+
+
+         <label class="form-check form-switch">   
+           <%= f.check_box :item_areaings, class: "form-check-input" %>
+           <%= f.label :item_areaings, class: "form-check-label" %>
         </label>
 
-        <label class="form-check form-switch">   
-           <%= f.check_box :item_upload, class: "form-check-input" %>
-           <%= f.label :item_upload, class: "form-check-label" %>
-        </label>
+         <label class="form-check form-switch">   
+           <%= f.check_box :item_publications, class: "form-check-input" %>
+           <%= f.label :item_publications, class: "form-check-label" %>
+         </label>
+
 
          <button type="submit" class="btn btn-primary"><%= t :submit %></button>
     <% end %>

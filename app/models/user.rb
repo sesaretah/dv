@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :assignments, dependent: :destroy
 
   has_many :messages, :through => :messagings
-  has_many :messagings, :class_name => 'Messaging',:foreign_key => "recipient_id", dependent: :destroy
+  has_many :messagings, :class_name => "Messaging", :foreign_key => "recipient_id", dependent: :destroy
 
   has_many :access_controls
   has_many :content_templates
@@ -22,4 +22,13 @@ class User < ActiveRecord::Base
   has_many :note_templates
 
   has_one :home_setting
+
+  def self.user_has_role(user, role_id)
+    role_ids = user.roles.pluck(:id)
+    if role_ids.include?(role_id)
+      return false
+    else
+      return true
+    end
+  end
 end

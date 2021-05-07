@@ -154,6 +154,8 @@ class Workflow < ActiveRecord::Base
     end
   end
 
+
+
   def roles
     roles = []
     for role_id in self.workflow_states.pluck(:role_id).uniq

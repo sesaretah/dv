@@ -1,5 +1,5 @@
-<%= form_for article, html: {id: 'discriptors'}  do |f| %>
-<%= hidden_field_tag 'caller', 'descriptors'%>
+<%= form_for article, html: { id: "discriptors" } do |f| %>
+<%= hidden_field_tag "caller", "descriptors" %>
 <% if article.errors.any? %>
 <div id="error_explanation">
   <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
@@ -13,34 +13,38 @@
 <% end %>
 
 <div class="card-body">
-  <% if permit_by_workflow(article, current_user,'abstract')%>
+  <% if permit_by_workflow(article, current_user, "abstract") %>
+  <% if state_page.blank? || (!state_page.blank? && state_page.item_abstract) %>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
         <%= f.label :abstract, class: "form-label" %>
-        <%= f.text_area :abstract , row: 4, class: "form-control" %>
+        <%= f.text_area :abstract, row: 4, class: "form-control" %>
       </div>
     </div>
   </div>
-  <%end%>
+  <% end %>
+  <% end %>
 
+ <% if state_page.blank? || (!state_page.blank? && state_page.item_notes) %>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
         <%= f.label :notes, class: "form-label" %>
-        <%= f.text_area :notes , row: 4, class: "form-control" %>
+        <%= f.text_area :notes, row: 4, class: "form-control" %>
       </div>
     </div>
   </div>
+  <% end %>
 
 
-
-  <% if permit_by_workflow(article, current_user,'content')%>
+  <% if permit_by_workflow(article, current_user, "content") %>
+    <% if state_page.blank? || (!state_page.blank? && state_page.item_content) %>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
-        <label class="form-label"><%=t :content_templates%></label>
-        <%= f.select :content_template_id, ContentTemplate.all.collect { |p| [ p.title, p.id ] } , {include_blank: true} ,{:class => "form-control col-md-4 col-xs-12"}%>
+        <label class="form-label"><%= t :content_templates %></label>
+        <%= f.select :content_template_id, ContentTemplate.all.collect { |p| [p.title, p.id] }, { include_blank: true }, { :class => "form-control col-md-4 col-xs-12" } %>
       </div>
     </div>
   </div>
@@ -48,54 +52,64 @@
     <div class="col-md-12">
       <div class="form-group">
         <%= f.label :content, class: "form-label" %>
-        <%= f.cktext_area :content, id: 'sometext' %>
+        <%= f.cktext_area :content, id: "sometext" %>
       </div>
     </div>
   </div>
-  <%end%>
-  <script>
+    <script>
     CKEDITOR.replace('sometext')
   </script>
+  <% end %>
+    <% end %>
 
-  <% if permit_by_workflow(article, current_user,'url')%>
+
+  <% if permit_by_workflow(article, current_user, "url") %>
+  <% if state_page.blank? || (!state_page.blank? && state_page.item_url) %>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
         <%= f.label :url, class: "form-label" %>
-        <%= f.text_field :url , class: "form-control", style: 'direction: ltr;' %>
+        <%= f.text_field :url, class: "form-control", style: "direction: ltr;" %>
       </div>
     </div>
   </div>
-  <%end%>
+  <% end %>
+  <% end %>
 
+ <% if state_page.blank? || (!state_page.blank? && state_page.item_dimensions) %>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
         <%= f.label :dimensions, class: "form-label" %>
-        <%= f.text_field :dimensions , class: "form-control"%>
+        <%= f.text_field :dimensions, class: "form-control" %>
       </div>
     </div>
   </div>
+  <% end %>
 
+ <% if state_page.blank? || (!state_page.blank? && state_page.item_retrieval_number) %>
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
         <%= f.label :retrieval_number, class: "form-label" %>
-        <%= f.text_field :retrieval_number , class: "form-control" %>
+        <%= f.text_field :retrieval_number, class: "form-control" %>
       </div>
     </div>
   </div>
+  <% end %>
 
+ <% if state_page.blank? || (!state_page.blank? && state_page.item_position) %>
     <div class="row">
     <div class="col-md-12">
       <div class="form-group">
         <%= f.label :position, class: "form-label" %>
-        <%= f.text_field :position , class: "form-control" %>
+        <%= f.text_field :position, class: "form-control" %>
       </div>
     </div>
   </div>
+  <% end %>
 <% end %>
-
+</div>
 <script>
 $('.form-control').bind('change keyup input', function() {
     $('#discriptors').delay(200).submit();
@@ -115,7 +129,7 @@ $("#discriptors").submit(function (event) {
     $.ajax({
         type: "post",
         dataType: "html",
-        url: '/articles/<%= @article.id%>',
+        url: '/articles/<%= @article.id %>',
         data: $("#discriptors").serialize(),
         success: function (response) {
             //write here any code needed for handling success         }

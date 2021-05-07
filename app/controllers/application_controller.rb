@@ -217,4 +217,35 @@ class ApplicationController < ActionController::Base
     end
     return @article_inspect_result
   end
+
+  def user_accessible?(article, user)
+    flag = false
+    #@role = Role.find_by_id(user.current_role_id)
+    role_ids = user.roles.pluck(:id)
+
+    if !role_ids.blank?
+      @workflow_state_ids = WorkflowState.where("role_id in (?)", role_ids).pluck(:id)
+      if !article.workflow_state.blank?
+        workflow_role_accesses = article.workflow_state.workflow.workflow_role_accesses.where("role_id in (?)", role_ids)
+        if @workflow_state_ids.include? article.workflow_state_id || workflow_role_accesses.blank?
+          flag = true
+        else
+          if article.user_id == user.id
+            for workflow_role_access in workflow_role_accesses
+              flag = flag || workflow_role_access.own_article_traceable
+            end
+            if flag == false # to handle cases when user has access to article in current state
+              flag = true if role_ids.include? article.workflow_state.role_id
+            end
+          else
+            for workflow_role_access in workflow_role_accesses
+              flag = flag || workflow_role_access.other_articles_traceable
+            end
+          end
+        end
+      end
+    end
+    flag = true if article.workflow_state.blank?
+    return flag
+  end
 end

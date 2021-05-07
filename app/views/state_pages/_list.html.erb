@@ -19,6 +19,9 @@
                 <%= link_to "/p/#{state_page.uuid}", class: "dropdown-item" do %>
                 <i class="dropdown-icon fe fe-play"></i> <%= t :show %>
                 <% end %>
+                <%= link_to "/state_pages/#{state_page.id}/edit", remote: true, class: "dropdown-item" do %>
+                <%= t :edit %> 
+                <% end %>
                 <%= link_to state_page, method: :delete, remote: true, class: "dropdown-item", data: { confirm: "Are you sure?" } do %>
                 <i class="dropdown-icon fe fe-trash"></i> <%= t :destroy %>
                 <% end %>
