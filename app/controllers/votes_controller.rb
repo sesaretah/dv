@@ -6,14 +6,15 @@ class VotesController < ApplicationController
     @article = Article.find(params[:article_id])
     @vote = Vote.where(voting_id: @voting.id, user_id: current_user.id, article_id: @article.id).first
     if @vote.blank? && @article.workflow_state.role_id == current_user.current_role_id
-      Vote.create(voting_id: @voting.id, outcome: params[:outcome] ,user_id: current_user.id, article_id: @article.id )
+      Vote.create(voting_id: @voting.id, outcome: params[:outcome], user_id: current_user.id, article_id: @article.id)
     end
-    if !@vote.blank? && @article.workflow_state.role_id == current_user.current_role_id
+    if !@vote.blank? && User.user_has_role(current_user, @article.workflow_state.role_id)
       @vote.outcome = params[:outcome]
       @vote.save
     end
     extract_nxt_prv(@article)
   end
+
   # GET /votes
   # GET /votes.json
   def index
@@ -41,7 +42,7 @@ class VotesController < ApplicationController
 
     respond_to do |format|
       if @vote.save
-        format.html { redirect_to @vote, notice: 'Vote was successfully created.' }
+        format.html { redirect_to @vote, notice: "Vote was successfully created." }
         format.json { render :show, status: :created, location: @vote }
       else
         format.html { render :new }
@@ -55,7 +56,7 @@ class VotesController < ApplicationController
   def update
     respond_to do |format|
       if @vote.update(vote_params)
-        format.html { redirect_to @vote, notice: 'Vote was successfully updated.' }
+        format.html { redirect_to @vote, notice: "Vote was successfully updated." }
         format.json { render :show, status: :ok, location: @vote }
       else
         format.html { render :edit }
@@ -69,19 +70,20 @@ class VotesController < ApplicationController
   def destroy
     @vote.destroy
     respond_to do |format|
-      format.html { redirect_to votes_url, notice: 'Vote was successfully destroyed.' }
+      format.html { redirect_to votes_url, notice: "Vote was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_vote
-      @vote = Vote.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def vote_params
-      params.require(:vote).permit(:user_id, :voting_id, :outcome)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_vote
+    @vote = Vote.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def vote_params
+    params.require(:vote).permit(:user_id, :voting_id, :outcome)
+  end
 end
