@@ -1,55 +1,56 @@
 <div class="col-md-12 mb-4">
-  <% @vote = Vote.where(voting_id: voting.id, user_id: current_user.id, article_id: article.id).first%>
+  <% @vote = Vote.where(voting_id: voting.id, user_id: current_user.id, article_id: article.id).first %>
   <div class="row">
-    <div class="col-md-4 text-center small">
-      <% @votes = Vote.where(voting_id: voting.id, outcome: 1, article_id: article.id).count%>
-      <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{1}&article_id=#{article.id}", remote: true,class: "btn btn-lime btn-sm mt-1 col-md-12" do%>
-      <i class="fe fe-check" style="vertical-align: -3px;"></i>&nbsp&nbsp<%=t :agree%> (<%= @votes%> <%=t :votes%>)
-      <% if !@vote.blank?%><%if @vote.outcome == 1%><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%=t :your_choice%><%end%><%end%>
-      <%end%>
-       <% @votes = Vote.where(voting_id: voting.id, outcome: 1, article_id: article.id)%>
-       <% for vote in @votes%>
-       <% if !vote.user.blank? && !vote.user.profile.blank?%>
+    <div class="col-md-6 text-center small">
+      <% @votes = Vote.where(voting_id: voting.id, outcome: 1, article_id: article.id).count %>
+      <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{1}&article_id=#{article.id}", remote: true, class: "btn btn-lime btn-sm mt-1 col-md-12" do %>
+      <i class="fe fe-check" style="vertical-align: -3px;"></i>&nbsp&nbsp<%= t :agree %> (<%= @votes %> <%= t :votes %>)
+      <% if !@vote.blank? %><% if @vote.outcome == 1 %><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%= t :your_choice %><% end %><% end %>
+      <% end %>
+       <% @votes = Vote.where(voting_id: voting.id, outcome: 1, article_id: article.id) %>
+       <% for vote in @votes %>
+       <% if !vote.user.blank? && !vote.user.profile.blank? %>
           <span class="tag mt-2" style='vertical-align: -3px;'>
-              <span class="tag-avatar avatar" style="background-image: url('<%= vote.user.profile.avatar(:tiny)%>')"></span>
-              <%= truncate(vote.user.profile.fullname, length: 35)%>
+              <span class="tag-avatar avatar" style="background-image: url('<%= vote.user.profile.avatar(:tiny) %>')"></span>
+              <%= truncate(vote.user.profile.fullname, length: 35) %>
           </span>
-          <%end%>
-       <%end%>
+          <% end %>
+       <% end %>
     </div>
 
+<!---
     <div class="col-md-4 text-center small">
-      <% @votes = Vote.where(voting_id: voting.id, outcome: 0, article_id: article.id).count%>
-      <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{0}&article_id=#{article.id}", remote: true,class: "btn btn-gray btn-sm mt-1 col-md-12" do%>
-        <i class="fe fe-circle" style="vertical-align: -3px;"></i>&nbsp&nbsp<%=t :abstention%> (<%= @votes%> <%=t :votes%>)
-        <% if !@vote.blank?%><%if @vote.outcome == 0%><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%=t :your_choice%><%end%><%end%>
-      <%end%>
-      <% @votes = Vote.where(voting_id: voting.id, outcome: 0, article_id: article.id)%>
-       <% for vote in @votes%>
-       <% if !vote.user.blank? && !vote.user.profile.blank?%>
+      <% @votes = Vote.where(voting_id: voting.id, outcome: 0, article_id: article.id).count %>
+      <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{0}&article_id=#{article.id}", remote: true, class: "btn btn-gray btn-sm mt-1 col-md-12" do %>
+        <i class="fe fe-circle" style="vertical-align: -3px;"></i>&nbsp&nbsp<%= t :abstention %> (<%= @votes %> <%= t :votes %>)
+        <% if !@vote.blank? %><% if @vote.outcome == 0 %><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%= t :your_choice %><% end %><% end %>
+      <% end %>
+      <% @votes = Vote.where(voting_id: voting.id, outcome: 0, article_id: article.id) %>
+       <% for vote in @votes %>
+       <% if !vote.user.blank? && !vote.user.profile.blank? %>
           <span class="tag mt-2" style='vertical-align: -3px;'>
-              <span class="tag-avatar avatar" style="background-image: url('<%= vote.user.profile.avatar(:tiny)%>')"></span>
-              <%= truncate(vote.user.profile.fullname, length: 35)%>
+              <span class="tag-avatar avatar" style="background-image: url('<%= vote.user.profile.avatar(:tiny) %>')"></span>
+              <%= truncate(vote.user.profile.fullname, length: 35) %>
           </span>
-          <%end%>
-       <%end%>
+          <% end %>
+       <% end %>
     </div>
-
-    <div class="col-md-4 text-center small">
-      <% @votes = Vote.where(voting_id: voting.id, outcome: -1, article_id: article.id).count%>
-      <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{-1}&article_id=#{article.id}", remote: true,class: "btn btn-instagram btn-sm mt-1 col-md-12" do%>
-        <i class="fe fe-x" style="vertical-align: -3px;"></i>&nbsp&nbsp<%=t :oppose%> (<%= @votes%> <%=t :votes%>)
-        <% if !@vote.blank?%><%if @vote.outcome == -1%><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%=t :your_choice%><%end%><%end%>
-      <%end%>
-        <% @votes = Vote.where(voting_id: voting.id, outcome: -1, article_id: article.id)%>
-       <% for vote in @votes%>
-       <% if !vote.user.blank? && !vote.user.profile.blank?%>
+!-->
+    <div class="col-md-6 text-center small">
+      <% @votes = Vote.where(voting_id: voting.id, outcome: -1, article_id: article.id).count %>
+      <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{-1}&article_id=#{article.id}", remote: true, class: "btn btn-instagram btn-sm mt-1 col-md-12" do %>
+        <i class="fe fe-x" style="vertical-align: -3px;"></i>&nbsp&nbsp<%= t :oppose %> (<%= @votes %> <%= t :votes %>)
+        <% if !@vote.blank? %><% if @vote.outcome == -1 %><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%= t :your_choice %><% end %><% end %>
+      <% end %>
+        <% @votes = Vote.where(voting_id: voting.id, outcome: -1, article_id: article.id) %>
+       <% for vote in @votes %>
+       <% if !vote.user.blank? && !vote.user.profile.blank? %>
           <span class="tag mt-2" style='vertical-align: -3px;'>
-              <span class="tag-avatar avatar" style="background-image: url('<%= vote.user.profile.avatar(:tiny)%>')"></span>
-              <%= truncate(vote.user.profile.fullname, length: 35)%>
+              <span class="tag-avatar avatar" style="background-image: url('<%= vote.user.profile.avatar(:tiny) %>')"></span>
+              <%= truncate(vote.user.profile.fullname, length: 35) %>
           </span>
-          <%end%>
-       <%end%>
+          <% end %>
+       <% end %>
     </div>
 
   </div>

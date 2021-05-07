@@ -26,9 +26,9 @@ class User < ActiveRecord::Base
   def self.user_has_role(user, role_id)
     role_ids = user.roles.pluck(:id)
     if role_ids.include?(role_id)
-      return false
-    else
       return true
+    else
+      return false
     end
   end
 end
