@@ -1,184 +1,225 @@
 <table class="table card-table" id='article-show'>
   <tbody>
-  <% if  user_accessible?(@article, current_user) || viewable_level?(@article, 'all') || viewable_level?(@article, 'metadata')%>
+  <% if user_accessible?(@article, current_user) || viewable_level?(@article, "all") || viewable_level?(@article, "metadata") %>
     <tr>
-      <td style="text-align:left;"><%= label :article, :slug , class: "form-label", style: 'color: #7795c1;'%></td>
-      <td><%= link_to @article.slug, request.base_url+'/'+@article.slug %></td>
-      <td><%qrcode = RQRCode::QRCode.new("#{request.base_url+'/'+@article.slug}")%>
+      <td style="text-align:left;"><%= label :article, :slug, class: "form-label", style: "color: #7795c1;" %></td>
+      <td><%= link_to @article.slug, request.base_url + "/" + @article.slug %></td>
+      <td><% qrcode = RQRCode::QRCode.new("#{request.base_url + "/" + @article.slug}") %>
 
 
 
       </td>
     </tr>
     <tr>
-      <td style="text-align:left;width: 170px;"><%= label :article, :title , class: "form-label", style: 'color: #7795c1;'%></td>
+      <td style="text-align:left;width: 170px;"><%= label :article, :title, class: "form-label", style: "color: #7795c1;" %></td>
       <td>
-      <% if article_owner(@article, current_user)%>
+      <% if article_owner(@article, current_user) %>
       <%= editable @article, :title %>
-      <%else%>
-        <%=  @article.title %>
-      <%end%>
+      <% else %>
+        <%= @article.title %>
+      <% end %>
       <br />
-      <% @article.titlings.group_by(&:title_type_id).each do |k,v| %>
-        <% for t in v%>
-        | <%= t.content%>
-        <%end%>
+      <% @article.titlings.group_by(&:title_type_id).each do |k, v| %>
+        <% for t in v %>
+        | <%= t.content %>
+        <% end %>
 
-      <%end%>
+      <% end %>
       </td>
     </tr>
     <tr>
-      <td style="text-align:left;"><%= label :article, :abstract , class: "form-label", style: 'color: #7795c1;'%></td>
+      <td style="text-align:left;"><%= label :article, :abstract, class: "form-label", style: "color: #7795c1;" %></td>
       <td>
-      <% if article_owner(@article, current_user)%>
+      <% if article_owner(@article, current_user) %>
         <%= editable @article, :abstract %>
-      <%else%>
-        <%=  @article.abstract %>
-      <%end%>
+      <% else %>
+        <%= @article.abstract %>
+      <% end %>
       </td>
     </tr>
     <tr>
       <td style="text-align:left;">
-        <%= label :article, :url , class: "form-label", style: 'color: #7795c1;'%></td>
+        <%= label :article, :url, class: "form-label", style: "color: #7795c1;" %></td>
         <td><%= link_to @article.url, @article.url %></td>
       </tr>
 
       <tr>
-        <td style='color: #7795c1;text-align:left;'><%=t :keywords%></td>
-        <td><% for tagging in Tagging.where(taggable_id: @article.id, taggable_type: 'Article', target_type: 'Keyword') %>
-          <% @keyword = Keyword.find_by_id(tagging.target_id)%>
-          <% if !@keyword.blank?%>
-          <span class="tag"><%= @keyword.title%></span>
-          <%end%>
-          <%end%>
+        <td style='color: #7795c1;text-align:left;'><%= t :keywords %></td>
+        <td><% for tagging in Tagging.where(taggable_id: @article.id, taggable_type: "Article", target_type: "Keyword") %>
+          <% @keyword = Keyword.find_by_id(tagging.target_id) %>
+          <% if !@keyword.blank? %>
+          <span class="tag"><%= @keyword.title %></span>
+          <% end %>
+          <% end %>
         </td>
       </tr>
 
       <tr>
-        <td style='color: #7795c1;text-align:left;'><%=t :datings%></td>
+        <td style='color: #7795c1;text-align:left;'><%= t :datings %></td>
         <td>
           <% for dating in @article.datings %>
-          <%= dating.article_event.title%>:
+          <%= dating.article_event.title %>:
           <span>
-            <% @jalali = JalaliDate.to_jalali(dating.event_date)%>
-            <%= @jalali.year%>/<%= @jalali.month%>/<%= @jalali.day%>
+            <% @jalali = JalaliDate.to_jalali(dating.event_date) %>
+            <%= @jalali.year %>/<%= @jalali.month %>/<%= @jalali.day %>
           </span> |
-          <%end%>
+          <% end %>
         </td>
       </tr>
 
       <tr>
-        <td style='color: #7795c1;text-align:left;'><%=t :article_type%></td>
+        <td style='color: #7795c1;text-align:left;'><%= t :article_type %></td>
         <td>
           <% for typing in @article.typings %>
-          <%= typing.article_type.title%> |
-          <%end%>
+          <%= typing.article_type.title %> |
+          <% end %>
         </td>
       </tr>
       <tr>
-        <td style='color: #7795c1;text-align:left;'><%=t :language%></td>
+        <td style='color: #7795c1;text-align:left;'><%= t :language %></td>
         <td>
           <% for speaking in @article.speakings %>
-          <%= speaking.language.title%> |
-          <%end%>
+          <%= speaking.language.title %> |
+          <% end %>
         </td>
       </tr>
       <tr>
-        <td style='color: #7795c1;text-align:left;'><%=t :article_format%></td>
+        <td style='color: #7795c1;text-align:left;'><%= t :article_format %></td>
         <td>
           <% for formating in @article.formatings %>
-          <%= formating.article_format.title%> |
-          <%end%>
+          <%= formating.article_format.title %> |
+          <% end %>
         </td>
       </tr>
       <tr>
-        <td style='color: #7795c1;text-align:left;'><%=t :contributors%></td>
+        <td style='color: #7795c1;text-align:left;'><%= t :contributors %></td>
         <td>
           <ul>
             <% for contribution in @article.contributions %>
             <li>
-              <% if  !contribution.profile.blank? %>
-              <%=link_to contribution.profile.fullname, contribution.profile%>,
-              <%end%>
-              <% if  !contribution.duty.blank? %>
-              <%= link_to contribution.duty.title, contribution.duty%>,
-              <%end%>
-              <% if  !contribution.role.blank? %>
-              <%= link_to contribution.role.title, contribution.role%>
-              <%end%>
+              <% if !contribution.profile.blank? %>
+              <%= link_to contribution.profile.fullname, contribution.profile %>,
+              <% end %>
+              <% if !contribution.duty.blank? %>
+              <%= link_to contribution.duty.title, contribution.duty %>,
+              <% end %>
+              <% if !contribution.role.blank? %>
+              <%= link_to contribution.role.title, contribution.role %>
+              <% end %>
+               <% if article_owner(@article, current_user) %>
+                <label class="custom-control custom-checkbox custom-control-inline">
+    <input type="checkbox" class="custom-control-input" id="contribution_<%= contribution.id %>" <% if contribution.sign %>checked<% end %> value="<%= contribution.id %>">
+    <span class="custom-control-label" style='padding-right: 0px;padding-top: 2px;'><%= t :sign %></span>
+  </label>
             </li>
-            <%end%>
+              <script>
+  $('#contribution_<%= contribution.id %>').change(function() {
+    if($(this).is(":checked")) {
+      $.ajax({
+        url: '/contributions/remotesign/<%= contribution.id %>',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          sign: true,
+        },
+        error: function() {
+          $(this).attr("checked", false);
+        },
+        success: function(res) {
+          $(this).attr("checked", true);
+        }
+      });
+    } else {
+      $.ajax({
+        url: '/contributions/remotesign/<%= contribution.id %>',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+        sign: false,
+        },
+        error: function() {
+          $(this).attr("checked", true);
+        },
+        success: function(res) {
+          $(this).attr("checked", false);
+        }
+      });
+    }
+  });
+  </script>
+  <% end %>
+            <% end %>
 
           </td>
         </tr>
         <tr>
-          <td style='color: #7795c1;text-align:left;'><%=t :relations%></td>
+          <td style='color: #7795c1;text-align:left;'><%= t :relations %></td>
           <td>
-            <% @article.kinships.group_by(&:article_relation_type_id).each do |k,v| %>
-            <%= ArticleRelationType.find(k).title%>:
+            <% @article.kinships.group_by(&:article_relation_type_id).each do |k, v| %>
+            <%= ArticleRelationType.find(k).title %>:
             <ul>
-              <% for kinship in v.sort_by!(&:rank)%>
-              <li><%= link_to kinship.kin.title, kinship.kin%></li>
+              <% for kinship in v.sort_by!(&:rank) %>
+              <li><%= link_to kinship.kin.title, kinship.kin %></li>
               <% end %>
             </ul>
-            <%end%>
+            <% end %>
           </td>
         </tr>
         <tr>
-          <td style='color: #7795c1;text-align:left;'><%=t :article_source%></td>
+          <td style='color: #7795c1;text-align:left;'><%= t :article_source %></td>
           <td>
             <% for originating in @article.originatings %>
-            <%= originating.article_source.title%> |
-            <%end%>
+            <%= originating.article_source.title %> |
+            <% end %>
           </td>
         </tr>
         <tr>
-          <td style='color: #7795c1;text-align:left;'><%=t :article_area%></td>
+          <td style='color: #7795c1;text-align:left;'><%= t :article_area %></td>
           <td>
             <% for areaing in @article.areaings %>
-            <%= areaing.article_area.title%> |
-            <%end%>
+            <%= areaing.article_area.title %> |
+            <% end %>
           </td>
         </tr>
-        <%end%>
-        <% if  user_accessible?(@article, current_user) || viewable_level?(@article, 'all')%>
+        <% end %>
+        <% if user_accessible?(@article, current_user) || viewable_level?(@article, "all") %>
         <tr>
-          <td style='color: #7795c1;text-align:left;'><%=t :full_text%>
-          <% if article_owner(@article, current_user)%>
-          <%= link_to "/articles/content_form/#{@article.id}", remote:true do%>
+          <td style='color: #7795c1;text-align:left;'><%= t :full_text %>
+          <% if article_owner(@article, current_user) %>
+          <%= link_to "/articles/content_form/#{@article.id}", remote: true do %>
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          <%end%>
-          <% end%>
+          <% end %>
+          <% end %>
           </td>
           <td id='content-form'>
-            <%= raw @article.content%>
+            <%= raw @article.content %>
           </td>
         </tr>
        
 
         <tr>
-          <td style='color: #7795c1;text-align:left;'><%=t :attachments%></td>
+          <td style='color: #7795c1;text-align:left;'><%= t :attachments %></td>
 
 
           <td>
-            <% Upload.where('uploadable_type = ? and uploadable_id = ? and attachment_type <> ?', 'Article', @article.id, 'article_voices').group_by(&:attachment_type).each do |k,v| %>
-            <%=t k%>
+            <% Upload.where("uploadable_type = ? and uploadable_id = ? and attachment_type <> ?", "Article", @article.id, "article_voices").group_by(&:attachment_type).each do |k, v| %>
+            <%= t k %>
             <ul>
-              <% for u in v%>
-              <li><%= link_to u.attachment.url do%><i class="fe fe-download" style="vertical-align:middle;"></i> <%= u.title%><%end%>
+              <% for u in v %>
+              <li><%= link_to u.attachment.url do %><i class="fe fe-download" style="vertical-align:middle;"></i> <%= u.title %><% end %>
                 <p class="text-muted">
-                    <%= u.detail%>
-                    <% if permit_by_workflow(@article, current_user,'keywords')%>
-                    <small><%= link_to t(:edit), edit_upload_path(u)%></small>
-                    <%end%>
+                    <%= u.detail %>
+                    <% if permit_by_workflow(@article, current_user, "keywords") %>
+                    <small><%= link_to t(:edit), edit_upload_path(u) %></small>
+                    <% end %>
                 </p>
               </li>
-              <%end%>
+              <% end %>
             </ul>
-            <%end%>
+            <% end %>
           </td>
         </tr>
-        <%end%>
+        <% end %>
 
       </tbody>
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210515174820) do
+ActiveRecord::Schema.define(version: 20210515193506) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -263,6 +263,7 @@ ActiveRecord::Schema.define(version: 20210515174820) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "profile_id", limit: 4
+    t.boolean  "sign"
   end
 
   add_index "contributions", ["article_id"], name: "index_contributions_on_article_id", using: :btree

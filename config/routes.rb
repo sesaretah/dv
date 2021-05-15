@@ -119,6 +119,7 @@ Rails.application.routes.draw do
   match "/articles/archive/:id" => "articles#archive", :via => :get
   match "/articles/unarchive/:id" => "articles#unarchive", :via => :get
 
+  match "/contributions/remotesign/:id" => "contributions#remotesign", :via => :get
   match "/workflows/related_articles/:id" => "workflows#related_articles", :via => :get
   match "/workflows/role_accesses/:id" => "workflows#role_accesses", :via => :get
   match "/workflows/change_role_access/:id" => "workflows#change_role_access", :via => :get

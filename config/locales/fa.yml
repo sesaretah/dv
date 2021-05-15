@@ -292,6 +292,7 @@ fa:
             duty: 'سمت پدیدآور'
             role: 'نقش در سند'
             profile_group_id: 'گروه افراد'
+            sign: 'نمایش امضا'
         kinship:
             article_relation_type_id: 'نوع ارتباط'
             kin_id: 'سند هدف'
@@ -816,6 +817,8 @@ fa:
   archived: 'بایگانی شده'
   new_state_page: 'کاربرگه ها'
   mirorrs: 'آینه'
+  sign: 'نمایش امضا'
+  
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

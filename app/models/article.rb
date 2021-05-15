@@ -161,8 +161,6 @@ class Article < ActiveRecord::Base
       #Kinship.create(kin_id: self.id, article_id: @new_article.id, user_id: current_user.id, article_relation_type_id: @article_relation_type.id)
       #@uploads = Upload.where(uploadable_type: 'Article', uploadable_id: self.id)
       for upload in Upload.where(uploadable_type: 'Article', uploadable_id: self.id)
-        p '%%%%%'
-        p upload
         new_upload = Upload.create(uploadable_type: 'Article', uploadable_id: @new_article.id, attachment_type: "article_citation" , user_id: upload.user_id ,title: upload.title, detail: upload.detail)
         new_upload.attachment =  upload.attachment
         new_upload.save

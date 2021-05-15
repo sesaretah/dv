@@ -95,7 +95,7 @@
             <% @sign_width = "155px" %>
           <% end %>
           <% for contribution in @article.contributions.drop(1) %>
-          <% if !contribution.profile.signature.blank? %>
+          <% if !contribution.profile.signature.blank? && contribution.sign %>
           <%= image_tag contribution.profile.signature(:medium), width: @sign_width %>
           <% if i % 5 == 0 %>
         </div></div>
@@ -116,7 +116,7 @@
         <div class="row text-center">
          <div class="col-12">
           <% c = @article.contributions.first %>
-          <% if !c.blank? && !c.profile.blank? && !c.profile.signature.blank? %>
+          <% if !c.blank? && c.sign && !c.profile.blank? && !c.profile.signature.blank? %>
             <%= image_tag c.profile.signature(:medium), width: @sign_width %>
           <% end %>
           </div>
