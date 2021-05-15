@@ -1,0 +1,23 @@
+    <div id='mirorr-form'>
+    <%= form_for Mirorr.new, remote: true do |f| %>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="form-label"><%= t :source_workflow_state %></label>
+                     <%= f.select "source_state", options_for_select(@workflow.workflow_states.all.collect { |p| ["#{p.title}", p.id] }), {}, { class: "form-control" } %>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="form-label"><%= t :target_workflow_state %></label>
+                     <%= f.select "target_state", options_for_select(WorkflowState.all.collect { |p| ["#{p.workflow.title} > #{p.title}", p.id] }), {}, { class: "form-control" } %>
+                </div>
+            </div>
+        </div>
+
+
+         <button type="submit" class="btn btn-primary"><%= t :submit %></button>
+        <% end %>
+        </div>

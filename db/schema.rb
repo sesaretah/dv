@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210507093435) do
+ActiveRecord::Schema.define(version: 20210515174820) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -424,6 +424,14 @@ ActiveRecord::Schema.define(version: 20210507093435) do
     t.integer  "recipient_id", limit: 4
     t.integer  "message_id",   limit: 4
     t.integer  "status",       limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "mirorrs", force: :cascade do |t|
+    t.integer  "source_state", limit: 4
+    t.integer  "target_state", limit: 4
+    t.integer  "user_id",      limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

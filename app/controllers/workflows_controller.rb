@@ -1,33 +1,35 @@
 class WorkflowsController < ApplicationController
-  before_action :set_workflow, only: [:show, :edit, :update, :destroy,:related_articles, :role_accesses, :change_role_access, :start_workflow_states, :carriers]
+  before_action :set_workflow, only: [:show, :edit, :update, :destroy, :related_articles, :role_accesses, :change_role_access, :start_workflow_states, :carriers, :mirorrs]
 
   skip_before_action :verify_authenticity_token, only: [:start_workflow_states]
-  
-  def carriers
-    @carriers = Carrier.where('source_workflow_state_id in (?)', @workflow.workflow_states.pluck(:id).uniq)
-  end 
 
+  def carriers
+    @carriers = Carrier.where("source_workflow_state_id in (?)", @workflow.workflow_states.pluck(:id).uniq)
+  end
+
+  def mirorrs
+    @mirorrs = Mirorr.where("source_state in (?)", @workflow.workflow_states.pluck(:id).uniq)
+  end
 
   def start_workflow_states
-
     start_workflow_states = @workflow.user_start_workflow_states(current_user)
     resp = []
     for k in start_workflow_states
-      resp << {'title' => k.title, 'id' => k.id}
+      resp << { "title" => k.title, "id" => k.id }
     end
-    render :json => resp.to_json, :callback => params['callback']
-  end 
+    render :json => resp.to_json, :callback => params["callback"]
+  end
 
   def change_role_access
     workflow_role_access = WorkflowRoleAccess.where(workflow_id: @workflow.id, role_id: params[:role_id]).first
     if workflow_role_access.blank?
       workflow_role_access = WorkflowRoleAccess.create(workflow_id: @workflow.id, role_id: params[:role_id])
     end
-    if params[:access] == 'own_article_traceable'
+    if params[:access] == "own_article_traceable"
       workflow_role_access.own_article_traceable = params[:value]
     end
 
-    if params[:access] == 'other_articles_traceable'
+    if params[:access] == "other_articles_traceable"
       workflow_role_access.other_articles_traceable = params[:value]
     end
 
@@ -35,7 +37,6 @@ class WorkflowsController < ApplicationController
   end
 
   def role_accesses
-    
   end
 
   def related_articles
@@ -43,10 +44,11 @@ class WorkflowsController < ApplicationController
     @articles = Article.where(workflow_state_id: @workflow_state.id).limit(5)
     resp = []
     for a in @articles
-      resp << {'title' => a.title.truncate(30), 'abstract' => a.abstract, 'id' => a.id}
+      resp << { "title" => a.title.truncate(30), "abstract" => a.abstract, "id" => a.id }
     end
-    render :json => resp.to_json, :callback => params['callback']
+    render :json => resp.to_json, :callback => params["callback"]
   end
+
   # GET /workflows
   # GET /workflows.json
   def index
@@ -68,7 +70,7 @@ class WorkflowsController < ApplicationController
 
   # GET /workflows/1/edit
   def edit
-    if !owner(@workflow, current_user) && !grant_access('edit_workflow', current_user)
+    if !owner(@workflow, current_user) && !grant_access("edit_workflow", current_user)
       head(403)
     end
     @edges = @workflow.prepare_edges
@@ -86,10 +88,10 @@ class WorkflowsController < ApplicationController
     @nodes = JSON.parse params[:workflow][:nodes]
     @trimed_nodes = []
     for node in @nodes
-      if !node['title'].blank?
+      if !node["title"].blank?
         @trimed_nodes << node
-        if node['start_point'] == 2
-          @workflow.start_node_id = node['id']
+        if node["start_point"] == 2
+          @workflow.start_node_id = node["id"]
         end
       end
     end
@@ -97,11 +99,11 @@ class WorkflowsController < ApplicationController
     respond_to do |format|
       if @workflow.save
         for node in @nodes
-          if !node['title'].blank?
-            WorkflowState.create(workflow_id: @workflow.id, title: node['title'], node_id: node['id'], editable: node['editable'], refundable: node['refundable'], commentable: node['commentable'], start_point: node['start_point'], end_point: node['end_point'],  publishable: node['publishable'] ,role_id: node['role'])
+          if !node["title"].blank?
+            WorkflowState.create(workflow_id: @workflow.id, title: node["title"], node_id: node["id"], editable: node["editable"], refundable: node["refundable"], commentable: node["commentable"], start_point: node["start_point"], end_point: node["end_point"], publishable: node["publishable"], role_id: node["role"])
           end
         end
-        format.html { redirect_to @workflow, notice: 'Workflow was successfully created.' }
+        format.html { redirect_to @workflow, notice: "Workflow was successfully created." }
         format.json { render :show, status: :created, location: @workflow }
       else
         format.html { render :new }
@@ -113,31 +115,31 @@ class WorkflowsController < ApplicationController
   # PATCH/PUT /workflows/1
   # PATCH/PUT /workflows/1.json
   def update
-    if !owner(@workflow, current_user)  && !grant_access('edit_workflow', current_user)
+    if !owner(@workflow, current_user) && !grant_access("edit_workflow", current_user)
       head(403)
     end
     #@workflow.user_id = current_user.id
     @nodes = JSON.parse params[:workflow][:nodes]
     @trimed_nodes = []
     for node in @nodes
-      if !node['title'].blank?
-        if node['start_point'] == '2'
-          @workflow.start_node_id = node['id']
+      if !node["title"].blank?
+        if node["start_point"] == "2"
+          @workflow.start_node_id = node["id"]
         end
         @trimed_nodes << node
-        @state =  WorkflowState.where(workflow_id: @workflow.id, node_id: node['id']).first
+        @state = WorkflowState.where(workflow_id: @workflow.id, node_id: node["id"]).first
         if @state.blank?
-          WorkflowState.create(workflow_id: @workflow.id, title: node['title'], node_id: node['id'], editable: node['editable'], refundable: node['refundable'], commentable: node['commentable'], start_point: node['start_point'], end_point: node['end_point'], role_id: node['role'])
+          WorkflowState.create(workflow_id: @workflow.id, title: node["title"], node_id: node["id"], editable: node["editable"], refundable: node["refundable"], commentable: node["commentable"], start_point: node["start_point"], end_point: node["end_point"], role_id: node["role"])
         else
-          @state.title = node['title']
-          @state.editable = node['editable']
-          @state.refundable = node['refundable']
-          @state.commentable = node['commentable']
-          @state.start_point = node['start_point']
-          @state.end_point = node['end_point']
-          @state.publishable = node['publishable']
-          @state.role_id = node['role']
-          @state.votable = node['votable']
+          @state.title = node["title"]
+          @state.editable = node["editable"]
+          @state.refundable = node["refundable"]
+          @state.commentable = node["commentable"]
+          @state.start_point = node["start_point"]
+          @state.end_point = node["end_point"]
+          @state.publishable = node["publishable"]
+          @state.role_id = node["role"]
+          @state.votable = node["votable"]
           @state.save
         end
       end
@@ -145,7 +147,7 @@ class WorkflowsController < ApplicationController
     @workflow.nodes = @trimed_nodes.to_json
     respond_to do |format|
       if @workflow.update(workflow_params)
-        format.html { redirect_to @workflow, notice: 'Workflow was successfully updated.' }
+        format.html { redirect_to @workflow, notice: "Workflow was successfully updated." }
         format.json { render :show, status: :ok, location: @workflow }
       else
         format.html { render :edit }
@@ -162,19 +164,20 @@ class WorkflowsController < ApplicationController
     end
     @workflow.destroy
     respond_to do |format|
-      format.html { redirect_to workflows_url, notice: 'Workflow was successfully destroyed.' }
+      format.html { redirect_to workflows_url, notice: "Workflow was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_workflow
-      @workflow = Workflow.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def workflow_params
-      params.require(:workflow).permit(:title, :description, :user_id, :graph_data, :nodes, :edges, :start_node_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_workflow
+    @workflow = Workflow.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def workflow_params
+    params.require(:workflow).permit(:title, :description, :user_id, :graph_data, :nodes, :edges, :start_node_id)
+  end
 end

@@ -1,0 +1,16 @@
+<div class='card'>
+    <div class="card-header">
+        <h3 class="card-title"><%= t :carriers %></h3>
+        <div class="card-options">
+       <%= link_to "/mirorrs/new?workflow_id=#{@workflow.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+        <i class="fe fe-plus" style="vertical-align: -3px;"></i> <%= t :new %>
+        <% end %>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <%= render partial: "mirorrs/list", locals: { mirorrs: @mirorrs, workflow: @workflow } %>
+    </div>
+</div>
+
+

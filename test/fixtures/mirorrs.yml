@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  source_state: 1
+  target_state: 1
+  user_id: 1
+
+two:
+  source_state: 1
+  target_state: 1
+  user_id: 1

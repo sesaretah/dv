@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   resources :sections
   resources :publications
   resources :carriers
+  resources :mirorrs
   resources :notification_settings
   resources :state_pages
   #devise_for :users
@@ -123,6 +124,7 @@ Rails.application.routes.draw do
   match "/workflows/change_role_access/:id" => "workflows#change_role_access", :via => :get
   match "/workflows/start_workflow_states/:id" => "workflows#start_workflow_states", :via => :get
   match "/workflows/carriers/:id" => "workflows#carriers", :via => :get
+  match "/workflows/mirorrs/:id" => "workflows#mirorrs", :via => :get
 
   match "/typings/remotec/:id" => "typings#remotec", :via => :get
   match "/typings/remoted/:id" => "typings#remoted", :via => :get

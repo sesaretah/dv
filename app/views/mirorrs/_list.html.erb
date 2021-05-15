@@ -1,0 +1,45 @@
+  <table class="table  table-vcenter" id='mirorr-list'>
+  <thead>
+    <tr>
+      <th class="text-center"><i class="fe fe-command" style="vertical-align: -4px;"></i></th>
+      <th><%= t :source_workflow_state %></th>
+      <th><%= t :target_workflow_state %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% if !mirorrs.blank? %>
+    <% mirorrs.each do |mirorr| %>
+    <tr>
+      <td class="text-center">
+        <div class="item-action dropdown">
+          <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+          <div class="dropdown-menu dropdown-menu-right">
+                <%= link_to mirorr, method: :delete, remote: true, class: "dropdown-item", data: { confirm: "Are you sure?" } do %>
+                <i class="dropdown-icon fe fe-trash"></i> <%= t :destroy %>
+                <% end %>
+          </div>
+        </div>
+      </td>
+    <td>
+        <%= WorkflowState.find(mirorr.source_state).title rescue nil %>
+    </td>
+    <td>
+       <%= WorkflowState.find(mirorr.target_state).workflow.title rescue nil %> > <%= WorkflowState.find(mirorr.target_state).title rescue nil %>
+    </td>
+    <td>
+       
+    </td>
+    <td>
+        
+    </td>
+    <td>
+       
+    </td>
+      
+      </tr>
+      <% end %>
+    <% end %>
+</table>
