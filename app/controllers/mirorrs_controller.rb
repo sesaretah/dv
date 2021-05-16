@@ -25,13 +25,13 @@ class MirorrsController < ApplicationController
     else
       mirorr.update(carrier_params)
     end
-    @workflow = Workflow.find(mirorr.source_state)
+    @workflow = WorkflowState.find(mirorr.source_state).workflow
     @mirorrs = Mirorr.where("source_state in (?)", @workflow.workflow_states.pluck(:id).uniq).order("source_state asc")
   end
 
   def destroy
     @mirorr = Mirorr.find(params[:id])
-    @workflow = Workflow.find(@mirorr.source_state)
+    @workflow = WorkflowState.find(@mirorr.source_state).workflow
     @mirorrs = Mirorr.where("source_state in (?)", @workflow.workflow_states.pluck(:id).uniq).order("source_state asc")
     if !@mirorr.blank?
       @mirorr.destroy
