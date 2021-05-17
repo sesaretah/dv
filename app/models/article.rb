@@ -158,9 +158,14 @@ class Article < ActiveRecord::Base
       for t in @taggings
         Tagging.where(taggable_type: 'Article', taggable_id: @new_article.id, target_id: t.target_id ,target_type: 'Keyword')
       end
-      @article_relation_type = ArticleRelationType.where(title: 'ارجاع شده از:').first
+      @article_relation_type = ArticleRelationType.where(title: 'ارجاع شده از').first
       if !@article_relation_type.blank?
         Kinship.create(kin_id: self.id, article_id: @new_article.id, user_id: user.id, article_relation_type_id: @article_relation_type.id)
+      end
+
+      @article_relation_type_to = ArticleRelationType.where(title: 'ارجاع شده به').first
+      if !@article_relation_type_to.blank?
+        Kinship.create(kin_id: @new_article.id, article_id: self.id, user_id: user.id, article_relation_type_id: @article_relation_type_to.id)
       end
       
       typings = Typing.where(article_id: self.id)
