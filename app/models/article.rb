@@ -152,13 +152,43 @@ class Article < ActiveRecord::Base
   def other_title
   end
 
-  def make_a_copy(target_state_id)
+  def make_a_copy(target_state_id, user)
       @new_article = Article.create(title: self.title, abstract: self.abstract, content:self.content, url: self.url, document_contents: self.document_contents, content_wo_tags: self.content_wo_tags, workflow_state_id: target_state_id, slug: SecureRandom.hex(4))
       @taggings = Tagging.where(taggable_type: 'Article', taggable_id: self.id, target_type: 'Keyword')
       for t in @taggings
         Tagging.where(taggable_type: 'Article', taggable_id: @new_article.id, target_id: t.target_id ,target_type: 'Keyword')
       end
-      #Kinship.create(kin_id: self.id, article_id: @new_article.id, user_id: current_user.id, article_relation_type_id: @article_relation_type.id)
+      @article_relation_type = ArticleRelationType.where(title: 'ارجاع شده از:').first
+      if !@article_relation_type.blank?
+        Kinship.create(kin_id: self.id, article_id: @new_article.id, user_id: user.id, article_relation_type_id: @article_relation_type.id)
+      end
+      
+      typings = Typing.where(article_id: self.id)
+      for typing in typings
+        Typing.create(article_type_id: typing.article_type_id , article_id: @new_article.id)
+      end
+
+      speakings = Speaking.where(article_id: self.id)
+      for speaking in speakings
+        Speaking.create(language_id: speaking.language_id , article_id: @new_article.id)
+      end
+
+      formatings = Formating.where(article_id: self.id)
+      for formating in formatings
+        Formating.create(article_format_id: formating.article_format_id , article_id: @new_article.id)
+      end
+
+      originatings = Originating.where(article_id: self.id)
+      for originating in originatings
+        Originating.create(article_source_id: originating.article_source_id , article_id: @new_article.id)
+      end
+
+
+      areaings = Areaing.where(article_id: self.id)
+      for areaing in areaings
+        Areaing.create(article_area_id: areaing.article_area_id , article_id: @new_article.id)
+      end
+      
       #@uploads = Upload.where(uploadable_type: 'Article', uploadable_id: self.id)
       for upload in Upload.where(uploadable_type: 'Article', uploadable_id: self.id)
         new_upload = Upload.create(uploadable_type: 'Article', uploadable_id: @new_article.id, attachment_type: "article_citation" , user_id: upload.user_id ,title: upload.title, detail: upload.detail)

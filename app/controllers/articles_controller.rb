@@ -448,7 +448,7 @@ class ArticlesController < ApplicationController
     @this_role = @this_workflow_state.role
     @next_role = @next_workflow_state.role
     @revision_number = SecureRandom.hex(4)
-    if @article.workflow_state.workflow.is_next_node(@article.workflow_state.node_id, @next_workflow_state.node_id) && @article.workflow_state.role_id == current_user.current_role_id
+    if @article.workflow_state.workflow.is_next_node(@article.workflow_state.node_id, @next_workflow_state.node_id) && User.user_has_role(current_user, @article.workflow_state.role_id) #@article.workflow_state.role_id == current_user.current_role_id
       @workflow_transition = WorkflowTransition.create(workflow_id: @article.workflow_state.workflow.id, from_state_id: @article.workflow_state.id, to_state_id: @next_workflow_state.id, article_id: @article.id, message: params[:message], user_id: current_user.id, role_id: current_user.current_role_id, transition_type: 1, revision_number: @revision_number)
       populate_dependencies(@article, @workflow_transition, @revision_number)
       @article.workflow_state_id = params[:workflow_state]
@@ -480,7 +480,7 @@ class ArticlesController < ApplicationController
     @this_role = @this_workflow_state.role
     @prv_role = @previous_workflow_state.role
     @revision_number = SecureRandom.hex(4)
-    if @article.workflow_state.workflow.is_previous_node(@article.workflow_state.node_id, @previous_workflow_state.node_id) && @article.workflow_state.role_id == current_user.current_role_id
+    if @article.workflow_state.workflow.is_previous_node(@article.workflow_state.node_id, @previous_workflow_state.node_id) && User.user_has_role(current_user, @article.workflow_state.role_id) #@article.workflow_state.role_id == current_user.current_role_id
       @workflow_transition = WorkflowTransition.create(workflow_id: @article.workflow_state.workflow.id, from_state_id: @article.workflow_state.id, to_state_id: @previous_workflow_state.id, article_id: @article.id, message: params[:message], user_id: current_user.id, role_id: current_user.current_role_id, transition_type: 2, revision_number: @revision_number)
       populate_dependencies(@article, @workflow_transition, @revision_number)
       @article.workflow_state_id = params[:workflow_state]

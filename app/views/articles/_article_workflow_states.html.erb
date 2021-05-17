@@ -3,7 +3,7 @@
     <%= @article.title %> 
   </div>
   <% if !@workflows.blank? %>
-  <%= render partial: "articles/make_a_copy", locals: { article: @article, workflows: @workflows } %>
+  <% render partial: "articles/make_a_copy", locals: { article: @article, workflows: @workflows } %>
   <% end %>
   <% if User.user_has_role(current_user, article.workflow_state.role_id) || grant_access("edit_workflow", current_user) %>
     <% if article.workflow_state.votable != 2 || article.workflow_state.workflow.user_id == current_user.id %>

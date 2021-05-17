@@ -6,7 +6,7 @@ class WorkflowTransition < ActiveRecord::Base
   def check_mirorr
     mirorr = Mirorr.where(source_state: self.to_state_id).first
     if !mirorr.blank?
-      self.article.make_a_copy(mirorr.target_state)
+      self.article.make_a_copy(mirorr.target_state, self.user)
     end
   end
 end
