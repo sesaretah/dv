@@ -65,7 +65,7 @@
       <% end %>
       <% for kin in @kins %>
       <div class="row text-center mb-2">
-        <div class="col-11 col-md-11 col-sm-11" style='min-height: 120px;'>
+        <div class="col-11 col-md-11 col-sm-11" <% if @article_count < 8 && @article_count > 8 %>style='min-height: 120px;'<% end %>>
           <% qrcode = RQRCode::QRCode.new(Rails.application.routes.default_url_options[:host] + "/" + kin.slug) %>
           <span style='float: right;margin-left: 15px;'>
           <% svg = svg = qrcode.as_svg(
@@ -89,7 +89,7 @@
       <% i = 1 %>
       <div class="row text-center">
         <div class="col-12">
-          <% if @article_count < 6 %>
+          <% if @article_count < 8 && @article_count > 8 %>
             <% @sign_width = "130px" %>
           <% else %>
             <% @sign_width = "155px" %>

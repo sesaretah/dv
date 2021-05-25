@@ -206,7 +206,8 @@
             <%= t k %>
             <ul>
               <% for u in v %>
-              <li><%= link_to u.attachment.url do %><i class="fe fe-download" style="vertical-align:middle;"></i> <%= u.title %><% end %>
+              <li><a href='ms-word:ofe|u|https://divan.ut.ac.ir<%= u.attachment.url %>'>O</li>
+              <li><%= link_to "ms-word:ofe|u|#{u.attachment.url}" do %><i class="fe fe-download" style="vertical-align:middle;"></i> <%= u.title %><% end %>
                 <p class="text-muted">
                     <%= u.detail %>
                     <% if permit_by_workflow(@article, current_user, "keywords") %>
