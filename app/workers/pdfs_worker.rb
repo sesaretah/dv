@@ -24,9 +24,11 @@ class PdfsWorker
         for kin_upload in uploads
           if kin_upload.attachment_content_type == "application/pdf"
             kin_uploads = kin_uploads + " ##{kin_upload.attachment.path} "
-            system("convert -density 150 #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf #{kin_upload.attachment.path} #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf")
+            #system("convert -density 150 #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf #{kin_upload.attachment.path} #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf")
           end
         end
+        p "#{kin_uploads}"
+        system("convert -density 150 #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf #{kin_uploads} #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf")
       end
       article.pdf_generated = true
       article.save
