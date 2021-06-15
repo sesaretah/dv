@@ -23,7 +23,7 @@ class Notification < ActiveRecord::Base
         article_id = nil
       end
       if !workflow_transition.blank? && !workflow_transition.to_state.blank? && workflow_transition.to_state.notifiable == 2
-        MailerWorker.perform_async(self.user_id, self.notification_type, self.user.profile.fullname, "", self.custom_text, "", article_id)
+        MailerWorker.perform_async(self.user_id, self.notification_type, self.user.profile.fullname, workflow_transition.article.title, self.custom_text, "", article_id)
       end
     end
   end
