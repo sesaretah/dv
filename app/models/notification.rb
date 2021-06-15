@@ -15,7 +15,7 @@ class Notification < ActiveRecord::Base
       MailerWorker.perform_async(self.user_id, self.notification_type, self.user.profile.fullname, item.article.title, self.custom_text, "", article_id)
     end
     #end
-    if self.notifiable_type == "WorkflowTransition"
+    if self.notifiable_type == "WorkflowTransition" && item.to_state.notifiable == 2
       item = self.notifiable_type.classify.constantize.find_by_id(self.notifiable_id)
       if item.article_id && !item.article_id.blank?
         article_id = item.article_id
