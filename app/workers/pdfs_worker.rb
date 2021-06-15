@@ -20,8 +20,10 @@ class PdfsWorker
           #system("wkhtmltopdf --page-size Letter --viewport-size 1280x1024  --margin-right 15mm --margin-bottom 20mm #{Rails.application.routes.default_url_options[:host]}/articles/raw_single_print/#{kinship.kin.id} #{Rails.root}/public/pdfs/#{id}/#{kinship.kin.id}.pdf")
           #system("convert -density 150 #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf #{Rails.root}/public/pdfs/#{id}/#{kinship.kin.id}.pdf #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf")
         end
+        kin_uploads = " "
         for kin_upload in uploads
           if kin_upload.attachment_content_type == "application/pdf"
+            kin_uploads = kin_uploads + " ##{kin_upload.attachment.path} "
             system("convert -density 150 #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf #{kin_upload.attachment.path} #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf")
           end
         end
