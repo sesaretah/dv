@@ -5,7 +5,7 @@ class NotificationMailer < ApplicationMailer
     @user = User.find(user_id)
     article = Article.find_by_id(article_id)
     @second_pargraph = ""
-    @link =  Rails.application.routes.default_url_options[:host]
+    @link = Rails.application.routes.default_url_options[:host]
     @title = "#{t(:notification)}"
     case notify_type
     when "article_sent"
@@ -46,8 +46,8 @@ class NotificationMailer < ApplicationMailer
     end
 
     if !article.blank?
-      attachments['attachment.pdf'] = File.read("#{Rails.root.to_s}/public/pdfs/#{article.id}/#{article.publish_uuid}.pdf")
-      @link =  Rails.application.routes.default_url_options[:host] + "/articles/#{article.id}"
+      attachments["attachment.pdf"] = File.read("#{Rails.root.to_s}/public/pdfs/#{article.id}/#{article.publish_uuid}.pdf") rescue ""
+      @link = Rails.application.routes.default_url_options[:host] + "/articles/#{article.id}" rescue ""
     end
 
     mail(:to => @user.email,
