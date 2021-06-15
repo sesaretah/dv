@@ -100,7 +100,7 @@ class WorkflowsController < ApplicationController
       if @workflow.save
         for node in @nodes
           if !node["title"].blank?
-            WorkflowState.create(workflow_id: @workflow.id, title: node["title"], node_id: node["id"], editable: node["editable"], refundable: node["refundable"], commentable: node["commentable"], start_point: node["start_point"], end_point: node["end_point"], publishable: node["publishable"], role_id: node["role"])
+            WorkflowState.create(workflow_id: @workflow.id, title: node["title"], node_id: node["id"], editable: node["editable"], refundable: node["refundable"], commentable: node["commentable"], start_point: node["start_point"], end_point: node["end_point"], publishable: node["publishable"], notifiable: node["notifiable"], role_id: node["role"])
           end
         end
         format.html { redirect_to @workflow, notice: "Workflow was successfully created." }
@@ -138,6 +138,7 @@ class WorkflowsController < ApplicationController
           @state.start_point = node["start_point"]
           @state.end_point = node["end_point"]
           @state.publishable = node["publishable"]
+          @state.notifiable = node["notifiable"]
           @state.role_id = node["role"]
           @state.votable = node["votable"]
           @state.save

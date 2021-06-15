@@ -818,6 +818,7 @@ fa:
   new_state_page: 'کاربرگه ها'
   mirorrs: 'آینه'
   sign: 'نمایش امضا'
+  notifiable: 'اطلاع رسانی اجباری'
   
   devise:
     confirmations:

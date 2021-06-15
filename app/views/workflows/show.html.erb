@@ -177,6 +177,16 @@
                       <%= select_tag "publishable", options_for_select(existence), { include_blank: true, class: "form-control", disabled: true } %>
                     </div>
                   </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="form-label">
+                        <%= t :notifiable %>
+                      </label>
+                      <%= select_tag "notifiable", options_for_select(existence), { include_blank: true, class: "form-control", disabled: true } %>
+                    </div>
+                  </div>
+
                 </div>
               </div>
 
@@ -512,6 +522,7 @@
                       d3.select("#start_point").property('value', d.start_point);
                       d3.select("#end_point").property('value', d.end_point);
                       d3.select("#publishable").property('value', d.publishable);
+                      d3.select("#notifiable").property('value', d.notifiable);
                       thisGraph.replaceSelectNode(d3node, d);
                     } else{
                       thisGraph.removeSelectFromNode();
@@ -584,6 +595,13 @@
               var currentNodeId = d3.select('#current-node-id').text();
               var newData = d3.select(this).property('value');
               updateNode('publishable', parseInt(currentNodeId), newData);
+            });
+
+            d3.select('#notifiable')
+            .on('change', function() {
+              var currentNodeId = d3.select('#current-node-id').text();
+              var newData = d3.select(this).property('value');
+              updateNode('notifiable', parseInt(currentNodeId), newData);
             });
 
             function updateNode(attribute, nodeId, newValue){
@@ -786,7 +804,7 @@
           // initial node data
 
           <% if @workflow.nodes.blank? %>
-          var nodes = [{title: "", id: 0, x: xLoc, y: yLoc, role: '', editable: '', refundable: '', commentable: '', start_point: '', end_point: '', publishable: ''}];
+          var nodes = [{title: "", id: 0, x: xLoc, y: yLoc, role: '', editable: '', refundable: '', commentable: '', start_point: '', end_point: '', publishable: '', notifiable: ''}];
           <% else %>
           var nodes = <%= raw @workflow.nodes %>;
           <% end %>

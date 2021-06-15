@@ -9,4 +9,14 @@ class WorkflowTransition < ActiveRecord::Base
       self.article.make_a_copy(mirorr.target_state, self.user)
     end
   end
+
+  def from_state
+    workflow_state = WorkflowState.find(self.from_state_id) if !self.from_state_id.blank?
+    return workflow_state if !workflow_state.blank?
+  end
+
+  def to_state
+    workflow_state = WorkflowState.find(self.to_state_id) if !self.to_state_id.blank?
+    return workflow_state if !workflow_state.blank?
+  end
 end
