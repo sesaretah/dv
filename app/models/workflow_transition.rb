@@ -16,7 +16,7 @@ class WorkflowTransition < ActiveRecord::Base
   end
 
   def to_state
-    workflow_state = WorkflowState.find_find_by(self.to_state_id) if !self.to_state_id.blank?
+    workflow_state = WorkflowState.find_by_id(self.to_state_id) if !self.to_state_id.blank?
     return workflow_state if !workflow_state.blank?
   end
 end
