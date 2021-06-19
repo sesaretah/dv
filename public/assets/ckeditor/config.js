@@ -1,5 +1,5 @@
 CKEDITOR.editorConfig = function (config) {
-config.language = "en";
+config.language = "de";
 config.ContentLangDirection = 'ltr' ;
 config.height = 350;
 config.toolbarGroups = [
