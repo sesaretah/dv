@@ -1,6 +1,6 @@
 CKEDITOR.editorConfig = function (config) {
-config.language = "fa";
-config.ContentLangDirection = 'ltr' ;
+//config.language = "fa";
+//config.ContentLangDirection = 'ltr' ;
 config.height = 350;
 config.toolbarGroups = [
   { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
