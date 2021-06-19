@@ -1,7 +1,8 @@
 CKEDITOR.editorConfig = function (config) {
 config.language = "fa";
 config.ContentLangDirection = 'rtl' ;
-config.height = 350;
+config.height = 360;
+
 config.toolbarGroups = [
   { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
 { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
