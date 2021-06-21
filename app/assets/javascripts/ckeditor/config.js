@@ -1,7 +1,7 @@
 CKEDITOR.editorConfig = function (config) {
-//config.language = "fa";
-//config.ContentLangDirection = 'ltr' ;
-config.height = 350;
+config.language = "fa";
+config.ContentLangDirection = 'rtl';
+config.height = 360;
 config.toolbarGroups = [
   { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
 { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
@@ -13,7 +13,7 @@ config.toolbarGroups = [
 { name: 'links', groups: [ 'links' ] },
 { name: 'insert', groups: [ 'insert' ] },
 { name: 'styles', groups: [ 'styles' ] },
-{ name: 'colors', groups: [ 'colors' ] },
+//{ name: 'colors', groups: [ 'colors' ] },
 { name: 'tools', groups: [ 'tools' ] },
 { name: 'others', groups: [ 'others' ] },
 { name: 'about', groups: [ 'about' ] }
