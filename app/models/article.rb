@@ -239,9 +239,9 @@ class Article < ActiveRecord::Base
 
       
 
-      article = Article.create(title: truncate(title, length: 500), url: url, workflow_state_id: workflow_state_id, slug: SecureRandom.hex(4), external_id:result["id"] )
+      article = Article.create(title: title.truncate(240), url: url, workflow_state_id: workflow_state_id, slug: SecureRandom.hex(4), external_id:result["id"] )
       if !other_title.blank?
-        Titling.create(title_type_id: TitleType.first.id, article_id: article.id, content: other_title)
+        Titling.create(title_type_id: TitleType.first.id, article_id: article.id, content: other_title.truncate(240))
       end
 
       Dating.create(article_id: article.id, article_event_id: 5, event_date: Date.parse(result["publication_date"]))
