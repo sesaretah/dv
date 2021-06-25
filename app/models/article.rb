@@ -263,7 +263,7 @@ class Article < ActiveRecord::Base
         end
       end
 
-      if location.blank?
+      if location.blank? && !publisher.blank?
         Publication.create(article_id: article.id, publisher_id: publisher.id, pp: "vol " + result["period_volume"].to_s + "no. " + result["journal_number"].to_s + "pp. " + result["page_number"].to_s)
       else
         Publication.create(article_id: article.id, publisher_id: publisher.id, location_id: location.id, pp: "vol " + result["period_volume"].to_s + "no. " + result["journal_number"].to_s + "pp. " + result["page_number"].to_s)
