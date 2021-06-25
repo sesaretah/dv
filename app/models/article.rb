@@ -250,10 +250,12 @@ class Article < ActiveRecord::Base
       Speaking.create(article_id: article.id, language_id: language)
       
       # Publication
+      if !result["journal_name"].blank? && !result["journal_name"]["title_en"].blank?
       publisher = Publisher.where(title:  UnicodeFixer.fix(result["journal_name"]["title_en"])).first
       if publisher.blank?
         publisher = Publisher.create(title:  UnicodeFixer.fix(result["journal_name"]["title_en"]))
       end
+    end
       if !result["publication_country"].blank? && !result["publication_country"]["name_fa"].blank?
         location = Location.where(title:  UnicodeFixer.fix(result["publication_country"]["name_fa"])).first
         if location.blank?
