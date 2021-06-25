@@ -251,15 +251,15 @@ class Article < ActiveRecord::Base
       
       # Publication
       if !result["journal_name"].blank? && !result["journal_name"]["title_en"].blank?
-      publisher = Publisher.where(title:  UnicodeFixer.fix(result["journal_name"]["title_en"])).first
+      publisher = Publisher.where(title:  UnicodeFixer.fix(result["journal_name"]["title_en"]).truncate(240)).first
       if publisher.blank?
-        publisher = Publisher.create(title:  UnicodeFixer.fix(result["journal_name"]["title_en"]))
+        publisher = Publisher.create(title:  UnicodeFixer.fix(result["journal_name"]["title_en"]).truncate(240))
       end
     end
       if !result["publication_country"].blank? && !result["publication_country"]["name_fa"].blank?
-        location = Location.where(title:  UnicodeFixer.fix(result["publication_country"]["name_fa"])).first
+        location = Location.where(title:  UnicodeFixer.fix(result["publication_country"]["name_fa"]).truncate(240)).first
         if location.blank?
-          location = Location.create(title:  UnicodeFixer.fix(result["publication_country"]["name_fa"]))
+          location = Location.create(title:  UnicodeFixer.fix(result["publication_country"]["name_fa"]).truncate(240))
         end
       end
       if !publisher.blank?
