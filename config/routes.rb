@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :journals
   resources :note_templates
   get "/keywords/uniqify" => "keywords#uniqify"
 
