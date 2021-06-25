@@ -283,4 +283,11 @@ class Article < ActiveRecord::Base
       end
     end
   end
+
+  def self.mass_import
+    CSV.foreach("#{Rails.root}/public/users.csv") do |row|
+      
+      self.get_from_rtis(row[0].to_i, 253)
+    end
+  end
 end
