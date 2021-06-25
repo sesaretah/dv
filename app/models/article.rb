@@ -262,12 +262,13 @@ class Article < ActiveRecord::Base
           location = Location.create(title:  UnicodeFixer.fix(result["publication_country"]["name_fa"]))
         end
       end
-
-      if location.blank? && !publisher.blank?
+      if !publisher.blank?
+      if location.blank? 
         Publication.create(article_id: article.id, publisher_id: publisher.id, pp: "vol " + result["period_volume"].to_s + "no. " + result["journal_number"].to_s + "pp. " + result["page_number"].to_s)
       else
         Publication.create(article_id: article.id, publisher_id: publisher.id, location_id: location.id, pp: "vol " + result["period_volume"].to_s + "no. " + result["journal_number"].to_s + "pp. " + result["page_number"].to_s)
       end
+    end
 
       # Contributors
       role = Role.where(title: 'پدیدآور').first
