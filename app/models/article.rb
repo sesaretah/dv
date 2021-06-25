@@ -1,5 +1,7 @@
 class Article < ActiveRecord::Base
-  include ActionView::Helpers::TextHelper
+  require 'action_view'
+  include ActionView::Helpers::TextHelper 
+ 
   after_save ThinkingSphinx::RealTime.callback_for(:article)
 
   has_many :datings
