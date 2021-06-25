@@ -1,4 +1,5 @@
 class Article < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper
   after_save ThinkingSphinx::RealTime.callback_for(:article)
 
   has_many :datings
@@ -234,7 +235,9 @@ class Article < ActiveRecord::Base
         url = ""
       end
 
-      article = Article.create(title: title, url: url, workflow_state_id: workflow_state_id, slug: SecureRandom.hex(4), external_id:result["id"] )
+      
+
+      article = Article.create(title: truncate(title, length: 500), url: url, workflow_state_id: workflow_state_id, slug: SecureRandom.hex(4), external_id:result["id"] )
       if !other_title.blank?
         Titling.create(title_type_id: TitleType.first.id, article_id: article.id, content: other_title)
       end
