@@ -10,7 +10,7 @@
           <div class="col-md-8">
             <div class="form-group">
               <label class="form-label"></label>
-              <%= select_tag :attachment_type,  options_for_select(attachment_types), {class: "form-control transport" } %>
+              <%= select_tag :attachment_type, options_for_select(attachment_types), { class: "form-control transport" } %>
             </div>
           </div>
         </div>
@@ -20,8 +20,8 @@
             <div class="form-group">
               <label class="form-label"></label>
               <label class="custom-control custom-checkbox custom-control-inline">
-                <input type="checkbox" name="upload[summable]" class="custom-control-input" id="upload_summable">
-                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= t :summable%></span>
+                <input type="checkbox" name="upload[summable]" class="custom-control-input" id="upload_summable" checked>
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= t :summable %></span>
               </label>
             </div>
           </div>
@@ -32,8 +32,8 @@
             <div class="form-group">
               <label class="form-label"></label>
               <label class="custom-control custom-checkbox custom-control-inline">
-                <input type="checkbox" name="upload[printable]" class="custom-control-input" id="upload_printable">
-                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= t :printable%></span>
+                <input type="checkbox" name="upload[printable]" class="custom-control-input" id="upload_printable" checked>
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= t :printable %></span>
               </label>
             </div>
           </div>
@@ -44,8 +44,8 @@
             <div class="form-group">
               <label class="form-label"></label>
               <label class="custom-control custom-checkbox custom-control-inline">
-                <input type="checkbox" name="upload[only_index]" class="custom-control-input" id="upload_only_index">
-                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= t :only_index%></span>
+                <input type="checkbox" name="upload[only_index]" class="custom-control-input" id="upload_only_index" checked>
+                <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= t :only_index %></span>
               </label>
             </div>
           </div>
@@ -55,16 +55,16 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label class="form-label"><%=t :attachment_title%></label>
-              <%= text_field_tag :attachment_title , nil,class: "form-control" %>
+              <label class="form-label"><%= t :attachment_title %></label>
+              <%= text_field_tag :attachment_title, nil, class: "form-control" %>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label class="form-label"><%=t :attachment_content%></label>
-              <%= text_area_tag :attachment_content , nil,class: "form-control" %>
+              <label class="form-label"><%= t :attachment_content %></label>
+              <%= text_area_tag :attachment_content, nil, class: "form-control" %>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@
 
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" onclick="send()"><%=t :submit%></button>
+        <button type="button" class="btn btn-default" onclick="send()"><%= t :submit %></button>
       </div>
     </div>
   </div>
@@ -99,25 +99,25 @@ function send(){
   });
 }
 </script>
-<%= form_for(Upload.new, html: {class: 'dropzone'}) do |f| %>
-<%= f.hidden_field :uploadable_type, value: class_name%>
-<%= f.hidden_field :uploadable_id, value: id%>
-<%= f.hidden_field :attachment_type, value: type%>
-<%= hidden_field_tag :file_type, 'picture'%>
+<%= form_for(Upload.new, html: { class: "dropzone" }) do |f| %>
+<%= f.hidden_field :uploadable_type, value: class_name %>
+<%= f.hidden_field :uploadable_id, value: id %>
+<%= f.hidden_field :attachment_type, value: type %>
+<%= hidden_field_tag :file_type, "picture" %>
 <div class="fallback">
   <%= f.file_field :picture %><br>
-  <%= f.hidden_field :uploadable_type, value: class_name%>
-  <%= f.hidden_field :uploadable_id, value: id%>
-  <%= f.hidden_field :attachment_type, value: type%>
+  <%= f.hidden_field :uploadable_type, value: class_name %>
+  <%= f.hidden_field :uploadable_id, value: id %>
+  <%= f.hidden_field :attachment_type, value: type %>
   <%= f.submit "Upload" %>
 </div>
 <% end %>
 <script>
 Dropzone.autoDiscover = false;
 $("#new_upload").dropzone({
-  dictDefaultMessage : "<%=t :drop_files_here_to_upload%>",
+  dictDefaultMessage : "<%= t :drop_files_here_to_upload %>",
   maxFilesize: 500,
-  dictRemoveFile : "<%=t :remove_file %>",
+  dictRemoveFile : "<%= t :remove_file %>",
   acceptedFiles : '.docx,.doc,.pdf,.txt, .png,.jpg,.jpeg, .ppt, .pptx, .xls, .xlsx, .tiff, .tif, .gif',
   addRemoveLinks: true,
   removedfile: function(file) {
@@ -134,13 +134,13 @@ $("#new_upload").dropzone({
       file.id = responseText.id;
     });
 
-    <% for upload in Upload.where("uploadable_type = ? AND uploadable_id =  ? AND attachment_type IN  (?)", class_name, id, ['article_citation', 'article_attachment', 'article_documents'])%>
-    var mockFile = { name: "<%= upload.attachment_file_name%>", size: <%= upload.attachment_file_size%>, url: "<%= upload.attachment.url%>", id: <%= upload.id%> };
+    <% for upload in Upload.where("uploadable_type = ? AND uploadable_id =  ? AND attachment_type IN  (?)", class_name, id, ["article_citation", "article_attachment", "article_documents"]) %>
+    var mockFile = { name: "<%= upload.attachment_file_name %>", size: <%= upload.attachment_file_size %>, url: "<%= upload.attachment.url %>", id: <%= upload.id %> };
     this.options.addedfile.call(this, mockFile);
-    this.options.thumbnail.call(this, mockFile, "<%= upload.attachment(:large)%>");
+    this.options.thumbnail.call(this, mockFile, "<%= upload.attachment(:large) %>");
     mockFile.previewElement.classList.add('dz-success');
     mockFile.previewElement.classList.add('dz-complete');
-    <%end%>
+    <% end %>
   }
 });
 </script>
