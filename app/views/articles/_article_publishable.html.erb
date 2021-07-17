@@ -20,6 +20,8 @@
               <ul>
                 <% for access_grouping in @access_groupings %>
                 <li><%= access_grouping.access_group.title %>
+                    <% @jalali = JalaliDate.to_jalali(access_grouping.created_at) %>
+                    (<%= @jalali.year %>/<%= @jalali.month %>/<%= @jalali.day %>)
                   <% if user_accessible?(@article, current_user) %>
                   <%= link_to "/articles/remove_access_group/#{@article.id}?access_grouping_id=#{access_grouping.id}", remote: true do %><%= t :destroy %><% end %></li>
                   <% end %>
