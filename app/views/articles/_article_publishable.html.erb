@@ -10,7 +10,7 @@
 
         <%= form_tag "/articles/add_access_group/#{@article.id}", method: :get, remote: true do %>
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="form-group">
               <label class="form-label"><%= t :access_group %></label>
               <% if user_accessible?(@article, current_user) %>
