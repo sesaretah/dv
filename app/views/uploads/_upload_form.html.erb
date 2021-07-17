@@ -88,9 +88,9 @@ function send(){
       'upload[attachment_type]': $('#attachment_type').val(),
       'upload[title]': $('#attachment_title').val(),
       'upload[detail]': $('#attachment_content').val(),
-      'upload[summable]': $('#upload_summable').val(),
-      'upload[printable]': $('#upload_printable').val(),
-      'upload[only_index]': $('#upload_only_index').val(),
+      'upload[summable]': $('#upload_summable').is(':checked'),
+      'upload[printable]': $('#upload_printable').is(':checked'),
+      'upload[only_index]': $('#upload_only_index').is(':checked'),
     },
     success: function(){
       $('#target').attr('src', '');

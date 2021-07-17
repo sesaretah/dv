@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210615100520) do
+ActiveRecord::Schema.define(version: 20210621111401) do
 
   create_table "access_controls", force: :cascade do |t|
     t.integer  "user_id",                      limit: 4
@@ -353,6 +353,14 @@ ActiveRecord::Schema.define(version: 20210615100520) do
   end
 
   add_index "involvements", ["article_id"], name: "index_involvements_on_article_id", using: :btree
+
+  create_table "journals", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.string   "vol",        limit: 255
+    t.string   "no",         limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "keywords", force: :cascade do |t|
     t.string   "title",       limit: 255
