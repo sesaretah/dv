@@ -17,7 +17,7 @@ class Notification < ActiveRecord::Base
     end
     #end
     if self.notifiable_type == "WorkflowTransition" && item.to_state.notifiable == 2
-      p "*******************"
+      #p "*******************"
       MailerWorker.perform_async(self.user_id, self.notification_type, self.user.profile.fullname, item.article.title, self.custom_text, "", article_id)
     end
   end
