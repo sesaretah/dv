@@ -55,10 +55,10 @@ class Carrier < ActiveRecord::Base
   end
 
   def source_state
-    WorkflowState.find(self.source_workflow_state_id)
+    WorkflowState.find_by_id(self.source_workflow_state_id)
   end
 
   def target_state
-    WorkflowState.find(self.target_workflow_state_id)
+    WorkflowState.find_by_id(self.target_workflow_state_id)
   end
 end
