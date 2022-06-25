@@ -71,7 +71,7 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
-    diffy (3.2.1)
+    diffy (3.4.1)
     docx_replace (1.2.0)
       rubyzip (~> 1.2, >= 1.2.1)
     erubis (2.7.0)
@@ -110,7 +110,9 @@ GEM
     mime-types (3.2.2)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2018.0812)
-    mimemagic (0.3.2)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
@@ -245,7 +247,7 @@ DEPENDENCIES
   ckeditor
   coffee-rails (~> 4.1.0)
   devise
-  diffy (~> 3.2)
+  diffy (~> 3.4)
   docx_replace
   font-awesome-rails
   hiredis
