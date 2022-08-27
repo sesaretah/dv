@@ -167,7 +167,7 @@
 
                 <td>
                   <span style="font-size: 10px">
-                    <% for dating in @article.datings %>
+                    <% for dating in result.datings %>
                       <% @jalali = JalaliDate.to_jalali(dating.event_date) %>
                       <%= @jalali.year %>/<%= @jalali.month %>/<%= @jalali.day %>
                       |
