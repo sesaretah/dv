@@ -170,8 +170,7 @@
                     <% for dating in result.datings %>
                       <%= dating.article_event.title %>:
                       <% @jalali = JalaliDate.to_jalali(dating.event_date) %>
-                      <%= @jalali.year %>/<%= @jalali.month %>/<%= @jalali.day %>
-                      |
+                      <%= @jalali.year %>/<%= @jalali.month %>/<%= @jalali.day %>,
                     <% end %>
                   </span>
                 </td>
