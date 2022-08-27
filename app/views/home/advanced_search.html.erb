@@ -134,7 +134,7 @@
           <div class='p-2 text-muted' style="border-bottom: 1px solid #dfe0e0; background-color: #e6e8ec69">
             <table style="border-left:2px solid #dfe0e0; ">
               <tr style="">
-                <td style="padding-right: 4px; border-left:2px solid #dfe0e0; ">
+                <td style="padding-right: 3px; border-left:2px solid #dfe0e0; ">
                   <span style="font-weight: bold; font-size: 10px"><%= t :article_type %>:</span>
                   <span style="font-size: 10px">
                     <% for typing in result.typings %>
@@ -142,7 +142,7 @@
                     <% end %>
                   </span>
                 </td>
-                <td style=" padding-right: 4px; border-left:2px solid #dfe0e0; ">
+                <td style=" padding-right: 3px; border-left:2px solid #dfe0e0; ">
                   <span style="font-weight: bold; font-size: 10px"><%= t :language %>:</span>
                   <span style="font-size: 10px">
                     <% for speaking in result.speakings %>
@@ -150,7 +150,7 @@
                     <% end %>
                   </span>
                 </td>
-                <td style="padding-right: 4px; border-left:2px solid #dfe0e0; ">
+                <td style="padding-right: 3px; border-left:2px solid #dfe0e0; ">
                   <span style="font-weight: bold; font-size: 10px"><%= t :attachment %>:</span>
                   <span style="font-size: 10px">
                     <% if Upload.where(uploadable_type: "Article", uploadable_id: result.id).count > 0 %>
@@ -160,12 +160,12 @@
                     <% end %>
                   </span>
                 </td>
-               <td style="padding-right: 4px; border-left:2px solid #dfe0e0; ">
+               <td style="padding-right: 3px; border-left:2px solid #dfe0e0; ">
                   <span style="font-weight: bold; font-size: 10px"><%= t :wokflow %>:</span>
                   <span style="font-size: 10px"><%= result.workflow_state.workflow.title rescue nil %> > <%= result.workflow_state.title rescue nil %></span>
                 </td>
 
-                <td>
+                <td style="padding-right: 3px;">
                   <span style="font-size: 10px">
                     <% for dating in result.datings %>
                       <%= dating.article_event.title %>:
