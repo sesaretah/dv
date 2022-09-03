@@ -19,7 +19,7 @@ class Carrier < ActiveRecord::Base
           self.source_state.consensus ? vote_flag = true : vote_flag = false
         end
       end
-      if (Time.now > transition + timer.minutes && vote_flag)
+      if (Time.now > transition + timer.hours && vote_flag)
         article.workflow_state_id = self.target_state.id
         article.save
         self.done = true
