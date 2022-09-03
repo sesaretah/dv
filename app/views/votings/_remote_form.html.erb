@@ -3,10 +3,17 @@
   <div class="row">
     <div class="col-md-6 text-center small">
       <% @votes = Vote.where(voting_id: voting.id, outcome: 1, article_id: article.id).count %>
-      <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{1}&article_id=#{article.id}", remote: true, class: "btn btn-lime btn-sm mt-1 col-md-12" do %>
-      <i class="fe fe-check" style="vertical-align: -3px;"></i>&nbsp&nbsp<%= t :agree %> (<%= @votes %> <%= t :votes %>)
-      <% if !@vote.blank? %><% if @vote.outcome == 1 %><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%= t :your_choice %><% end %><% end %>
-      <% end %>
+      <% if User.user_has_role(current_user, article.workflow_state.role_id) %>
+        <%= link_to "/votes/remotec/1?voting_id=#{voting.id}&outcome=#{1}&article_id=#{article.id}", remote: true, class: "btn btn-lime btn-sm mt-1 col-md-12" do %>
+          <i class="fe fe-check" style="vertical-align: -3px;"></i>&nbsp&nbsp<%= t :agree %> (<%= @votes %> <%= t :votes %>)
+          <% if !@vote.blank? %><% if @vote.outcome == 1 %><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%= t :your_choice %><% end %><% end %>
+        <% end %>
+      <%else%>
+        <%= link_to "/", class: "btn btn-lime btn-sm mt-1 col-md-12" do %>
+          <i class="fe fe-check" style="vertical-align: -3px;"></i>&nbsp&nbsp<%= t :agree %> (<%= @votes %> <%= t :votes %>)
+          <% if !@vote.blank? %><% if @vote.outcome == 1 %><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%= t :your_choice %><% end %><% end %>
+        <% end %>
+      <%end%>
        <% @votes = Vote.where(voting_id: voting.id, outcome: 1, article_id: article.id) %>
        <% for vote in @votes %>
        <% if !vote.user.blank? && !vote.user.profile.blank? %>
