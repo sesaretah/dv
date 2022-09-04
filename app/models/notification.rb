@@ -6,7 +6,7 @@ class Notification < ActiveRecord::Base
   def notify_by_mail
     #for target_user_id in self.target_user_ids.uniq
     item = self.notifiable_type.classify.constantize.find_by_id(self.notifiable_id)
-    if item.article_id && !item.article_id.blank?
+    if defined?(item.article_id) && !item.article_id.blank?
       article_id = item.article_id
     else
       article_id = nil
