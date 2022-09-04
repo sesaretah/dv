@@ -9,7 +9,7 @@
           <% if !@vote.blank? %><% if @vote.outcome == 1 %><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%= t :your_choice %><% end %><% end %>
         <% end %>
       <%else%>
-        <%= link_to "/", class: "btn btn-lime btn-sm mt-1 col-md-12" do %>
+        <%= link_to "/", class: "btn btn-lime btn-sm mt-1 col-md-12 disabled" do %>
           <i class="fe fe-check" style="vertical-align: -3px;"></i>&nbsp&nbsp<%= t :agree %> (<%= @votes %> <%= t :votes %>)
           <% if !@vote.blank? %><% if @vote.outcome == 1 %><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%= t :your_choice %><% end %><% end %>
         <% end %>
@@ -51,7 +51,7 @@
         <% if !@vote.blank? %><% if @vote.outcome == -1 %><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%= t :your_choice %><% end %><% end %>
       <% end %>
       <%else%>
-      <%= link_to "/", class: "btn btn-instagram btn-sm mt-1 col-md-12" do %>
+      <%= link_to "/", class: "btn btn-instagram btn-sm mt-1 col-md-12 disabled" do %>
         <i class="fe fe-x" style="vertical-align: -3px;"></i>&nbsp&nbsp<%= t :oppose %> (<%= @votes %> <%= t :votes %>)
         <% if !@vote.blank? %><% if @vote.outcome == -1 %><i class="fe fe-check-square" style="vertical-align: -3px"></i> <%= t :your_choice %><% end %><% end %>
       <% end %>
