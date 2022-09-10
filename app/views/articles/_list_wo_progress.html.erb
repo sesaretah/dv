@@ -50,12 +50,15 @@
             <div class="dropdown-menu dropdown-menu-right">
               <a href="/articles/<%= article.id %>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%= t :show %> </a>
               <% if article_owner(article, current_user) %>
-              <a href="/articles/<%= article.id %>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%= t :edit %> </a>
-              <% if article.start_section != "" %><a href="/articles/sectioned_form/<%= article.id %>?section_id=<%= article.start_section %>" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%= t :sectioned_form %> </a><% end %>
-              <%= link_to article, method: :delete, class: "dropdown-item", data: { confirm: "Are you sure?" } do %>
-              <i class="dropdown-icon fe fe-trash"></i> <%= t :destroy %>
+                <a href="/articles/<%= article.id %>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%= t :edit %> </a>
+                <% if article.start_section != "" %><a href="/articles/sectioned_form/<%= article.id %>?section_id=<%= article.start_section %>" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%= t :sectioned_form %> </a><% end %>
               <% end %>
+              <% if article_owner(article, current_user, 'destroy') %>
+                <%= link_to article, method: :delete, class: "dropdown-item", data: { confirm: "Are you sure?" } do %>
+                <i class="dropdown-icon fe fe-trash"></i> <%= t :destroy %>
+                <% end %>
               <% end %>
+
               <div class="dropdown-divider"></div>
               <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> <%= t :copy_aoi %></a>
             </div>

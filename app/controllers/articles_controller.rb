@@ -612,7 +612,7 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1
   # DELETE /articles/1.json
   def destroy
-    if !article_owner(@article, current_user)
+    if !article_owner(@article, current_user, 'destroy')
       head(403)
     else
       @article.destroy

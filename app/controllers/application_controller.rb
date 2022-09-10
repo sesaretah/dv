@@ -105,15 +105,25 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def article_owner(article, user)
+  def article_owner(article, user, action='edit')
     return true if article.user_id = user.id
     return true if grant_access("edit_workflow", user)
     @role_workflow_state_ids = WorkflowState.where(role_id: user.current_role_id).pluck(:id).uniq
     @user_workflows = user.workflows.pluck(:id)
-    if @role_workflow_state_ids.include?(article.workflow_state.id) || @user_workflows.include?(article.workflow_state.workflow.id)
-      return true
-    else
-      return false
+    if action == 'edit'
+      if @role_workflow_state_ids.include?(article.workflow_state.id) || @user_workflows.include?(article.workflow_state.workflow.id)
+        return true
+      else
+        return false
+      end
+    end
+
+    if action == 'destory'
+      if @user_workflows.include?(article.workflow_state.workflow.id)
+        return true
+      else
+        return false
+      end
     end
   end
 
