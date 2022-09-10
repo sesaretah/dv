@@ -216,7 +216,7 @@ module ApplicationHelper
   # end
 
   def article_owner(article, user, action='edit')
-    return true if article.user_id = user.id
+    return true if article.user_id == user.id
     return true if grant_access("edit_workflow", user)
     @role_workflow_state_ids = WorkflowState.where(role_id: user.current_role_id).pluck(:id).uniq
     @user_workflows = user.workflows.pluck(:id)
