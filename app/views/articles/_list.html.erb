@@ -18,7 +18,7 @@
             <% if article_owner(article, current_user)%>
             <a href="/articles/<%= article.id%>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%=t :edit%> </a>
             <%end%>
-            <% if article_owner(article, current_user, 'destory')%>
+            <% if article_owner(article, current_user, 'destroy')%>
               <%= link_to article, method: :delete, class: "dropdown-item" ,data: { confirm: 'Are you sure?' } do %>
               <i class="dropdown-icon fe fe-trash"></i> <%=t :destroy%>
               <%end%>

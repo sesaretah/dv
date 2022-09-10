@@ -228,7 +228,7 @@ module ApplicationHelper
       end
     end
 
-    if action == 'destory'
+    if action == 'destroy'
       if @user_workflows.include?(article.workflow_state.workflow.id)
         return true
       else
