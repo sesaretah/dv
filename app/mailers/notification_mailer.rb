@@ -51,7 +51,7 @@ class NotificationMailer < ApplicationMailer
     end
 
     mail(:to => @user.email,
-         :from => "tavan@ut.ac.ir",
+         :from => "divan@ut.ac.ir",
          :subject => @title) do |format|
       format.text
       format.html
