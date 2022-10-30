@@ -44,6 +44,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_sign_out_path_for(resource_or_scope)
+    "https://my1.ut.ac.ir/c/portal/logout?service=https://divan.ut.ac.ir/"
+  end
+
   def after_inactive_sign_up_path_for(user)
     if !user.profile.blank?
       "/home"
