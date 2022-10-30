@@ -10,9 +10,7 @@ class SessionsController < Devise::SessionsController
   end
 
   def destroy
-    super
     redirect_to "https://my1.ut.ac.ir/c/portal/logout?service=https://divan.ut.ac.ir/"
-    return
   end
 
 
