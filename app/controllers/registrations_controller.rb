@@ -50,7 +50,7 @@ class RegistrationsController < Devise::RegistrationsController
     if !@result['serviceResponse']['authenticationSuccess'].blank?
       @utid = @result['serviceResponse']['authenticationSuccess']['user']
       @new_utid = @result['serviceResponse']['authenticationSuccess']['attributes']['utid'] rescue nil
-      Rails.logger.info @result['serviceResponse']['authenticationSuccess']['attributes']['utid'] rescue nil
+      Rails.logger.info @result['serviceResponse'] rescue nil
       @sso = Sso.where(utid: [@utid, @new_utid]).first
       if @sso.blank?
         @sso = Sso.create(utid: @new_utid, uuid: SecureRandom.uuid)
