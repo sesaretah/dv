@@ -51,13 +51,13 @@ class RegistrationsController < Devise::RegistrationsController
       @utid = @result['serviceResponse']['authenticationSuccess']['user']
       @new_utid = @result['serviceResponse']['authenticationSuccess']['attributes']['utid'] rescue nil
       Rails.logger.info @result['serviceResponse']['authenticationSuccess']['attributes']['utid'] rescue nil
-      @sso = Sso.where(utid: @utid).first
+      @sso = Sso.where(utid: [@utid, @new_utid]).first
       if @sso.blank?
-        @sso = Sso.create(utid: @utid, uuid: SecureRandom.uuid)
+        @sso = Sso.create(utid: @new_utid, uuid: SecureRandom.uuid)
       end
       @sso.status = 'success'
       @sso.save
-      @user = User.where(utid: @utid).first
+      @user = User.where(utid: [@utid, @new_utid]).first
 
       @user = User.find_by_id(251) if @new_utid.to_i == 45615785 # urgent ugly fix
       @user = User.find_by_id(1) if @new_utid.to_i == 46496325 # urgent ugly fix
