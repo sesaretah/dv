@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(resource_or_scope)
-    "https://auth.ut.ac.ir:8443/cas/logout?service=https%3A%2F%2Fdivan.ut.ac.ir%2Fusers%2Fservice"
+    "https://auth.ut.ac.ir:8443/cas/logout?service=https%3A%2F%2Fdivan.ut.ac.ir%2F"
   end
 
   def after_inactive_sign_up_path_for(user)
