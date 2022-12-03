@@ -53,6 +53,7 @@ class Article < ActiveRecord::Base
 
   belongs_to :content_template
   belongs_to :access_group
+  belongs_to :publish_source
 
   belongs_to :workflow_state
   has_many :workflow_transitions

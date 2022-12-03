@@ -83,7 +83,7 @@ class HomeController < ApplicationController
 
   def advanced_search
     if @query != ""
-      @model_results = Article.search ThinkingSphinx::Query.escape(@query), per_page: 1000, star: true, with: restrict_articles
+      @model_results = Article.search ThinkingSphinx::Query.escape(@query), per_page: 500, star: true, with: restrict_articles
       @model_results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
       @group_results = group_articles(restrict_articles)
     else
@@ -106,6 +106,7 @@ class HomeController < ApplicationController
       "dating_ids" => date_filter,
       "article_source_ids" => [],
       "tagging_ids" => [],
+      "publish_source_id" => [],
 
     }
     params.each do |name, value|
@@ -127,6 +128,8 @@ class HomeController < ApplicationController
         @h["tagging_ids"] << value.to_i
       when "Workflow"
         @h["workflow_id"] << value.to_i
+      when "PublishSource"
+        @h["publish_source_id"] << value.to_i
       end
     end
     return @h
@@ -154,6 +157,7 @@ class HomeController < ApplicationController
 
   def group_articles(with_hash)
     @result = {
+      "PublishSource" => grouper(Article, @query, "publish_source_id", with_hash),
       "Workflow" => grouper(Article, @query, "workflow_id", with_hash),
       "Tagging" => grouper(Article, @query, "tagging_ids", with_hash),
       "Profile" => grouper(Article, @query, "profile_ids", with_hash),
