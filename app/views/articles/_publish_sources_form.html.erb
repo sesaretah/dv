@@ -4,7 +4,7 @@
   <div>
     <% for publish_source in PublishSource.all%>
     <label class="custom-control custom-radio custom-control-inline">
-      <input type="radio" class="custom-control-input" name="publish_source_<%= publish_source.id%>" id="publish_source_<%= publish_source.id%>" <% if !@article.publish_source_id.blank?%>checked<%end%> value="option3">
+      <input type="radio" class="custom-control-input" name="publish_source" id="publish_source_<%= publish_source.id%>" <% if !@article.publish_source_id.blank?%>checked<%end%> value="option3">
       <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= publish_source.title%></span>
     </label>
     <script>
