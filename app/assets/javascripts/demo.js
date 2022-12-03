@@ -1548,3 +1548,4 @@ $(document).ready(fireAutoCompleteEvent);
 $(document).on("focus", ".exhibition_title",  fireAutoCompleteEvent)
 $(document).on("focus", ".certification_title",  fireAutoCompleteEvent)
 $(document).on("focus", "#article_relation_type",  fireAutoCompleteEvent)
+$(document).on("focus", "#article_area",  fireAutoCompleteEvent)
