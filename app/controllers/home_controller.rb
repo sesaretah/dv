@@ -157,7 +157,7 @@ class HomeController < ApplicationController
 
   def group_articles(with_hash)
     @result = {
-      "PublishSource" => grouper(Article, @query, "publish_source_id", with_hash),
+      
       "Workflow" => grouper(Article, @query, "workflow_id", with_hash),
       "Tagging" => grouper(Article, @query, "tagging_ids", with_hash),
       "Profile" => grouper(Article, @query, "profile_ids", with_hash),
@@ -165,7 +165,7 @@ class HomeController < ApplicationController
       "ArticleType" => grouper(Article, @query, "article_type_ids", with_hash),
       "ArticleFormat" => grouper(Article, @query, "article_format_ids", with_hash),
       "ArticleArea" => grouper(Article, @query, "article_area_ids", with_hash),
-      #    'ArticleEvent' => grouper(Article, @query, 'article_event_ids', with_hash),
+      "PublishSource" => grouper(Article, @query, "publish_source_id", with_hash),
       "ArticleSource" => grouper(Article, @query, "article_source_ids", with_hash),
 
     }

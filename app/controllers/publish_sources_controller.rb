@@ -1,6 +1,10 @@
 class PublishSourcesController < ApplicationController
   before_action :set_publish_source, only: [:show, :edit, :update, :destroy]
 
+  def remotec
+    @article = Article.find(params[:article_id]).update(publish_source_id: params[:publish_source_id])
+  end
+
   def mergerer
 
   end
