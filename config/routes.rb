@@ -246,6 +246,8 @@ Rails.application.routes.draw do
   match "/notification_settings/remotec/:id" => "notification_settings#remotec", :via => :get
   match "/notification_settings/remoted/:id" => "notification_settings#remoted", :via => :get
 
+  match "/publish_sources/remotec/:id" => "publish_sources#remotec", :via => :get
+
   match "/carriers/carry/:id" => "carriers#carry", :via => :get
 
   match "/access_groups/search/:id" => "access_groups#search", :via => :get
