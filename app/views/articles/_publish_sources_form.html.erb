@@ -3,7 +3,6 @@
   <div class="form-label"><%=t :publish_sources%></div>
   <div>
     <% for publish_source in PublishSource.all%>
-    <%@formating = Formating.where(article_id: article.id, publish_source_id: publish_source.id).first%>
     <label class="custom-control custom-checkbox custom-control-inline">
       <input type="checkbox" class="custom-control-input" id="publish_source_<%= publish_source.id%>" <% if !@article.publish_source_id.blank?%>checked<%end%> value="option3">
       <span class="custom-control-label" style='padding-right: 23px;padding-top: 2px;'><%= publish_source.title%></span>
