@@ -251,7 +251,7 @@ class ArticlesController < ApplicationController
 
   def title_search
     if !params[:q].blank?
-      @articles = Article.search :conditions => {:title => params[:q]}, :star => true
+      @articles = Article.search :conditions => {:title => UnicodeFixer.fix(params[:q]) }, :star => true
     end
     resp = []
     for r in @articles
