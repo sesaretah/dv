@@ -109,6 +109,7 @@
             <input type="text" name='q' class="form-control" placeholder="<%= t :search %>" value='<%= params[:q] %>'>
             <label class="custom-control custom-checkbox">
               <input type="checkbox" name="star" value="true" <%= params[:star].present? ? 'checked' : '' %>>
+              <%=t :wildcard %>
             </label>
             <div class="input-group-append">
               <button type="submit" class="btn btn-secondary">
