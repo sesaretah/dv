@@ -59,6 +59,7 @@
       <div class="col-lg-3 ml-auto">
         <form action="/home/advanced_search" accept-charset="UTF-8" method="get" class="input-icon my-3 my-lg-0">
           <input type="search" name="q" class="form-control header-search" placeholder="<%=t :search%>…" tabindex="1" value="<%= params[:q]%>">
+          <input type="checkbox" name="star" value="true" checked style='display:none;'>
           <div class="input-icon-addon">
             <i class="fe fe-search"></i>
           </div>

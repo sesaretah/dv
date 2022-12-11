@@ -819,7 +819,7 @@ fa:
   mirorrs: 'آینه'
   sign: 'نمایش امضا'
   notifiable: 'اطلاع رسانی اجباری'
-  wildcard: 'جستجوی عام'
+  non_wildcard: 'جستجوی دقیق'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.
