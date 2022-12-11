@@ -83,7 +83,7 @@ class HomeController < ApplicationController
 
   def advanced_search
     if @query != ""
-      @model_results = Article.search ThinkingSphinx::Query.escape(@query), per_page: 500, star: true, with: restrict_articles
+      @model_results = Article.search ThinkingSphinx::Query.escape(@query), per_page: 500, star: , with: restrict_articles
       @model_results.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
       @group_results = group_articles(restrict_articles)
     else
@@ -220,5 +220,11 @@ class HomeController < ApplicationController
       p params[:q]
       @query = params[:q].gsub(" و ", " ")
     end
+  end
+
+  def star
+    return true if params[:star] == 'true'
+
+    false
   end
 end
