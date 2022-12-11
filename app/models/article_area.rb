@@ -11,5 +11,6 @@ class ArticleArea < ActiveRecord::Base
         areaing.article_area_id = article_area_1.id
         areaing.save
     end
+    article_area_2.destroy
   end
 end
