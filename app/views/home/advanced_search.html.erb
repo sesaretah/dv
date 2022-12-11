@@ -105,6 +105,7 @@
           <%= form_tag "/home/advanced_search", method: :get, class: "col-lg-12" do -%>
           <div class="input-group">
             <input type="text" name='q' class="form-control" placeholder="<%= t :search %>" value='<%= params[:q] %>'>
+            <input type="checkbox" name='star' class="form-control" checked='true'>
             <div class="input-group-append">
               <button type="submit" class="btn btn-secondary">
                 <i class="fe fe-search"></i>
