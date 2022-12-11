@@ -76,7 +76,7 @@
             </div>
           </div>
         </div>
-        <input type="checkbox" name="star" value="<%= !params[:star].present? %>" checked style='display:none;'>
+        <input type="checkbox" name="star" value="<%= params[:star].present? ? params[:star] : 'true'%>" checked style='display:none;'>
         <%= hidden_field_tag :q, params[:q] %>
         <div class="card-footer">
           <div class="text-center">
@@ -109,7 +109,7 @@
           <div class="input-group">
             <input type="text" name='q' class="form-control" placeholder="<%= t :search %>" value='<%= params[:q] %>'>
             <label class="custom-control custom-checkbox" style='padding-top: 10px;'>
-              <input type="checkbox" name="star" value="<%= !params[:star].present? %>" <%= params[:star].present? && params[:star] == 'false'   ? 'checked' : '' %>>
+              <input type="checkbox" name="star" value="<%= params[:star].present? ? params[:star] : 'true'%>" <%= params[:star].present? && params[:star] == 'false'   ? 'checked' : '' %>>
               <%=t :non_wildcard %>
             </label>
             <div class="input-group-append">
