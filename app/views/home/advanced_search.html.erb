@@ -108,7 +108,7 @@
           <div class="input-group">
             <input type="text" name='q' class="form-control" placeholder="<%= t :search %>" value='<%= params[:q] %>'>
             <label class="custom-control custom-checkbox">
-              <input type="checkbox" name="star" value="true" checked='<%= params[:star] %>'>
+              <input type="checkbox" name="star" value="true" checked="<%= params[:star].present? ? 'true' : 'false' %>">
             </label>
             <div class="input-group-append">
               <button type="submit" class="btn btn-secondary">
