@@ -224,7 +224,7 @@ class HomeController < ApplicationController
 
   def star
     return true if params[:star] == 'true'
-    return false if params[:star] == 'true'
+    return false if params[:star] == 'false'
 
     true
   end
