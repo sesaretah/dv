@@ -107,7 +107,7 @@
           <%= form_tag "/home/advanced_search", method: :get, class: "col-lg-12" do -%>
           <div class="input-group">
             <input type="text" name='q' class="form-control" placeholder="<%= t :search %>" value='<%= params[:q] %>'>
-            <label class="custom-control custom-checkbox">
+            <label class="custom-control custom-checkbox" style='padding-top: 10px;'>
               <input type="checkbox" name="star" value="true" <%= params[:star].present? ? 'checked' : '' %>>
               <%=t :wildcard %>
             </label>
