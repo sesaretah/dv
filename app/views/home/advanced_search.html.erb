@@ -76,6 +76,7 @@
             </div>
           </div>
         </div>
+        <input type="checkbox" name="star" value="<%= !params[:star].present? %>" checked style='display:none;'>
         <%= hidden_field_tag :q, params[:q] %>
         <div class="card-footer">
           <div class="text-center">
