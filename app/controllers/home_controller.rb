@@ -137,6 +137,7 @@ class HomeController < ApplicationController
 
   def date_filter
     @filtered_datings = []
+    return [] if params[:start_date_yyyy] == '1320' && params[:start_date_mm] =='1' && params[:start_date_dd] == '1'
     if params[:start_date_yyyy].blank?
       return []
     else
