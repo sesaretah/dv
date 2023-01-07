@@ -124,7 +124,7 @@
           <% white_list_sanitizer = Rails::Html::WhiteListSanitizer.new %>
           <% articles = [] %>
           <% for result in @model_results %>
-            <% if true || user_accessible?(result, current_user) || viewable_level?(result, "all") || viewable_level?(result, "metadata") %>
+            <% if user_accessible?(result, current_user) || viewable_level?(result, "all") || viewable_level?(result, "metadata") %>
               <% articles << result %>
             <% end %>
           <% end %>
