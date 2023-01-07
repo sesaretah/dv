@@ -31,7 +31,7 @@
           </div>
           <% end %>
           <% end %>
-          <% if defined?(result) && !result[1].blank? %>
+          <% if defined?(result) && !result.blank? && !result[1].blank? %>
           <div class="card">
             <div class="card-header" style='padding: 8px; min-height: 10px;'><%= t :datings %></div>
             <div class="card-body" style='padding: 10px; min-height: 10px;'>
