@@ -78,6 +78,7 @@
           </div>
           <%end%>
         </div>
+        <% if defined?(result) && !result.blank? && !result[1].blank? %>
         <input type="checkbox" name="star" value="<%= params[:star].present? ? params[:star] : 'true'%>" checked style='display:none;'>
         <%= hidden_field_tag :q, params[:q] %>
         <div class="card-footer">
@@ -86,6 +87,7 @@
             <button type="button" id='submit-btn' class="btn btn-lime btn-sm"><i class="fe fe-filter" style="vertical-align:-3px;"></i> <%= t :filter %> </button>
           </div>
         </div>
+        <%end%>
         <script>
         function toggler(divId) {
           $("#" + divId).css('display', 'block');
