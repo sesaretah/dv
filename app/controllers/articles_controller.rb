@@ -412,10 +412,6 @@ class ArticlesController < ApplicationController
       for t in @taggings
         Tagging.where(taggable_type: 'Article', taggable_id: @new_article.id, target_id: t.target_id ,target_type: 'Keyword')
       end
-      @datings = article.datings
-      for d in @datings
-        Dating.create(article_event_id: d.article_event_id, article_id: @new_article.id, event_date: d.event_date)
-      end
       @article_relation_type = ArticleRelationType.find(params[:article_relation_type_id])
       Kinship.create(kin_id: @article.id, article_id: @new_article.id, user_id: current_user.id, article_relation_type_id: @article_relation_type.id)
       @uploads = Upload.where(uploadable_type: 'Article', uploadable_id: @article.id)

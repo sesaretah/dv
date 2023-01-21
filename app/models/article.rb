@@ -197,6 +197,10 @@ class Article < ActiveRecord::Base
       for areaing in areaings
         Areaing.create(article_area_id: areaing.article_area_id , article_id: @new_article.id)
       end
+
+      for d in self.datings
+        Dating.create(article_event_id: d.article_event_id, article_id: @new_article.id, event_date: d.event_date)
+      end
       
       #@uploads = Upload.where(uploadable_type: 'Article', uploadable_id: self.id)
       for upload in Upload.where(uploadable_type: 'Article', uploadable_id: self.id)
