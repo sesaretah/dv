@@ -1,5 +1,5 @@
 <div class="card-body" id='article-show'>
-  <% for workflow_transition in WorkflowTransition.where(article_id: article.id)%>
+  <% for workflow_transition in WorkflowTransition.where(article_id: article.id).order('created_at desc')%>
     <% @from = WorkflowState.find(workflow_transition.from_state_id).title%>
     <% @to = WorkflowState.find(workflow_transition.to_state_id).title%>
 
