@@ -37,6 +37,8 @@
       </p>
 
       <% voting = Voting.where(votable_type: "WorkflowState", votable_id: workflow_transition.from_state_id).first %>
+
+      <% if !voting.blank?%>
       <p>
       <% nay_votes = Vote.where(voting_id: voting.id, outcome: -1, article_id: article.id) %>
       <% for vote in nay_votes %>
@@ -60,6 +62,7 @@
          <% end %>
       <% end %>
       </p>
+      <%end%>
     </div>
     <%end%>
   </div>
