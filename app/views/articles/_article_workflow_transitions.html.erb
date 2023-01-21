@@ -55,7 +55,7 @@
       <% yay_votes = Vote.where(voting_id: voting.id, outcome: 1, article_id: workflow_transition.article_id) %>
       <% for vote in yay_votes %>
       <% if !vote.user.blank? && !vote.user.profile.blank? %>
-         <span class="tag mt-2" style='vertical-align: -3px;'>
+         <span class="tag mt-2 lime  btn-lime" style='vertical-align: -3px;'>
              <span class="tag-avatar avatar" style="background-image: url('<%= vote.user.profile.avatar(:tiny) %>')"></span>
              <%= truncate(vote.user.profile.fullname, length: 35) %>
          </span>
