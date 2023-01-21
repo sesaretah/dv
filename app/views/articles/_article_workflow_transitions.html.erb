@@ -36,7 +36,7 @@
         <%= workflow_transition.message%>
       </p>
 
-      <% voting = Voting.where(votable_type: "WorkflowState", votable_id: article.workflow_state.id).first %>
+      <% voting = Voting.where(votable_type: "WorkflowState", votable_id: from_state_id).first %>
       <p>
       <% nay_votes = Vote.where(voting_id: voting.id, outcome: -1, article_id: article.id) %>
       <% for vote in nay_votes %>
@@ -50,7 +50,7 @@
       </p>
 
       <p>
-      <% yay_votes = Vote.where(voting_id: voting.id, outcome: 1, article_id: article.id) %>
+      <% yay_votes = Vote.where(voting_id: voting.id, outcome: 1, article_id: workflow_transition.article.id) %>
       <% for vote in yay_votes %>
       <% if !vote.user.blank? && !vote.user.profile.blank? %>
          <span class="tag mt-2" style='vertical-align: -3px;'>
