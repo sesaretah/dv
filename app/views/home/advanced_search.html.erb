@@ -80,7 +80,7 @@
           <%end%>
 
         </div>
-        <% if defined?(result) && !result.blank? && !result[1].blank? %>
+        <% if defined?(result) && !result.blank?  %>
         <input type="checkbox" name="star" value="<%= params[:star].present? ? params[:star] : 'true'%>" checked style='display:none;'>
         <%= hidden_field_tag :q, params[:q] %>
         <div class="card-footer">
