@@ -95,6 +95,11 @@
           <% end %>
         </td>
         <td>
+            <% creator = User.find_by_id(article.user_id) %>
+            <% if !user.blank? %>
+              <%= raw creator.profile.profile_tag %>
+            <% end %>
+          <br />
           <% @previous_workflow_transition = WorkflowTransition.where(workflow_id: article.workflow_state.workflow.id, to_state_id: article.workflow_state_id, article_id: article.id).last %>
           <% if !@previous_workflow_transition.blank? %>
             <% @user = User.find_by_id(@previous_workflow_transition.user_id) %>
