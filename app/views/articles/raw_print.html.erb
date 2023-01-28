@@ -39,7 +39,7 @@
       <div class="row mb-4 mt-4">
           <div class="col-12 col-md-12 col-sm-12" style='min-height: 110px;'>
               <span style='float: right;margin-left: 15px;'>
-              
+              <img src='/assets/ut.png' width='80px;'>
               </span>
           <div style='width:100%; text-align: center; font-weight: 600;width: 960px; padding-left:50px;'>
             <%= @article.title %><br />
@@ -75,8 +75,8 @@
                module_size: 2,
                standalone: true,
              ) %>
-          <% svg.html_safe %><br />
-          
+          <%= svg.html_safe %><br />
+          <a href='/<%= kin.slug %>' style='font-family: tahoma;'><%= kin.slug %></a>
           </span>
           <div style='padding-right: 80px;'>
           <%= raw kin.content %>
