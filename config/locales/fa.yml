@@ -774,6 +774,7 @@ fa:
   target_workflow_state: 'گردشکار مقصد'
   majority: 'اکثریت'
   all_vote: 'همه موافق'
+  creator: 'ایجاد کننده'
 
   consensus: 'اجماع (بدون مخالف)'
   timer: 'زمانبندی (ساعت)'
