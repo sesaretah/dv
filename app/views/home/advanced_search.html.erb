@@ -3,35 +3,36 @@
     <div class="row">
       <div class="col-md-6 col-lg-12">
         <%= form_tag "/home/advanced_search", id: "advanced_search", method: :get do -%>
-        <% for result in @group_results %>
-        <% if !result[1].blank? %>
-        <div class="card">
-          <div class="card-header" style='padding: 8px; min-height: 10px;'><%= t result[0].underscore.pluralize %></div>
-          <div class="card-body" style='padding: 10px; min-height: 10px;'>
-            <div class="form-group small">
-              <% @i = 1 %>
-              <% result[1].each_with_group_and_count do |r, group, count| %>
-              <% if @i == 5 %><span id='<%= result[0].underscore.pluralize %>' class="hidden"><% end %>
-                <% @i += 1 %>
-                <% if !result[0].classify.constantize.find_by_id(group).blank? %>
-                <div class="custom-controls-stacked">
-                  <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="<%= result[0] %>_<%= group %>" value="<%= group %>" <% if params["#{result[0]}_#{group}"] %> checked<% end %>>
-                    <span class="custom-control-label pr-0" style='padding-top: 4px;padding-right: 22px;'>
-                      <%= truncate(result[0].classify.constantize.find_by_id(group).title, length: 30) %> (<%= count %>)
-                    </span>
-                  </label>
+          <% for result in @group_results %>
+            <% if !result[1].blank? %>
+              <div class="card">
+                <div class="card-header" style='padding: 8px; min-height: 10px;'><%= t result[0].underscore.pluralize %></div>
+                <div class="card-body" style='padding: 10px; min-height: 10px;'>
+                  <div class="form-group small">
+                    <% @i = 1 %>
+                    <% result[1].each_with_group_and_count do |r, group, count| %>
+                      <% if @i == 5 %><span id='<%= result[0].underscore.pluralize %>' class="hidden"><% end %>
+                      <% @i += 1 %>
+                      <% if !result[0].classify.constantize.find_by_id(group).blank? %>
+                        <div class="custom-controls-stacked">
+                          <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" name="<%= result[0] %>_<%= group %>" value="<%= group %>" <% if params["#{result[0]}_#{group}"] %> checked<% end %>>
+                            <span class="custom-control-label pr-0" style='padding-top: 4px;padding-right: 22px;'>
+                              <%= truncate(result[0].classify.constantize.find_by_id(group).title, length: 30) %> (<%= count %>)
+                            </span>
+                          </label>
+                        </div>
+                      <% end %>
+                    <% if @i == 5 %><span id='<%= result[0].underscore.pluralize %>-more' class="mr-auto ml-auto" style='color: #467fcf;' onclick="toggler('<%= result[0].underscore.pluralize %>');"><%= t :more %></span><% end %>
+                    <% end %>
+                    <% if @i > 5 && result[1].length == @i %></span><% end %>
+                  </div>
                 </div>
-                <% end %>
-                <% if @i == 5 %><span id='<%= result[0].underscore.pluralize %>-more' class="mr-auto ml-auto" style='color: #467fcf;' onclick="toggler('<%= result[0].underscore.pluralize %>');"><%= t :more %></span><% end %>
-                <% end %>
-                <% if @i > 5 && result[1].length == @i %></span><% end %>
               </div>
-            </div>
-          </div>
+            <% end %>
           <% end %>
-          <% end %>
-          <% if defined?(result) && !result.blank? && !result[1].blank? %>
+
+          <% if defined?(result) && !result.blank? %>
           <div class="card">
             <div class="card-header" style='padding: 8px; min-height: 10px;'><%= t :datings %></div>
             <div class="card-body" style='padding: 10px; min-height: 10px;'>
@@ -77,6 +78,7 @@
             </div>
           </div>
           <%end%>
+
         </div>
         <% if defined?(result) && !result.blank? && !result[1].blank? %>
         <input type="checkbox" name="star" value="<%= params[:star].present? ? params[:star] : 'true'%>" checked style='display:none;'>
