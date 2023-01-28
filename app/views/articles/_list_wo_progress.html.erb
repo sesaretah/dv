@@ -96,7 +96,7 @@
         </td>
         <td>
             <% creator = User.find_by_id(article.user_id) %>
-            <% if !user.blank? %>
+            <% if !creator.blank? %>
               <%= raw creator.profile.profile_tag %>
             <% end %>
           <br />
