@@ -28,7 +28,7 @@ class AccessGrouping < ActiveRecord::Base
 
       end
 
-      Notification.create(user_id: user.id, notifiable_type: 'AccessGrouping', notifiable_id: id,
+      Notification.create(user_id: user, notifiable_type: 'AccessGrouping', notifiable_id: id,
                           notification_type: 'access_grouping', emmiter_id: user_id)
       # end
     end
