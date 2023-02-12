@@ -65,3 +65,4 @@ gem "sidekiq"
 gem "redis", "4.1.3"
 gem "hiredis"
 gem "httparty"
+gem 'savon', '~> 2.13.0'
