@@ -305,15 +305,15 @@ class Article < ActiveRecord::Base
   end
 
   def textual
-    text = "#{title} <br />"
+    text = "<h3>#{title}</h3> <br />"
     titlings.group_by(&:title_type_id).each do |_k, v|
       for t in v
-        text += "#{t.content} <br />"
+        text += "<h4>#{t.content}</h4> <br />"
       end
     end
     text += '<br /><br />'
 
-    text += "#{content}"
+    text += "<h4>#{content}</h4>"
 
     text += '<br /><br />'
 
