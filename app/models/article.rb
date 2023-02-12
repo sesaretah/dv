@@ -313,6 +313,10 @@ class Article < ActiveRecord::Base
     end
     text += '<br /><br />'
 
+    text += "#{content}"
+
+    text += '<br /><br />'
+
     article_count = kinships.count
     kinships.group_by(&:article_relation_type_id).each do |_k, v|
       kins = []
