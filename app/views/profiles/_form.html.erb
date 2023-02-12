@@ -60,6 +60,33 @@
   </div>
 
   <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :dabir_personnel_id, class: "form-label" %>
+        <%= f.text_field :dabir_personnel_id, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :dabir_department_id, class: "form-label" %>
+        <%= f.text_field :dabir_department_id, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+    <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :cellphone_number, class: "form-label" %>
+        <%= f.text_field :cellphone_number, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="form-group col-xs-4">
       <% if !@profile.avatar.blank? %>
       <%= image_tag @profile.avatar(:medium), id: "avatar", :class => "messages-item-avatar bordered border-primary" %>
