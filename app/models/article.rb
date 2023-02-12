@@ -311,11 +311,11 @@ class Article < ActiveRecord::Base
         text += "<h4>#{t.content}</h4> <br />"
       end
     end
-    text += '<br /><br />'
+    text += '<br />'
 
-    text += "<h4>#{content}</h4>"
+    text += "<h3>#{content}</h3>"
 
-    text += '<br /><br />'
+    text += '<br />'
 
     article_count = kinships.count
     kinships.group_by(&:article_relation_type_id).each do |_k, v|
