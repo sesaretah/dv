@@ -1,6 +1,7 @@
 class Carrier < ActiveRecord::Base
   def carry_articles
     return  if self.source_state.blank?
+    return  if self.done
     for article in self.source_state.articles
       self.timer.blank? ? timer = 0 : timer = self.timer
       if !article.workflow_transitions.blank?
