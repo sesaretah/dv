@@ -775,6 +775,7 @@ fa:
   majority: 'اکثریت'
   all_vote: 'همه موافق'
   creator: 'ایجاد کننده'
+  automatic_transition: 'انتقال اتوماتیک'
 
   consensus: 'اجماع (بدون مخالف)'
   timer: 'زمانبندی (ساعت)'

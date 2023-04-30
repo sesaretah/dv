@@ -5,9 +5,9 @@ class Carrier < ActiveRecord::Base
       self.timer.blank? ? timer = 0 : timer = self.timer
       if !article.workflow_transitions.blank?
         transition = article.workflow_transitions.last.created_at
-      else
+                   else
         transition = article.created_at
-      end
+                   end
       vote_flag = true
       if self.source_state.is_votable
         case self.voting_condition
@@ -21,8 +21,11 @@ class Carrier < ActiveRecord::Base
       end
       if (Time.now > transition + timer.hours && vote_flag)
         article.workflow_state_id = self.target_state.id
-        article.save
-        self.done = true
+      article.save
+      WorkflowTransition.create(workflow_id: @article.workflow_state.workflow.id,
+                                from_state_id: source_state.id, to_state_id: target_state.id, article_id: @article.id, message: I18n.t('automatic_transition'), user_id: @article.workflow_state.workflow.user_id, role_id: @article.workflow_state.workflow.user.role.id, transition_type: 1, revision_number: SecureRandom.hex(4))
+
+      self.done = true
         self.save
       end
     end
