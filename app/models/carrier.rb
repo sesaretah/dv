@@ -23,7 +23,7 @@ class Carrier < ActiveRecord::Base
         article.workflow_state_id = self.target_state.id
       article.save
       WorkflowTransition.create!(workflow_id: article.workflow_state.workflow.id,
-                                from_state_id: source_state.id, to_state_id: target_state.id, article_id: article.id, message: I18n.t('automatic_transition'), user_id: article.workflow_state.workflow.user_id, role_id: article.workflow_state.workflow.user.role.id, transition_type: 1, revision_number: SecureRandom.hex(4))
+                                from_state_id: source_state.id, to_state_id: target_state.id, article_id: article.id, message: I18n.t('automatic_transition'), user_id: article.workflow_state.workflow.user_id, role_id: article.workflow_state.workflow.user.current_role_id, transition_type: 1, revision_number: SecureRandom.hex(4))
 
       self.done = true
         self.save
