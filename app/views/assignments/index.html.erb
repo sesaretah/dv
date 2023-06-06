@@ -1,4 +1,4 @@
-<% if grant_access("alter_roles", current_user)%>
+<% if grant_access("edit_assignments", current_user) || grant_access("alter_assignments", current_user)%>
 <div class="row row-cards">
   <div class="col-lg-3">
     <div class="row">
