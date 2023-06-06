@@ -205,7 +205,7 @@
     </div>
   </div>
 
-    <div class="row">
+  <div class="row">
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label :edit_workflow, class: "form-label" %>
@@ -214,10 +214,32 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :edit_roles, class: "form-label" %>
+        <%= f.select( :edit_roles, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :alter_assignments, class: "form-label" %>
+        <%= f.select( :alter_assignments, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
 
-
-
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= f.label :edit_assignments, class: "form-label" %>
+        <%= f.select( :edit_assignments, controls, {}, {:class => "form-control"})  %>
+      </div>
+    </div>
+  </div>
 
   <div class="card-footer text-right">
     <button type="submit" class="btn btn-primary"><%=t :submit%></button>
