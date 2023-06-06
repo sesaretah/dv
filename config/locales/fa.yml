@@ -402,6 +402,9 @@ fa:
             alter_access_groups: 'تغییر گروههای دسترسی'
             alter_profile_groups: 'تغییر گروههای افراد'
             edit_workflow: 'ویرایش گردشکار'
+            edit_roles: 'ویرایش نقش ها'
+            alter_assignments: 'تغییر اعطای نقش'
+            edit_assignments: 'اعطای نقش'
             user_id: 'توسط'
   will_paginate:
     page_gap: "&hellip;"
