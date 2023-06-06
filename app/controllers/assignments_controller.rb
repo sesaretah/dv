@@ -14,6 +14,9 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments/new
   def new
+    if !grant_access("edit_assignments", current_user)
+      head(403)
+    end
     @assignment = Assignment.new
   end
 
@@ -24,6 +27,9 @@ class AssignmentsController < ApplicationController
   # POST /assignments
   # POST /assignments.json
   def create
+    if !grant_access("edit_assignments", current_user)
+      head(403)
+    end
     @assignment = Assignment.new(assignment_params)
 
     respond_to do |format|
@@ -41,6 +47,9 @@ class AssignmentsController < ApplicationController
   # PATCH/PUT /assignments/1
   # PATCH/PUT /assignments/1.json
   def update
+    if !grant_access("alter_assignments", current_user)
+      head(403)
+    end
     respond_to do |format|
       if @assignment.update(assignment_params)
         format.html { redirect_to @assignment, notice: 'Assignment was successfully updated.' }
@@ -55,6 +64,9 @@ class AssignmentsController < ApplicationController
   # DELETE /assignments/1
   # DELETE /assignments/1.json
   def destroy
+    if !grant_access("alter_assignments", current_user)
+      head(403)
+    end
     send_mail user_id: @assignment.user_id, role_title: @assignment.role.title, mail_type: 'role_unassignment'
     @assignment.destroy
     respond_to do |format|

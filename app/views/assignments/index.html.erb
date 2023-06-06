@@ -6,9 +6,11 @@
         <div class="card">
           <div class="card-body">
             <div class="text-center">
+            <% if grant_access("edit_assignments", current_user)%>
               <%= link_to  new_assignment_url, class: "btn btn-lime  btn-sm" do%>
               <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
               <%end%>
+            <%end%>
             </div>
           </div>
           <div class="card-footer">
@@ -34,8 +36,10 @@
                 <span class="tag-addon tag-yellow" style="border-top-right-radius: 0px;border-bottom-right-radius: 0px;">
                   <i class="fe fe-briefcase"></i>
                 </span>
-                <%= link_to a, method: :delete, class: "tag-addon",data: { confirm: 'Are you sure?' } do%>
-                  <i class="fe fe-x" style="vertical-align:-3px"></i>
+                <% if grant_access("alter_assignments", current_user)%>
+                  <%= link_to a, method: :delete, class: "tag-addon",data: { confirm: 'Are you sure?' } do%>
+                    <i class="fe fe-x" style="vertical-align:-3px"></i>
+                  <%end%>
                 <%end%>
 
               </div>
