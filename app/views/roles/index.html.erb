@@ -5,15 +5,16 @@
         <div class="card">
           <div class="card-body">
             <div class="text-center">
-              <% if grant_access("alter_roles", current_user)%>
-              <%= link_to  new_role_url, class: "btn btn-lime  btn-sm" do%>
-              <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
-              <%end%>
-              <%end%>
+              <% if grant_access("edit_roles", current_user)%>
+                <%= link_to  new_role_url, class: "btn btn-lime  btn-sm" do%>
+                  <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :new%>
+                <%end%>
+              
 
-                          <div class="text-center mt-2">
-              <%= link_to  '/roles/mergerer/1', class: "btn btn-orange  btn-sm" do%>
-              <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :merge%>
+                <div class="text-center mt-2">
+                  <%= link_to  '/roles/mergerer/1', class: "btn btn-orange  btn-sm" do%>
+                  <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%=t :merge%>
+                <%end%>
               <%end%>
             </div>
             </div>

@@ -36,7 +36,7 @@ class RolesController < ApplicationController
 
   # GET /roles/new
   def new
-    if !grant_access("alter_roles", current_user)
+    if !grant_access("edit_roles", current_user)
       head(403)
     end
     @role = Role.new
@@ -52,7 +52,7 @@ class RolesController < ApplicationController
   # POST /roles
   # POST /roles.json
   def create
-    if !grant_access("alter_roles", current_user)
+    if !grant_access("edit_roles", current_user)
       head(403)
     end
     @role = Role.new(role_params)
