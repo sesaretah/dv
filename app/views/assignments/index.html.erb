@@ -55,8 +55,10 @@
                 <span class="tag-addon tag-yellow" style="border-top-right-radius: 0px;border-bottom-right-radius: 0px;">
                   <i class="fe fe-briefcase"></i>
                 </span>
-                <%= link_to a, method: :delete, class: "tag-addon",data: { confirm: 'Are you sure?' } do%>
-                  <i class="fe fe-x" style="vertical-align:-3px"></i>
+                <% if grant_access("alter_assignments", current_user)%>
+                  <%= link_to a, method: :delete, class: "tag-addon",data: { confirm: 'Are you sure?' } do%>
+                    <i class="fe fe-x" style="vertical-align:-3px"></i>
+                  <%end%>
                 <%end%>
 
               </div>
