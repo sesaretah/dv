@@ -45,7 +45,7 @@
           <li class="breadcrumb-item"><a href="/home?workflow=<%= @article.workflow_state.workflow.id%>"><%= truncate(@article.workflow_state.workflow.title, length: 40)rescue ''%></a></li>
         <% end %>
         <% if  !@article.workflow_state.blank? %>
-          <li class="breadcrumb-item"><%= truncate(@article.workflow_state.title, length: 30) rescue ''%></li>
+          <li class="breadcrumb-item"><a href="/home?workflow_state=<%= @article.workflow_state.id%>"><%= truncate(@article.workflow_state.title, length: 30) rescue ''%></a></li>
         <% end %>
     </ol>
 
