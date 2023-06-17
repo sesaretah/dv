@@ -1,8 +1,21 @@
 <div class="row row-cards">
   <div class="col-lg-12">
+
+    <ol class="breadcrumb" aria-label="breadcrumbs">
+        <li class="breadcrumb-item"><%= t :dashboard %></li>
+        <% if !@home_setting.blank? && !@home_setting.workflow.blank? %>
+          <li class="breadcrumb-item"><a href="#"><%= truncate(@home_setting.workflow.title, length: 30) %></a></li>
+        <% end %>
+        <% if !@home_setting.blank? && !@home_setting.workflow_state.blank? %>
+          <li class="breadcrumb-item"><a href="#"><%= truncate(@home_setting.workflow_state.title, length: 30) %></a></li>
+        <% end %>
+    </ol>
+
     <div class="card">
       <div class="card-header">
         <i class="fe fe-feather"></i>&nbsp&nbsp<%= t :dashboard %>
+
+
  <div class="card-options">
           <div class="dropdown ml-2" >
             <button type="button" class="btn btn-secondary dropdown-toggle" style="font-size: 10px;" data-toggle="dropdown">
