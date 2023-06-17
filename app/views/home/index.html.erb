@@ -12,7 +12,7 @@
           <li class="breadcrumb-item"><%= truncate(workflow_state.title, length: 30) rescue ''%></li>
         <% end %>
 
-        <%= link_to new_article_url, class: "btn btn-lime  btn-sm" style: "right: 0px !important;" do %>
+        <%= link_to new_article_url, class: "btn btn-lime  btn-sm", style: "right: 0px !important;" do %>
           <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%= t :new %>
         <% end %>
     </ol>
