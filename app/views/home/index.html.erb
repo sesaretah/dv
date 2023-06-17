@@ -1,5 +1,5 @@
 <div class="row row-cards">
-  <div class="col-lg-12">
+  <div class="col-lg-10">
 
     <ol class="breadcrumb" aria-label="breadcrumbs">
         <li class="breadcrumb-item"><%= t :dashboard %></li>
@@ -11,8 +11,19 @@
         <% workflow_state = WorkflowState.find(@home_setting.workflow_state)%>
           <li class="breadcrumb-item"><%= truncate(workflow_state.title, length: 30) rescue ''%></li>
         <% end %>
+
     </ol>
 
+  </div>
+  <div class="col-lg-2">
+    <%= link_to new_article_url, class: "btn btn-lime  btn-sm" do %>
+      <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%= t :new %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row row-cards">
+  <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
         <i class="fe fe-feather"></i>&nbsp&nbsp<%= t :dashboard %>
