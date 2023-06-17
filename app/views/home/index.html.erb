@@ -4,10 +4,12 @@
     <ol class="breadcrumb" aria-label="breadcrumbs">
         <li class="breadcrumb-item"><%= t :dashboard %></li>
         <% if !@home_setting.blank? && !@home_setting.workflow.blank? %>
-          <li class="breadcrumb-item"><a href="#"><%= truncate(@home_setting.workflow.title, length: 30) %></a></li>
+        <% workflow = Workflow.find(@home_setting.workflow)%>
+          <li class="breadcrumb-item"><a href="#"><%= truncate(workflow.title, length: 30)rescue ''%></a></li>
         <% end %>
         <% if !@home_setting.blank? && !@home_setting.workflow_state.blank? %>
-          <li class="breadcrumb-item"><a href="#"><%= truncate(@home_setting.workflow_state.title, length: 30) %></a></li>
+        <% workflow_state = Workflow.find(@home_setting.workflow_state)%>
+          <li class="breadcrumb-item"><a href="#"><%= truncate(workflow_state.title, length: 30) rescue ''%></a></li>
         <% end %>
     </ol>
 
