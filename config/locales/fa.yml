@@ -412,6 +412,7 @@ fa:
     next_label: "بعدی"
   involvement_form: 'فرم سازمان های مرتبط'
   article_involvements: 'سازمان های مرتبط با این سند '
+  browse_articles: 'مرور اسناد'
   temporal: 'موقت'
   permanent: 'دائم'
   reply_all: 'پاسخ همه'
