@@ -38,6 +38,17 @@
 
 </div>
 <div class="col-lg-9 order-lg-1">
+
+    <ol class="breadcrumb" aria-label="breadcrumbs">
+        <li class="breadcrumb-item"><%= t :articles %></li>
+        <% if  !@article.workflow_state.blank? && !@article.workflow_state.workflow.blank?%>
+          <li class="breadcrumb-item"><a href="/home?workflow=<%= @article.workflow_state.workflow.id%>"><%= truncate(@article.workflow_state.workflow.title, length: 40)rescue ''%></a></li>
+        <% end %>
+        <% if  !@article.workflow_state.blank? %>
+          <li class="breadcrumb-item"><%= truncate(@article.workflow_state.title.replace('_', ' '), length: 30) rescue ''%></li>
+        <% end %>
+    </ol>
+
   <div class="card">
     <div class="card-header">
       <div class="card-options">
