@@ -36,6 +36,7 @@
                 </h2>
                 <div id="collapse-1" class="accordion-collapse  <% if @home_setting.workflow == workflow.id %>collapse show<%end%>" data-bs-parent="#accordion-example" style="">
                   <div class="accordion-body pt-0">
+                  <% role_ids = current_user.roles.pluck(:id) %>
                       <% WorkflowState.where("role_id in (?) and workflow_id = ?", role_ids, @home_setting.workflow).each do |workflow_state| %>
                         <%= link_to "/home?workflow_state=" + workflow_state.id.to_s, class: "dropdown-item pd-compact" do %>
                             <%= truncate(workflow_state.title, length: 30) %>            
