@@ -36,7 +36,7 @@
         </button>
       </h5>
     </div>
-    <div id="collapse<%= workflow.id%>" class="collapse" aria-labelledby="heading<%= workflow.id%>" data-parent="#accordion">
+    <div id="collapse<%= workflow.id%>" class="collapse <% if @home_setting.workflow == workflow.id %>show<%end%>" aria-labelledby="heading<%= workflow.id%>" data-parent="#accordion">
       <div class="card-body">
       <% role_ids = current_user.roles.pluck(:id) %>
       <% WorkflowState.where("role_id in (?) and workflow_id = ?", role_ids, workflow).each do |workflow_state| %>
