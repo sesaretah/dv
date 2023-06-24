@@ -28,7 +28,7 @@
 <div id="accordion">
  
    <% Workflow.user_available_workflows(current_user).each do |workflow| %>
-  <div class="card mb-0 p-0" style="border:none;">
+  <div class="card mb-0 p-0" style="border-bottom:none;">
     <div class="card-header p-0" style="min-height: 0rem;" id="heading<%= workflow.id%>">
     <% current_workflow_id = WorkflowState.find(@home_setting.workflow_state).workflow.id rescue nil%>
       <h5 class="mb-0">
