@@ -32,7 +32,7 @@
     <div class="card-header p-0" style="min-height: 0rem;" id="heading<%= workflow.id%>">
     <% current_workflow_id = WorkflowState.find(@home_setting.workflow_state).workflow.id rescue nil%>
       <h5 class="mb-0">
-        <button class="btn btn-link <% if current_workflow_id != workflow.id %>collapsed<%end%>" data-toggle="collapse" data-target="#collapse<%= workflow.id%>" aria-expanded="<% if current_workflow_id == workflow.id %>true<%else%>false<%end%>" aria-controls="collapse<%= workflow.id%>" style="font-size: 0.825rem;font-weight: 500;">
+        <button class="btn btn-link <% if current_workflow_id != workflow.id %>collapsed<%end%>" data-toggle="collapse" data-target="#collapse<%= workflow.id%>" aria-expanded="<% if current_workflow_id == workflow.id %>true<%else%>false<%end%>" aria-controls="collapse<%= workflow.id%>" style="font-size: 0.875rem;font-weight: 500;">
           <%= truncate(workflow.title, length: 30)%>
         </button>
       </h5>
