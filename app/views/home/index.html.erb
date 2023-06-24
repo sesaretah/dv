@@ -29,11 +29,11 @@
           <div class="accordion" id="accordion-example">
             <% Workflow.user_available_workflows(current_user).each do |workflow| %>
               <div class="accordion-item">
-                <h2 class="accordion-header">
+                <h5 class="accordion-header">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= workflow.id%>" aria-expanded="true">
                     <%= workflow.title%>
                   </button>
-                </h2>
+                </h5>
                 <div id="collapse-<%= workflow.id%>" class="accordion-collapse collapse<% if @home_setting.workflow == workflow.id %> show<%end%>" data-bs-parent="#accordion-example" style="">
                   <div class="accordion-body pt-0">
                   <% role_ids = current_user.roles.pluck(:id) %>
