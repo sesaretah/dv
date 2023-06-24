@@ -23,7 +23,33 @@
 </div>
 
 <div class="row row-cards">
-  <div class="col-lg-12">
+  <div class="col-lg-2">
+    <div class="card">
+        <div class="card-body">
+          <div class="accordion" id="accordion-example">
+            <% Workflow.user_available_workflows(current_user).each do |workflow| %>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="heading-1">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1" aria-expanded="true">
+                    <%= workflow.title%>
+                  </button>
+                </h2>
+                <div id="collapse-1" class="accordion-collapse  <% if @home_setting.workflow == workflow.id %>collapse show<%end%>" data-bs-parent="#accordion-example" style="">
+                  <div class="accordion-body pt-0">
+                      <% WorkflowState.where("role_id in (?) and workflow_id = ?", role_ids, @home_setting.workflow).each do |workflow_state| %>
+                        <%= link_to "/home?workflow_state=" + workflow_state.id.to_s, class: "dropdown-item pd-compact" do %>
+                            <%= truncate(workflow_state.title, length: 30) %>            
+                        <% end %>
+                      <% end %>
+                  </div>
+                </div>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="col-lg-10">
     <div class="card">
       <div class="card-header">
         <i class="fe fe-feather"></i>
