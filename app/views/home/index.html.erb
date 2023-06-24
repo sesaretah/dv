@@ -30,13 +30,14 @@
    <% Workflow.user_available_workflows(current_user).each do |workflow| %>
   <div class="card mb-0">
     <div class="card-header" id="heading<%= workflow.id%>">
+    <% current_workflow_id = WorkflowState.find(@home_setting.workflow_state).workflow.id rescue nil%>
       <h5 class="mb-0">
-        <button class="btn btn-link <% if @home_setting.workflow != workflow.id %>collapsed<%end%>" data-toggle="collapse" data-target="#collapse<%= workflow.id%>" aria-expanded="<% if @home_setting.workflow == workflow.id %>true<%else%>false<%end%>" aria-controls="collapse<%= workflow.id%>">
+        <button class="btn btn-link <% if current_workflow_id != workflow.id %>collapsed<%end%>" data-toggle="collapse" data-target="#collapse<%= workflow.id%>" aria-expanded="<% if current_workflow_id == workflow.id %>true<%else%>false<%end%>" aria-controls="collapse<%= workflow.id%>">
           <%= truncate(workflow.title, length: 30)%>
         </button>
       </h5>
     </div>
-    <div id="collapse<%= workflow.id%>" class="collapse <% if @home_setting.workflow == workflow.id %>show<%end%>" aria-labelledby="heading<%= workflow.id%>" data-parent="#accordion">
+    <div id="collapse<%= workflow.id%>" class="collapse <% if current_workflow_id == workflow.id %>show<%end%>" aria-labelledby="heading<%= workflow.id%>" data-parent="#accordion">
       <div class="card-body">
       <% role_ids = current_user.roles.pluck(:id) %>
       <% WorkflowState.where("role_id in (?) and workflow_id = ?", role_ids, workflow).each do |workflow_state| %>
