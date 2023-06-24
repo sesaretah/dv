@@ -31,8 +31,8 @@
   <div class="card mb-0">
     <div class="card-header" id="heading<%= workflow.id%>">
       <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse<%= workflow.id%>" aria-expanded="false" aria-controls="collapse<%= workflow.id%>">
-          <%= truncate(workflow.title, length: 18)%>
+        <button class="btn btn-link <% if @home_setting.workflow != workflow.id %>collapsed<%end%>" data-toggle="collapse" data-target="#collapse<%= workflow.id%>" aria-expanded="<% if @home_setting.workflow == workflow.id %>true<%else%>false<%end%>" aria-controls="collapse<%= workflow.id%>">
+          <%= truncate(workflow.title, length: 30)%>
         </button>
       </h5>
     </div>
