@@ -67,7 +67,7 @@
 
 
         <td>
-          <div class='small fw-800' data-toggle="tooltip" data-placement="top" title="<%= article.title %>"><%= link_to truncate(article.title, length: 70), article %></div>
+          <div class='small fw-800' data-toggle="tooltip" data-placement="top" title="<%= article.title %>"><%= link_to truncate(article.title, length: 60), article %></div>
           <div class="small text-muted">
             <% if !article.titlings.first.blank? %>
               <%= truncate(article.titlings.first.content, length: 45) %>
