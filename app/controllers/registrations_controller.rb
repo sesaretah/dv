@@ -67,8 +67,8 @@ class RegistrationsController < Devise::RegistrationsController
       else
         email = @result['serviceResponse']['authenticationSuccess']['attributes']['mail']
         password = SecureRandom.hex(10)
-        p @result['serviceResponse']['authenticationSuccess']['attributes']['givenName']
-        p @result['serviceResponse']['authenticationSuccess']['attributes']['sn']
+        Rails.logger.info @result['serviceResponse']['authenticationSuccess']['attributes']['givenName'] rescue nil
+        Rails.logger.info @result['serviceResponse']['authenticationSuccess']['attributes']['sn'] rescue nil
         name = @result['serviceResponse']['authenticationSuccess']['attributes']['givenName'].to_a.first
         surename = @result['serviceResponse']['authenticationSuccess']['attributes']['sn'].to_a.first
         user = User.create(email: email, password: password, password_confirmation: password)
