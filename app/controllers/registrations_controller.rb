@@ -70,9 +70,9 @@ class RegistrationsController < Devise::RegistrationsController
         name = @result['serviceResponse']['authenticationSuccess']['attributes']['givenName'].to_a.first
         surename = @result['serviceResponse']['authenticationSuccess']['attributes']['sn'].to_a.first
         user = User.create(email: email, password: password, password_confirmation: password)
-        @profile = Profile.create(name: name, surename: surename, user_id: @user.id)
-        sign_in(@user)
-        redirect_to after_sign_in_path_for(@user)
+        profile = Profile.create(name: name, surename: surename, user_id: user.id)
+        sign_in(user)
+        redirect_to after_sign_in_path_for(user)
       end
     end
   end
