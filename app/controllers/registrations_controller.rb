@@ -65,7 +65,14 @@ class RegistrationsController < Devise::RegistrationsController
         sign_in(@user)
         redirect_to after_sign_in_path_for(@user)
       else
-        redirect_to '/users/sign_up?sso='+ @sso.uuid
+        email = @result['serviceResponse']['authenticationSuccess']['attributes']['mail']
+        password = SecureRandom.hex(10)
+        name = @result['serviceResponse']['authenticationSuccess']['attributes']['givenName'].to_a.first
+        surename = @result['serviceResponse']['authenticationSuccess']['attributes']['sn'].to_a.first
+        user = User.create(email: email, password: password, password_confirmation: password)
+        @profile = Profile.create(name: name, surename: surename, user_id: @user.id)
+        sign_in(@user)
+        redirect_to after_sign_in_path_for(@user)
       end
     end
   end
