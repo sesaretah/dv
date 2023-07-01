@@ -50,6 +50,7 @@ class RegistrationsController < Devise::RegistrationsController
     if !@result['serviceResponse']['authenticationSuccess'].blank?
       @utid = @result['serviceResponse']['authenticationSuccess']['user']
       @new_utid = @result['serviceResponse']['authenticationSuccess']['attributes']['utid'] rescue nil
+      email = @result['serviceResponse']['authenticationSuccess']['attributes']['mail'] rescue nil
       Rails.logger.info @result['serviceResponse'] rescue nil
       @sso = Sso.where(utid: [@utid, @new_utid]).first
       if @sso.blank?
@@ -58,9 +59,8 @@ class RegistrationsController < Devise::RegistrationsController
       @sso.status = 'success'
       @sso.save
       @user = User.where(utid: [@utid, @new_utid]).first
-
-      @user = User.find_by_id(251) if @new_utid.to_i == 45615785 # urgent ugly fix
-      @user = User.find_by_id(1) if @new_utid.to_i == 46496325 # urgent ugly fix
+      @user = User.where(email: email).first if @user.blank? || @user.length == 0
+      
       if !@user.blank?
         sign_in(@user)
         redirect_to after_sign_in_path_for(@user)
@@ -71,10 +71,13 @@ class RegistrationsController < Devise::RegistrationsController
         Rails.logger.info @result['serviceResponse']['authenticationSuccess']['attributes']['sn'] rescue nil
         name = @result['serviceResponse']['authenticationSuccess']['attributes']['givenName'].to_a.first
         surename = @result['serviceResponse']['authenticationSuccess']['attributes']['sn'].to_a.first
+        email = "#{@utid}@ut.ac.ir" if email.blank? || email == ''
         user = User.create(email: email, password: password, password_confirmation: password)
-        profile = Profile.create(name: name, surename: surename, user_id: user.id)
-        sign_in(user)
-        redirect_to after_sign_in_path_for(user)
+        if !user.blank?
+          profile = Profile.create(name: name, surename: surename, user_id: user.id)
+          sign_in(user)
+          redirect_to after_sign_in_path_for(user)
+        end
       end
     end
   end
