@@ -417,6 +417,7 @@ fa:
   permanent: 'دائم'
   reply_all: 'پاسخ همه'
   reply: 'پاسخ'
+  non_cas_login: 'سایر کاربران'
   no_messages: 'در حال حاضر پیامی وجود ندارد'
   message: 'پیام'
   retrun: 'بازگشت'
