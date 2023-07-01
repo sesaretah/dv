@@ -77,7 +77,9 @@ class RegistrationsController < Devise::RegistrationsController
         Rails.logger.info user.id rescue nil
         if !user.blank?
           profile = Profile.create(name: name, surename: surename, user_id: user.id)
-          sleep(3)
+          sleep(8)
+          Rails.logger.info profile.id rescue nil
+          Rails.logger.info user.profile.id rescue 'Hhhh'
           sign_in(user)
           redirect_to after_sign_in_path_for(user)
         end
