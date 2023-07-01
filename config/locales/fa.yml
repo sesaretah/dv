@@ -417,6 +417,7 @@ fa:
   permanent: 'دائم'
   reply_all: 'پاسخ همه'
   reply: 'پاسخ'
+  login: 'ورود'
   non_cas_login: 'سایر کاربران'
   university_users: 'کاربران دانشگاه'
   no_messages: 'در حال حاضر پیامی وجود ندارد'
