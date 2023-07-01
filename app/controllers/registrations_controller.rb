@@ -59,7 +59,7 @@ class RegistrationsController < Devise::RegistrationsController
       @sso.status = 'success'
       @sso.save
       @user = User.where(utid: [@utid, @new_utid]).first
-      @user = User.where(email: email).first if @user.blank? || @user.length == 0
+      @user = User.where(email: email).first if @user.first.blank?
       
       if !@user.blank?
         sign_in(@user)
