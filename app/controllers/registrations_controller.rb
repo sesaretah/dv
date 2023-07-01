@@ -73,6 +73,8 @@ class RegistrationsController < Devise::RegistrationsController
         surename = @result['serviceResponse']['authenticationSuccess']['attributes']['sn'].to_a.first
         email = "#{@new_utid}@ut.ac.ir" if email.blank? || email == ''
         user = User.create(email: email, password: password, password_confirmation: password, utid: @new_utid)
+        Rails.logger.info @new_utid rescue nil
+        Rails.logger.info user.id rescue nil
         if !user.blank?
           profile = Profile.create(name: name, surename: surename, user_id: user.id)
           sign_in(user)
