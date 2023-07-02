@@ -64,7 +64,7 @@
                 </div>
               </td>
               <td>
-                <% if !profile.user_id.blank?%>
+                <% if !profile.user.blank?%>
                 <% for role in profile.user.roles%>
                 <div class="tag mt-1">
                   <%= role.title%>
