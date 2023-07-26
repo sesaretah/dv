@@ -28,7 +28,9 @@ class PdfsWorker
           end
         end
         #p "#{kin_uploads}"
-        system("convert -density 150 #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf #{kin_uploads} #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf")
+        if kin_uploads != " "
+          system("convert -density 150 #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf #{kin_uploads} #{Rails.root}/public/pdfs/#{id}/#{uuid}.pdf")
+        end
       end
       article.pdf_generated = true
       article.save
