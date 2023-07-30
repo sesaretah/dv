@@ -71,7 +71,7 @@ class RegistrationsController < Devise::RegistrationsController
         Rails.logger.info @result['serviceResponse']['authenticationSuccess']['attributes']['sn'] rescue nil
         name = @result['serviceResponse']['authenticationSuccess']['attributes']['givenName'].to_a.first
         surename = @result['serviceResponse']['authenticationSuccess']['attributes']['sn'].to_a.first
-        email = "#{@new_utid}@ut.ac.ir" if email.blank? || email == ''
+        email = "#{@new_utid}@ut.ac.ir" if email.blank? || email == ''  || !email.is_a?(String) || email.to_s.include?('[')
         user = User.create(email: email, password: password, password_confirmation: password, utid: @new_utid)
         Rails.logger.info @new_utid rescue nil
         Rails.logger.info user.id rescue nil
