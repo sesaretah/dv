@@ -838,7 +838,8 @@ fa:
   detail_all: ''
   detail_metadata: ''
   detail_none: ''
-  
+  pdf_being_genereted: 'فایل در حال ایجاد است...'
+  publish_added: 'انتشار ثبت شد'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

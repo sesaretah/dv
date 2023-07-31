@@ -1,2 +1,11 @@
-$("#article-show").replaceWith("<%= escape_javascript(render(:partial => 'articles/article_publishable', locals: {article: @article})) %>");
+$("#article-show").replaceWith(
+  "<%= escape_javascript(render(:partial => 'articles/article_publishable', locals: {article: @article})) %>"
+);
 fireAutoCompleteEvent();
+new Noty({
+  type: "warning",
+  theme: "relax",
+  timeout: 2000,
+  layout: "bottomLeft",
+  text: "<%=t :pdf_being_genereted%>",
+}).show();
