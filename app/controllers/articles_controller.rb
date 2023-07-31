@@ -15,7 +15,7 @@ class ArticlesController < ApplicationController
 
   def generate_pdf
     @article.publish_details = params[:publish_details]
-    article.pdf_generated = false
+    @article.pdf_generated = false
     @access_groupings = AccessGrouping.where(article_id: @article.id)
     @article.publish_uuid = SecureRandom.hex(10)
     PdfsWorker.perform_async(@article.id, @article.publish_uuid, 'raw_print')
