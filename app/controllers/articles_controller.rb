@@ -17,6 +17,8 @@ class ArticlesController < ApplicationController
     @access_groupings = AccessGrouping.where(article_id: @article.id)
     @article.publish_uuid = SecureRandom.hex(10)
     PdfsWorker.perform_async(@article.id, @article.publish_uuid, 'raw_print')
+    @article.published_on = DateTime.now
+    @article.save
   end
 
   def add_access_group
