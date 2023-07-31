@@ -20,7 +20,13 @@ class AccessGrouping < ActiveRecord::Base
       # if prev.blank?
       user = User.find(uniq_user_id)
       if notify_automation && uniq_user_id == user_id && !user.profile.blank? && !user.profile.dabir_department_id.blank? && !user.profile.dabir_personnel_id.blank?
-        body = "<?xml version=\"1.0\" encoding=\"utf-8\"?> <soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\"> <soap12:Body> <Insert_Document xmlns=\"http://tempuri.org/\"> <UserName>tehranuni</UserName> <Password>98765432100</Password> <ownerDepartmentId>#{user.profile.dabir_department_id}</ownerDepartmentId> <ownerPersonnelId>#{user.profile.dabir_personnel_id}</ownerPersonnelId> <Subject>#{article.title}</Subject> <Description> <![CDATA[ <html><body>#{article.textual}</html></body> ]]> </Description> <docDate></docDate> <keyword></keyword> <SecurityId>Normal</SecurityId> <UrgencyId>Normal</UrgencyId> <LetterType>Taypi</LetterType> <ErrStatus>0</ErrStatus> <ErrMessage>-</ErrMessage> <ErrFunctionName>-</ErrFunctionName> </Insert_Document> </soap12:Body> </soap12:Envelope>"
+        body = "<?xml version=\"1.0\" encoding=\"utf-8\"?> <soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\"> <soap12:Body> <Insert_Document xmlns=\"http://tempuri.org/\"> <UserName>tehranuni</UserName> <Password>98765432100</Password> <ownerDepartmentId>#{user.profile.dabir_department_id}</ownerDepartmentId> <ownerPersonnelId>#{user.profile.dabir_personnel_id}</ownerPersonnelId> <Subject> ابلاغ #{article.title}</Subject> <Description> <![CDATA[ <html><body> با سلام
+        <br />
+        احتراماً، به پيوست
+        <a class='btn btn-success mb-5' href='https://divan.ut.ac.ir/pdfs/#{article.id}/#{article.publish_uuid}.pdf'>#{article.title}</a>
+        جهت استحضار و اقدام مقتضي ابلاغ مي‌گردد.
+        
+          </body></html> ]]> </Description> <docDate></docDate> <keyword></keyword> <SecurityId>Normal</SecurityId> <UrgencyId>Normal</UrgencyId> <LetterType>Taypi</LetterType> <ErrStatus>0</ErrStatus> <ErrMessage>-</ErrMessage> <ErrFunctionName>-</ErrFunctionName> </Insert_Document> </soap12:Body> </soap12:Envelope>"
         HTTParty.post('http://192.168.112.185/IstgInternalDocWebService/InternalDocuments.asmx', body: body,
                                                                                                  headers: { 'Content-Type' => 'text/xml; charset=utf-8' })
 
