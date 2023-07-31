@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy article_descriptors article_related_dates article_other_details article_contributions article_relations send_to refund_to workflow_transitions article_detail article_logs compare article_states article_comments print change_workflow make_a_copy article_publishable change_access_group
                                        sectioned_form raw_print content_form set_note_template add_access_group remove_access_group raw_single_print
-                                       archive unarchive]
+                                       archive unarchive generate_pdf]
 
   def archive
     @article.archived = true
@@ -13,13 +13,18 @@ class ArticlesController < ApplicationController
     @article.save
   end
 
+  def generate_pdf 
+    @article.publish_uuid = SecureRandom.hex(10)
+    PdfsWorker.perform_async(@article.id, @article.publish_uuid, 'raw_print')
+  end
+
   def add_access_group
     return if params[:access_group_id].blank?
 
     @access_grouping = AccessGrouping.where(article_id: @article.id, access_group_id: params[:access_group_id]).first
     if @access_grouping.blank?
       @access_grouping = AccessGrouping.create(article_id: @article.id, access_group_id: params[:access_group_id],
-                                               notify: params[:notify], user_id: current_user.id)
+                                               notify: params[:notify], notify_automation: params[:notify_automation] , user_id: current_user.id)
     elsif @access_grouping.user_id.blank?
       @access_grouping.update(user_id: current_user.id)
     end

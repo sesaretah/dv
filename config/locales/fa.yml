@@ -551,7 +551,7 @@ fa:
   event_date: 'تاریخ'
   other_titles: 'سایر عناوین'
   submit: 'ثبت'
-  download: 'دانلود'
+  download: 'دانلود فایل'
   settings: 'تنظیمات'
   home: 'خانه'
   search: 'جستجو'
@@ -783,6 +783,8 @@ fa:
   all_vote: 'همه موافق'
   creator: 'ایجاد کننده'
   automatic_transition: 'انتقال اتوماتیک'
+  generate_pdf: 'ایجاد فایل خروجی'
+  generate: 'ایجاد فایل'
 
   consensus: 'اجماع (بدون مخالف)'
   timer: 'زمانبندی (ساعت)'
@@ -829,6 +831,14 @@ fa:
   sign: 'نمایش امضا'
   notifiable: 'اطلاع رسانی اجباری'
   non_wildcard: 'جستجوی دقیق'
+  publish_for: 'انتشار برای ...'
+  notification_email: 'اطلاع رسانی با ایمیل'
+  notification_automation: 'ارسال به اتوماسیون'
+  publish_for_others: 'انتشار برای سایر افراد'
+  detail_all: ''
+  detail_metadata: ''
+  detail_none: ''
+  
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

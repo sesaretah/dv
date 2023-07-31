@@ -1,16 +1,32 @@
 <div class="card-body" id='article-show'>
   <div class="row">
     <div class="col-lg-12">
-      <% if @article.pdf_generated && (user_accessible?(@article, current_user) || viewable_level?(@article, "all")) %>
-      <a class="btn btn-success mb-5" target='_blank' href='/pdfs/<%= @article.id %>/<%= @article.publish_uuid %>.pdf'><%= t :download %></a>
-      <% end %>
-      <% if user_accessible?(@article, current_user) %>
-      <div class="alert alert-primary" role="alert">
-        <b><%= t :publish %></b><br />
+    <div class="alert alert-primary" role="alert">
+      <%=t :generate_pdf%>
+      <hr class='mt-1'/>
+      <%= form_tag "/articles/generate_pdf/#{@article.id}", method: :get, remote: true do %>
+        <label class="form-label"><%= t :publish_details %></label>
+        <%= text_area_tag "publish_details", @article.publish_details, class: "form-control", placeholder: t(:message_content) %>
+        <div class="row">
+          <div class="col-md-8"></div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <% if @article.pdf_generated && (user_accessible?(@article, current_user) || viewable_level?(@article, "all")) %>
+                <a class="btn btn-success" style="margin-top:20px" target='_blank' href='/pdfs/<%= @article.id %>/<%= @article.publish_uuid %>.pdf'><%= t :download %></a>
+              <% end %>
+              <button type="submit" class="btn btn-primary" style="margin-top:20px"><%= t :generate %></button>
+            </div>
+          </div>
+        </div>
+        <%end%>
+    </div>
 
+    <div class="alert alert-primary" role="alert">
+      <%=t :publish_for%>
+      <hr class='mt-1'/>
         <%= form_tag "/articles/add_access_group/#{@article.id}", method: :get, remote: true do %>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-7">
             <div class="form-group">
               <label class="form-label"><%= t :access_group %></label>
               <% if user_accessible?(@article, current_user) %>
@@ -29,92 +45,74 @@
                 </ul>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
               <div class="form-group mt-6">
                 <% if user_accessible?(@article, current_user) %>
-                <label class="custom-control custom-checkbox custom-control-inline">
-                  <input type="checkbox" class="custom-control-input" name="notify" value="1" >
-                  <span class="custom-control-label"><%= t :notification %></span>
-                </label>
+                  <label class="custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox" class="custom-control-input" name="notify" value="1" >
+                    <span class="custom-control-label"><%= t :notification_email %></span>
+                  </label>
+
+                  <label class="custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox" class="custom-control-input" name="notify_automation" value="1" >
+                    <span class="custom-control-label"><%= t :notification_automation %></span>
+                  </label>
                 <% end %>
               </div>
             </div>
-            <div class="col-md-2">
-              <% if user_accessible?(@article, current_user) %>
-              <button type="submit" class="btn btn-primary mt-5" style="color:white;"><%= t :submit %></button>
-              <% end %>
-            </div>
           </div>
-          <% end %>
-          <%= form_tag "/articles/change_access_group/#{@article.id}", method: :get, remote: true do %>
+   
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
               <div class="form-group">
-                <label class="form-label"><% t :access_group %></label>
                 <% if user_accessible?(@article, current_user) %>
-                <% select_tag :access_group_id, options_for_select(AccessGroup.all.collect { |p| [p.title, p.id] }, @article.access_group_id), { include_blank: true, class: "form-control" } %>
-                <% else %>
-                <% select_tag :access_group_id, options_for_select(AccessGroup.all.collect { |p| [p.title, p.id] }, @article.access_group_id), { disabled: true, class: "form-control" } %>
+                <button type="submit" class="btn btn-primary mt-5" style="color:white;"><%= t :submit %></button>
                 <% end %>
               </div>
-            </div>
-            <div class="col-md-10">
-              <div class="form-group">
-                <label class="form-label"><%= t :publish_details %></label>
-                <% if user_accessible?(@article, current_user) %>
-                <%= text_area_tag "publish_details", @article.publish_details, class: "form-control", placeholder: t(:message_content) %>
-                <% else %>
-                <%= text_area_tag "publish_details", @article.publish_details, class: "form-control", placeholder: t(:message_content), disabled: true %>
-                <% end %>
-              </div>
-
-              <%= hidden_field_tag :article_id, @article.id %>
-
-
-            </div>
-          </div>
-          <div clsss='row'>
-            <div class="col-md-5">
-              <div class="form-group">
-                <label class="custom-control custom-checkbox custom-control-inline">
-                  <input type="checkbox" class="custom-control-input" name="publish_related" value="1" >
-                  <span class="custom-control-label"><%= t :publish_related_articles %></span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div clsss='row'>
-            <div class="form-group">
-              <div class="form-label"><%= t :access_for_others %></div>
-              <div class="custom-controls-stacked">
-                <label class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" name="access_for_others" value="all" <% if @article.access_for_others == "all" %> checked=""<% end %> <% if !user_accessible?(@article, current_user) %>disabled=""<% end %> >
-                  <span class="custom-control-label"><%= t :all %></span>
-                </label>
-                <label class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" name="access_for_others" value="metadata" <% if @article.access_for_others == "metadata" %> checked=""<% end %> <% if !user_accessible?(@article, current_user) %>disabled=""<% end %>>
-                  <span class="custom-control-label"><%= t :metadata %></span>
-                </label>
-                <label class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" name="access_for_others" value="none" <% if @article.access_for_others == "none" %> checked=""<% end %> <% if !user_accessible?(@article, current_user) %>disabled=""<% end %>>
-                  <span class="custom-control-label"><%= t :none %></span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <% if user_accessible?(@article, current_user) %>
-          <div class="col-md-2">
-            <div class="form-group">
-              <label class="form-label"></label>
-              <button type="submit" class="btn btn-orange" style="margin-top:20px"><%= t :submit %></button>
             </div>
           </div>
           <% end %>
-        </div>
-        <% end %>
-        <% end %>
-      </div>
+    </div>
+
+    <div class="alert alert-primary" role="alert">
+      <%=t :publish_for_others%>
+      <hr class='mt-1'/>
+     <%= form_tag "/articles/change_access_group/#{@article.id}", method: :get, remote: true do %>
+          <div clsss='row'>
+            <div class="form-group">
+              <div class="">
+                <label class="custom-control custom-radio custom-contro">
+                  <input type="radio" class="custom-control-input" name="access_for_others" value="all" <% if @article.access_for_others == "all" %> checked=""<% end %> <% if !user_accessible?(@article, current_user) %>disabled=""<% end %> >
+                  <span class="custom-control-label"><%= t :all %></span><span class="text-muted small"> <%=t :detail_all%><span>
+                </label>
+                <label class="custom-control custom-radio custom-control">
+                  <input type="radio" class="custom-control-input" name="access_for_others" value="metadata" <% if @article.access_for_others == "metadata" %> checked=""<% end %> <% if !user_accessible?(@article, current_user) %>disabled=""<% end %>>
+                  <span class="custom-control-label"><%= t :metadata %></span><span class="text-muted small"> <%=t :detail_metadata%><span>
+                </label>
+                <label class="custom-control custom-radio custom-control">
+                  <input type="radio" class="custom-control-input" name="access_for_others" value="none" <% if @article.access_for_others == "none" %> checked=""<% end %> <% if !user_accessible?(@article, current_user) %>disabled=""<% end %>>
+                  <span class="custom-control-label"><%= t :none %></span><span class="text-muted small"> <%=t :detail_none%><span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <% if user_accessible?(@article, current_user) %>
+                <button type="submit" class="btn btn-primary mt-5" style="color:white;"><%= t :submit %></button>
+                <% end %>
+              </div>
+            </div>
+          </div>
+     <%end%>
+    </div>
+
+
+
+
     </div>
   </div>
