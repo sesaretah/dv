@@ -5,7 +5,7 @@ fireAutoCompleteEvent();
 new Noty({
   type: "warning",
   theme: "relax",
-  timeout: 2000,
+  timeout: 12000,
   layout: "bottomLeft",
   text: "<%=t :pdf_being_genereted%>",
 }).show();
