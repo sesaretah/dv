@@ -291,31 +291,7 @@ class ArticlesController < ApplicationController
   end
 
   def change_access_group
-    @article.access_group_id = params[:access_group_id]
-    @article.publish_details = params[:publish_details]
     @article.access_for_others = params[:access_for_others]
-    @article.publish_uuid = SecureRandom.hex(10)
-    PdfsWorker.perform_async(@article.id, @article.publish_uuid, 'raw_print')
-    if params[:publish_related]
-      for kinship in @article.kinships
-        kinship.kin.publish_details = params[:publish_details]
-        kinship.kin.access_for_others = params[:access_for_others]
-        for access_grouping in @article.access_groupings
-          kin_grouping = AccessGrouping.where(article_id: kinship.kin.id,
-                                              access_group_id: access_grouping.access_group_id).first
-          if kin_grouping.blank?
-            AccessGrouping.create(article_id: kinship.kin.id, access_group_id: access_grouping.access_group_id,
-                                  notify: access_grouping.notify)
-          end
-        end
-        kinship.kin.published_via = @article.id
-        kinship.kin.published_on =  DateTime.now
-        kinship.kin.publish_uuid =  SecureRandom.hex(10)
-        kinship.kin.save
-        PdfWorker.perform_async(kinship.kin.id, 'raw_single_print')
-      end
-    end
-    @article.published_on = DateTime.now
     @article.save
   end
 
