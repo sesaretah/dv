@@ -39,6 +39,9 @@
             <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
                 <i class="dropdown-icon fe fe-user"></i><%=t :change_password%>
             <%end%>
+            <a class="dropdown-item" href="/notification_settings">
+              <i class="dropdown-icon fe fe-cog"></i><%=t :notification_settings%>
+            </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/users/sign_out">
               <i class="dropdown-icon fe fe-log-out"></i><%=t :sign_out%>
@@ -81,49 +84,59 @@
             <a href="/home/advanced_search" class="nav-link"><i class="fe fe-search"></i><%=t :search%></a>
           </li>
           <% if user_signed_in?%>
+           <% if grant_access("alter_article_areas", current_user) || grant_access("alter_article_events", current_user) 
+              || grant_access("alter_article_formats", current_user) ||  grant_access("alter_article_relation_types", current_user) 
+              || grant_access("alter_article_sources", current_user) ||  grant_access("alter_article_types", current_user) 
+              || grant_access("alter_keywords", current_user) ||  grant_access("alter_languages", current_user) 
+              || grant_access("alter_profiles", current_user) ||  grant_access("alter_duties", current_user) 
+              || grant_access("alter_roles", current_user) ||  grant_access("edit_roles", current_user) 
+              || grant_access("alter_title_types", current_user) ||  grant_access("alter_content_templates", current_user) 
+              || grant_access("alter_access_groups", current_user) ||  grant_access("alter_section_items", current_user) 
+              || grant_access("alter_publishers", current_user) ||  grant_access("alter_locations", current_user) 
+              || grant_access("alter_publish_sources", current_user) ||  grant_access("alter_profile_groups", current_user) 
+            %>
+
           <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-grid"></i><%=t :base_tables%></a>
             <div class="dropdown-menu dropdown-menu-arrow">
-              <a href="/article_areas" class="dropdown-item "><%=t :article_areas%></a>
-              <a href="/article_events" class="dropdown-item "><%=t :article_events%></a>
-              <a href="/article_formats" class="dropdown-item "><%=t :article_formats%></a>
-              <a href="/article_relation_types" class="dropdown-item "><%=t :article_relation_types%></a>
-              <a href="/article_sources" class="dropdown-item "><%=t :article_sources%></a>
-              <a href="/article_types" class="dropdown-item "><%=t :article_types%></a>
-              <a href="/keywords" class="dropdown-item  "><%=t :keywords%></a>
-              <a href="/languages" class="dropdown-item "><%=t :languages%></a>
-              <a href="/profiles" class="dropdown-item "><%=t :profiles%></a>
-              <a href="/duties" class="dropdown-item "><%=t :duties%></a>
-              <a href="/roles" class="dropdown-item "><%=t :roles%></a>
-              <a href="/title_types" class="dropdown-item "><%=t :title_types%></a>
-              <a href="/content_templates" class="dropdown-item "><%=t :content_templates%></a>
-              <a href="/access_groups" class="dropdown-item "><%=t :access_groups%></a>
-              <a href="/word_templates" class="dropdown-item "><%=t :word_template%></a>
-              <a href="/section_items" class="dropdown-item "><%=t :section_items%></a>
-              <a href="/publishers" class="dropdown-item "><%=t :publishers%></a>
-              <a href="/locations" class="dropdown-item "><%=t :locations%></a>
-              <a href="/publish_sources" class="dropdown-item "><%=t :publish_sources%></a>
-              <a href="/profile_groups" class="dropdown-item "><%=t :profile_groups%></a>
-              <a href="/note_templates" class="dropdown-item "><%=t :note_templates%></a>
+              <% if grant_access("alter_article_areas", current_user)%><a href="/article_areas" class="dropdown-item "><%=t :article_areas%></a><%end%>
+              <% if grant_access("alter_article_events", current_user)%><a href="/article_events" class="dropdown-item "><%=t :article_events%></a><%end%>
+              <% if grant_access("alter_article_formats", current_user)%><a href="/article_formats" class="dropdown-item "><%=t :article_formats%></a><%end%>
+              <% if grant_access("alter_article_relation_types", current_user)%><a href="/article_relation_types" class="dropdown-item "><%=t :article_relation_types%></a><%end%>
+              <% if grant_access("alter_article_sources", current_user)%><a href="/article_sources" class="dropdown-item "><%=t :article_sources%></a><%end%>
+              <% if grant_access("alter_article_types", current_user)%><a href="/article_types" class="dropdown-item "><%=t :article_types%></a><%end%>
+              <% if grant_access("alter_keywords", current_user)%><a href="/keywords" class="dropdown-item  "><%=t :keywords%></a><%end%>
+              <% if grant_access("alter_languages", current_user)%><a href="/languages" class="dropdown-item "><%=t :languages%></a><%end%>
+              <% if grant_access("alter_profiles", current_user)%><a href="/profiles" class="dropdown-item "><%=t :profiles%></a><%end%>
+              <% if grant_access("alter_duties", current_user)%><a href="/duties" class="dropdown-item "><%=t :duties%></a><%end%>
+              <% if grant_access("alter_roles", current_user) || grant_access("edit_roles", current_user)%><a href="/roles" class="dropdown-item "><%=t :roles%></a><%end%>
+              <% if grant_access("alter_title_types", current_user)%><a href="/title_types" class="dropdown-item "><%=t :title_types%></a><%end%>
+              <% if grant_access("alter_content_templates", current_user)%><a href="/content_templates" class="dropdown-item "><%=t :content_templates%></a><%end%>
+              <% if grant_access("alter_access_groups", current_user)%><a href="/access_groups" class="dropdown-item "><%=t :access_groups%></a><%end%>
+              <% if grant_access("edit_roles", current_user)%><a href="/word_templates" class="dropdown-item "><%=t :word_template%></a><%end%>
+              <% if grant_access("alter_section_items", current_user)%><a href="/section_items" class="dropdown-item "><%=t :section_items%></a><%end%>
+              <% if grant_access("alter_publishers", current_user)%><a href="/publishers" class="dropdown-item "><%=t :publishers%></a><%end%>
+              <% if grant_access("alter_locations", current_user)%><a href="/locations" class="dropdown-item "><%=t :locations%></a><%end%>
+              <% if grant_access("alter_publish_sources", current_user)%><a href="/publish_sources" class="dropdown-item "><%=t :publish_sources%></a><%end%>
+              <% if grant_access("alter_profile_groups", current_user)%><a href="/profile_groups" class="dropdown-item "><%=t :profile_groups%></a><%end%>
+              <% if grant_access("edit_roles", current_user)%><a href="/note_templates" class="dropdown-item "><%=t :note_templates%></a><%end%>
             </div>
           </li>
           <%end%>
-          <% if user_signed_in?%>
-          <li class="nav-item">
-            <a href="/messages" class="nav-link"><i class="far fa-envelope"></i><%=t :messages%></a>
-          </li>
           <%end%>
+
           <% if user_signed_in?%>
+           <% if grant_access("alter_assignments", current_user) || grant_access("edit_assignments", current_user) || grant_access("create_workflow", current_user) ||  grant_access("edit_workflow", current_user) %>
           <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-settings"></i><%=t :settings%></a>
             <div class="dropdown-menu dropdown-menu-arrow">
               <a href="/workflows" class="dropdown-item "><%=t :workflows%></a>
-              <a href="/notification_settings" class="dropdown-item "><%=t :notification_settings%></a>
               <% if grant_access("alter_assignments", current_user) || grant_access("edit_assignments", current_user) %>
               <a href="/assignments" class="dropdown-item "><%=t :assignments%></a>
               <%end%>
             </div>
           </li>
+          <%end%>
           <%end%>
           <% if user_signed_in?%>
           <%end%>
