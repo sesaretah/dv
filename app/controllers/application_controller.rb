@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
   end
 
   def owner(obj, user)
-    if obj.user_id == user.id
+    if obj.user_id == user.id || ( defined?(obj.admin_id) && obj.admin_id == user.id ) || ( defined?(obj.moderator) && obj.moderator == user.id )
       return true
     else
       return false
