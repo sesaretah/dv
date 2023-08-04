@@ -84,16 +84,7 @@
             <a href="/home/advanced_search" class="nav-link"><i class="fe fe-search"></i><%=t :search%></a>
           </li>
           <% if user_signed_in?%>
-           <% if grant_access("alter_article_areas", current_user) || grant_access("alter_article_events", current_user) 
-              || grant_access("alter_article_formats", current_user) ||  grant_access("alter_article_relation_types", current_user) 
-              || grant_access("alter_article_sources", current_user) ||  grant_access("alter_article_types", current_user) 
-              || grant_access("alter_keywords", current_user) ||  grant_access("alter_languages", current_user) 
-              || grant_access("alter_profiles", current_user) ||  grant_access("alter_duties", current_user) 
-              || grant_access("alter_roles", current_user) ||  grant_access("edit_roles", current_user) 
-              || grant_access("alter_title_types", current_user) ||  grant_access("alter_content_templates", current_user) 
-              || grant_access("alter_access_groups", current_user) ||  grant_access("alter_section_items", current_user) 
-              || grant_access("alter_publishers", current_user) ||  grant_access("alter_locations", current_user) 
-              || grant_access("alter_publish_sources", current_user) ||  grant_access("alter_profile_groups", current_user) 
+           <% if grant_access("alter_article_areas", current_user) || grant_access("alter_article_events", current_user) || grant_access("alter_article_formats", current_user) ||  grant_access("alter_article_relation_types", current_user) || grant_access("alter_article_sources", current_user) ||  grant_access("alter_article_types", current_user) || grant_access("alter_keywords", current_user) ||  grant_access("alter_languages", current_user) || grant_access("alter_profiles", current_user) ||  grant_access("alter_duties", current_user) || grant_access("alter_roles", current_user) ||  grant_access("edit_roles", current_user) || grant_access("alter_title_types", current_user) ||  grant_access("alter_content_templates", current_user) || grant_access("alter_access_groups", current_user) ||  grant_access("alter_section_items", current_user) || grant_access("alter_publishers", current_user) ||  grant_access("alter_locations", current_user) || grant_access("alter_publish_sources", current_user) ||  grant_access("alter_profile_groups", current_user) 
             %>
 
           <li class="nav-item">
