@@ -55,7 +55,7 @@
                 <span class="tag-addon tag-yellow" style="border-top-right-radius: 0px;border-bottom-right-radius: 0px;">
                   <i class="fe fe-briefcase"></i>
                 </span>
-                <% if grant_access("alter_assignments", current_user)%>
+                <% if grant_access("alter_assignments", current_user) || a.assigner_id == current_user.id%>
                   <%= link_to a, method: :delete, class: "tag-addon",data: { confirm: 'Are you sure?' } do%>
                     <i class="fe fe-x" style="vertical-align:-3px"></i>
                   <%end%>
