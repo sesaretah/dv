@@ -64,16 +64,16 @@ class AssignmentsController < ApplicationController
   # DELETE /assignments/1
   # DELETE /assignments/1.json
   def destroy
-    if !grant_access("alter_assignments", current_user) || @assignment.assigner_id != current_user.id
-      head(403)
+    if grant_access("alter_assignments", current_user) || @assignment.assigner_id == current_user.id
+      send_mail user_id: @assignment.user_id, role_title: @assignment.role.title, mail_type: 'role_unassignment'
+      @assignment.destroy
+      respond_to do |format|
+        format.html { redirect_to assignments_url, notice: 'Assignment was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     else 
-    send_mail user_id: @assignment.user_id, role_title: @assignment.role.title, mail_type: 'role_unassignment'
-    @assignment.destroy
-    respond_to do |format|
-      format.html { redirect_to assignments_url, notice: 'Assignment was successfully destroyed.' }
-      format.json { head :no_content }
+      head(403)
     end
-  end
   end
 
   private
