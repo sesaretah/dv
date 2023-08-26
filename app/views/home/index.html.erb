@@ -65,13 +65,31 @@
 
 
  <div class="card-options">
+           <div class="dropdown ml-2" >
+            <button type="button" class="btn btn-secondary dropdown-toggle" style="font-size: 10px;" data-toggle="dropdown">
+              <%= t :sort %>
+            </button>
+            <div class="dropdown-menu" style="right: 0px !important;">
+            <% ['coming ASC', 'coming DESC', 'title ASC', 'title DESC', 'posisiton DESC', '-posisiton DESC'].each do |i| %>
+                <%= link_to "/home?#{i.to_s}", class: "dropdown-item pd-compact" do %>
+                      <% if @home_setting.sort == i %>
+                        <i class="fe fe-check" style="vertical-align:-3px;"></i>
+                      <% end %>
+                      <span id='pp-value'><%= i %></span>
+
+                <% end %>
+                <% end %>
+
+            </div>            
+          </div>
+
           <div class="dropdown ml-2" >
             <button type="button" class="btn btn-secondary dropdown-toggle" style="font-size: 10px;" data-toggle="dropdown">
               <%= t :per_page %>
             </button>
             <div class="dropdown-menu" style="right: 0px !important;">
             <% [5, 10, 20, 100].each do |i| %>
-                <%= link_to "/home?pp=" + i.to_s, id: "pp", class: "dropdown-item pd-compact" do %>
+                <%= link_to "?pp=" + i.to_s, id: "pp", class: "dropdown-item pd-compact" do %>
                                       <% if @home_setting.pp == i %>
                         <i class="fe fe-check" style="vertical-align:-3px;"></i>
                       <% end %>
@@ -81,7 +99,7 @@
                 <% end %>
 
             </div>            
-            </div>
+          </div>
 
             <div class="dropdown ml-2" >
             <button type="button" class="btn btn-secondary dropdown-toggle" style="font-size: 10px;" data-toggle="dropdown">
