@@ -31,7 +31,7 @@ class AssignmentsController < ApplicationController
       head(403)
     end
     @assignment = Assignment.new(assignment_params)
-
+    @assignment.assigner_id = current_user.id
     respond_to do |format|
       if @assignment.save
         send_mail user_id: @assignment.user_id, role_title: @assignment.role.title, mail_type: 'role_assignment'
@@ -64,7 +64,7 @@ class AssignmentsController < ApplicationController
   # DELETE /assignments/1
   # DELETE /assignments/1.json
   def destroy
-    if !grant_access("alter_assignments", current_user)
+    if !grant_access("alter_assignments", current_user) || @assignment.assigner_id != current_user.id
       head(403)
     end
     send_mail user_id: @assignment.user_id, role_title: @assignment.role.title, mail_type: 'role_unassignment'
