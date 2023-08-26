@@ -3,9 +3,9 @@ $("#article-show").replaceWith(
 );
 fireAutoCompleteEvent();
 new Noty({
-  type: "success",
+  type: "warning",
   theme: "relax",
-  timeout: 2000,
+  timeout: 12000,
   layout: "bottomLeft",
-  text: "<%=t :publish_added%>",
+  text: "<%=t :pdf_being_genereted%>",
 }).show();

@@ -180,7 +180,7 @@ module ApplicationHelper
   end
 
   def owner(obj, user)
-    if obj.user_id == user.id
+    if obj.user_id == user.id || ( defined?(obj.admin_id) && obj.admin_id == user.id ) || ( defined?(obj.moderator) && obj.moderator == user.id )
       return true
     else
       return false
@@ -221,7 +221,7 @@ module ApplicationHelper
     @role_workflow_state_ids = WorkflowState.where(role_id: user.current_role_id).pluck(:id).uniq
     @user_workflows = user.workflows.pluck(:id)
     if action == 'edit'
-      if @role_workflow_state_ids.include?(article.workflow_state.id) || @user_workflows.include?(article.workflow_state.workflow.id)
+      if @role_workflow_state_ids.include?(article.workflow_state.id) || @user_workflows.include?(article.workflow_state.workflow.id) || @user_workflows.include?(article.workflow_state.workflow.id) || article.workflow_state&.workflow.admin_id == user.id || article.workflow_state&.workflow.moderator_id == user.id 
         return true
       else
         return false
@@ -229,7 +229,7 @@ module ApplicationHelper
     end
 
     if action == 'destroy'
-      if @user_workflows.include?(article.workflow_state.workflow.id)
+      if @user_workflows.include?(article.workflow_state.workflow.id) || @user_workflows.include?(article.workflow_state.workflow.id) || article.workflow_state&.workflow.admin_id == user.id || article.workflow_state&.workflow.moderator_id == user.id 
         return true
       else
         return false

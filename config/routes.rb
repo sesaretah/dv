@@ -114,6 +114,7 @@ Rails.application.routes.draw do
   match "/articles/content_form/:id" => "articles#content_form", :via => :get
   match "/articles/set_note_template/:id" => "articles#set_note_template", :via => :get
   match "/articles/add_access_group/:id" => "articles#add_access_group", :via => :get
+  match "/articles/generate_pdf/:id" => "articles#generate_pdf", :via => :get
   match "/articles/remove_access_group/:id" => "articles#remove_access_group", :via => :get
   match "/articles/pdf_generate/:id" => "articles#pdf_generate", :via => :get
   match "/articles/raw_single_print/:id" => "articles#raw_single_print", :via => :get

@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy article_descriptors article_related_dates article_other_details article_contributions article_relations send_to refund_to workflow_transitions article_detail article_logs compare article_states article_comments print change_workflow make_a_copy article_publishable change_access_group
                                        sectioned_form raw_print content_form set_note_template add_access_group remove_access_group raw_single_print
-                                       archive unarchive]
+                                       archive unarchive generate_pdf]
 
   def archive
     @article.archived = true
@@ -13,13 +13,23 @@ class ArticlesController < ApplicationController
     @article.save
   end
 
+  def generate_pdf
+    @article.publish_details = params[:publish_details]
+    @article.pdf_generated = false
+    @access_groupings = AccessGrouping.where(article_id: @article.id)
+    @article.publish_uuid = SecureRandom.hex(10)
+    PdfsWorker.perform_async(@article.id, @article.publish_uuid, 'raw_print')
+    @article.published_on = DateTime.now
+    @article.save
+  end
+
   def add_access_group
     return if params[:access_group_id].blank?
 
     @access_grouping = AccessGrouping.where(article_id: @article.id, access_group_id: params[:access_group_id]).first
     if @access_grouping.blank?
       @access_grouping = AccessGrouping.create(article_id: @article.id, access_group_id: params[:access_group_id],
-                                               notify: params[:notify], user_id: current_user.id)
+                                               notify: params[:notify], notify_automation: params[:notify_automation] , user_id: current_user.id)
     elsif @access_grouping.user_id.blank?
       @access_grouping.update(user_id: current_user.id)
     end
@@ -281,31 +291,7 @@ class ArticlesController < ApplicationController
   end
 
   def change_access_group
-    @article.access_group_id = params[:access_group_id]
-    @article.publish_details = params[:publish_details]
     @article.access_for_others = params[:access_for_others]
-    @article.publish_uuid = SecureRandom.hex(10)
-    PdfsWorker.perform_async(@article.id, @article.publish_uuid, 'raw_print')
-    if params[:publish_related]
-      for kinship in @article.kinships
-        kinship.kin.publish_details = params[:publish_details]
-        kinship.kin.access_for_others = params[:access_for_others]
-        for access_grouping in @article.access_groupings
-          kin_grouping = AccessGrouping.where(article_id: kinship.kin.id,
-                                              access_group_id: access_grouping.access_group_id).first
-          if kin_grouping.blank?
-            AccessGrouping.create(article_id: kinship.kin.id, access_group_id: access_grouping.access_group_id,
-                                  notify: access_grouping.notify)
-          end
-        end
-        kinship.kin.published_via = @article.id
-        kinship.kin.published_on =  DateTime.now
-        kinship.kin.publish_uuid =  SecureRandom.hex(10)
-        kinship.kin.save
-        PdfWorker.perform_async(kinship.kin.id, 'raw_single_print')
-      end
-    end
-    @article.published_on = DateTime.now
     @article.save
   end
 
