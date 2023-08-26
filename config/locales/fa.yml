@@ -844,6 +844,7 @@ fa:
   desc: 'صعودی'
   coming: 'ورود به مرحله'
   position: 'شماره'
+  position_reverse: 'شماره نزولی'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.
