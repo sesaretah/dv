@@ -21,7 +21,7 @@
 <div class="col-lg-9 order-lg-1">
 
     <ol class="breadcrumb" aria-label="breadcrumbs">
-        <li class="breadcrumb-item"><a href='/artices'><%= t :browse_articles %></a></li>
+        <li class="breadcrumb-item"><%= t :articles %></li>
         <% if  !@article.workflow_state.blank? && !@article.workflow_state.workflow.blank?%>
           <li class="breadcrumb-item"><a href="/home?workflow=<%= @article.workflow_state.workflow.id%>"><%= truncate(@article.workflow_state.workflow.title, length: 40)rescue ''%></a></li>
         <% end %>
