@@ -844,7 +844,7 @@ fa:
   desc: 'صعودی'
   coming: 'ورود به مرحله'
   position: 'شماره'
-  position_reverse: 'شماره نزولی'
+  position_reverse: 'شماره (نزولی)'
   sort: 'مرتب سازی'
   devise:
     confirmations:
