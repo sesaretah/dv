@@ -840,6 +840,10 @@ fa:
   detail_none: ''
   pdf_being_genereted: 'فایل در حال ایجاد است...'
   publish_added: 'انتشار ثبت شد'
+  asc: 'نزولی'
+  desc: 'صعودی'
+  coming: 'ورود به مرحله'
+  position: 'شماره'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

@@ -75,7 +75,8 @@
                       <% if @home_setting.sort == i %>
                         <i class="fe fe-check" style="vertical-align:-3px;"></i>
                       <% end %>
-                      <span id='pp-value'><%=t i %></span>
+                      <%= name = i.split(' ')%>
+                      <span id='pp-value'><%=t name[0].to_sym %> <%=t name[1].downcase.to_sym %></span>
 
                 <% end %>
                 <% end %>
