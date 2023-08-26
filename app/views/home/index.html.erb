@@ -71,7 +71,7 @@
             </button>
             <div class="dropdown-menu" style="right: 0px !important;">
             <% ['coming ASC', 'coming DESC', 'title ASC', 'title DESC', 'posisiton DESC', '-posisiton DESC'].each do |i| %>
-                <%= link_to "&sort=#{i.to_s}", class: "dropdown-item pd-compact" do %>
+                <%= link_to "/home?pp=&sort=#{i.to_s}", class: "dropdown-item pd-compact" do %>
                       <% if @home_setting.sort == i %>
                         <i class="fe fe-check" style="vertical-align:-3px;"></i>
                       <% end %>
