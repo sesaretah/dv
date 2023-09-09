@@ -63,7 +63,7 @@ class RegistrationsController < Devise::RegistrationsController
             :body => query,
             :headers => headers
           ) 
-    Rails.logger.info res
+    Rails.logger.info res.keys
   end
 
   def service
