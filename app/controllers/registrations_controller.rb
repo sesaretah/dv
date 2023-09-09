@@ -54,7 +54,7 @@ class RegistrationsController < Devise::RegistrationsController
     req['grant_type'] = 'authorization_code'
     req['code'] = params[:code]
     req['redirect_uri'] = 'https://divan.ut.ac.ir/users/'
-    Rails.logger.info https.request(req)
+    #Rails.logger.info https.request(req)
   end
 
   def service
