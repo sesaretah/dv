@@ -57,11 +57,12 @@ class RegistrationsController < Devise::RegistrationsController
       "Authorization" => "Basic #{base64}"
     }
 
-    HTTParty.post(
-      "https://sso188-apigateway.ut.ac.ir/ApiContainer.SSO.RCL1/connect/token", 
-      :query => query,
-      :headers => headers
-    ) 
+    res = HTTParty.post(
+            "https://sso188-apigateway.ut.ac.ir/ApiContainer.SSO.RCL1/connect/token", 
+            :query => query,
+            :headers => headers
+          ) 
+    Rails.logger.info res
   end
 
   def service
