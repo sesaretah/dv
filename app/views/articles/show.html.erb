@@ -23,7 +23,7 @@
     <ol class="breadcrumb" aria-label="breadcrumbs">
         <li class="breadcrumb-item"><%= t :articles %></li>
         <% if  !@article.workflow_state.blank? && !@article.workflow_state.workflow.blank?%>
-          <li class="breadcrumb-item"><a href="/home?workflow=<%= @article.workflow_state.workflow.id%>"><%= truncate(@article.workflow_state.workflow.title, length: 40)rescue ''%></a></li>
+          <li class="breadcrumb-item"><%= truncate(@article.workflow_state.workflow.title, length: 40)rescue ''%></li>
         <% end %>
         <% if  !@article.workflow_state.blank? %>
           <li class="breadcrumb-item"><a href="/home?workflow_state=<%= @article.workflow_state.id%>"><%= truncate(@article.workflow_state.title, length: 30) rescue ''%></a></li>
