@@ -48,19 +48,19 @@ class RegistrationsController < Devise::RegistrationsController
   def oa 
     base64 = Base64.encode64("divanSSO-Bmmkf2wpdOMDqY_GFq_ol5e9gGkMpr7q30.apigateway.ut.ac.ir:R7lMRYsJWyStd-XBXiyjvWUSVteQsO-fMc0eiiyA6Qc").gsub(/\n/, '')
     query = { 
-      "grant_type" => 'authorization_code',
-      "code" => params[:code],
-      "redirect_uri" => 'https://divan.ut.ac.ir/users/oa'
+      "grant_type" => "authorization_code",
+      "code" => "F172C6DC782A07C40BF74F74EF203E3B7029EE94F8AE18B4FCA064B460D7B444",
+      "redirect_uri" => "https://divan.ut.ac.ir/users/oa"
     }
 
     headers = { 
-      'Content-Type' => 'application/json',
+      "Content-Type" => "application/x-www-form-urlencoded",
       "Authorization" => "Basic #{base64}"
     }
 
     res = HTTParty.post(
             "https://sso188-apigateway.ut.ac.ir/ApiContainer.SSO.RCL1/connect/token", 
-            :query => query,
+            :body => query,
             :headers => headers
           ) 
     Rails.logger.info res
