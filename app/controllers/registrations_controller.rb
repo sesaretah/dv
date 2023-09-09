@@ -54,6 +54,7 @@ class RegistrationsController < Devise::RegistrationsController
     }
 
     headers = { 
+      'Content-Type' => 'application/json',
       "Authorization" => "Basic #{base64}"
     }
 
