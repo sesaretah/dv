@@ -49,7 +49,7 @@ class RegistrationsController < Devise::RegistrationsController
     base64 = Base64.encode64("divanSSO-Bmmkf2wpdOMDqY_GFq_ol5e9gGkMpr7q30.apigateway.ut.ac.ir:R7lMRYsJWyStd-XBXiyjvWUSVteQsO-fMc0eiiyA6Qc").gsub(/\n/, '')
     query = { 
       "grant_type" => "authorization_code",
-      "code" => "F172C6DC782A07C40BF74F74EF203E3B7029EE94F8AE18B4FCA064B460D7B444",
+      "code" => params[:code],
       "redirect_uri" => "https://divan.ut.ac.ir/users/oa"
     }
 
