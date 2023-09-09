@@ -106,7 +106,7 @@
               <% if !contribution.role.blank? %>
               <%= link_to contribution.role.title, contribution.role %>
               <% end %>
-               <% if article.workflow_state&.workflow.user_id == current_user.id || article.workflow_state&.workflow.admin_id == current_user.id || article.workflow_state&.workflow.moderator_id == current_user.id%>
+               <% if article.user_id == current_user.id || article.workflow_state&.workflow.user_id == current_user.id || article.workflow_state&.workflow.admin_id == current_user.id || article.workflow_state&.workflow.moderator_id == current_user.id%>
                 <label class="custom-control custom-checkbox custom-control-inline">
     <input type="checkbox" class="custom-control-input" id="contribution_<%= contribution.id %>" <% if contribution.sign %>checked<% end %> value="<%= contribution.id %>">
     <span class="custom-control-label" style='padding-right: 0px;padding-top: 2px;'><%= t :sign %></span>
