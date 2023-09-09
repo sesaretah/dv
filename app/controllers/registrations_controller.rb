@@ -53,7 +53,7 @@ class RegistrationsController < Devise::RegistrationsController
     req = Net::HTTP::Post.new(uri.path, initheader = {'Authorization' =>"Basic #{base64}"})
     req['grant_type'] = 'authorization_code'
     req['code'] = params[:code]
-    req['redirect_uri'] = 'https://divan.ut.ac.ir/users/oa'
+    req['redirect_uri'] = 'https://divan.ut.ac.ir/users/'
     Rails.logger.info https.request(req)
   end
 
