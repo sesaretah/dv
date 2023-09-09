@@ -47,8 +47,10 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def oa 
+    uri = URI.parse("https://sso188-apigateway.ut.ac.ir/ApiContainer.SSO.RCL1/connect/token")
+    https = Net::HTTP.new(uri.host,uri.port)
     base64 = Base64.encode64("divanSSO-Bmmkf2wpdOMDqY_GFq_ol5e9gGkMpr7q30.apigateway.ut.ac.ir:R7lMRYsJWyStd-XBXiyjvWUSVteQsO-fMc0eiiyA6Qc").gsub(/\n/, '')
-    req = Net::HTTP::Post.new("https://sso188-apigateway.ut.ac.ir/ApiContainer.SSO.RCL1/connect/token", initheader = {'Authorization' =>"Basic #{base64}"})
+    req = Net::HTTP::Post.new(uri.path, initheader = {'Authorization' =>"Basic #{base64}"})
     req['grant_type'] = 'authorization_code'
     req['code'] = params[:code]
     req['redirect_uri'] = 'https://divan.ut.ac.ir/users/oa'
