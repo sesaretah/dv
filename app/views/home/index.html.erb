@@ -18,10 +18,10 @@
   <div class="col-lg-2">
   <% @selected_ws = WorkflowState.where(id: @home_setting.workflow_state).first%>
   <% if !@selected_ws.blank? && @selected_ws.start_point == 2%>
-  <% @state_page = StatePage.where(workflow_state_id: selected_ws.id).first %>
+  <% @state_page = StatePage.where(workflow_state_id: @selected_ws.id).first %>
     <% if !@state_page.blank? %>
       <% link_to "/p/#{@state_page.uuid}", class: "btn btn-secondry", style:"height: 46px;padding-top: 10px;margin-bottom: 15px;" do %>
-      <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%= t :new_state_page %>
+       <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%= t :new_state_page %>
       <% end %>
     <%else%>
       <%= link_to "/articles/new?workflow_state_id=#{@home_setting.workflow_state}", class: "btn btn-lime", style:"height: 46px;padding-top: 10px;margin-bottom: 15px;" do %>
