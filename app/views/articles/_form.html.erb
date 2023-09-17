@@ -22,7 +22,6 @@
     <div class="col-md-4">
       <div class="form-group">
         <label class="form-label"><%= t :workflow %></label>
-         <%= @selected_ws.title%> <%= [@selected_ws&.workflow.title, @selected_ws&.workflow.id]%>
         <% if (@article.workflow_state.blank? || @article.workflow_state.workflow.user_id == current_user.id) && !@workflows.blank? %>
           <% if @selected_ws.blank? %>
             <%= select_tag "workflow", options_for_select(@workflows.collect { |p| [p.title, p.id] }), { class: "form-control" } %>
