@@ -22,9 +22,9 @@
     <div class="col-md-4">
       <div class="form-group">
         <label class="form-label"><%= t :workflow %></label>
-         <%= @selected_workflow_state.id%> <%= [@selected_workflow_state&.workflow.title, @selected_workflow_state&.workflow.id]%>
+         <%= @selected_ws.title%> <%= [@selected_ws&.workflow.title, @selected_ws&.workflow.id]%>
         <% if (@article.workflow_state.blank? || @article.workflow_state.workflow.user_id == current_user.id) && !@workflows.blank? %>
-          <%= select_tag "workflow", options_for_select(@workflows.collect { |p| [p.title, p.id] }, [@selected_workflow_state&.workflow.title, @selected_workflow_state&.workflow.id]), { class: "form-control" } %>
+          <%= select_tag "workflow", options_for_select(@workflows.collect { |p| [p.title, p.id] }, [@selected_ws&.workflow.title, @selected_selected_wsworkflow_state&.workflow.id]), { class: "form-control" } %>
         <% else %>
         <%= text_field_tag "workflow", @article.workflow_state.workflow.title, class: "form-control", disabled: true %>
     
@@ -40,7 +40,7 @@
         <% if @article.workflow_state %>
         <%= text_field_tag :workflow_state_id, @article.workflow_state.title, class: "form-control", disabled: true %>
         <% else %>
-        <%= select_tag :workflow_state_id, options_for_select(@workflows.first.user_start_workflow_states(current_user).collect { |p| [p.title, p.id] }, @selected_workflow_state&.title), { class: "form-control" } %>
+        <%= select_tag :workflow_state_id, options_for_select(@workflows.first.user_start_workflow_states(current_user).collect { |p| [p.title, p.id] }, @selected_ws&.title), { class: "form-control" } %>
         <% end %>
       </div>
     </div>

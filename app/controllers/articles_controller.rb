@@ -469,7 +469,7 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   def new
     @article = Article.new
-    @selected_workflow_state = WorkflowState.find_by(params[:workflow_state_id])
+    @selected_ws = WorkflowState.find_by(params[:workflow_state_id])
     # @workflow_states = WorkflowState.where(role_id: current_user.current_role_id, start_point: 2).group_by(&:workflow_id).keys
     @workflows = Workflow.user_available_start_workflows(current_user)
     return unless @workflows.blank?
