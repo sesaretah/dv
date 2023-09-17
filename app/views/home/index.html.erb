@@ -16,7 +16,7 @@
 
   </div>
   <div class="col-lg-2">
-    <%= link_to "/articles?workflow_state_id=#{@home_setting.workflow_state.id}", class: "btn btn-lime", style:"height: 46px;padding-top: 10px;margin-bottom: 15px;" do %>
+    <%= link_to "/articles?workflow_state_id=#{@home_setting.workflow_state}", class: "btn btn-lime", style:"height: 46px;padding-top: 10px;margin-bottom: 15px;" do %>
       <i class="fe fe-plus" style="vertical-align:-3px;"></i> <%= t :new_article %>
     <% end %>
   </div>
