@@ -74,7 +74,13 @@ class RegistrationsController < Devise::RegistrationsController
             :query => {},
             :headers => headers
           ) 
-    Rails.logger.info res
+    utid = res['UtId']
+    uid = res['Uid']
+    user = User.where(utid: [utid, uid]).first
+    if !user.blank?
+      sign_in(user)
+      redirect_to after_sign_in_path_for(user)
+    end
   end
 
   def service
