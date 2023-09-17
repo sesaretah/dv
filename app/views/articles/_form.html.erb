@@ -26,7 +26,8 @@
           <% if @selected_ws.blank? %>
             <%= select_tag "workflow", options_for_select(@workflows.collect { |p| [p.title, p.id] }), { class: "form-control" } %>
           <%else %>
-            <%= text_field_tag "workflow", @selected_ws&.workflow.title, class: "form-control", disabled: true %>
+            <%= text_field_tag "workflow", @selected_ws.workflow.title, class: "form-control", disabled: true %>
+            <%= hidden_field_tag :workflow_id ,  @selected_ws.workflow.id %>
           <%end%>
         <% else %>
         <%= text_field_tag "workflow", @article.workflow_state.workflow.title, class: "form-control", disabled: true %>
@@ -47,6 +48,7 @@
           <%= select_tag :workflow_state_id, options_for_select(@workflows.first.user_start_workflow_states(current_user).collect { |p| [p.title, p.id] }), { class: "form-control" } %>
         <%else%>
           <%= text_field_tag :workflow_state_id, @selected_ws.title, class: "form-control", disabled: true %>
+          <%= hidden_field_tag :workflow_state_id ,  @selected_ws.id %>
         <%end%>
         <% end %>
       </div>
