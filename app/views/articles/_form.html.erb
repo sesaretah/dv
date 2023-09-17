@@ -43,7 +43,7 @@
         <% if @selected_ws.blank? %>
           <%= select_tag :workflow_state_id, options_for_select(@workflows.first.user_start_workflow_states(current_user).collect { |p| [p.title, p.id] }), { class: "form-control" } %>
         <%else%>
-          <%= select_tag "workflow", options_for_select(@selected_ws.collect { |p| [p.title, p.id] }, [@selected_ws&.workflow.title, @selected_ws&.workflow.id]), { class: "form-control" } %>
+          <%= select_tag :workflow_state_id, options_for_select(@selected_ws.collect { |p| [p.title, p.id] }, [@selected_ws&.workflow.title, @selected_ws&.workflow.id]), { class: "form-control" } %>
         <%end%>
         <% end %>
       </div>
