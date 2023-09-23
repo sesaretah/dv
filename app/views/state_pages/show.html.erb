@@ -67,9 +67,11 @@
   <% if @state_page.item_areaings %>
     <%= render partial: "articles/areas_form", locals: { article: @article } %>
   <% end %>
-
-  <div class="card-footer text-right">
-    <a href='/articles/<%= @article.id%>' class="btn btn-primary"><%=t :submit_and_view%></a>
+  
+  <div class="card">
+    <div class="card-footer text-right">
+      <a href='/articles/<%= @article.id%>' class="btn btn-primary"><%=t :submit_and_view%></a>
+    </div>
   </div>
 
 <% end %>
