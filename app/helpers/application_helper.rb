@@ -157,11 +157,16 @@ module ApplicationHelper
     if article.workflow_state.workflow.user_id == user.id
       return true
     end
-    @role = Role.find_by_id(user.current_role_id)
-    if !@role.blank?
-      if article.workflow_state.role_id != @role.id
-        return false
-      end
+    # @role = Role.find_by_id(user.current_role_id)
+    # if !@role.blank?
+    #   if article.workflow_state.role_id != @role.id
+    #     return false
+    #   end
+    # end
+    @role_workflow_state_ids = WorkflowState.where(role_id: user.current_role_id).pluck(:id).uniq
+    @user_workflows = user.workflows.pluck(:id)
+    if @role_workflow_state_ids.include?(article.workflow_state.id) || @user_workflows.include?(article.workflow_state.workflow.id) || article.workflow_state&.workflow.admin_id == user.id || article.workflow_state&.workflow.moderator_id == user.id 
+      return true
     end
     @items = article.workflow_state.editable.split(",")
     @flag = false
@@ -221,7 +226,7 @@ module ApplicationHelper
     @role_workflow_state_ids = WorkflowState.where(role_id: user.current_role_id).pluck(:id).uniq
     @user_workflows = user.workflows.pluck(:id)
     if action == 'edit'
-      if @role_workflow_state_ids.include?(article.workflow_state.id) || @user_workflows.include?(article.workflow_state.workflow.id) || @user_workflows.include?(article.workflow_state.workflow.id) || article.workflow_state&.workflow.admin_id == user.id || article.workflow_state&.workflow.moderator_id == user.id 
+      if @role_workflow_state_ids.include?(article.workflow_state.id) || @user_workflows.include?(article.workflow_state.workflow.id) || article.workflow_state&.workflow.admin_id == user.id || article.workflow_state&.workflow.moderator_id == user.id 
         return true
       else
         return false
