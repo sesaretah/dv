@@ -19,6 +19,7 @@
       </h5>
     </div>
 
+<% if grant_access('view_unrelated_articles', current_user)%>
     <div class="card-header p-0" style="min-height: 0rem;" id="heading1">
       <h5 class="mb-0">
         <a href="/articles?scope=all" class="btn btn-link" style="font-size: 0.875rem;font-weight: 500;">
@@ -26,6 +27,7 @@
         </a>
       </h5>
     </div>
+    <%end%>
 
 
 
