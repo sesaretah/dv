@@ -848,6 +848,8 @@ fa:
   sort: 'مرتب سازی'
   auth_login: 'ورود OAuth'
   full_edit: 'ویرایش کامل'
+  my_articles: 'اسناد من'
+  all_articles: 'همه اسناد'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.
