@@ -847,6 +847,7 @@ fa:
   position_reverse: 'شماره (نزولی)'
   sort: 'مرتب سازی'
   auth_login: 'ورود OAuth'
+  full_edit: 'ویرایش کامل'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

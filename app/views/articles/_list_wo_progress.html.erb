@@ -50,11 +50,11 @@
             <div class="dropdown-menu dropdown-menu-right">
               <a href="/articles/<%= article.id %>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%= t :show %> </a>
               <% if article_owner(article, current_user) %>
-                <a href="/articles/<%= article.id %>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%= t :edit %> </a>
                 <% state_page = StatePage.where(workflow_state_id: article.workflow_state_id)&.first %>
-              <% if !state_page.blank? %>
-                <a href="/p/<%= state_page.uuid %>?edit=true&article_id=<%=article.id%>" class="dropdown-item" style="background-color: #7bd235; color: white;"><i class="dropdown-icon fe fe-edit-2"></i> <%= t :edit %></a>
-              <%end%>
+                <% if !state_page.blank? %>
+                  <a href="/p/<%= state_page.uuid %>?edit=true&article_id=<%=article.id%>" class="dropdown-item" style="background-color: #7bd235; color: white;"><i class="dropdown-icon fe fe-edit-2"></i> <%= t :edit %></a>
+                <%end%>
+                <a href="/articles/<%= article.id %>/edit" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> <%= t :full_edit %> </a>
               <% end %>
 
               <% if article_owner(article, current_user, 'destroy') %>
