@@ -850,6 +850,7 @@ fa:
   full_edit: 'ویرایش کامل'
   my_articles: 'اسناد من'
   all_articles: 'همه اسناد'
+  related_articles: 'اسناد مرتبط'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.

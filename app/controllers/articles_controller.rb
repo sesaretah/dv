@@ -445,8 +445,24 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @role = Role.find_by_id(current_user.current_role_id)
-    if !@role.blank? && !grant_access('view_unrelated_articles', current_user)
+    case params[:scope]
+    when 'my'
+      @articles = current_user.articles.paginate(page: params[:page], per_page: 5)
+    when 'all'
+      @role = Role.find_by_id(current_user.current_role_id)
+      if !@role.blank? && !grant_access('view_unrelated_articles', current_user)
+        @workflow_ids = WorkflowState.where(role_id: @role.id).collect(&:workflow_id)
+        @workflow_state_ids = []
+        for workflow_id in @workflow_ids
+          @workflow_state_ids << WorkflowState.where(workflow_id: workflow_id).collect(&:id)
+        end
+        @articles = Article.where('workflow_state_id IN (?)', @workflow_state_ids.flatten.uniq).paginate(
+          page: params[:page], per_page: 5
+        )
+      else
+        @articles = Article.paginate(page: params[:page], per_page: 5)
+      end
+    when 'related'
       @workflow_ids = WorkflowState.where(role_id: @role.id).collect(&:workflow_id)
       @workflow_state_ids = []
       for workflow_id in @workflow_ids
@@ -455,8 +471,6 @@ class ArticlesController < ApplicationController
       @articles = Article.where('workflow_state_id IN (?)', @workflow_state_ids.flatten.uniq).paginate(
         page: params[:page], per_page: 5
       )
-    else
-      @articles = Article.paginate(page: params[:page], per_page: 5)
     end
   end
 
