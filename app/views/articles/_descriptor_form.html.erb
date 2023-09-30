@@ -12,6 +12,19 @@
 </div>
 <% end %>
 
+  <% if permit_by_workflow(article, current_user, "title") %>
+  <% if defined?(state_page) && !state_page.blank?) %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :title, class: "form-label" %>
+        <%= f.text_field :title, class: "form-control", style: "direction: ltr;" %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <% end %>
+
 <div class="card-body">
   <% if permit_by_workflow(article, current_user, "abstract") %>
   <% if !defined?(state_page) || (!state_page.blank? && state_page.item_abstract) %>
