@@ -133,7 +133,7 @@ $("#discriptors").submit(function (event) {
 
 <script>
 CKEDITOR.config.skin = 'flat';
-
+CKEDITOR.config.startupFocus = true;
 CKEDITOR.instances.sometext.on('change', function(e) {
     var self = this;
     setTimeout(function() {
