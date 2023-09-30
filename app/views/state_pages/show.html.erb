@@ -82,7 +82,7 @@
         url: '/articles/<%= @article.id %>',
         data: $("#discriptors").serialize(),
         success: function (response) {
-          location.window.href("/articles/<%= @article.id%>")
+          window.location.href = "/articles/<%= @article.id%>";
     }
   });
 });
