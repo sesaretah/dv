@@ -1,15 +1,15 @@
 <div class="row row-cards">
   <div class="col-lg-12">
       <ol class="breadcrumb" aria-label="breadcrumbs">
-        <li class="breadcrumb-item"><%= t :browse_articles %></li>
+        <li class="breadcrumb-item"><%=t :browse_articles %></li>
         <%if params[:scope] && params[:scope] == 'my'%>
-          <li class="breadcrumb-item"><%=t :my_articles%></li>
+        <li class="breadcrumb-item"><%=t :my_articles%></li>
         <% end %>
         <%if params[:scope] && params[:scope] == 'related'%>
-          <li class="breadcrumb-item"><%=t :related_articles%></li>
+        <li class="breadcrumb-item"><%=t :related_articles%></li>
         <% end %>
         <%if params[:scope] && params[:scope] == 'all'%>
-          <li class="breadcrumb-item"><%=t :all_articles%></li>
+        <li class="breadcrumb-item"><%=t :all_articles%></li>
         <% end %>
     </ol>
   </div>
