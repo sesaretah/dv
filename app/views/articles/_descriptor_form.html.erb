@@ -116,6 +116,15 @@
 $('.form-control').bind('change keyup input', function() {
     $('#discriptors').delay(200).submit();
 });
+CKEDITOR.config.skin = 'flat';
+CKEDITOR.instances.sometext.on('change', function(e) {
+    var self = this;
+    setTimeout(function() {
+         CKEDITOR.instances.sometext.updateElement();
+     $('#discriptors').submit();
+  //      console.log(self.getData());
+    }, 200);
+});
 $("#discriptors").submit(function (event) {
     event.preventDefault();
     $.ajax({
@@ -129,19 +138,14 @@ $("#discriptors").submit(function (event) {
   });
 });
 </script>
-<%end%>
+<%else%>
 
 <script>
 CKEDITOR.config.skin = 'flat';
 CKEDITOR.config.startupFocus = true;
 CKEDITOR.instances.sometext.on('change', function(e) {
-    var self = this;
-    setTimeout(function() {
-         CKEDITOR.instances.sometext.updateElement();
-     $('#discriptors').submit();
-  //      console.log(self.getData());
-    }, 200);
+console.log($('#content').val)
 });
 </script>
-
+<%end%>
 
