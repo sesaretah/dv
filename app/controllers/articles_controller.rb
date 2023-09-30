@@ -548,7 +548,7 @@ class ArticlesController < ApplicationController
         extract_keywords(@article, params[:keyword]) if !params[:keyword].blank? || params[:keyword] == ''
         extract_other_titles if !params[:other_title].blank? && params[:other_title] == 'true'
         if params[:caller] == 'descriptors'
-          #format.html { redirect_to :back }
+          format.html { redirect_to :back }
           #format.html { redirect_to '/articles/article_related_dates/' + @article.id.to_s, notice: :article_is_updated }
         else
           format.html { redirect_to '/articles/article_descriptors/' + @article.id.to_s, notice: :article_is_updated }
