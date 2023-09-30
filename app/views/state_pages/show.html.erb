@@ -9,6 +9,7 @@
   <h3 class="card-title"><%= @state_page.workflow_state.workflow.title %> > <%= @state_page.workflow_state.title.gsub("_", " ") %></h3>
 </div>
 
+<br />
   <span id='article_id' style='display:none;'><%= @article.id %></span>
   <div class='card'>
     <%= render partial: "articles/descriptor_form", locals: { article: @article, state_page: @state_page } %>
