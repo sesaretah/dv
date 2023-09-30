@@ -132,6 +132,7 @@ $("#discriptors").submit(function (event) {
         url: '/articles/<%= @article.id %>',
         data: $("#discriptors").serialize(),
         success: function (response) {
+          $('#discriptors').focus();
             //write here any code needed for handling success         }
     }
   });
