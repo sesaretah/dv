@@ -70,8 +70,22 @@
   
   <div class="card">
     <div class="card-footer text-right">
-      <a href='/articles/<%= @article.id%>' class="btn btn-primary"><%=t :submit_and_view%></a>
+      <button type="submit" class="btn btn-primary" id='state-page-submit'><%= t :submit_and_view %></button>
     </div>
   </div>
+  <script>
+  $("#state-page-submit").click(function (event) {
+    event.preventDefault();
+    $.ajax({
+        type: "post",
+        dataType: "html",
+        url: '/articles/<%= @article.id %>',
+        data: $("#discriptors").serialize(),
+        success: function (response) {
+          location.window.href("/articles/<%= @article.id%>")
+    }
+  });
+});
+</script>
 
 <% end %>

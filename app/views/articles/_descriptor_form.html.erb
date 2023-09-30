@@ -110,6 +110,8 @@
   <% end %>
 <% end %>
 </div>
+
+<% if params[:edit].blank? %>
 <script>
 $('.form-control').bind('change keyup input', function() {
     $('#discriptors').delay(200).submit();
@@ -138,3 +140,4 @@ $("#discriptors").submit(function (event) {
   });
 });
 </script>
+<%end%>
