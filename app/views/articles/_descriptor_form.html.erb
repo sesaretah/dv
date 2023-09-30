@@ -115,16 +115,18 @@
 <% if params[:edit].blank? %>
 <script>
 $('.form-control').bind('change keyup input', function() {
-    $('#discriptors').delay(200).submit();
+    $('#discriptors').delay(300).submit();
 });
 CKEDITOR.config.skin = 'flat';
 CKEDITOR.instances.sometext.on('change', function(e) {
     var self = this;
+    var data = CKEDITOR.instances.sometext.getData();
+$('#article_content').val(data);
     setTimeout(function() {
          CKEDITOR.instances.sometext.updateElement();
      $('#discriptors').submit();
   //      console.log(self.getData());
-    }, 200);
+    }, 300);
 });
 $("#discriptors").submit(function (event) {
     event.preventDefault();
