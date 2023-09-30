@@ -568,7 +568,7 @@ class ArticlesController < ApplicationController
       head(403)
     else
       @article.destroy
-      redirect_to '/articles'
+      redirect_to :back
     end
   end
 
