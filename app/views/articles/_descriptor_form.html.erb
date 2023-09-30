@@ -53,6 +53,7 @@
       <div class="form-group">
         <%= f.label :content, class: "form-label" %>
         <%= f.cktext_area :content, id: "sometext" %>
+        <%= f.hidden_field :content%>
       </div>
     </div>
   </div>
@@ -144,7 +145,8 @@ $("#discriptors").submit(function (event) {
 CKEDITOR.config.skin = 'flat';
 CKEDITOR.config.startupFocus = true;
 CKEDITOR.instances.sometext.on('change', function(e) {
-console.log($('#content').val())
+var data = CKEDITOR.instances.sometext.getData();
+$('#article_content').val(data);
 });
 </script>
 <%end%>
