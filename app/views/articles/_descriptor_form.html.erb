@@ -116,6 +116,22 @@
 $('.form-control').bind('change keyup input', function() {
     $('#discriptors').delay(200).submit();
 });
+$("#discriptors").submit(function (event) {
+    event.preventDefault();
+    $.ajax({
+        type: "post",
+        dataType: "html",
+        url: '/articles/<%= @article.id %>',
+        data: $("#discriptors").serialize(),
+        success: function (response) {
+            //write here any code needed for handling success         }
+    }
+  });
+});
+</script>
+<%end%>
+
+<script>
 CKEDITOR.config.skin = 'flat';
 
 CKEDITOR.instances.sometext.on('change', function(e) {
@@ -126,18 +142,6 @@ CKEDITOR.instances.sometext.on('change', function(e) {
   //      console.log(self.getData());
     }, 200);
 });
-$("#discriptors").submit(function (event) {
-    event.preventDefault();
-    $.ajax({
-        type: "post",
-        dataType: "html",
-        url: '/articles/<%= @article.id %>',
-        data: $("#discriptors").serialize(),
-        success: function (response) {
-          $('#discriptors').focus();
-            //write here any code needed for handling success         }
-    }
-  });
-});
 </script>
-<%end%>
+
+
