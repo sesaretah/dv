@@ -1,6 +1,8 @@
+<% if @new %>
 <div class='card'>
 <%= render partial: "title_form", locals: { article: @article } %>
 </div>
+<%end%>
 
 <% if !@new %>
   <span id='article_id' style='display:none;'><%= @article.id %></span>
