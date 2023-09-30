@@ -4611,7 +4611,7 @@ input[type="button"].btn-block {
 }
 
 .breadcrumb-item + .breadcrumb-item {
-  padding-right: 0.5rem;
+  padding-right: 0.3rem;
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
