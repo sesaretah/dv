@@ -6,7 +6,7 @@
       </div>
       <div class="card-status card-status-left bg-blue"></div>
       <div class="card-body">
-        <% if permit_by_workflow(article, current_user,'contributions')%>
+        <% if permit_by_workflow(article, current_user, 'contributions')%>
           <%= render partial: 'contributions/remote_form', locals: {article: article, contribution: Contribution.new}%>
         <%end%>
       </div>
@@ -23,6 +23,7 @@
   </div>
 </div>
 
+<% if params[:edit].blank?%>
 <div class='row row-cards row-deck'>
   <div  class='col-sm-6 col-lg-6'>
     <div class="card">
@@ -31,7 +32,7 @@
       </div>
       <div class="card-status card-status-left bg-blue"></div>
       <div class="card-body">
-        <% if permit_by_workflow(article, current_user,'contributions')%>
+        <% if permit_by_workflow(article, current_user, 'contributions')%>
           <%= render partial: 'involvements/remote_form', locals: {article: article, involvement: Involvement.new}%>
         <%end%>
       </div>
@@ -47,3 +48,4 @@
     </div>
   </div>
 </div>
+<%end%>
