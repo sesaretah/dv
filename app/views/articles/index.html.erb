@@ -11,31 +11,33 @@
     <div class="row">
       <div class="col-md-6 col-lg-12">
 
-    <div class="card-header p-0" style="min-height: 0rem;" id="heading1">
-      <h5 class="mb-0">
-        <a href="/articles?scope=my" class="btn btn-link" style="font-size: 0.875rem;font-weight: 500;">
-          <%=t :my_articles%>
-        </a>
-      </h5>
-    </div>
+    <div class="card mb-0 p-0">
+      <div class="card-header p-0" style="min-height: 0rem;" id="heading1">
+        <h5 class="mb-0">
+          <a href="/articles?scope=my" class="btn btn-link" style="font-size: 0.875rem;font-weight: 500;">
+            <%=t :my_articles%>
+          </a>
+        </h5>
+      </div>
 
-    <div class="card-header p-0" style="min-height: 0rem;" id="heading1">
-      <h5 class="mb-0">
-        <a href="/articles?scope=related" class="btn btn-link" style="font-size: 0.875rem;font-weight: 500;">
-          <%=t :related_articles%>
-        </a>
-      </h5>
-    </div>
+      <div class="card-header p-0" style="min-height: 0rem;" id="heading1">
+        <h5 class="mb-0">
+          <a href="/articles?scope=related" class="btn btn-link" style="font-size: 0.875rem;font-weight: 500;">
+            <%=t :related_articles%>
+          </a>
+        </h5>
+      </div>
 
-<% if grant_access('view_unrelated_articles', current_user)%>
-    <div class="card-header p-0" style="min-height: 0rem;" id="heading1">
-      <h5 class="mb-0">
-        <a href="/articles?scope=all" class="btn btn-link" style="font-size: 0.875rem;font-weight: 500;">
-          <%=t :all_articles%>
-        </a>
-      </h5>
+      <% if grant_access('view_unrelated_articles', current_user)%>
+        <div class="card-header p-0" style="min-height: 0rem;" id="heading1">
+          <h5 class="mb-0">
+            <a href="/articles?scope=all" class="btn btn-link" style="font-size: 0.875rem;font-weight: 500;">
+              <%=t :all_articles%>
+            </a>
+          </h5>
+        </div>
+      <%end%>
     </div>
-    <%end%>
 
 
 
