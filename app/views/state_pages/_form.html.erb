@@ -4,7 +4,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="form-label"><%= t :workflow_state %></label>
-                     <%= f.select "workflow_state_id", options_for_select(@workflow.workflow_states.collect { |p| [p.title, p.id] }), {}, { class: "form-control" } %>
+                     <%= f.select "workflow_state_id", options_for_select(@workflow.workflow_states.collect { |p| [p.title, p.id] }, @state_page.workflow_state_id), {}, { class: "form-control" } %>
                 </div>
             </div>
         </div>
