@@ -76,14 +76,14 @@ class RegistrationsController < Devise::RegistrationsController
           ) 
     
     utid = res['UtId']
-    uid = res['Uid']
+    sub = res['sub']
     email = res['Mail']
     
     Rails.logger.info res
     Rails.logger.info email
     Rails.logger.info res['Mail']
 
-    user = User.where(utid: [utid, uid]).first
+    user = User.where(utid: [utid, sub]).first
     if !user.blank?
       sign_in(user)
       redirect_to after_sign_in_path_for(user)
