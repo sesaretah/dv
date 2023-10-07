@@ -74,13 +74,27 @@ class RegistrationsController < Devise::RegistrationsController
             :query => {},
             :headers => headers
           ) 
+    
+    Rails.logger.info res
     utid = res['UtId']
     uid = res['Uid']
     user = User.where(utid: [utid, uid]).first
     if !user.blank?
       sign_in(user)
       redirect_to after_sign_in_path_for(user)
-    end
+    else 
+      password = SecureRandom.hex(10)
+      name = res['GivenName']
+      surename = res['Sn']
+      email = "#{utid}@ut.ac.ir"
+      user = User.create(email: email, password: password, password_confirmation: password, utid: utid)
+      if !user.blank?
+        profile = Profile.create(name: name, surename: surename, user_id: user.id)
+        sleep(8)
+        sign_in(user)
+        redirect_to after_sign_in_path_for(user)
+      end
+    end 
   end
 
   def service
