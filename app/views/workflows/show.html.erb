@@ -208,6 +208,11 @@
             </div>
             </div>
           </div>
+          <style>
+.conceptG text{
+  font-size: 8px !important;
+}
+</style>
           <script>
           document.onload = (function(d3, saveAs, Blob, undefined){
             "use strict";
@@ -295,8 +300,8 @@
               DELETE_KEY: 46,
               ENTER_KEY: 13,
               nodeRadius: 25,
-              nodeX: 100,
-              nodeY: 30
+              nodeX: 50,
+              nodeY: 15
             };
 
 
@@ -318,8 +323,8 @@
               .attr('id', 'text-' + gEl[0][0].__data__.id )
               .attr("text-anchor","middle")
             //  .attr("dy", "-" + (nwords-1)*7.5)
-                .attr("dx",50)
-                .attr("dy", 18);
+                .attr("dx",25)
+                .attr("dy", 10);
             //  .attr("y", 18);
 
               for (var i = 0; i < words.length; i++) {
