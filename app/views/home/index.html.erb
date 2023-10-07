@@ -49,7 +49,7 @@
     <div id="collapse<%= workflow.id%>" class="collapse <% if current_workflow_id == workflow.id %>show<%end%>" aria-labelledby="heading<%= workflow.id%>" data-parent="#accordion">
       <div class="card-body">
       <% role_ids = current_user.roles.pluck(:id) %>
-      <% WorkflowState.where("role_id in (?) and workflow_id = ?", role_ids, workflow).order(:title).each do |workflow_state| %>
+      <% WorkflowState.where("role_id in (?) and workflow_id = ?", role_ids, workflow).sort_by(&:title).each do |workflow_state| %>
                 <%= link_to "/home?workflow_state=#{workflow_state.id}", class: "dropdown-item pd-compact" do %>
                       <% if @home_setting.workflow_state == workflow_state.id %>
                         <i class="fe fe-check" style="vertical-align:-3px;"></i>
