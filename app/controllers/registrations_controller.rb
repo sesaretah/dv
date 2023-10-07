@@ -64,7 +64,8 @@ class RegistrationsController < Devise::RegistrationsController
             :headers => headers
           ) 
     token = res["access_token"]
-    Rails.logger.info res
+    id_token = res["id_token"]
+
     headers = { 
       "Authorization" => "Bearer #{token}"
     }
@@ -103,7 +104,7 @@ class RegistrationsController < Devise::RegistrationsController
         redirect_to after_sign_in_path_for(user)
       end
     end 
-    user.update(access_token: token)
+    user.update(access_token: id_token)
   end
 
   def service
