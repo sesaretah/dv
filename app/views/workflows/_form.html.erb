@@ -388,8 +388,8 @@ GraphCreator.prototype.consts =  {
   DELETE_KEY: 46,
   ENTER_KEY: 13,
   nodeRadius: 25,
-  nodeX: 100,
-  nodeY: 30
+  nodeX: 50,
+  nodeY: 15
 };
 
 /* PROTOTYPE FUNCTIONS */
@@ -732,8 +732,8 @@ function updateNode(attribute, nodeId, newValue){
       d3.select(str).remove();
       d3.select(this).append("text")
       .attr('id', 'text-' + d.id )
-      .attr("x",32)
-      .attr("y", 9)
+      .attr("x",65)
+      .attr("y", 18)
       .text(d.title);
     });
   }
