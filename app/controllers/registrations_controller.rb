@@ -78,6 +78,13 @@ class RegistrationsController < Devise::RegistrationsController
     Rails.logger.info res
     utid = res['UtId']
     uid = res['Uid']
+
+    email = res['Mail']
+    Rails.logger.info res
+
+    Rails.logger.info email
+    Rails.logger.info res['Mail']
+
     user = User.where(utid: [utid, uid]).first
     if !user.blank?
       sign_in(user)
@@ -85,10 +92,10 @@ class RegistrationsController < Devise::RegistrationsController
     else 
       password = SecureRandom.hex(10)
       name = res['GivenName'] 
-      name = res['sub'] if res['GivenName'].blank?
+      name = res['sub'] if res['GivenName'].blank? || res['GivenName'] == ''
       surename = res['Sn']
       email = res['Mail']
-      email = "#{utid}@ut.ac.ir" if res['Mail'].blank?
+      email = "#{utid}@ut.ac.ir" if res['Mail'].blank? || res['Mail'] == ''
       user = User.create(email: email, password: password, password_confirmation: password, utid: utid)
       if !user.blank?
         profile = Profile.create(name: name, surename: surename, user_id: user.id)
