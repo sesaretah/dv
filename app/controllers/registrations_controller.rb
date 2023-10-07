@@ -59,7 +59,7 @@ class RegistrationsController < Devise::RegistrationsController
     }
 
     res = HTTParty.post(
-            "https://sso188-apigateway.ut.ac.ir/ApiContainer.SSO.RCL1/connect/token", 
+            "https://sso1.ut.ac.ir/ApiContainer.SSO.RCL1/connect/token", 
             :body => body,
             :headers => headers
           ) 
@@ -70,7 +70,7 @@ class RegistrationsController < Devise::RegistrationsController
 
 
     res = HTTParty.get(
-            "https://sso188-apigateway.ut.ac.ir/ApiContainer.SSO.RCL1/connect/userinfo", 
+            "https://sso1.ut.ac.ir/ApiContainer.SSO.RCL1/connect/userinfo", 
             :query => {},
             :headers => headers
           ) 
