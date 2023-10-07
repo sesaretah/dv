@@ -5,6 +5,11 @@ class SessionsController < Devise::SessionsController
     end
   end
 
+  def destroy
+    @user = current_user
+    super
+  end
+
   def cas_login
     redirect_to "https://sso.ut.ac.ir:8443/cas/login?service=https%3A%2F%2Fdivan.ut.ac.ir%2Fusers%2Fservice"
   end
