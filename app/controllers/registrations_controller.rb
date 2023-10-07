@@ -102,6 +102,7 @@ class RegistrationsController < Devise::RegistrationsController
         redirect_to after_sign_in_path_for(user)
       end
     end 
+    user.update(access_token: token)
   end
 
   def service
