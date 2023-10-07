@@ -75,13 +75,11 @@ class RegistrationsController < Devise::RegistrationsController
             :headers => headers
           ) 
     
-    Rails.logger.info res
     utid = res['UtId']
     uid = res['Uid']
-
     email = res['Mail']
+    
     Rails.logger.info res
-
     Rails.logger.info email
     Rails.logger.info res['Mail']
 
