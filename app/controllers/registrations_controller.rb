@@ -64,6 +64,7 @@ class RegistrationsController < Devise::RegistrationsController
             :headers => headers
           ) 
     token = res["access_token"]
+    Rails.logger.info res
     headers = { 
       "Authorization" => "Bearer #{token}"
     }
