@@ -84,9 +84,11 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to after_sign_in_path_for(user)
     else 
       password = SecureRandom.hex(10)
-      name = res['GivenName']
+      name = res['GivenName'] 
+      name = res['sub'] if res['GivenName'].blank?
       surename = res['Sn']
-      email = "#{utid}@ut.ac.ir"
+      email = res['Mail']
+      email = "#{utid}@ut.ac.ir" if res['Mail'].blank?
       user = User.create(email: email, password: password, password_confirmation: password, utid: utid)
       if !user.blank?
         profile = Profile.create(name: name, surename: surename, user_id: user.id)
