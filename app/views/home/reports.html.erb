@@ -137,7 +137,7 @@
           },
           names: {
             <% for typing in @typings.keys %>
-            'data<%= typing %>': ' <%= ArticleType.find(typing).truncate(10) %>',
+            'data<%= typing %>': ' <%= ArticleType.find(typing) %>',
             <% end %>
           }
         },
