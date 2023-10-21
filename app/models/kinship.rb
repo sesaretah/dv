@@ -12,7 +12,7 @@ class Kinship < ActiveRecord::Base
     if !article_relation_type.reverse_relation_id.blank?
       reverse_kinship = Kinship.where(kin: article_id, article_relation_type_id: article_relation_type.reverse_relation_id).first
       if !reverse_kinship.present?
-        Kinship.create(kin: article_id, article_id: kin.id, article_relation_type_id: article_relation_type.reverse_relation_id)
+        Kinship.create(kin_id: article_id, article_id: kin.id, article_relation_type_id: article_relation_type.reverse_relation_id)
       end
     end
   end
