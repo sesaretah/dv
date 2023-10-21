@@ -464,7 +464,7 @@ class ArticlesController < ApplicationController
         @articles = Article.paginate(page: params[:page], per_page: 5)
       end
     when nil, 'related'
-      role_ids = user.roles.pluck(:id)
+      role_ids = current_user.roles.pluck(:id)
       @workflow_ids = WorkflowState.where(role_id: @role.id).collect(&:workflow_id)
       @workflow_state_ids = []
       for workflow_id in @workflow_ids
