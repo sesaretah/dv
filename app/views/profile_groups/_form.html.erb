@@ -32,6 +32,15 @@
     </div>
   </div>
 
+  <div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :workflow_id, class: "form-label" %>
+          <%= f.select 'workflow_id', options_for_select(Workflow.all.order(:title).collect{ |u| ["#{u.title}", u.id] }, @profile_group.workflow_id), {:include_blank => true} ,{class:"form-control "}%>
+          </div>
+  </div>
+</div>
+
   <div class="card-footer text-right">
     <button type="submit" class="btn btn-primary"><%=t :submit%></button>
   </div>
