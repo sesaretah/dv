@@ -64,7 +64,16 @@
   </div>
 </div>
 
+  <script>
+$(document).on("focus", "#article_role", fireAutoCompleteEvent());
+$(document).on("focus", "#article_profile", fireAutoCompleteEvent());
+$(document).on("focus", "#article_duty", fireAutoCompleteEvent());
+
+</script>
+
   <div class="card-footer text-right">
     <button type="submit" class="btn btn-primary"><%= t :submit %></button>
   </div>
+
+  
   <% end %>
