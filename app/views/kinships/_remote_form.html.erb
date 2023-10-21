@@ -17,7 +17,12 @@
     <div class="col-md-6">
       <div class="form-group">
         <%= f.label :article_relation_type_id, class: "form-label" %>
-        <%= f.select "article_relation_type_id", options_for_select(ArticleRelationType.all.collect { |p| [p.title, p.id] }), {}, { class: "form-control" } %>
+        <% last = Kinship.where(article_id: article.id).last%>
+        <% if last.present? %>
+          <%= f.select "article_relation_type_id", options_for_select(ArticleRelationType.all.collect { |p| [p.title, p.id] }, last.article_relation_type_id), {}, { class: "form-control" } %>
+        <%else%>
+          <%= f.select "article_relation_type_id", options_for_select(ArticleRelationType.all.collect { |p| [p.title, p.id] }), {}, { class: "form-control" } %>
+        <%end%>
         <% text_field_tag :article_relation_type, nil , class: "form-control" %>
         <% f.hidden_field :article_relation_type_id , value: '' %>
       </div>
