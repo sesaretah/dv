@@ -92,7 +92,7 @@
           },
           names: {
             <% @t.each do |k, v| %>
-            'data<%= k %>': '<%= Keyword.find(k).title %>',
+            'data<%= k %>': '<%= Keyword.find(k).title.truncate(10) %>',
             <% end %>
           }
         },
@@ -137,7 +137,7 @@
           },
           names: {
             <% for typing in @typings.keys %>
-            'data<%= typing %>': ' <%= ArticleType.find(typing).title %>',
+            'data<%= typing %>': ' <%= ArticleType.find(typing).truncate(10) %>',
             <% end %>
           }
         },
@@ -221,7 +221,7 @@
     <% for workflow in Workflow.all %>
     <% @ends << Article.where("workflow_state_id IN (?) AND id IN (?)", workflow.end_states, @article_ids).count %>
     <% @notends << Article.where("workflow_state_id IN (?) AND id IN (?)", workflow.not_end_states, @article_ids).count %>
-    <% @titles << workflow.title %>
+    <% @titles << workflow.title.truncate(10) %>
     <% end %>
     <script>
     $(document).ready(function(){
