@@ -260,6 +260,7 @@ fa:
         article_relation_type:
             title: 'عنوان'
             description: 'شرح'
+            reverse_relation_id: 'ارتباط معکوس'
         article_area:
             title: 'عنوان'
             description: 'شرح'

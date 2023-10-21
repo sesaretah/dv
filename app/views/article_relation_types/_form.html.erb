@@ -31,6 +31,15 @@
           </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+          <%= f.label :reverse_relation_id, class: "form-label" %>
+          <%= f.select 'reverse_relation_id', options_for_select(ArticleRelationType.all.order(:title).collect{ |u| ["#{u.title}", u.id] }), {} ,{class:"form-control "}%>
+          </div>
+  </div>
+</div>
 <div class="card-footer text-right">
   <button type="submit" class="btn btn-primary"><%=t :submit%></button>
 </div>

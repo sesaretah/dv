@@ -99,6 +99,6 @@ class ArticleRelationTypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_relation_type_params
-      params.require(:article_relation_type).permit(:title, :description)
+      params.require(:article_relation_type).permit(:title, :description, :reverse_relation_id)
     end
 end
