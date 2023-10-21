@@ -36,7 +36,7 @@
   <div class="col-md-5">
     <div class="form-group">
           <%= f.label :reverse_relation_id, class: "form-label" %>
-          <%= f.select 'reverse_relation_id', options_for_select(ArticleRelationType.where('id <> ?', @article_relation_type.id).order(:title).collect{ |u| ["#{u.title}", u.id] }), {} ,{class:"form-control "}%>
+          <%= f.select 'reverse_relation_id', options_for_select(ArticleRelationType.all.order(:title).collect{ |u| ["#{u.title}", u.id] }), {} ,{class:"form-control "}%>
           </div>
   </div>
 </div>
