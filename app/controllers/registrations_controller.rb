@@ -98,6 +98,7 @@ class RegistrationsController < Devise::RegistrationsController
       email = "#{utid}@ut.ac.ir" if res['Mail'].blank? || res['Mail'] == ''
       user = User.create(email: email, password: password, password_confirmation: password, utid: utid)
       if !user.blank?
+        assign_start_role(user)
         profile = Profile.create(name: name, surename: surename, user_id: user.id)
         sleep(8)
         sign_in(user)
