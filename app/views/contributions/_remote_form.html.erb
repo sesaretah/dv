@@ -58,7 +58,8 @@
   <div class="col-md-6">
     <div class="form-group">
         <%= f.label :profile_group_id, class: "form-label" %>
-        <%= select_tag :profile_group_id, options_for_select(ProfileGroup.all.collect { |p| [p.title, p.id] }), { include_blank: true, class: "form-control" } %>
+        <% workflow = article.workflow_state.workflow%>
+        <%= select_tag :profile_group_id, options_for_select(ProfileGroup.where(workflow_id: workflow.id).collect { |p| [p.title, p.id] }), { include_blank: true, class: "form-control" } %>
     </div>
   </div>
 </div>

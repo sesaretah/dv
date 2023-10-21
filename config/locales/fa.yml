@@ -349,6 +349,7 @@ fa:
         profile_group:
             title: 'عنوان'
             description: 'شرح'
+            workflow_id: 'گردشکار'
         profile_grouping:
             user_id: 'کاربر'
             profile_id: 'فرد'

@@ -70,6 +70,6 @@ class ProfileGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_group_params
-      params.require(:profile_group).permit(:title, :description,:workflow_id)
+      params.require(:profile_group).permit(:title, :description, :workflow_id)
     end
 end
