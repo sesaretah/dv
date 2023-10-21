@@ -17,3 +17,6 @@
     <a href='/articles/<%= @article.id%>' class="btn btn-primary"><%=t :submit_and_view%></a>
   </div>
 </div>
+<script>
+$(document).on("focus", "#article_kin", fireAutoCompleteEvent);
+</script>
