@@ -25,9 +25,9 @@ class ProfilesController < ApplicationController
 
   def search
     users = User.search params[:q], star: true unless params[:q].blank?
-    user_profiles = Profile.where(user_id: users.pluck(:id))
+    user_profiles = Profile.where(user_id: users.map(&:id)) 
     profiles = Profile.search params[:q], star: true unless params[:q].blank?
-    @profiles = user_profiles.to_a + profiles.to_a
+    @profiles = user_profiles.to_a + profiles.to_a rescue []
     resp = []
     for r in @profiles
       resp << if !r.user.blank?
