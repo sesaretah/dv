@@ -465,9 +465,9 @@ class ArticlesController < ApplicationController
       end
     when nil, 'related'
       role_ids = current_user.roles.pluck(:id)
-      @workflow_state_ids = WorkflowState.where("role_id in (?)", role_ids).pluck(:id)
-      @articles = Article.where('workflow_state_id IN (?)', @workflow_state_ids.flatten.uniq).paginate(
-        page: params[:page], per_page: 5
+      ids = WorkflowState.joins(:workflow).where("role_id in (?) or workflows.moderator_id = ?", role_ids, current_user.id).pluck(:id)
+      @articles = Article.where('workflow_state_id IN (?)', ids.flatten.uniq).paginate(
+        page: params[:page], per_page: 10
       )
     end
   end
