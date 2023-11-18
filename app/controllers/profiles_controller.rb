@@ -31,7 +31,7 @@ class ProfilesController < ApplicationController
     resp = []
     for r in @profiles
       resp << if !r.user.blank?
-                { 'title' => r.fullname + " (#{r.id})", 'id' => r.id, 'user_id' => r.user.id }
+                { 'title' => r.fullname + " (#{r.id}, #{r.user.email})", 'id' => r.id, 'user_id' => r.user.id }
               else
                 { 'title' => r.fullname + " (#{r.id})", 'id' => r.id }
               end
