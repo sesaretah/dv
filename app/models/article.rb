@@ -70,6 +70,10 @@ class Article < ActiveRecord::Base
   #   self.workflow_state.workflow if !self.workflow_state.blank?
   # end
 
+  def profiles_fullname
+    profiles.map(&:fullname).join(' ')
+  end
+
   def start_section
     @section = if !workflow_state.blank? && !workflow_state.workflow.blank? && !workflow_state.workflow.sections.blank?
                  workflow_state.workflow.sections.first.id.to_s
