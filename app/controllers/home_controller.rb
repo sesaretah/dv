@@ -74,9 +74,18 @@ class HomeController < ApplicationController
     else
       @role = Role.find_by_id(current_user.current_role_id)
       if !@role.blank?
-        #@home_setting.workflow_state != -1 ? @workflow_state_ids =  [@home_setting.workflow_state.to_i]: @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
-        Rails.logger.info params
-        @articles = Article.in_dashboard(current_user, @home_setting).paginate(:page => params[:page], :per_page => @home_setting.pp)
+        if !params[:date_start_yyyy].blank?
+          @start_date = JalaliDate.to_gregorian(params[:date_start_yyyy], params[:date_start_mm], params[:date_start_dd])
+        end
+        if !params[:date_end_yyyy].blank?
+          @end_date = JalaliDate.to_gregorian(params[:date_end_yyyy], params[:date_end_mm], params[:date_end_dd])
+        end
+        if !start_date.blank? && !end_date.blank?
+          scope = Article.joins(:dating).where('event_date between ? and ?', start_date, end_date) 
+        else
+          scope = Article
+        end
+        @articles = scope.in_dashboard(current_user, @home_setting).paginate(:page => params[:page], :per_page => @home_setting.pp)
         @notifications = Notification.where(user_id: current_user.id).order("created_at desc").limit(10)
       end
     end
