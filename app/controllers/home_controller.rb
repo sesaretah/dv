@@ -75,10 +75,10 @@ class HomeController < ApplicationController
       @role = Role.find_by_id(current_user.current_role_id)
       if !@role.blank?
         if !params[:date_start_yyyy].blank?
-          @start_date = JalaliDate.to_gregorian(params[:date_start_yyyy], params[:date_start_mm], params[:date_start_dd])
+          start_date = JalaliDate.to_gregorian(params[:date_start_yyyy], params[:date_start_mm], params[:date_start_dd])
         end
         if !params[:date_end_yyyy].blank?
-          @end_date = JalaliDate.to_gregorian(params[:date_end_yyyy], params[:date_end_mm], params[:date_end_dd])
+          end_date = JalaliDate.to_gregorian(params[:date_end_yyyy], params[:date_end_mm], params[:date_end_dd])
         end
         if !start_date.blank? && !end_date.blank?
           scope = Article.joins(:dating).where('event_date between ? and ?', start_date, end_date) 
