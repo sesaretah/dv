@@ -161,7 +161,7 @@
     <%= form_tag '/home', method: :get do%>
 
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-5">
             <%=t :date_start%>
             <hr class="mt-1">
             <div class="form-group">
@@ -180,7 +180,7 @@
             </div>
           </div>
 
-            <div class="col-md-6">
+            <div class="col-md-5">
             <%=t :date_end%>
             <hr class="mt-1">
             <div class="form-group">
@@ -197,17 +197,11 @@
               </div>
             </div>
             </div>
-          </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-10"></div>
             <div class="col-md-2">
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary mt-5" style="color:white;"><%=t :submit%></button>
-              </div>
+              <button type="submit" class="btn btn-primary mt-5" style="color:white;"><%=t :filter%></button>
             </div>
           </div>
+        </div>
         <%end%>
     </div>
 
