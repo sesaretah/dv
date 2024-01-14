@@ -158,7 +158,27 @@
     </div>
 
       <ol class="breadcrumb" aria-label="breadcrumbs">
-        <li class="breadcrumb-item"></li>
+        <li class="breadcrumb-item">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="form-group">
+              <%= f.label :event_date, class: "form-label" %>
+              <% @now = JalaliDate.to_jalali(Time.now) %>
+              <div class="row gutters-xs">
+              <div class='col-4'>
+                <%= select_tag "event_date_dd", options_for_select(1..31, @now.day), { class: "form-control" } %>
+              </div>
+              <div class='col-4'>
+                <%= select_tag "event_date_mm", options_for_select(1..12, @now.month), { class: "form-control" } %>
+              </div>
+              <div class='col-4'>
+                <%= select_year(@now.year, { :start_year => 1330, :end_year => 1410 }, { class: "form-control", :name => "event_date_yyyy" }) %>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+        </li>
       </ol> 
 
     <div class="card">
