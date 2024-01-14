@@ -81,7 +81,7 @@ class HomeController < ApplicationController
           end_date = JalaliDate.to_gregorian(params[:date_end_yyyy], params[:date_end_mm], params[:date_end_dd])
         end
         if !start_date.blank? && !end_date.blank?
-          scope = Article.joins(:dating).where('event_date between ? and ?', start_date, end_date) 
+          scope = Article.joins(:datings).where('event_date between ? and ?', start_date, end_date) 
         else
           scope = Article
         end
