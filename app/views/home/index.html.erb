@@ -35,7 +35,6 @@
   <div class="col-lg-3">
 
 <div id="accordion">
- 
    <% Workflow.user_available_workflows(current_user).each do |workflow| %>
   <div class="card mb-0 p-0" style="border-bottom:none;">
     <div class="card-header p-0" style="min-height: 0rem;" id="heading<%= workflow.id%>">
@@ -46,22 +45,21 @@
         </button>
       </h5>
     </div>
-    <div id="collapse<%= workflow.id%>" class="collapse <% if current_workflow_id == workflow.id %>show<%end%>" aria-labelledby="heading<%= workflow.id%>" data-parent="#accordion">
-      <div class="card-body">
-      <% role_ids = current_user.roles.pluck(:id) %>
-      <% WorkflowState.where("role_id in (?) and workflow_id = ?", role_ids, workflow).order('title desc').each do |workflow_state| %>
-                <%= link_to "/home?workflow_state=#{workflow_state.id}", class: "dropdown-item pd-compact" do %>
-                      <% if @home_setting.workflow_state == workflow_state.id %>
-                        <i class="fe fe-check" style="vertical-align:-3px;"></i>
-                      <% end %>
-                    <%= truncate(workflow_state.title, length: 30) %>            
-                <% end %>
+      <div id="collapse<%= workflow.id%>" class="collapse <% if current_workflow_id == workflow.id %>show<%end%>" aria-labelledby="heading<%= workflow.id%>" data-parent="#accordion">
+        <div class="card-body">
+          <% role_ids = current_user.roles.pluck(:id) %>
+          <% WorkflowState.where("role_id in (?) and workflow_id = ? and deleted is null", role_ids, workflow).order('title desc').each do |workflow_state| %>
+            <%= link_to "/home?workflow_state=#{workflow_state.id}", class: "dropdown-item pd-compact" do %>
+              <% if @home_setting.workflow_state == workflow_state.id %>
+                <i class="fe fe-check" style="vertical-align:-3px;"></i>
+              <% end %>
+              <%= truncate(workflow_state.title, length: 30) %>            
             <% end %>
-            </div>
-    </div>
+          <% end %>
+        </div>
+      </div>
   </div>
   <%end%>
-
 </div>
 
 
@@ -90,7 +88,6 @@
                       <%else%>
                       <span id='pp-value'><%=t :position_reverse %></span>
                       <%end%>
-
                 <% end %>
                 <% end %>
 
