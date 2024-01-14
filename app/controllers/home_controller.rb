@@ -75,6 +75,7 @@ class HomeController < ApplicationController
       @role = Role.find_by_id(current_user.current_role_id)
       if !@role.blank?
         #@home_setting.workflow_state != -1 ? @workflow_state_ids =  [@home_setting.workflow_state.to_i]: @workflow_state_ids = WorkflowState.where(role_id: @role.id).collect(&:id)
+        Rails.logger.info params
         @articles = Article.in_dashboard(current_user, @home_setting).paginate(:page => params[:page], :per_page => @home_setting.pp)
         @notifications = Notification.where(user_id: current_user.id).order("created_at desc").limit(10)
       end
