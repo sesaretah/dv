@@ -66,6 +66,59 @@
   </div>
     
   <div class="col-lg-9">
+  <div id="date-accordion">
+   <div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#date-accordion">
+   <div class="alert alert-primary" role="alert">
+    <%= form_tag '/home', method: :get do%>
+
+        <div class="row">
+          <div class="col-md-5">
+            <%=t :date_start%>
+            <hr class="mt-1">
+            <div class="form-group">
+              <% @now = JalaliDate.to_jalali(Time.now) %>
+              <div class="row gutters-xs">
+              <div class='col-3'>
+                <%= select_tag "date_start_dd", options_for_select(1..31, @now.day), { class: "form-control" } %>
+              </div>
+              <div class='col-3'>
+                <%= select_tag "date_start_mm", options_for_select(1..12, @now.month), { class: "form-control" } %>
+              </div>
+              <div class='col-4'>
+                <%= select_year(@now.year, { :start_year => 1330, :end_year => 1410 }, { class: "form-control", :name => "date_start_yyyy" }) %>
+              </div>
+            </div>
+            </div>
+          </div>
+
+            <div class="col-md-5">
+            <%=t :date_end%>
+            <hr class="mt-1">
+            <div class="form-group">
+              <% @now = JalaliDate.to_jalali(Time.now) %>
+              <div class="row gutters-xs">
+              <div class='col-3'>
+                <%= select_tag "date_end_dd", options_for_select(1..31, @now.day), { class: "form-control" } %>
+              </div>
+              <div class='col-3'>
+                <%= select_tag "date_end_mm", options_for_select(1..12, @now.month), { class: "form-control" } %>
+              </div>
+              <div class='col-4'>
+                <%= select_year(@now.year, { :start_year => 1330, :end_year => 1410 }, { class: "form-control", :name => "date_end_yyyy" }) %>
+              </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-md-2 mt-1">
+            <button type="submit" class="btn btn-primary mt-5" style="color:white;"><%=t :filter%></button>
+          </div>
+        </div>
+        <%end%>
+    </div>
+   </div>
+
+  </div>
     <div class="card">
       <div class="card-header">
         <i class="fe fe-feather"></i>
