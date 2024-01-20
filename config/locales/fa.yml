@@ -855,6 +855,7 @@ fa:
   related_articles: 'اسناد مرتبط'
   date_start: 'تاریخ شروع'
   date_end: 'تاریخ پایان'
+  filter_date: 'فیلتر بر اساس تاریخ'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.
