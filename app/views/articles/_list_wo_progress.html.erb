@@ -79,12 +79,12 @@
           </div>
         </td>
         <td>
-        <% if article.workflow_state.is_votable %>
-        <% vote = Vote.is_voted(current_user, article) %>
-        <% if !vote.blank? %>
-        <%= raw vote.icon %>
-        <% end %>
-        <% end %>
+          <% if article.workflow_state.is_votable %>
+          <% vote = Vote.is_voted(current_user, article) %>
+          <% if !vote.blank? %>
+          <%= raw vote.icon %>
+          <% end %>
+          <% end %>
         </td>
         <td>
           <% if article.workflow_state %>
@@ -112,8 +112,12 @@
             <% end %>
           <% end %>
         </td>
-
-                <td>
+        <td>
+          <label class="custom-control custom-checkbox">
+           <input type="checkbox" class="custom-control-input" name="transfer-<%=article.id%>" value="<%=article.id%>">
+          </label>
+        </td>
+        <td>
         <% index = arr.index(article.id) %>
         <% if index > 0 %>
         <% previous = arr[index - 1] %>
