@@ -114,7 +114,12 @@
           <% end %>
         </td>
         <td>
-           <input type="checkbox"  name="transfer-<%=article.id%>" value="<%=article.id%>">
+           <input type="checkbox"  name="transfer-<%=article.id%>" id="transfer-<%=article.id%>" value="<%=article.id%>">
+           <script>
+              $("#transfer-<%=article.id%>").on("change", function(){
+                console.log("#transfer-<%=article.id%>")
+              });
+            </script>
         </td>
         <td>
         <% index = arr.index(article.id) %>
