@@ -138,7 +138,7 @@
                   <% if next_workflow_states.present?%>
                     <%=t :send_to%>
                     <%= form_tag "/articles/group_send_to", method: :get do %>
-                    <%= hidden_field_tag 'selected_articles'%>
+                    <%= hidden_field_tag 'selected_articles', {id: 'selected_articles'}%>
                     <div class="form-group">
                       <label class="form-label"></label>
                       <%= select_tag  "workflow_state", options_for_select(next_workflow_states.collect { |p| [ p.title, p.id ] }), {class: "form-control"} %>
