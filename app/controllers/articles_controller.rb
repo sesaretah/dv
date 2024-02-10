@@ -382,7 +382,7 @@ class ArticlesController < ApplicationController
   
 
   def group_send_to
-    selected_articles = params[:selected_articles].split(',').compact
+    selected_articles = params[:selected_articles].split(',').compact.reject(&:empty?)
     Rails.logger.info selected_articles
     for article_id in selected_articles
       Rails.logger.info article_id
