@@ -383,8 +383,10 @@ class ArticlesController < ApplicationController
 
   def group_send_to
     selected_articles = params[:selected_articles].split(',').compact
+    Rails.logger.info selected_articles
     for article_id in selected_articles
-      article = Article.find(article_id)
+      Rails.logger.info article_id
+      article = Article.find_by_id(article_id)
       Rails.logger.info article.id
     end
   end
