@@ -128,7 +128,7 @@
       <div class="col-lg-6 m-0">
         <% current_workflow_state = WorkflowState.find(@home_setting.workflow_state) rescue nil %>
         <% current_workflow = current_workflow_state.workflow rescue nil%>
-        <% if current_workflow.present? && User.user_has_role(current_user, current_workflow_state.role_id) || grant_access("edit_workflow", current_user) || current_workflow.user_id == current_user.id%>
+        <% if current_workflow.present? && (User.user_has_role(current_user, current_workflow_state.role_id) || grant_access("edit_workflow", current_user) || current_workflow.user_id == current_user.id)%>
           <div id="transfer-accordion">
             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-transfer" aria-expanded="false" aria-controls="collapse-transfer">
               <i class="fe fe-repeat" style="vertical-align:-3px;"></i> <%=t :workflow%>
