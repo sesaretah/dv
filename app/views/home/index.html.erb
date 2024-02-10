@@ -191,12 +191,8 @@
                   <% end %>
                   <span id='pp-value'><%= t :unarchived %></span>
                 <% end %>
-
-
             </div>            
-            </div>
-
-    
+        </div>   
   </div>
 
 
@@ -208,7 +204,9 @@
         </div>
       </div>
       <% else %>
-      <%= render partial: "articles/list_wo_progress", locals: { articles: @articles } %>
+      <%= form_tag "/home/advanced_search", method: :get do -%>
+        <%= render partial: "articles/list_wo_progress", locals: { articles: @articles } %>
+      <%end%>
       <% end %>
 
     </div>
