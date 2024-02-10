@@ -83,10 +83,10 @@
                     <div class="form-group ml-0 mr-0">
                       <% @now = JalaliDate.to_jalali(Time.now) %>
                       <div class="row gutters-xs  ml-0 mr-0">
-                      <div class='col-3'>
+                      <div class='col-4'>
                         <%= select_tag "date_start_dd", options_for_select(1..31, @now.day), { class: "form-control" } %>
                       </div>
-                      <div class='col-3'>
+                      <div class='col-4'>
                         <%= select_tag "date_start_mm", options_for_select(1..12, @now.month), { class: "form-control" } %>
                       </div>
                       <div class='col-4'>
@@ -102,10 +102,10 @@
                     <div class="form-group ml-0 mr-0">
                       <% @now = JalaliDate.to_jalali(Time.now) %>
                       <div class="row gutters-xs ml-0 mr-0">
-                      <div class='col-3'>
+                      <div class='col-4'>
                         <%= select_tag "date_end_dd", options_for_select(1..31, @now.day), { class: "form-control" } %>
                       </div>
-                      <div class='col-3'>
+                      <div class='col-4'>
                         <%= select_tag "date_end_mm", options_for_select(1..12, @now.month), { class: "form-control" } %>
                       </div>
                       <div class='col-4'>
