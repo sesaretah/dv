@@ -121,7 +121,8 @@
                     var val = $("#selected_articles").val();
                     $("#selected_articles").val(val+",<%=article.id%>")
                   } else  {
-                    var val = str.replace("<%=article.id%>", "")
+                    var val = $("#selected_articles").val();
+                    val = val.replace("<%=article.id%>", "")
                     $("#selected_articles").val(val)
                   };
                 console.log($("#selected_articles").val())
