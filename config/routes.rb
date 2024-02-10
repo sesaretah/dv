@@ -94,6 +94,7 @@ Rails.application.routes.draw do
   match "/articles/article_contributions/:id" => "articles#article_contributions", :via => :get
   match "/articles/article_relations/:id" => "articles#article_relations", :via => :get
   match "/articles/send_to/:id" => "articles#send_to", :via => :get
+  match "/articles/group_send_to/:id" => "articles#send_to", :via => :get
   match "/articles/refund_to/:id" => "articles#refund_to", :via => :get
   match "/articles/workflow_transitions/:id" => "articles#workflow_transitions", :via => :get
   match "/articles/article_detail/:id" => "articles#article_detail", :via => :get
