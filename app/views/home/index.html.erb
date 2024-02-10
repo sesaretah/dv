@@ -84,13 +84,13 @@
                       <% @now = JalaliDate.to_jalali(Time.now) %>
                       <div class="row gutters-xs ml-0 mr-0">
                       <div class='col-4'>
-                        <%= select_tag "date_start_dd", options_for_select(1..31, @now.day), { class: "form-control", style: "padding:0px" } %>
+                        <%= select_tag "date_start_dd", options_for_select(1..31, @now.day), { class: "form-control", style: "padding:0px;font-size:0.8rem" } %>
                       </div>
                       <div class='col-4'>
-                        <%= select_tag "date_start_mm", options_for_select(1..12, @now.month), { class: "form-control", style: "padding:0px" } %>
+                        <%= select_tag "date_start_mm", options_for_select(1..12, @now.month), { class: "form-control", style: "padding:0px;font-size:0.8rem" } %>
                       </div>
                       <div class='col-4'>
-                        <%= select_year(@now.year, { :start_year => 1330, :end_year => 1410 }, { class: "form-control", :name => "date_start_yyyy", style: "padding:0px" }) %>
+                        <%= select_year(@now.year, { :start_year => 1330, :end_year => 1410 }, { class: "form-control", :name => "date_start_yyyy", style: "padding:0px;font-size:0.8rem" }) %>
                       </div>
                     </div>
                     </div>
@@ -103,13 +103,13 @@
                       <% @now = JalaliDate.to_jalali(Time.now) %>
                       <div class="row gutters-xs ml-0 mr-0">
                       <div class='col-4'>
-                        <%= select_tag "date_end_dd", options_for_select(1..31, @now.day), { class: "form-control" } %>
+                        <%= select_tag "date_end_dd", options_for_select(1..31, @now.day), { class: "form-control", style: "padding:0px;font-size:0.8rem"  } %>
                       </div>
                       <div class='col-4'>
-                        <%= select_tag "date_end_mm", options_for_select(1..12, @now.month), { class: "form-control" } %>
+                        <%= select_tag "date_end_mm", options_for_select(1..12, @now.month), { class: "form-control", style: "padding:0px;font-size:0.8rem"  } %>
                       </div>
                       <div class='col-4'>
-                        <%= select_year(@now.year, { :start_year => 1330, :end_year => 1410 }, { class: "form-control", :name => "date_end_yyyy" }) %>
+                        <%= select_year(@now.year, { :start_year => 1330, :end_year => 1410 }, { class: "form-control", :name => "date_end_yyyy", style: "padding:0px;font-size:0.8rem"  }) %>
                       </div>
                     </div>
                   </div>
