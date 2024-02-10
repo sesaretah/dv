@@ -137,7 +137,7 @@
                   <% next_workflow_states = current_workflow.next_nodes(current_workflow_state.node_id) rescue nil %>
                   <% if next_workflow_states.present?%>
                     <%=t :send_to%>
-                    <%= form_tag "/articles/group_send_to/1", method: :get, remote: true do %>
+                    <%= form_tag "/articles/group_send_to/1", method: :get do %>
                     <%= hidden_field_tag 'selected_articles', nil, {id: 'selected_articles'}%>
                     <div class="form-group">
                       <label class="form-label"></label>
@@ -240,9 +240,7 @@
         </div>
       </div>
       <% else %>
-      <%= form_tag "/home/advanced_search", method: :get do -%>
         <%= render partial: "articles/list_wo_progress", locals: { articles: @articles } %>
-      <%end%>
       <% end %>
 
     </div>

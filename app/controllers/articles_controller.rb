@@ -399,6 +399,7 @@ class ArticlesController < ApplicationController
         article.save
       end
     end
+    redirect_to '/home'
   end
 
   def send_to
