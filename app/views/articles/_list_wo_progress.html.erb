@@ -117,7 +117,14 @@
            <input type="checkbox"  name="transfer-<%=article.id%>" id="transfer-<%=article.id%>" value="<%=article.id%>">
            <script>
               $("#transfer-<%=article.id%>").on("change", function(){
-                console.log("#transfer-<%=article.id%>")
+                if ($(this).is(':checked')) {
+                    var val = $("#selected_articles").val();
+                    $("#selected_articles").val(val+",<%=article.id%>")
+                  } else  {
+                    var val = str.replace("<%=article.id%>", "")
+                    $("#selected_articles").val(val)
+                  };
+                console.log($("#selected_articles").val())
               });
             </script>
         </td>
