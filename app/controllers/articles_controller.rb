@@ -379,6 +379,15 @@ class ArticlesController < ApplicationController
       uh: history(model: 'Upload', params: params)
     }
   end
+  
+
+  def group_send_to
+    selected_articles = params[:selected_articles].split(',').compact
+    for article_id in selected_articles
+      article = Article.find(article_id)
+      Rails.logger.info article.id
+    end
+  end
 
   def send_to
     @this_workflow_state = @article.workflow_state
