@@ -132,9 +132,10 @@
           </button>
           <div id="collapse-transfer" class="collapse" aria-labelledby="heading" data-parent="#transfer-accordion">
               <div class="alert alert-primary" role="alert">
-                  <% current_workflow_state =  WorkflowState.find(@home_setting.workflow_state) rescue nil %>
+                  <% current_workflow_state = WorkflowState.find(@home_setting.workflow_state) rescue nil %>
                   <% current_workflow = current_workflow_state.workflow.id rescue nil%>
                   <% next_workflow_states = current_workflow.next_nodes(current_workflow_state.node_id) rescue nil %>
+                  <%= current_workflow_state.id %>, <%= current_workflow.id %>, <%= next_workflow_states %>
                   <% if next_workflow_states.present?%>
                     <%=t :send_to%>
                     <%= form_tag "/articles/send_to/", method: :get, remote: true do %>
