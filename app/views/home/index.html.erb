@@ -126,36 +126,38 @@
       </div>
 
       <div class="col-lg-6 m-0">
-        <div id="transfer-accordion">
-          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-transfer" aria-expanded="false" aria-controls="collapse-transfer">
-            <i class="fe fe-repeat" style="vertical-align:-3px;"></i> <%=t :workflow%>
-          </button>
-          <div id="collapse-transfer" class="collapse" aria-labelledby="heading" data-parent="#transfer-accordion">
-              <div class="alert alert-primary" role="alert">
-                  <% current_workflow_state = WorkflowState.find(@home_setting.workflow_state) rescue nil %>
-                  <% current_workflow = current_workflow_state.workflow rescue nil%>
-                  <% next_workflow_states = current_workflow.next_nodes(current_workflow_state.node_id) rescue nil %>
-                  <% if next_workflow_states.present?%>
-                    <%=t :send_to%>
-                    <%= form_tag "/articles/group_send_to/1", method: :get do %>
-                    <%= hidden_field_tag 'selected_articles', nil, {id: 'selected_articles'}%>
-                    <div class="form-group">
-                      <label class="form-label"></label>
-                      <%= select_tag  "workflow_state", options_for_select(next_workflow_states.collect { |p| [ p.title, p.id ] }), {class: "form-control"} %>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label" style='font-size:10px; font-style:italic;'>*<%=t :message_is_required%></label>
-                      <%= text_area_tag  "message", nil, class: "form-control", placeholder: t(:message_content), :required => true %>
-                    </div>
-                    <div class="text-right">
-                      <button type="submit" class="btn btn-lime btn-sm"><i class="fe fe-trending-up" style="vertical-align: -3px;"></i> <%=t :send%></button>
-                    </div>
+        <% current_workflow_state = WorkflowState.find(@home_setting.workflow_state) rescue nil %>
+        <% current_workflow = current_workflow_state.workflow rescue nil%>
+        <% if current_workflow.present? && User.user_has_role(current_user, current_workflow_state.role_id) || grant_access("edit_workflow", current_user) || current_workflow.user_id == current_user.id%>
+          <div id="transfer-accordion">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-transfer" aria-expanded="false" aria-controls="collapse-transfer">
+              <i class="fe fe-repeat" style="vertical-align:-3px;"></i> <%=t :workflow%>
+            </button>
+            <div id="collapse-transfer" class="collapse" aria-labelledby="heading" data-parent="#transfer-accordion">
+                <div class="alert alert-primary" role="alert">
+                    <% next_workflow_states = current_workflow.next_nodes(current_workflow_state.node_id) rescue nil %>
+                    <% if next_workflow_states.present?%>
+                      <%=t :send_to%>
+                      <%= form_tag "/articles/group_send_to/1", method: :get do %>
+                      <%= hidden_field_tag 'selected_articles', nil, {id: 'selected_articles'}%>
+                      <div class="form-group">
+                        <label class="form-label"></label>
+                        <%= select_tag  "workflow_state", options_for_select(next_workflow_states.collect { |p| [ p.title, p.id ] }), {class: "form-control"} %>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" style='font-size:10px; font-style:italic;'>*<%=t :message_is_required%></label>
+                        <%= text_area_tag  "message", nil, class: "form-control", placeholder: t(:message_content), :required => true %>
+                      </div>
+                      <div class="text-right">
+                        <button type="submit" class="btn btn-lime btn-sm"><i class="fe fe-trending-up" style="vertical-align: -3px;"></i> <%=t :send%></button>
+                      </div>
+                      <%end%>
                     <%end%>
-                  <%end%>
-              </div>
+                </div>
+            </div>
           </div>
         </div>
-      </div>
+      <%end%>
     </div>
 
     <div class="card">
