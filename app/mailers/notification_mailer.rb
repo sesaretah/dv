@@ -46,7 +46,9 @@ class NotificationMailer < ApplicationMailer
     end
 
     if !article.blank?
-      attachments["attachment.pdf"] = File.read("#{Rails.root.to_s}/public/pdfs/#{article.id}/#{article.publish_uuid}.pdf") rescue ""
+      if File.exist?("#{Rails.root.to_s}/public/pdfs/#{article.id}/#{article.publish_uuid}.pdf")
+        attachments["attachment.pdf"] = File.read("#{Rails.root.to_s}/public/pdfs/#{article.id}/#{article.publish_uuid}.pdf") 
+      end
       @link = Rails.application.routes.default_url_options[:host] + "/articles/#{article.id}" rescue ""
     end
 
