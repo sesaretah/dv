@@ -2,6 +2,7 @@
   <table class="table table-hover table-outline table-vcenter text-nowrap"  id='article-list'>
     <thead>
       <tr class='fs-10'>
+        <th></th>
         <th class="text-center w-1" style="padding: 0.5rem;">
         <%= link_to "/home?pp=" + params[:pp].to_s + "&sort=coming ASC" do %>
         <i class="fa fa-arrow-down" aria-hidden="true"></i>
@@ -24,7 +25,7 @@
         <th><i class="fa fa-inbox" aria-hidden="true"></i></th>
         <th><%= t :workflow_state %></th>
         <th><%= t :creator %> / <%= t :came_from %></th>
-        <th></th>
+        
         <th>
         <%= link_to "/home?pp=" + params[:pp].to_s + "&sort=-position DESC" do %>
         <i class="fa fa-arrow-down" aria-hidden="true"></i>
