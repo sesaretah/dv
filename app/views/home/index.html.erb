@@ -131,7 +131,7 @@
         <% if current_workflow.present? && (User.user_has_role(current_user, current_workflow_state.role_id) || grant_access("edit_workflow", current_user) || current_workflow.user_id == current_user.id)%>
           <div id="transfer-accordion">
             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-transfer" aria-expanded="false" aria-controls="collapse-transfer">
-              <i class="fe fe-repeat" style="vertical-align:-3px;"></i> <%=t :workflow%> <%= :selected_records%>
+              <i class="fe fe-repeat" style="vertical-align:-3px;"></i> <%=t :workflow%> <%=t :selected_records%>
             </button>
             <div id="collapse-transfer" class="collapse" aria-labelledby="heading" data-parent="#transfer-accordion">
                 <div class="alert alert-primary" role="alert">
