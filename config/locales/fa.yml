@@ -856,6 +856,7 @@ fa:
   date_start: 'تاریخ شروع'
   date_end: 'تاریخ پایان'
   filter_date: 'فیلتر بر اساس تاریخ'
+  selected_records: 'رکوردهای انتخاب شده'
   devise:
     confirmations:
       confirmed: حسابتان با موفقیت تایید شد. هم اکنون وارد شدید.
