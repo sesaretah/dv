@@ -164,6 +164,18 @@ module UnicodeFixer
     str.gsub!('ﺋ', 'ئ')
     str.gsub!('ﺊ', 'ئ')
     str.gsub!('ﺉ', 'ئ')
+
+    str.gsub!('۱', '1')
+    str.gsub!('۲', '2')
+    str.gsub!('۳', '3')
+    str.gsub!('۴', '4')
+    str.gsub!('۵', '5')
+    str.gsub!('۶', '6')
+    str.gsub!('۷', '7')
+    str.gsub!('۸', '8')
+    str.gsub!('۹', '9')
+    str.gsub!('۰', '0')
+
     return str
   rescue
     str
