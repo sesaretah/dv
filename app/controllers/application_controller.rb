@@ -260,7 +260,7 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-    flag = false if article.workflow_state_id == 28 && user.id == 122
+    flag = false if article.workflow_state_id == 135 && user.id == 122
     flag = true if article.workflow_state.blank?
     return flag
   end
