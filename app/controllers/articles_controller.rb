@@ -470,14 +470,14 @@ class ArticlesController < ApplicationController
     
     case params[:scope]
     when 'my'
-      role_ids = user.roles.pluck(:id)
+      role_ids = current_user.roles.pluck(:id)
       @workflow_state_ids = WorkflowState.where("role_id in (?)", role_ids).pluck(:id)
       @articles = Article.where(user_id: current_user.id).where('workflow_state_id IN (?)', @workflow_state_ids.flatten.uniq).paginate(
         page: params[:page], per_page: 10
       )
     when 'all'
       if !grant_access('view_unrelated_articles', current_user)
-        role_ids = user.roles.pluck(:id)
+        role_ids = current_user.roles.pluck(:id)
         @workflow_state_ids = WorkflowState.where("role_id in (?)", role_ids).pluck(:id)
         @articles = Article.where('workflow_state_id IN (?)', @workflow_state_ids.flatten.uniq).paginate(
           page: params[:page], per_page: 5
