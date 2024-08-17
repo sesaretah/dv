@@ -35,9 +35,11 @@
     <div class="card-header">
       <div class="card-options">
         <% if (!@article.workflow_state.blank? && @article.workflow_state.publishable == 2) || !@article.publish_uuid.blank? %>
-        <%= link_to "/articles/article_publishable/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-        <i class="fe fe-book-open" style="vertical-align: -3px;"></i> <%= t :publish %>
-        <% end %>
+          <% if user_accessible?(@article, current_user)%>
+            <%= link_to "/articles/article_publishable/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+            <i class="fe fe-book-open" style="vertical-align: -3px;"></i> <%= t :publish %>
+            <% end %>
+          <% end %>
         <% end %>
         <% if user_accessible?(@article, current_user)%>
           <%= link_to "/articles/article_comments/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
