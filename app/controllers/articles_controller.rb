@@ -470,7 +470,14 @@ class ArticlesController < ApplicationController
     
     case params[:scope]
     when 'my'
-      @articles = Article.where(user_id: current_user.id).paginate(page: params[:page], per_page: 5)
+      @role = Role.find_by_id(current_user.current_role_id)
+      @workflow_ids = WorkflowState.where(role_id: @role.id).collect(&:workflow_id)
+      for workflow_id in @workflow_ids
+        @workflow_state_ids << WorkflowState.where(workflow_id: workflow_id).collect(&:id)
+      end
+      @articles = Article.where(user_id: current_user.id).where('workflow_state_id IN (?)', @workflow_state_ids.flatten.uniq).paginate(
+        page: params[:page], per_page: 10
+      )
     when 'all'
       @role = Role.find_by_id(current_user.current_role_id)
       if !@role.blank? && !grant_access('view_unrelated_articles', current_user)
