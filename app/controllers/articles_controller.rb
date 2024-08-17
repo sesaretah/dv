@@ -472,6 +472,7 @@ class ArticlesController < ApplicationController
     when 'my'
       @role = Role.find_by_id(current_user.current_role_id)
       @workflow_ids = WorkflowState.where(role_id: @role.id).collect(&:workflow_id)
+      @workflow_state_ids = []
       for workflow_id in @workflow_ids
         @workflow_state_ids << WorkflowState.where(workflow_id: workflow_id).collect(&:id)
       end
