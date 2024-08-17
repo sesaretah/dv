@@ -39,21 +39,25 @@
         <i class="fe fe-book-open" style="vertical-align: -3px;"></i> <%= t :publish %>
         <% end %>
         <% end %>
-        <%= link_to "/articles/article_comments/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-        <i class="fe fe-message-square" style="vertical-align: -3px;"></i> <%= t :comments %>
+        <% if user_accessible?(@article, current_user)%>
+          <%= link_to "/articles/article_comments/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+          <i class="fe fe-message-square" style="vertical-align: -3px;"></i> <%= t :comments %>
+          <% end %>
         <% end %>
-        <%= link_to "/articles/article_states/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-        <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%= t :workflow %>
+        <% if user_accessible?(@article, current_user)%>
+          <%= link_to "/articles/article_states/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+          <i class="fe fe-repeat" style="vertical-align: -3px;"></i> <%= t :workflow %>
+          <% end %>
         <% end %>
-        <% if grant_access("view_article_logs", current_user) %>
-        <%= link_to "/articles/article_logs/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-        <i class="fe fe-activity" style="vertical-align: -3px;"></i> <%= t :compare %>
+        <% if grant_access("view_article_logs", current_user) && user_accessible?(@article, current_user) %>
+          <%= link_to "/articles/article_logs/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+          <i class="fe fe-activity" style="vertical-align: -3px;"></i> <%= t :compare %>
+          <% end %>
         <% end %>
-        <% end %>
-        <% if grant_access("view_workflow_transactions", current_user) %>
-        <%= link_to "/articles/workflow_transitions/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
-        <i class="fe fe-layers" style="vertical-align: -3px;"></i> <%= t :workflow_transitions %>
-        <% end %>
+        <% if grant_access("view_workflow_transactions", current_user) && user_accessible?(@article, current_user) %>
+          <%= link_to "/articles/workflow_transitions/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
+          <i class="fe fe-layers" style="vertical-align: -3px;"></i> <%= t :workflow_transitions %>
+          <% end %>
         <% end %>
         <%= link_to "/articles/article_detail/#{@article.id}", remote: true, class: "btn btn-secondary btn-sm ml-1" do %>
         <i class="fe fe-play" style="vertical-align: -3px;"></i> <%= t :article_detail %>

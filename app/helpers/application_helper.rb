@@ -26,10 +26,11 @@ module ApplicationHelper
         end
       end
     end
+    flag = false if article.workflow_state_id == 135 && user.id == 122
     flag = true if article.workflow_state.blank?
     return flag
   end
-
+  
   def viewable?(article)
     flag = false
     @role = Role.find_by_id(current_user.current_role_id)
