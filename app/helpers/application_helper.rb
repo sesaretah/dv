@@ -63,8 +63,6 @@ module ApplicationHelper
       access_group_ids = RoleAccess.where("role_id in (?)", role_ids).pluck(:access_group_id)
       access_groups = AccessGroup.where("id in (?)", access_group_ids)
       for access_group in access_groups
-        p access_group.access_groupings
-        p "&&&&&&&&&&"
         if !access_group.access_groupings.where(article_id: article.id).first.blank?
           flag = true
         end
@@ -216,14 +214,9 @@ module ApplicationHelper
     return false if article.workflow_state_id == 135 && user.id == 122
     return true if grant_access("edit_workflow", user)
 
-
     role_ids = user.roles.pluck(:id)
     @workflow_state_ids = WorkflowState.where("role_id in (?)", role_ids).pluck(:id)
     @user_workflows = user.workflows.pluck(:id)
-
-    if @workflow_state_ids.include?(article.workflow_state.id) && article.user_id == user.id
-      return true 
-    end
 
     if action == 'edit'
       if @workflow_state_ids.include?(article.workflow_state.id) || @user_workflows.include?(article.workflow_state.workflow.id) || article.workflow_state&.workflow.admin_id == user.id || article.workflow_state&.workflow.moderator_id == user.id 
