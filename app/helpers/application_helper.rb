@@ -20,7 +20,9 @@ module ApplicationHelper
             end
           else
             for workflow_role_access in workflow_role_accesses
-              flag = flag || workflow_role_access.other_articles_traceable
+              if article.workflow_state.workflow.roles.map(&:id).include?(workflow_role_access.role_id)
+                flag = flag || workflow_role_access.other_articles_traceable
+              end 
             end
           end
         end
