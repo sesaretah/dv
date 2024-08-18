@@ -10,46 +10,46 @@
     </thead>
     <tbody>
       <% for article in profile.articles%>
-      <% if user_accessible?(article, current_user) || viewable_level?(article, "all") || viewable_level?(article, "metadata") %>
-      <% if article.workflow_state.present? && article.workflow_state.workflow.present? %>
-          <tr>
-            <td class="text-center">
-              <div class="item-action dropdown">
-                <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <a href="/articles/<%= article.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div><%= truncate(article.title, length: 30)%></div>
-              <div class="small text-muted">
-                <%= truncate(article.abstract, length: 25)%>
-              </div>
-            </td>
-            <td>
-              <% if article.workflow_state%>
-              <div class="small text-muted"><%= article.workflow_state.workflow.title%></div>
-              <div style="font-size:smaller;"><%= article.workflow_state.title%></div>
-              <%else%>
-              <div class="small text-muted"><i class="fe fe-alert-triangle" style="vertical-align:-3px;"></i> <%=t :without_workflow%></div>
-              <%end%>
-            </td>
-            <td>
-              <% @previous_workflow_transition = WorkflowTransition.where(workflow_id: article.workflow_state.workflow.id, to_state_id: article.workflow_state_id, article_id: article.id).last%>
-              <% if !@previous_workflow_transition.blank?%>
-              <% @user = User.find(@previous_workflow_transition.user_id)%>
-                <% if @user.present?%>
-                  <span class="tag">
-                    <span class="tag-avatar avatar" style="background-image: url('<%= @user.profile.avatar(:tiny)%>')"></span>
-                    <%= truncate(@user.profile.fullname, length: 15)%>
-                  </span>
-                <%end%>
-              <%end%>
-            </td>
-          </tr>
+        <% if user_accessible?(article, current_user) || viewable_level?(article, "all") || viewable_level?(article, "metadata") %>
+          <% if article.workflow_state.present? && article.workflow_state.workflow.present? %>
+              <tr>
+                <td class="text-center">
+                  <div class="item-action dropdown">
+                    <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a href="/articles/<%= article.id%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%=t :show%> </a>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div><%= truncate(article.title, length: 30)%></div>
+                  <div class="small text-muted">
+                    <%= truncate(article.abstract, length: 25)%>
+                  </div>
+                </td>
+                <td>
+                  <% if article.workflow_state%>
+                  <div class="small text-muted"><%= article.workflow_state.workflow.title%></div>
+                  <div style="font-size:smaller;"><%= article.workflow_state.title%></div>
+                  <%else%>
+                  <div class="small text-muted"><i class="fe fe-alert-triangle" style="vertical-align:-3px;"></i> <%=t :without_workflow%></div>
+                  <%end%>
+                </td>
+                <td>
+                  <% @previous_workflow_transition = WorkflowTransition.where(workflow_id: article.workflow_state.workflow.id, to_state_id: article.workflow_state_id, article_id: article.id).last%>
+                  <% if !@previous_workflow_transition.blank?%>
+                  <% @user = User.find(@previous_workflow_transition.user_id)%>
+                    <% if @user.present?%>
+                      <span class="tag">
+                        <span class="tag-avatar avatar" style="background-image: url('<%= @user.profile.avatar(:tiny)%>')"></span>
+                        <%= truncate(@user.profile.fullname, length: 15)%>
+                      </span>
+                    <%end%>
+                  <%end%>
+                </td>
+              </tr>
+            <%end%>
         <%end%>
-      <%end%>
       <%end%>
     </tbody>
   </table>

@@ -25,8 +25,8 @@ class Assignment < ActiveRecord::Base
       if workflow_state.role_id == role.id
         user.home_setting.update(workflow_state: -1)
       end
-    rescue StandError
-      nil 
+    rescue StandardError
+      nil
     end
   end
 
