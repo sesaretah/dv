@@ -11,6 +11,7 @@
     <tbody>
       <% for article in profile.articles%>
       <% if user_accessible?(article, current_user) || viewable_level?(article, "all") || viewable_level?(article, "metadata") %>
+      <% if article.workflow_state.present? && article.workflow_state.workflow.present? %>
         <tr>
           <td class="text-center">
             <div class="item-action dropdown">
@@ -38,10 +39,12 @@
             <% @previous_workflow_transition = WorkflowTransition.where(workflow_id: article.workflow_state.workflow.id, to_state_id: article.workflow_state_id, article_id: article.id).last%>
             <% if !@previous_workflow_transition.blank?%>
             <% @user = User.find(@previous_workflow_transition.user_id)%>
+            <% if @user.present?%>
             <span class="tag">
               <span class="tag-avatar avatar" style="background-image: url('<%= @user.profile.avatar(:tiny)%>')"></span>
               <%= truncate(@user.profile.fullname, length: 15)%>
             </span>
+            <%end%>
             <%end%>
           </td>
         </tr>
