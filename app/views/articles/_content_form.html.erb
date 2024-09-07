@@ -20,6 +20,7 @@ $('.form-control').bind('change keyup input', function() {
     $('#discriptors').delay(200).submit();
 });
 CKEDITOR.config.skin = 'flat';
+CKEDITOR.config.versionCheck = false;
 
 CKEDITOR.instances.sometext.on('change', function(e) {
     var self = this;
