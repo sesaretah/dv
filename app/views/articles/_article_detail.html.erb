@@ -138,7 +138,21 @@
             <% end %>
 
           </td>
-        </tr>
+  </tr>
+
+  <tr>
+      <td style='color: #7795c1;text-align:left;'><%= t :relations %></td>
+      <td>
+        <% @article.kinships.group_by(&:article_relation_type_id).each do |k, v| %>
+        <%= ArticleRelationType.find(k).title %>:
+        <ul>
+          <% for kinship in v.sort_by!(&:rank) %>
+          <li><%= link_to kinship.kin.title, kinship.kin %></li>
+          <% end %>
+        </ul>
+        <% end %>
+      </td>
+    </tr>
 
     <tr>
       <td style="text-align:left;">
@@ -195,19 +209,7 @@
         </td>
       </tr>
 
-        <tr>
-          <td style='color: #7795c1;text-align:left;'><%= t :relations %></td>
-          <td>
-            <% @article.kinships.group_by(&:article_relation_type_id).each do |k, v| %>
-            <%= ArticleRelationType.find(k).title %>:
-            <ul>
-              <% for kinship in v.sort_by!(&:rank) %>
-              <li><%= link_to kinship.kin.title, kinship.kin %></li>
-              <% end %>
-            </ul>
-            <% end %>
-          </td>
-        </tr>
+
         <tr>
           <td style='color: #7795c1;text-align:left;'><%= t :article_source %></td>
           <td>
