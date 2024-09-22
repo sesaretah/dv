@@ -153,24 +153,6 @@
         <% end %>
       </td>
     </tr>
-
-    <tr>
-      <td style="text-align:left;">
-        <%= label :article, :url, class: "form-label", style: "color: #7795c1;" %></td>
-        <td><%= link_to @article.url, @article.url %></td>
-      </tr>
-
-      <tr>
-        <td style='color: #7795c1;text-align:left;'><%= t :keywords %></td>
-        <td><% for tagging in Tagging.where(taggable_id: @article.id, taggable_type: "Article", target_type: "Keyword") %>
-          <% @keyword = Keyword.find_by_id(tagging.target_id) %>
-          <% if !@keyword.blank? %>
-          <span class="tag"><%= @keyword.title %></span>
-          <% end %>
-          <% end %>
-        </td>
-      </tr>
-
       <tr>
         <td style='color: #7795c1;text-align:left;'><%= t :datings %></td>
         <td>
@@ -226,6 +208,23 @@
             <% end %>
           </td>
         </tr>
+
+      <tr>
+      <td style="text-align:left;">
+        <%= label :article, :url, class: "form-label", style: "color: #7795c1;" %></td>
+        <td><%= link_to @article.url, @article.url %></td>
+      </tr>
+
+      <tr>
+        <td style='color: #7795c1;text-align:left;'><%= t :keywords %></td>
+        <td><% for tagging in Tagging.where(taggable_id: @article.id, taggable_type: "Article", target_type: "Keyword") %>
+          <% @keyword = Keyword.find_by_id(tagging.target_id) %>
+          <% if !@keyword.blank? %>
+          <span class="tag"><%= @keyword.title %></span>
+          <% end %>
+          <% end %>
+        </td>
+      </tr>
         <% end %>
 
 
