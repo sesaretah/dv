@@ -37,6 +37,47 @@
       <% end %>
       </td>
     </tr>
+
+
+    <% if user_accessible?(@article, current_user) || viewable_level?(@article, "all") %>
+        <tr>
+          <td style='color: #7795c1;text-align:left;'><%= t :full_text %>
+          <% if article_owner(@article, current_user) %>
+          <%= link_to "/articles/content_form/#{@article.id}", remote: true do %>
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          <% end %>
+          <% end %>
+          </td>
+          <td id='content-form'>
+            <%= raw @article.content %>
+          </td>
+        </tr>
+       
+
+        <tr>
+          <td style='color: #7795c1;text-align:left;'><%= t :attachments %></td>
+
+
+          <td>
+            <% Upload.where("uploadable_type = ? and uploadable_id = ? and attachment_type <> ?", "Article", @article.id, "article_voices").group_by(&:attachment_type).each do |k, v| %>
+            <%= t k %>
+            <ul>
+              <% for u in v %>
+              <li><%= link_to u.attachment.url do %><i class="fe fe-download" style="vertical-align:middle;"></i> <%= u.title %><% end %>
+                <p class="text-muted">
+                    <%= u.detail %>
+                    <% if permit_by_workflow(@article, current_user, "keywords") %>
+                    <small><%= link_to t(:edit), edit_upload_path(u) %></small>
+                    <% end %>
+                </p>
+              </li>
+              <% end %>
+            </ul>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+
     <tr>
       <td style="text-align:left;">
         <%= label :article, :url, class: "form-label", style: "color: #7795c1;" %></td>
@@ -182,44 +223,7 @@
           </td>
         </tr>
         <% end %>
-        <% if user_accessible?(@article, current_user) || viewable_level?(@article, "all") %>
-        <tr>
-          <td style='color: #7795c1;text-align:left;'><%= t :full_text %>
-          <% if article_owner(@article, current_user) %>
-          <%= link_to "/articles/content_form/#{@article.id}", remote: true do %>
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          <% end %>
-          <% end %>
-          </td>
-          <td id='content-form'>
-            <%= raw @article.content %>
-          </td>
-        </tr>
-       
 
-        <tr>
-          <td style='color: #7795c1;text-align:left;'><%= t :attachments %></td>
-
-
-          <td>
-            <% Upload.where("uploadable_type = ? and uploadable_id = ? and attachment_type <> ?", "Article", @article.id, "article_voices").group_by(&:attachment_type).each do |k, v| %>
-            <%= t k %>
-            <ul>
-              <% for u in v %>
-              <li><%= link_to u.attachment.url do %><i class="fe fe-download" style="vertical-align:middle;"></i> <%= u.title %><% end %>
-                <p class="text-muted">
-                    <%= u.detail %>
-                    <% if permit_by_workflow(@article, current_user, "keywords") %>
-                    <small><%= link_to t(:edit), edit_upload_path(u) %></small>
-                    <% end %>
-                </p>
-              </li>
-              <% end %>
-            </ul>
-            <% end %>
-          </td>
-        </tr>
-        <% end %>
 
       </tbody>
 
