@@ -78,61 +78,7 @@
         </tr>
     <% end %>
 
-    <tr>
-      <td style="text-align:left;">
-        <%= label :article, :url, class: "form-label", style: "color: #7795c1;" %></td>
-        <td><%= link_to @article.url, @article.url %></td>
-      </tr>
-
-      <tr>
-        <td style='color: #7795c1;text-align:left;'><%= t :keywords %></td>
-        <td><% for tagging in Tagging.where(taggable_id: @article.id, taggable_type: "Article", target_type: "Keyword") %>
-          <% @keyword = Keyword.find_by_id(tagging.target_id) %>
-          <% if !@keyword.blank? %>
-          <span class="tag"><%= @keyword.title %></span>
-          <% end %>
-          <% end %>
-        </td>
-      </tr>
-
-      <tr>
-        <td style='color: #7795c1;text-align:left;'><%= t :datings %></td>
-        <td>
-          <% for dating in @article.datings %>
-          <%= dating.article_event.title %>:
-          <span>
-            <% @jalali = JalaliDate.to_jalali(dating.event_date) %>
-            <%= @jalali.year %>/<%= @jalali.month %>/<%= @jalali.day %>
-          </span> |
-          <% end %>
-        </td>
-      </tr>
-
-      <tr>
-        <td style='color: #7795c1;text-align:left;'><%= t :article_type %></td>
-        <td>
-          <% for typing in @article.typings %>
-          <%= typing.article_type.title %> |
-          <% end %>
-        </td>
-      </tr>
-      <tr>
-        <td style='color: #7795c1;text-align:left;'><%= t :language %></td>
-        <td>
-          <% for speaking in @article.speakings %>
-          <%= speaking.language.title %> |
-          <% end %>
-        </td>
-      </tr>
-      <tr>
-        <td style='color: #7795c1;text-align:left;'><%= t :article_format %></td>
-        <td>
-          <% for formating in @article.formatings %>
-          <%= formating.article_format.title %> |
-          <% end %>
-        </td>
-      </tr>
-      <tr>
+          <tr>
         <td style='color: #7795c1;text-align:left;'><%= t :contributors %></td>
         <td>
           <ul>
@@ -193,6 +139,62 @@
 
           </td>
         </tr>
+
+    <tr>
+      <td style="text-align:left;">
+        <%= label :article, :url, class: "form-label", style: "color: #7795c1;" %></td>
+        <td><%= link_to @article.url, @article.url %></td>
+      </tr>
+
+      <tr>
+        <td style='color: #7795c1;text-align:left;'><%= t :keywords %></td>
+        <td><% for tagging in Tagging.where(taggable_id: @article.id, taggable_type: "Article", target_type: "Keyword") %>
+          <% @keyword = Keyword.find_by_id(tagging.target_id) %>
+          <% if !@keyword.blank? %>
+          <span class="tag"><%= @keyword.title %></span>
+          <% end %>
+          <% end %>
+        </td>
+      </tr>
+
+      <tr>
+        <td style='color: #7795c1;text-align:left;'><%= t :datings %></td>
+        <td>
+          <% for dating in @article.datings %>
+          <%= dating.article_event.title %>:
+          <span>
+            <% @jalali = JalaliDate.to_jalali(dating.event_date) %>
+            <%= @jalali.year %>/<%= @jalali.month %>/<%= @jalali.day %>
+          </span> |
+          <% end %>
+        </td>
+      </tr>
+
+      <tr>
+        <td style='color: #7795c1;text-align:left;'><%= t :article_type %></td>
+        <td>
+          <% for typing in @article.typings %>
+          <%= typing.article_type.title %> |
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td style='color: #7795c1;text-align:left;'><%= t :language %></td>
+        <td>
+          <% for speaking in @article.speakings %>
+          <%= speaking.language.title %> |
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td style='color: #7795c1;text-align:left;'><%= t :article_format %></td>
+        <td>
+          <% for formating in @article.formatings %>
+          <%= formating.article_format.title %> |
+          <% end %>
+        </td>
+      </tr>
+
         <tr>
           <td style='color: #7795c1;text-align:left;'><%= t :relations %></td>
           <td>
