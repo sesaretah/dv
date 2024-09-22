@@ -28,7 +28,6 @@ module ApplicationHelper
         end
       end
     end
-    flag = false if article.workflow_state_id == 135 && user.id == 122
     flag = true if article.workflow_state.blank?
     return flag
   end
@@ -213,7 +212,6 @@ module ApplicationHelper
 
 
   def article_owner(article, user, action='edit')
-    return false if article.workflow_state_id == 135 && user.id == 122
     return true if grant_access("edit_workflow", user)
 
     role_ids = user.roles.pluck(:id)
