@@ -61,7 +61,7 @@
           <td>
             <% Upload.where("uploadable_type = ? and uploadable_id = ? and attachment_type <> ?", "Article", @article.id, "article_voices").group_by(&:attachment_type).each do |k, v| %>
             <% t k %>
-            <ul>
+            <ul style='padding-right: 0px;'>
               <% for u in v %>
               <li style='display: inline-block; margin-right: 10px;'><%= link_to u.attachment.url do %><i class="fe fe-download" style="vertical-align:middle;"></i> <%= u.title %><% end %>
                 <p class="text-muted">
