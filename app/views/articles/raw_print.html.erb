@@ -46,16 +46,7 @@
             <%= @article.title %><br />
             <% @article.titlings.group_by(&:title_type_id).each do |k, v| %>
             <% for t in v %>
-            <span>
-            <%
-              doc = Nokogiri::HTML::DocumentFragment.parse(t.content)
-                if doc.at_css('table')
-                  "<div style='display: table;width: 100%;'>#{html_string}</div>"
-                else
-                  html_string
-                end 
-            %>
-             <%= sanitize doct %></span><br />
+            <span><%= sanitize t.content %></span><br />
             <% end %>
             <% end %>
           </div>
@@ -64,7 +55,16 @@
 
       <div class="row mb-4" style='display:block;'>
         <div class="col-12">
-          <%= raw @article.content %>
+        <%
+          doc = Nokogiri::HTML::DocumentFragment.parse(@article.content)
+           
+          doc.css('table').each do |table|
+            table['width'] = '100%'
+          end
+
+
+        %>
+          <%= raw doc.to_html %>
         </div>
       </div>
       <% @article_count = @article.kinships.count %>
