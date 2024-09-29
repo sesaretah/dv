@@ -55,7 +55,7 @@
 
       <div class="row mb-4" style='display:block;'>
         <div class="col-12">
-        <%= @article.content%>
+        
         <%
           doc = Nokogiri::HTML::DocumentFragment.parse(@article.content)
            
@@ -65,6 +65,7 @@
 
 
         %>
+        <%=doc.to_html%>
           <%= raw doc.to_html %>
         </div>
       </div>
