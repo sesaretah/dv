@@ -67,10 +67,10 @@
           doc.css('table').each do |table|
             if table['style']
               # Append 'width: 100%' if style attribute already exists
-              table['style'] += '; width: 100% !important;'
+              table['style'] += '; width: 95% !important;'
             else
               # Set the style attribute to 'width: 100%' if it doesn't exist
-              table['style'] = 'width: 100%;'
+              table['style'] = 'width: 95%;'
             end
           end
 
