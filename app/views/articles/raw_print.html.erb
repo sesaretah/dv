@@ -60,7 +60,7 @@
           doc = Nokogiri::HTML::DocumentFragment.parse(@article.content)
            
           doc.css('table').each do |table|
-            table['width'] = '100%'
+            table['width'] = '100% !important'
           end
 
 
