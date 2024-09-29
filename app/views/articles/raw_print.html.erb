@@ -46,7 +46,16 @@
             <%= @article.title %><br />
             <% @article.titlings.group_by(&:title_type_id).each do |k, v| %>
             <% for t in v %>
-            <span><%= sanitize t.content %></span><br />
+            <span>
+            <%
+              doc = Nokogiri::HTML::DocumentFragment.parse(t.content)
+                if doc.at_css('table')
+                  "<div style='display: table;width: 100%;'>#{html_string}</div>"
+                else
+                  html_string
+                end 
+            %>
+             <%= sanitize doct %></span><br />
             <% end %>
             <% end %>
           </div>
