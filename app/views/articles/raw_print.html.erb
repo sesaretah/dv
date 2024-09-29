@@ -60,9 +60,14 @@
           doc = Nokogiri::HTML::DocumentFragment.parse(@article.content)
            
           doc.css('table').each do |table|
-            table['style']['width'] = '100% !important'
+            if table['style']
+              # Append 'width: 100%' if style attribute already exists
+              table['style'] += '; width: 100% !important;'
+            else
+              # Set the style attribute to 'width: 100%' if it doesn't exist
+              table['style'] = 'width: 100%;'
+            end
           end
-
 
         %>
         <%=doc.to_html%>
