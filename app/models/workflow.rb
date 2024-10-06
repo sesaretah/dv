@@ -7,6 +7,32 @@ class Workflow < ActiveRecord::Base
   has_many :sections
   has_many :workflow_role_accesses
 
+  after_save :update_defult_pages 
+
+
+  def update_defult_pages
+    workflow_states.each do |workflow_state|
+      if !workflow_state.default_state_page.blank?
+        StatePage.where(workflow_state_id: workflow_state.id).destroy_all
+        result = []
+        case !workflow_state.default_state_page
+        when 0
+          result = [:item_title, :item_abstract, :item_content, :item_upload]
+        when 1 
+          result = [:item_title, :item_titlings, :item_abstract, :item_content, :item_upload, :item_contributions, :item_areaings]
+        when 2 
+          result = [:item_title, :item_abstract, :item_content, :item_upload]
+        when 3
+          result= [:item_title, :item_titlings, :item_abstract, :item_url, :item_keywords, :item_datings, :item_typings, :item_speakings, :item_formatings, :item_contributions, :item_kinships, :item_originatings, :item_content, :item_upload, :item_publications, :item_areaings]
+        when 4
+          result=  [:item_title, :item_titlings, :item_abstract, :item_keywords, :item_datings, :item_typings, :item_speakings, :item_formatings, :item_contributions, :item_kinships, :item_originatings, :item_content, :item_upload, :item_publications, :item_areaings]
+        end
+        hash = result.reduce({workflow_state_id: workflow_state.id}) { |memo, item| memo.merge({ item => true})}
+        StatePage.create(hash)
+      end
+    end
+  end
+
   def next_nodes(current_node_id)
     @nodes = JSON.parse self.nodes
     @edges = JSON.parse self.edges
