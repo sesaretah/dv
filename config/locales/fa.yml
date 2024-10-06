@@ -792,6 +792,7 @@ fa:
   decision: 'تصمیم گیری'
   full: 'کامل'
   compact: 'فشرده'
+  default_state_page: 'کاربرگه پیشنهادی'
 
   consensus: 'اجماع (بدون مخالف)'
   timer: 'زمانبندی (ساعت)'
