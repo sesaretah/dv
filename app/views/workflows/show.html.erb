@@ -187,6 +187,16 @@
                     </div>
                   </div>
 
+
+                                    <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="form-label">
+                        <%= t :default_state_page %>
+                      </label>
+                      <%= select_tag "default_state_page", options_for_select(default_state_page), { include_blank: true, class: "form-control", disabled: true } %>
+                    </div>
+                  </div>
+
                 </div>
               </div>
 
@@ -534,6 +544,8 @@ path.link {
                       d3.select("#end_point").property('value', d.end_point);
                       d3.select("#publishable").property('value', d.publishable);
                       d3.select("#notifiable").property('value', d.notifiable);
+                      d3.select("#default_state_page").property('value', d.default_state_page);
+                      
                       thisGraph.replaceSelectNode(d3node, d);
                     } else{
                       thisGraph.removeSelectFromNode();
@@ -614,6 +626,15 @@ path.link {
               var newData = d3.select(this).property('value');
               updateNode('notifiable', parseInt(currentNodeId), newData);
             });
+
+            d3.select('#default_state_page')
+            .on('change', function() {
+              var currentNodeId = d3.select('#current-node-id').text();
+              var newData = d3.select(this).property('value');
+              updateNode('default_state_page', parseInt(currentNodeId), newData);
+            });
+
+            
 
             function updateNode(attribute, nodeId, newValue){
               graph.nodes.filter(function(d){ return d.id == nodeId })[0][attribute] = newValue;
@@ -815,7 +836,7 @@ path.link {
           // initial node data
 
           <% if @workflow.nodes.blank? %>
-          var nodes = [{title: "", id: 0, x: xLoc, y: yLoc, role: '', editable: '', refundable: '', commentable: '', start_point: '', end_point: '', publishable: '', notifiable: ''}];
+          var nodes = [{title: "", id: 0, x: xLoc, y: yLoc, role: '', editable: '', refundable: '', commentable: '', start_point: '', end_point: '', publishable: '', notifiable: '', default_state_page: ''}];
           <% else %>
           var nodes = <%= raw @workflow.nodes %>;
           <% end %>
