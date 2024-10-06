@@ -140,6 +140,17 @@ module ApplicationHelper
     return @options
   end
 
+  def default_state_pages 
+    @options = [
+      [t(:suggestion), 0],
+      [t(:review), 1],
+      [t(:decision), 2],
+      [t(:full), 3],
+      [t(:compact), 4],
+    ]
+    return @options
+  end 
+
   def rcarrier(s)
     @options = ["none", "majority", "consensus"]
     return @options[s]

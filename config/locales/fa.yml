@@ -787,6 +787,11 @@ fa:
   automatic_transition: 'انتقال اتوماتیک'
   generate_pdf: 'ایجاد فایل خروجی'
   generate: 'ایجاد فایل'
+  suggestion: 'پیشنهاد'
+  review: 'بازبینی'
+  decision: 'تصمیم گیری'
+  full: 'کامل'
+  compact: 'فشرده'
 
   consensus: 'اجماع (بدون مخالف)'
   timer: 'زمانبندی (ساعت)'
