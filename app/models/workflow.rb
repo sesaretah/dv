@@ -15,7 +15,7 @@ class Workflow < ActiveRecord::Base
       if !workflow_state.default_state_page.blank?
         StatePage.where(workflow_state_id: workflow_state.id).destroy_all
         result = []
-        case !workflow_state.default_state_page
+        case workflow_state.default_state_page
         when 0
           result = [:item_title, :item_abstract, :item_content, :item_upload]
         when 1 
