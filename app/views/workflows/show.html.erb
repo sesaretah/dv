@@ -193,7 +193,7 @@
                       <label class="form-label">
                         <%= t :default_state_page %>
                       </label>
-                      <%= select_tag "default_state_page", options_for_select(existence), { include_blank: true, class: "form-control", disabled: true } %>
+                      <%= select_tag "default_state_page", options_for_select(default_state_pages), { include_blank: true, class: "form-control", disabled: true } %>
                     </div>
                   </div>
 
@@ -676,7 +676,7 @@ path.link {
               } else if (state.graphMouseDown && d3.event.shiftKey){
                 // clicked not dragged from svg
                 var xycoords = d3.mouse(thisGraph.svgG.node()),
-                d = {id: thisGraph.idct++, title: "", x: xycoords[0], y: xycoords[1],  role: '', editable: '', refundable: '', commentable: '', start_point: '', end_point: '', publishable: ''};
+                d = {id: thisGraph.idct++, title: "", x: xycoords[0], y: xycoords[1],  role: '', editable: '', refundable: '', commentable: '', start_point: '', end_point: '', publishable: '', default_state_page: ''};
                 thisGraph.nodes.push(d);
                 thisGraph.updateGraph();
               } else if (state.shiftNodeDrag){
