@@ -596,7 +596,7 @@ fa:
   fullname: 'نام'
   role: 'نقش'
   duty: 'سمت'
-  relations: '(Link) پیوندها و ربط ها'
+  relations: 'پیوندها و ربط ها'
   article_kinships_form: 'فرم ارتباطات اسناد'
   article_kinships_list: 'لیست ارتباطات این سند '
   article_relation_type: 'نوع ارتباط'
