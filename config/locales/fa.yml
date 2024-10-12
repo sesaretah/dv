@@ -496,7 +496,7 @@ fa:
   end_date: 'تاریخ پایان'
   artilce_date: 'تاریخ'
   date_histogram: 'هیستوگرام تاریخ'
-  full_text: 'متن کامل'
+  full_text: 'محتوا (متن)'
   article_comment: 'نظرات بر اسناد'
   article_refunded_received: 'دریافت عودت سند'
   article_refunded: 'عودت سند'
