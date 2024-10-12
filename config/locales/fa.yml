@@ -229,7 +229,7 @@ fa:
         article:
             title: 'عنوان اصلی'
             abstract: 'چکیده/خلاصه'
-            content: 'محتوا'
+            content: 'محتوا (متن)'
             url: 'پیوند(url)'
             workflow_state_id: 'گام فعلی'
             slug: 'شناسه یکتا'
