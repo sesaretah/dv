@@ -65,6 +65,7 @@ class HomeController < ApplicationController
     @articles = []
     @notifications = []
     @home_setting = home_setting_builder
+    @page = params[:page] || 1
 
     if params[:slug] != "home" && !params[:slug].blank?
       @article = Article.find_by_slug(params[:slug])
@@ -85,7 +86,7 @@ class HomeController < ApplicationController
         else
           scope = Article
         end
-        @articles = scope.in_dashboard(current_user, @home_setting).paginate(:page => params[:page], :per_page => @home_setting.pp)
+        @articles = scope.in_dashboard(current_user, @home_setting).paginate(:page => @page, :per_page => @home_setting.pp)
         @notifications = Notification.where(user_id: current_user.id).order("created_at desc").limit(10)
       end
     end
