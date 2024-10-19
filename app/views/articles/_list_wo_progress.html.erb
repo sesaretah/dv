@@ -66,7 +66,7 @@
           <div class="item-action dropdown">
             <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="/articles/<%= article.id %>?page=<%= params[:page]%>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%= t :show %> </a>
+              <a href="/articles/<%= article.id %>" class="dropdown-item"><i class="dropdown-icon fe fe-play"></i><%= t :show %> </a>
               <% if article_owner(article, current_user) %>
                 <% state_page = StatePage.where(workflow_state_id: article.workflow_state_id)&.first %>
                 <% if !state_page.blank? %>
@@ -89,7 +89,7 @@
 
 
         <td>
-          <div class='small fw-800' data-toggle="tooltip" data-placement="top" title="<%= article.title %>"><%= link_to truncate(article.title, length: 40), article %></div>
+          <div class='small fw-800' data-toggle="tooltip" data-placement="top" title="<%= article.title %>"><%= link_to truncate(article.title, length: 40), "/articles/#{article.id}?page=#{params[:page]}" %></div>
           <div class="small text-muted">
             <% if !article.titlings.first.blank? %>
               <%= truncate(article.titlings.first.content, length: 45) %>
