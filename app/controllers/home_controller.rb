@@ -65,7 +65,7 @@ class HomeController < ApplicationController
     @articles = []
     @notifications = []
     @home_setting = home_setting_builder
-    @page = params[:page] || 1
+    @page = params[:page].blank? ? 1 : params[:page]
 
     if params[:slug] != "home" && !params[:slug].blank?
       @article = Article.find_by_slug(params[:slug])
