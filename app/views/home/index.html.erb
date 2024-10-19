@@ -241,7 +241,7 @@
         </div>
       </div>
       <% else %>
-        <%= render partial: "articles/list_wo_progress", locals: { articles: @articles } %>
+        <%= render partial: "articles/list_wo_progress", locals: { articles: @articles, page: params[:page] } %>
       <% end %>
 
     </div>
