@@ -2,7 +2,7 @@
   <table class="table table-hover table-outline table-vcenter text-nowrap"  id='article-list'>
     <thead>
       <tr class='fs-10'>
-        <th></th>
+        <th><a herf="#" id="checkAll">+</a></th>
         <th class="text-center w-1" style="padding: 0.5rem;">
         <%= link_to "/home?pp=" + params[:pp].to_s + "&sort=coming ASC" do %>
         <i class="fa fa-arrow-down" aria-hidden="true"></i>
@@ -47,7 +47,7 @@
 
       <tr <% if access_groupings.length > 0 %> class='bg-grass'<% end %> >
         <td>
-          <input type="checkbox"  name="transfer-<%=article.id%>" id="transfer-<%=article.id%>" value="<%=article.id%>">
+          <input type="checkbox" class="transfer" name="transfer-<%=article.id%>" id="transfer-<%=article.id%>" value="<%=article.id%>">
           <script>
             $("#transfer-<%=article.id%>").on("change", function(){
               if ($(this).is(':checked')) {
@@ -161,3 +161,8 @@
   <%= will_paginate articles, :container => false%>
 </div>
 <% end %>
+<script>
+ $('#checkAll').click(function () {    
+     $('*[class^="transfer"]').prop('checked', this.checked);    
+ });
+</script>
