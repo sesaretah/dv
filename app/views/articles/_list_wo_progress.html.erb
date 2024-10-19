@@ -163,6 +163,6 @@
 <% end %>
 <script>
  $('#checkAll').click(function () {    
-  $('*[class^="transfer"]').not(this).prop('checked', this.checked);
+  $('*[class^="transfer"]').not(this).prop('checked', this.checked).trigger('change');
  });
 </script>
