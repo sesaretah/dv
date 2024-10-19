@@ -2,7 +2,7 @@
   <table class="table table-hover table-outline table-vcenter text-nowrap"  id='article-list'>
     <thead>
       <tr class='fs-10'>
-        <th><a herf="#" id="checkAll">+</a></th>
+        <th><a herf="#" id="checkAll"><i class="fa fa-plus" aria-hidden="true"></i></a></th>
         <th class="text-center w-1" style="padding: 0.5rem;">
         <%= link_to "/home?pp=" + params[:pp].to_s + "&sort=coming ASC" do %>
         <i class="fa fa-arrow-down" aria-hidden="true"></i>
@@ -163,7 +163,6 @@
 <% end %>
 <script>
  $('#checkAll').click(function () {    
-  console.log('clicked')
-     $('input:checkbox').prop('checked', this.checked);    
+  $('*[class^="transfer"]').prop('checked', false);
  });
 </script>
