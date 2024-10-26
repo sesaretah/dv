@@ -471,7 +471,8 @@ class ArticlesController < ApplicationController
     case params[:scope]
     when 'my'
       role_ids = current_user.roles.pluck(:id)
-      @workflow_state_ids = WorkflowState.where("role_id in (?)", role_ids).pluck(:id)
+      @workflow_ids = WorkflowState.where("role_id in (?)", role_ids).pluck(:workflow_id)
+      @workflow_state_ids = Workflow.where(id: @workflow_ids).map(&:workflow_states).map(&:id)
       @articles = Article.where(user_id: current_user.id).where('workflow_state_id IN (?)', @workflow_state_ids.flatten.uniq).paginate(
         page: params[:page], per_page: 10
       )
