@@ -34,7 +34,7 @@ class AssignmentsController < ApplicationController
     @assignment.assigner_id = current_user.id
     respond_to do |format|
       if @assignment.save
-        send_mail user_id: @assignment.user_id, role_title: @assignment.role.title, mail_type: 'role_assignment'
+        MailerWorker.perform_async(@assignment.user_id, 'role_assignment', @assignment.user.profile.fullname, ' ', ' ', " ")
         format.html { redirect_to '/assignments', notice: 'Assignment was successfully created.' }
         format.json { render :show, status: :created, location: @assignment }
       else

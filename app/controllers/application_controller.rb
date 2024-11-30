@@ -46,7 +46,6 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(resource_or_scope)
     "https://sso1.ut.ac.ir/ApiContainer.SSO.RCL1/connect/endsession?post_logout_redirect_uri=https://divan.ut.ac.ir&id_token_hint=#{@user.access_token}" if @user
-    #"https://sso.ut.ac.ir:8443/cas/logout?service=https%3A%2F%2Fdivan.ut.ac.ir%2F"
   end
 
   def after_inactive_sign_up_path_for(user)
