@@ -37,7 +37,7 @@
             <td>
                 <div class="clearfix">
                     <script>
-                        $(window).ajaxComplete(function() {
+                        $(document).ready(function() {
                             $("#progress_percent_<%= article.id %>").filter(function() {
                                 return $(this).text() == 'NaN%';
                             }).text('0%');
