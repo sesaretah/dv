@@ -39,7 +39,7 @@
                     <script>
                         $(document).ready(function() {
                             var percent = '0%'
-                            var status = $("#progress_percent_status_<%= article.id %>").text()
+                            var status = $("#current_node_status_<%= article.id %>").text()
                             if (status == '2') {
                                 percent = '100%'
                             }
