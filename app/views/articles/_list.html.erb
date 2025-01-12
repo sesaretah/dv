@@ -42,10 +42,12 @@
                             var status = $("#current_node_status_<%= article.id %>").text()
                             if (status == '2') {
                                 percent = '100%'
-                                $("#pb_<%= article.id %>").attr("style", "width:100%;");
-                                $("#pb_<%= article.id %>")
-                                    .removeClass("bg-yellow")
-                                    .addClass("bg-green");
+                                if (percent == '100%') {
+                                    $("#pb_<%= article.id %>").attr("style", "width:100%;");
+                                    $("#pb_<%= article.id %>")
+                                        .removeClass("bg-yellow")
+                                        .addClass("bg-green");
+                                }
                             }
                             $("#progress_percent_<%= article.id %>").filter(function() {
                                 return $(this).text() == 'NaN%';
