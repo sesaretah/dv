@@ -37,7 +37,9 @@
             <td>
                 <div class="clearfix">
                     <script>
-                        $("#progress_percent_" + < %= article.id % > ).text("0%");
+                        $("#progress_percent_" + < %= article.id % > ).change(function(e) {
+                            console.log(e.target);
+                        });
                     </script>
                     <div class="float-left">
                         <strong id="progress_percent_<%= article.id%>">0%</strong>
