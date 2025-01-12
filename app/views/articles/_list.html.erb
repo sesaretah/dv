@@ -37,9 +37,9 @@
             <td>
                 <div class="clearfix">
                     <script>
-                        $("#progress_percent_<%= article.id %>").change(function(e) {
-                            console.log(e.target);
-                        });
+                        $("#progress_percent_<%= article.id %>").filter(function() {
+                            return $(this).text() == 'NaN%';
+                        }).text('0%');
                     </script>
                     <div class="float-left">
                         <strong id="progress_percent_<%= article.id%>">0%</strong>
