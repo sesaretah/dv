@@ -1539,6 +1539,7 @@ function fireAutoCompleteEvent(event) {
             }
 
             $("#pb_" + id).attr("aria-valuenow", percent);
+            console.log(percent);
             $("#progress_percent_" + id).text(Math.round(percent) + "%");
           }
         }
