@@ -56,7 +56,7 @@
         </div>
     </div>
 </div>
-<div class="header collapse d-lg-flex p-0" id="headerMenuCollapse" style="border-bottom: 0px;">
+<div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-3 ml-auto">
@@ -130,6 +130,11 @@
                     <%end%>
                     <%end%>
                     <% if user_signed_in?%>
+                    <%end%>
+                    <% if user_signed_in?%>
+                    <li class="nav-item">
+                        <a href="https://utec.ut.ac.ir/fa/page/11321/%D8%B1%D8%A7%D9%87%D9%86%D9%85%D8%A7%DB%8C-%D8%B3%D8%A7%D9%85%D8%A7%D9%86%D9%87-%D8%AF%DB%8C%D9%88%D8%A7%D9%86-%D9%85%D8%AF%DB%8C%D8%B1%DB%8C%D8%AA-%D8%AF%D8%B3%D8%AA%D9%88%D8%B1-%D9%88-%D8%B5%D9%88%D8%B1%D8%AA-%D8%AC%D9%84%D8%B3%D8%A7%D8%AA-" target="_blank" class="nav-link"><i class="fa fa-question"></i><%=t :help%></a>
+                    </li>
                     <%end%>
                 </ul>
             </div>
