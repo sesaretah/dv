@@ -23,21 +23,33 @@
     }
 
     .row {
-      page-break-inside:avoid
+        page-break-inside: auto !important;
+        break-inside: auto !important;
     }
     @media print {
-      div { page-break-inside: avoid }
-      table { page-break-inside: avoid }
-      tr    { page-break-inside: avoid; page-break-after: avoid }
+      div { 
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+       }
+      table { 
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+       }
+      tr    { 
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+      }
 
       .article-content table,
       .article-content div,
       .article-content p {
         page-break-inside: auto !important;
+        break-inside: auto !important;
       }
 
       .article-content {
         page-break-inside: auto !important;
+        break-inside: auto !important;
       }
 
       .kin-content, 
