@@ -25,11 +25,20 @@
     .row {
       page-break-inside:avoid
     }
-    @media print
-    {
-      div {page-break-inside:avoid}
-      table {page-break-inside:avoid}
-      tr    { page-break-inside:avoid; page-break-after:avoid }
+    @media print {
+      div { page-break-inside: avoid }
+      table { page-break-inside: avoid }
+      tr    { page-break-inside: avoid; page-break-after: avoid }
+
+      .article-content table,
+      .article-content div,
+      .article-content p {
+        page-break-inside: auto !important;
+      }
+
+      .article-content {
+        page-break-inside: auto !important;
+      }
     }
 
     ol {
@@ -75,7 +84,9 @@
           end
 
         %>
+        <div class="article-content">
           <%= raw doc.to_html %>
+        </div>
         </div>
       </div>
       <% @article_count = @article.kinships.count %>
