@@ -4,21 +4,25 @@ class Notification < ActiveRecord::Base
   belongs_to :user
 
   def notify_by_mail
-    #for target_user_id in self.target_user_ids.uniq
     item = self.notifiable_type.classify.constantize.find_by_id(self.notifiable_id)
-    if defined?(item.article_id) && !item.article_id.blank?
-      article_id = item.article_id
-    else
-      article_id = nil
-    end
+    return if item.blank?
+
+    article_id = (item.article_id if item.respond_to?(:article_id) && item.article_id.present?)
+    fullname   = self.user&.profile&.fullname
+    title      = (item.article.title if item.respond_to?(:article) && item.article)
 
     if NotificationSetting.check(self.user_id, self.notification_type)
-      MailerWorker.perform_async(self.user_id, self.notification_type, self.user.profile.fullname, item.article.title, self.custom_text, "", article_id)
+      MailerWorker.perform_async(self.user_id, self.notification_type, fullname, title, self.custom_text, "", article_id)
     end
 
-    if self.notifiable_type == "WorkflowTransition" && item.to_state.notifiable == 2
-      MailerWorker.perform_async(self.user_id, self.notification_type, self.user.profile.fullname, item.article.title, self.custom_text, "", article_id)
+    if self.notifiable_type == "WorkflowTransition" && item.respond_to?(:to_state) && item.to_state.present? && item.to_state.notifiable == 2
+      MailerWorker.perform_async(self.user_id, self.notification_type, fullname, title, self.custom_text, "", article_id)
     end
+  rescue => e
+    # One bad record (missing article, missing profile, etc.) must never abort the
+    # surrounding notification batch — log and move on so the rest still get notified.
+    Rails.logger.error("Notification#notify_by_mail failed: notification=#{self.id} user=#{self.user_id} type=#{self.notification_type}: #{e.class}: #{e.message}")
+    nil
   end
 
   def icon

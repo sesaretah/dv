@@ -397,6 +397,7 @@ class ArticlesController < ApplicationController
         populate_dependencies(article, workflow_transition, revision_number)
         article.workflow_state_id = params[:workflow_state]
         article.save
+        workflow_transition.notify_recipients(emmiter_id: current_user.id)
       end
     end
     redirect_to '/home'
