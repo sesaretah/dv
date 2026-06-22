@@ -50,7 +50,7 @@ gem "mysql2", "~> 0.4.10", :platform => :ruby
 gem "font-awesome-rails" # required
 gem "jquery-ui-rails"
 gem "thinking-sphinx", "~> 4.0"
-gem "bootstrap", "~> 4.1.1"
+gem "bootstrap", "~> 4.3.1"
 gem "tabler-rubygem"
 gem "diffy", "~> 3.2"
 gem "will_paginate"
