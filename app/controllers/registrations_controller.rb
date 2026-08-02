@@ -3,6 +3,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   require 'open-uri'
 
+  # Trust anchor for sso1.ut.ac.ir (Certum). The app servers' system CA bundle
+  # is missing this root, which fails outbound TLS with
+  # "unable to get local issuer certificate".
+  SSO_CA_FILE = Rails.root.join("config", "certs", "ut-sso-chain.pem").to_s
 
   def new
     super
@@ -59,10 +63,11 @@ class RegistrationsController < Devise::RegistrationsController
     }
 
     res = HTTParty.post(
-            "https://sso1.ut.ac.ir/ApiContainer.SSO.RCL1/connect/token", 
+            "https://sso1.ut.ac.ir/ApiContainer.SSO.RCL1/connect/token",
             :body => body,
-            :headers => headers
-          ) 
+            :headers => headers,
+            :ssl_ca_file => SSO_CA_FILE
+          )
     token = res["access_token"]
     id_token = res["id_token"]
 
@@ -72,10 +77,11 @@ class RegistrationsController < Devise::RegistrationsController
 
 
     res = HTTParty.get(
-            "https://sso1.ut.ac.ir/ApiContainer.SSO.RCL1/connect/userinfo", 
+            "https://sso1.ut.ac.ir/ApiContainer.SSO.RCL1/connect/userinfo",
             :query => {},
-            :headers => headers
-          ) 
+            :headers => headers,
+            :ssl_ca_file => SSO_CA_FILE
+          )
     
     utid = res['UtId']
     sub = res['sub']
